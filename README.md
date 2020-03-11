@@ -1,12 +1,14 @@
-# Your Project's Name
+# Kernel
 
 Repository for PInfo-2020's team 4
 
 ## Team members:
 
-- Team member 1: role
-- Team member 2: role
-- ...
+- Ella Kummer:                Cheffe
+- Luke Smith:                 Admin Sys
+- Mathias Tonini:             Dev
+- Deniz Sungurtekin:          Dev
+- Sajaendra Thevamanoharan:   Dev
 
 ## How to set up your project:
 
