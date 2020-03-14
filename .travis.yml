@@ -9,7 +9,7 @@ addons:
   sonarcloud:
     organization: "pinfo-2020"
     token:
-      secure: "HgPKI5uK0oHCnV36ee2dvOoql3OhTI01pnypnkFNfzzXlggfCqHHIKWIHYUZkVv8K0p7VgcNsycSiOJK/+q3yMuNVsb33+7tv65idsGjI+ctmnUIlCfhoxDkEE7BNY0Fm2wf0TTMvcKeupLMbw+tCP7JcqZ8JWphhfxNVlPYG+A2EubYd7jYMR17ZGZqbL1u/Rjvsfy057faNEmEvoCkIed7qZLZBsIUwQNIwG9tnVzKbecTgpiyUSHXRyMpGNpm7MbukY2COYqqYAXTdHFBv2yAXJEGMDkYw4J59ILSBN8YVaGTEydMpqbsV6yGIkj16BbvHogP9O27aDwFyIlwirXGQVYE0iAqLc7A2S0MTJ8RZcK/ubLYuxHjU1nsDd1RvvHGyAsL52cNMwOSD21WQ9GMJmhSd7ndJfDGznsGSS8ORnsW2MovW7YRL8jdDZRW0Mz6yxn2w2ke32Lwah7yiAIlpz6mKf85C2tPuMkMMwsF4uwbPtcS4hhfd4FGLp9OHmEBEPqKD5rGPuErn4+g8wNJw5rMWskpEHtdmvIunJjZZ/qgyTBCSnCdpsP/DF3mU69mg/8R1aiqUsq0HRjgQDf450VG8zdedK8Tqjj71ygCLVtJR4Q0ObKF+qjW7IjcfQxDCKw6AIJn9+mdD823ifoYDMFnqqZqBkIwrNlAleU="
+      secure: "cmAPghBGScfeuCBMEellwKrsMuSbqjNJospPaftoa/j/sVh4qPXcBxqSiJxIaByXIpKKI6pIoSfLaROeS3juWSXN4uRswNUlFSMKT4RfD9XBYm4WEHux+JDLgEUGlixp4Fvi8wLz0Azitp6Z64iJkP11trdTL1RHgMcdznHj3EAAch+arTnVCmu9vuHt01Wdg936cPj5tBR9axedGunv7jcyUiU6dicGA681iPmxuAW6Wv1N/En/IOwvN0wQ2PNzW/bnAqXTvFz+gFfwtykNeVICmpS0UqITkDvGIBgZHMjshrPTAtcIvAM3D4irAv+3eFo03Il7kBdfNc/6mnxNJsdbAOCgslEPo/sdrZI/VvYUhCdFyvtEGvP0M1xZMdurIScqgCDECE48+wTraU9L3aDZ1kMGCd4frlwt18SVXe0h7ePfVHm2/3cutb8HIO1gyHxe22CH8R8iM+skfU6r92zhHJcp4l+xn29Q3WhmcXHH47QDR2JvhEwN//Bs0UtwZ3aSFF8NsAlQMcct2Tkb5LWJuKxGhOYZSCFhzFF6NP+m6kjb+UESlY8smxJ4SACBTFO+GJqVTE8aV/4KhHJufSTCtlks2oXI5AO2tmSFyBYO8Zzpim3+oR3ag3H5I20LUGekZZ5OcXhfvDUqSSMStSTVr/xG7zZNtMAA/+g0iN0="
 
 cache:
   directories:
@@ -18,7 +18,8 @@ cache:
   - node_modules
 
 script:
-  - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=439228460b4bd7f556f1da62fd172f4a619e2b63
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4
+  # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
 # jobs:
 #   include:
 #   - stage: Prepare
