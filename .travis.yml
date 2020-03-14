@@ -1,6 +1,6 @@
 language: java
-env:
-  - NODE_VERSION="12.13.1"
+# env:
+#   - NODE_VERSION="12.13.1"
 
 services:
   - docker
@@ -11,15 +11,14 @@ addons:
     token:
       secure: "cmAPghBGScfeuCBMEellwKrsMuSbqjNJospPaftoa/j/sVh4qPXcBxqSiJxIaByXIpKKI6pIoSfLaROeS3juWSXN4uRswNUlFSMKT4RfD9XBYm4WEHux+JDLgEUGlixp4Fvi8wLz0Azitp6Z64iJkP11trdTL1RHgMcdznHj3EAAch+arTnVCmu9vuHt01Wdg936cPj5tBR9axedGunv7jcyUiU6dicGA681iPmxuAW6Wv1N/En/IOwvN0wQ2PNzW/bnAqXTvFz+gFfwtykNeVICmpS0UqITkDvGIBgZHMjshrPTAtcIvAM3D4irAv+3eFo03Il7kBdfNc/6mnxNJsdbAOCgslEPo/sdrZI/VvYUhCdFyvtEGvP0M1xZMdurIScqgCDECE48+wTraU9L3aDZ1kMGCd4frlwt18SVXe0h7ePfVHm2/3cutb8HIO1gyHxe22CH8R8iM+skfU6r92zhHJcp4l+xn29Q3WhmcXHH47QDR2JvhEwN//Bs0UtwZ3aSFF8NsAlQMcct2Tkb5LWJuKxGhOYZSCFhzFF6NP+m6kjb+UESlY8smxJ4SACBTFO+GJqVTE8aV/4KhHJufSTCtlks2oXI5AO2tmSFyBYO8Zzpim3+oR3ag3H5I20LUGekZZ5OcXhfvDUqSSMStSTVr/xG7zZNtMAA/+g0iN0="
 
-cache:
-  directories:
-    - ".autoconf"
-    - "$HOME/.m2"
-    - node_modules
+# cache:
+#   directories:
+#     - ".autoconf"
+#     - "$HOME/.m2"
+#     - node_modules
 
 script:
   - mvn test
-  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Dmaven.test.skip=true -Ppackage-docker-image
   - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
   # - mvn -X clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.organization=pinfo-2020 -Dsonar.projectKey=PInfo-2020_PInfo-4
   # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
