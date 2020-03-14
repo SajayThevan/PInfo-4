@@ -52,4 +52,4 @@ script:
 #     - docker build -t unige/web-ui .
 #     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #     - docker tag unige/web-ui pinfo4/web-ui:latest
-    - docker push pinfo4/web-ui:latest
+    # - docker push pinfo4/web-ui:latest
