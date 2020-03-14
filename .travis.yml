@@ -18,8 +18,11 @@ cache:
   - node_modules
 
 script:
-  - mvn -X clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.organization=pinfo-2020 -Dsonar.projectKey=PInfo-2020_PInfo-4
+  - mvn test
+  - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
+  # - mvn -X clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.organization=pinfo-2020 -Dsonar.projectKey=PInfo-2020_PInfo-4
   # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
+
 # jobs:
 #   include:
 #   - stage: Prepare
