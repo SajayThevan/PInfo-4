@@ -17,37 +17,39 @@ cache:
   - "$HOME/.m2"
   - node_modules
 
-jobs:
-  include:
-  - stage: Prepare
-    script:
-    - nvm install $NODE_VERSION
-    - mvn install -N -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - stage: Build
-    script:
-    - mvn install -Ppackage-docker-image
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker tag unige/api-gateway pinfo4/api-gateway:latest
-    - docker tag unige/regulatory-service pinfo4/regulatory-service:latest
-    - docker tag unige/valuation-service pinfo4/valuation-service:latest
-    - docker tag unige/instrument-service pinfo4/instrument-service:latest
-    - docker tag unige/counterparty-service pinfo4/counterparty-service:latest
-    - docker push pinfo4/api-gateway:latest
-    - docker push pinfo4/regulatory-service:latest
-    - docker push pinfo4/valuation-service:latest
-    - docker push pinfo4/instrument-service:latest
-    - docker push pinfo4/counterparty-service:latest
-    - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020
-      -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=439228460b4bd7f556f1da62fd172f4a619e2b63
-  - stage: Build
-    script:
-    - cd web-ui
-    - pwd
-    - npm -v
-    - npm install
-    - npm update
-    - npm run-script build --prod
-    - docker build -t unige/web-ui .
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker tag unige/web-ui pinfo4/web-ui:latest
+script:
+  - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=439228460b4bd7f556f1da62fd172f4a619e2b63
+# jobs:
+#   include:
+#   - stage: Prepare
+#     script:
+#     - nvm install $NODE_VERSION
+#     - mvn install -N -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+#   - stage: Build
+#     script:
+#     - mvn install -Ppackage-docker-image
+#     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#     - docker tag unige/api-gateway pinfo4/api-gateway:latest
+#     - docker tag unige/regulatory-service pinfo4/regulatory-service:latest
+#     - docker tag unige/valuation-service pinfo4/valuation-service:latest
+#     - docker tag unige/instrument-service pinfo4/instrument-service:latest
+#     - docker tag unige/counterparty-service pinfo4/counterparty-service:latest
+#     - docker push pinfo4/api-gateway:latest
+#     - docker push pinfo4/regulatory-service:latest
+#     - docker push pinfo4/valuation-service:latest
+#     - docker push pinfo4/instrument-service:latest
+#     - docker push pinfo4/counterparty-service:latest
+#     - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020
+#       -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=439228460b4bd7f556f1da62fd172f4a619e2b63
+#   - stage: Build
+#     script:
+#     - cd web-ui
+#     - pwd
+#     - npm -v
+#     - npm install
+#     - npm update
+#     - npm run-script build --prod
+#     - docker build -t unige/web-ui .
+#     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#     - docker tag unige/web-ui pinfo4/web-ui:latest
     - docker push pinfo4/web-ui:latest
