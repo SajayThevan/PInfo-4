@@ -9,7 +9,7 @@ addons:
   sonarcloud:
     organization: "pinfo-2020"
     token:
-      secure: "cmAPghBGScfeuCBMEellwKrsMuSbqjNJospPaftoa/j/sVh4qPXcBxqSiJxIaByXIpKKI6pIoSfLaROeS3juWSXN4uRswNUlFSMKT4RfD9XBYm4WEHux+JDLgEUGlixp4Fvi8wLz0Azitp6Z64iJkP11trdTL1RHgMcdznHj3EAAch+arTnVCmu9vuHt01Wdg936cPj5tBR9axedGunv7jcyUiU6dicGA681iPmxuAW6Wv1N/En/IOwvN0wQ2PNzW/bnAqXTvFz+gFfwtykNeVICmpS0UqITkDvGIBgZHMjshrPTAtcIvAM3D4irAv+3eFo03Il7kBdfNc/6mnxNJsdbAOCgslEPo/sdrZI/VvYUhCdFyvtEGvP0M1xZMdurIScqgCDECE48+wTraU9L3aDZ1kMGCd4frlwt18SVXe0h7ePfVHm2/3cutb8HIO1gyHxe22CH8R8iM+skfU6r92zhHJcp4l+xn29Q3WhmcXHH47QDR2JvhEwN//Bs0UtwZ3aSFF8NsAlQMcct2Tkb5LWJuKxGhOYZSCFhzFF6NP+m6kjb+UESlY8smxJ4SACBTFO+GJqVTE8aV/4KhHJufSTCtlks2oXI5AO2tmSFyBYO8Zzpim3+oR3ag3H5I20LUGekZZ5OcXhfvDUqSSMStSTVr/xG7zZNtMAA/+g0iN0="
+      secure: "usH7crPRoWq2qvpmUxqA6KGdQVWN4HwHR3MjMO9mhB7GQw4prCvDlSgRGDIbDnEVoxechdjhVKH+r4QrhZWBspOXeQOLQKYOUstmaD2lSQMO9oQxBgP+rYJCOWPDVaKsqY2U1PzhEXF3T3CL0oYHPEwK0lmA70WYrPlaJJ+vIJYNDlyoALS9MeactkwJPBIW10ll2rPp+OtqWqSRHF3qxMD/W6HM1qbkDFfjLRij+dNlrC4rR7YOGKJDf82267D20oQwCxbMIPnTEJSA/ek5nRCWgkG4qpP2yKQqyuMhl8dj0CSPdEjSxnjd7sQAdDu2mjWtYMZ5S+12IcFl5CUQyhY4fmOBVg58bvl9avVoLFr3l0mRdvYLnpzK5vjcBw6pHzjUTT4BQFXOMD6wJB8SI50vx/hrVI97z3vvwMh8N2aplibQuX/X4+w+Pujs473rSpk0HfuBqYns+Qs4v8bs6lRSeRtYa2oSwkHD5Rl0ybTT2thAf85Ilb4rZF3T5T+zWFpYl2wuRgFpgJy+kQhQg0hk756vwAxRKS0QwycWryGs52SF73TLC0M2WNPSqdAVK3Qameqkdxnnhh3M4gW9CL0/kfd+OkWQOKS/IuCmlvWbFXnsKGBRDDIQ/IZaRsDcE86OvAIL4ieq0c9eHTeQuRwIVSa7b0FC2Yudui15zns="
 
 # cache:
 #   directories:
@@ -19,7 +19,7 @@ addons:
 
 script:
   - mvn test
-  - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
+  - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd
   # - mvn -X clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.organization=pinfo-2020 -Dsonar.projectKey=PInfo-2020_PInfo-4
   # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
 
