@@ -9,7 +9,7 @@ addons:
   sonarcloud:
     organization: "pinfo-2020"
     token:
-      secure: "ekMcNm2FzLJbEsmUP4W0GR2bU6EBpBcdfVELS2eXzM11aybMZKjD7D5+4r8utx/bbcfFWkaCFJXts/3+C/sFJplrGw7AdYsynS0qRHGLtfSlc9bxof3hhLW7vWmqd1bCMx1mJ8MKsMy1Gt4nhMc1Dw/PTg3R1GDjMuKgHRciMsYGV2HYhu4pmxp0a0PhGym3NKTRpWftYRVqH6mdoL4yoQEPOsdGt3CK2hXkQ7Ded9h6dFHNWqd+67rtdXw4YhSF4AJrN6LUWSHPoHfu92HKaH5HOEDwFMH1EjX3PBn2bT+2MElFS8Y5GaTqnIE7V3QLmSthUhjtxVpwCZVfTx1bgWCiw7LcqBvhr4eF1wR/Ulyd0/+ZV6I/hMK+7t0Tll0L9pwrQDSNzATrvT6OclSxuWvgKXVUjJ7oJMxOqi60PQkhGIzCQHvIhrIgEK5b1kpmVWnqcPRb0cXhhFV7rJIxQflRTNLLNsMusg88rI8g4hODIhJ12EJhIFOdEXqVASiyG8nW4g37yeofBvjzDgeFArCwdTnKHpczMZe4wk6SjgCs5lpcBzf3qJp9G4a02UuZDv6HKSyMzMrYpOuPJF1lcvfywjNvn+fNRjVaJDCS9eEK1MKvOlxF7gdGlXtMiVpLP5famn9TbytIePawV4TZMylIS4n+zZ40RYLv3uAu+fo="
+      secure: "HgPKI5uK0oHCnV36ee2dvOoql3OhTI01pnypnkFNfzzXlggfCqHHIKWIHYUZkVv8K0p7VgcNsycSiOJK/+q3yMuNVsb33+7tv65idsGjI+ctmnUIlCfhoxDkEE7BNY0Fm2wf0TTMvcKeupLMbw+tCP7JcqZ8JWphhfxNVlPYG+A2EubYd7jYMR17ZGZqbL1u/Rjvsfy057faNEmEvoCkIed7qZLZBsIUwQNIwG9tnVzKbecTgpiyUSHXRyMpGNpm7MbukY2COYqqYAXTdHFBv2yAXJEGMDkYw4J59ILSBN8YVaGTEydMpqbsV6yGIkj16BbvHogP9O27aDwFyIlwirXGQVYE0iAqLc7A2S0MTJ8RZcK/ubLYuxHjU1nsDd1RvvHGyAsL52cNMwOSD21WQ9GMJmhSd7ndJfDGznsGSS8ORnsW2MovW7YRL8jdDZRW0Mz6yxn2w2ke32Lwah7yiAIlpz6mKf85C2tPuMkMMwsF4uwbPtcS4hhfd4FGLp9OHmEBEPqKD5rGPuErn4+g8wNJw5rMWskpEHtdmvIunJjZZ/qgyTBCSnCdpsP/DF3mU69mg/8R1aiqUsq0HRjgQDf450VG8zdedK8Tqjj71ygCLVtJR4Q0ObKF+qjW7IjcfQxDCKw6AIJn9+mdD823ifoYDMFnqqZqBkIwrNlAleU="
 
 cache:
   directories:
@@ -38,7 +38,7 @@ jobs:
     - docker push pinfo4/instrument-service:latest
     - docker push pinfo4/counterparty-service:latest
     - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020
-      -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=3219041e351b0379aaa64344d9a1b8e53b615999
+      -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=439228460b4bd7f556f1da62fd172f4a619e2b63
   - stage: Build
     script:
     - cd web-ui
