@@ -6,6 +6,7 @@ services:
   - docker
 
 addons:
+  ssh_known_hosts: smithlu7@129.194.69.131
   sonarcloud:
     organization: "pinfo-2020"
     token:
@@ -17,6 +18,12 @@ addons:
 #     - ".autoconf"
 #     - "$HOME/.m2"
 #     - node_modules
+
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_<...>_key -iv $encrypted_<...>_iv -in pinfo4_deploy_rsa.enc -out /tmp/pinfo4_deploy_rsa -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/pinfo4_deploy_rsa
+  - ssh-add /tmp/pinfo4_deploy_rsa
 
 script:
   - mvn test
