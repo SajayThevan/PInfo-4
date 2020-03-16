@@ -8,8 +8,9 @@ services:
 addons:
   sonarcloud:
     organization: "pinfo-2020"
-    # token:
-      # secure: "usH7crPRoWq2qvpmUxqA6KGdQVWN4HwHR3MjMO9mhB7GQw4prCvDlSgRGDIbDnEVoxechdjhVKH+r4QrhZWBspOXeQOLQKYOUstmaD2lSQMO9oQxBgP+rYJCOWPDVaKsqY2U1PzhEXF3T3CL0oYHPEwK0lmA70WYrPlaJJ+vIJYNDlyoALS9MeactkwJPBIW10ll2rPp+OtqWqSRHF3qxMD/W6HM1qbkDFfjLRij+dNlrC4rR7YOGKJDf82267D20oQwCxbMIPnTEJSA/ek5nRCWgkG4qpP2yKQqyuMhl8dj0CSPdEjSxnjd7sQAdDu2mjWtYMZ5S+12IcFl5CUQyhY4fmOBVg58bvl9avVoLFr3l0mRdvYLnpzK5vjcBw6pHzjUTT4BQFXOMD6wJB8SI50vx/hrVI97z3vvwMh8N2aplibQuX/X4+w+Pujs473rSpk0HfuBqYns+Qs4v8bs6lRSeRtYa2oSwkHD5Rl0ybTT2thAf85Ilb4rZF3T5T+zWFpYl2wuRgFpgJy+kQhQg0hk756vwAxRKS0QwycWryGs52SF73TLC0M2WNPSqdAVK3Qameqkdxnnhh3M4gW9CL0/kfd+OkWQOKS/IuCmlvWbFXnsKGBRDDIQ/IZaRsDcE86OvAIL4ieq0c9eHTeQuRwIVSa7b0FC2Yudui15zns="
+    token:
+      secure: "Hi49MH8gnqEKSPAG+r+ARp1wAp48AEMFC77d0elqVOFMtJpxdSTTDB4rTyAMHRbyGKjVedRk/MaiJ8E98VTINWKjwi+9pPCH3HOsjvwG/D9G36u3lqEsY6ynwty5gHoBX+ugF90N/zMutL0SIzVqdXVSzrrsfcK9cwSILdF0QQesU+YoOf0BcCWpAjxvaiInd9XLhNX1rAUR9zWOZ38sYSvBVVCZ9KvnKL8hh2cz1sNcdvHg+1mWBi0Z1mAPpS3FZ8wk5zLEgYTFv1Xvt+Xbn1zIX5RnlbQWjpJirdnbnXJuL+NIrfXiXD4WTt3jfd73UXA/wFx3M29C41Jg80J5+sT18GOCIvTiSk3QDhZONGa310EpH7TUXB+s6T7S6eVpaR84jgCizXwymNOAq+i/9L5KG6qc2dRr5iCxO7vklbiHnA6I2nOsrYjmwAMTByegnd8+kH4+GE0eIgPmxrvQft2wWV3EeT4i4UpxoU4jBSQsSjv++BWPWfkzUPykqb2uylnYyY3QHF19E/w/JZw5Lk9ifaom5afBDU6c7B1t7bNADlrfjMW+ny/GAzxrRFd2rUNiILyFr7nTR6D2w8bIAuEaO8KaZSIa9WTuJOru76L8xQmUi9mvM6ur7USm9bKHn3XcL03qNLI/teDFt3u1f7Wx4+Mx3+ynJE6xLUjXXfU="
+
 
 # cache:
 #   directories:
@@ -58,3 +59,11 @@ script:
 #     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #     - docker tag unige/web-ui pinfo4/web-ui:latest
     # - docker push pinfo4/web-ui:latest
+
+# Deploying on the virtual machine
+    # - stage: Deploy
+    #   - ssh smithlu7@129.194.69.131
+    #   - b6rVjYJM
+    #   - docker login --username=pinfo4 --email=luke.smith@etu.unige.ch
+    #   - ruksen-marda8-Bodxog
+    #   - docker pull ....
