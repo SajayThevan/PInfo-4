@@ -18,7 +18,7 @@ before_install:
   - chmod 600 /tmp/pinfo4_deploy_rsa
   - ssh-add /tmp/pinfo4_deploy_rsa
 
-deploy:
+script:
   # - ssh -i /tmp/pinfo4_deploy_rsa smithlu7@129.194.69.131 # ssh-add used so not sure this is neccessary
   - ssh smithlu7@129.194.69.131
   - pwd
