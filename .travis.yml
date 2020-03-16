@@ -25,16 +25,19 @@ before_deploy:
   - chmod 600 /tmp/pinfo4_deploy_rsa
   - ssh-add /tmp/pinfo4_deploy_rsa
 
-script:
+deploy:
+  - ssh -i /tmp/pinfo4_deploy_rsa smithlu7@129.194.69.131
+  - pwd
+
+# script:
   #--------------------
   # Sonar cloud website
   # - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4
   #--------------------
   # Steve
   # - mvn test
-  # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd
-  - ssh -i /tmp/pinfo4_deploy_rsa smithlu7@129.194.69.131
-  - pwd
+  # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd -Dsonar.projectName=Kernel-pinfo4
+
 
   #--------------------
   # Steve Full
