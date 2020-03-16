@@ -12,13 +12,20 @@ addons:
 # before_install:
 #   - openssl aes-256-cbc -K $encrypted_ba497ca00145_key -iv $encrypted_ba497ca00145_iv -in pinfo4_deploy_rsa.enc -out pinfo4_deploy_rsa -d
 
-before_install:
+# script:
+#   # - ssh -i /tmp/pinfo4_deploy_rsa smithlu7@129.194.69.131 # ssh-add used so not sure this is neccessary
+#   - ssh smithlu7@129.194.69.131
+#   - pwd
+
+before_deploy: # TODO: use 'before_deploy:' as it's after script stage and build will fail if deploy fails
   - openssl aes-256-cbc -K $encrypted_ba497ca00145_key -iv $encrypted_ba497ca00145_iv -in pinfo4_deploy_rsa.enc -out /tmp/pinfo4_deploy_rsa -d
   - eval "$(ssh-agent -s)" # Not sure what this does
   - chmod 600 /tmp/pinfo4_deploy_rsa
   - ssh-add /tmp/pinfo4_deploy_rsa
 
-script:
-  # - ssh -i /tmp/pinfo4_deploy_rsa smithlu7@129.194.69.131 # ssh-add used so not sure this is neccessary
-  - ssh smithlu7@129.194.69.131
-  - pwd
+deploy:
+  provider: script
+  skip_cleanup: true # Avoid Travis resetting the git directory state
+  script: ssh smithlu7@129.194.69.131 'bash deploy_script.sh' # TODO: Write the deploy script
+  on:
+    branch: master # Only deploy if the master branch has been updated
