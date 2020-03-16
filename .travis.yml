@@ -19,19 +19,25 @@ addons:
 #     - "$HOME/.m2"
 #     - node_modules
 
-before_deploy:
-  - openssl aes-256-cbc -K $encrypted_<...>_key -iv $encrypted_<...>_iv -in pinfo4_deploy_rsa.enc -out /tmp/pinfo4_deploy_rsa -d
-  - eval "$(ssh-agent -s)"
-  - chmod 600 /tmp/pinfo4_deploy_rsa
-  - ssh-add /tmp/pinfo4_deploy_rsa
+# before_deploy:
+#   - openssl aes-256-cbc -K $encrypted_<...>_key -iv $encrypted_<...>_iv -in pinfo4_deploy_rsa.enc -out /tmp/pinfo4_deploy_rsa -d
+#   - eval "$(ssh-agent -s)"
+#   - chmod 600 /tmp/pinfo4_deploy_rsa
+#   - ssh-add /tmp/pinfo4_deploy_rsa
 
 script:
-  - mvn test
-  - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd
+  #--------------------
+  # Sonar cloud website
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4
+  #--------------------
+  # Steve
+  # - mvn test
+  # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd
+  # - ssh -i /tmp/pinfo4_deploy_rsa smithlu7@129.194.69.131
+  # - pwd
 
-  # - mvn -X clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.organization=pinfo-2020 -Dsonar.projectKey=PInfo-2020_PInfo-4
-  # - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ad19aa39f53aa63ef6946817fe487c35257029a
-
+  #--------------------
+  # Steve Full
 # jobs:
 #   include:
 #   - stage: Prepare
@@ -67,6 +73,8 @@ script:
 #     - docker tag unige/web-ui pinfo4/web-ui:latest
     # - docker push pinfo4/web-ui:latest
 
+    #------------------------------------
+    # My begging attempt at VM deployment
 # Deploying on the virtual machine
     # - stage: Deploy
     #   - ssh smithlu7@129.194.69.131
