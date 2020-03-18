@@ -43,7 +43,7 @@ jobs:
     - npm update
     - npm run-script build --prod
     - docker build -t unige/web-ui .
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - docker tag unige/web-ui pinfo4/web-ui:latest
     - docker push pinfo4/web-ui:latest
 
