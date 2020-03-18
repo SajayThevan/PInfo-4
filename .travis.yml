@@ -1,6 +1,11 @@
 language: java
+
+env:
+  - NODE_VERSION="12.13.1"
+
 services:
 - docker
+
 addons:
   ssh_know_hosts: smithlu7@129.194.69.131
   sonarcloud:
