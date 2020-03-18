@@ -1,4 +1,4 @@
-$!/bin/bash
+#!/bin/bash
 
 echo 'I see the script!'
 # touch ~/test/test.txt
