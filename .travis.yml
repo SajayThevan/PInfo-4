@@ -26,7 +26,6 @@ before_deploy: # TODO: use 'before_deploy:' as it's after script stage and build
 deploy:
   provider: script
   skip_cleanup: true # Avoid Travis resetting the git directory state
-  script: bash deploy_script.sh
-    # ssh smithlu7@129.194.69.131 deploy_script.sh # TODO: Write the deploy script
+  script: ssh smithlu7@129.194.69.131 deploy_script.sh # TODO: Write the deploy script
   on:
     branch: master # Only deploy if the master branch has been updated
