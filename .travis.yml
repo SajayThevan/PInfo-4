@@ -22,7 +22,7 @@ jobs:
   - stage: Build
     script:
     - mvn install -Ppackage-docker-image
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
     - docker tag unige/api-gateway pinfo4/api-gateway:latest
     - docker tag unige/regulatory-service pinfo4/regulatory-service:latest
     - docker tag unige/valuation-service pinfo4/valuation-service:latest
@@ -43,7 +43,7 @@ jobs:
     - npm update
     - npm run-script build --prod
     - docker build -t unige/web-ui .
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
     - docker tag unige/web-ui pinfo4/web-ui:latest
     - docker push pinfo4/web-ui:latest
 
