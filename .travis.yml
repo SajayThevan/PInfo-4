@@ -14,7 +14,7 @@ addons:
   ssh_know_hosts: smithlu7@129.194.69.131
   sonarcloud:
     organization: pinfo-2020
-    token:
+    token: # Sonarcloud login token
       secure: Hi49MH8gnqEKSPAG+r+ARp1wAp48AEMFC77d0elqVOFMtJpxdSTTDB4rTyAMHRbyGKjVedRk/MaiJ8E98VTINWKjwi+9pPCH3HOsjvwG/D9G36u3lqEsY6ynwty5gHoBX+ugF90N/zMutL0SIzVqdXVSzrrsfcK9cwSILdF0QQesU+YoOf0BcCWpAjxvaiInd9XLhNX1rAUR9zWOZ38sYSvBVVCZ9KvnKL8hh2cz1sNcdvHg+1mWBi0Z1mAPpS3FZ8wk5zLEgYTFv1Xvt+Xbn1zIX5RnlbQWjpJirdnbnXJuL+NIrfXiXD4WTt3jfd73UXA/wFx3M29C41Jg80J5+sT18GOCIvTiSk3QDhZONGa310EpH7TUXB+s6T7S6eVpaR84jgCizXwymNOAq+i/9L5KG6qc2dRr5iCxO7vklbiHnA6I2nOsrYjmwAMTByegnd8+kH4+GE0eIgPmxrvQft2wWV3EeT4i4UpxoU4jBSQsSjv++BWPWfkzUPykqb2uylnYyY3QHF19E/w/JZw5Lk9ifaom5afBDU6c7B1t7bNADlrfjMW+ny/GAzxrRFd2rUNiILyFr7nTR6D2w8bIAuEaO8KaZSIa9WTuJOru76L8xQmUi9mvM6ur7USm9bKHn3XcL03qNLI/teDFt3u1f7Wx4+Mx3+ynJE6xLUjXXfU=
 
 cache:
@@ -47,11 +47,11 @@ jobs:
   - stage: Build
     script:
     - cd web-ui
-    - pwd
-    - npm -v
-    - npm install
-    - npm update
-    - npm run-script build --prod
+    # - pwd
+    # - npm -v
+    # - npm install
+    # - npm update
+    # - npm run-script build --prod
     - docker build -t unige/web-ui .
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker tag unige/web-ui pinfo4/web-ui:latest
