@@ -3,7 +3,7 @@
 
 #!/bin/bash
 cd ~/Kernel
-docker login --username=pinfo4 --email=luke.smith@etu.unige.ch
+docker login index.docker.io # Credentials setup with pass on the VM
 docker pull pinfo4/api-gateway:latest
 docker pull pinfo4/regulatory-service:latest
 docker pull pinfo4/valuation-service:latest
