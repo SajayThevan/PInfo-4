@@ -47,11 +47,11 @@ jobs:
   - stage: Build
     script:
     - cd web-ui
-    # - pwd
-    # - npm -v
-    # - npm install
-    # - npm update
-    # - npm run-script build --prod
+    - pwd
+    - npm -v
+    - npm install
+    - npm update
+    - npm run-script build --prod
     - docker build -t unige/web-ui .
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker tag unige/web-ui pinfo4/web-ui:latest
