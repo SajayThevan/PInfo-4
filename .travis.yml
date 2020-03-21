@@ -58,6 +58,7 @@ jobs:
     - docker push pinfo4/web-ui:latest
 
 before_deploy: # Decrypts the ssh-key for the VM connection
+  - cd $TRAVIS_BUILD_DIR
   - pwd
   - ls
   - openssl aes-256-cbc -K $encrypted_ba497ca00145_key -iv $encrypted_ba497ca00145_iv -in pinfo4_deploy_rsa.enc -out /tmp/pinfo4_deploy_rsa -d
