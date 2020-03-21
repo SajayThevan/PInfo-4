@@ -5,7 +5,7 @@ services:
   #Zookeeper service provides distributed configuration management to Kafka
   zookeeper:
     image: zookeeper:3.4.9
-    container_name: zookeeper 
+    container_name: zookeeper
     hostname: zookeeper
     networks:
       - backend-network
@@ -22,10 +22,10 @@ services:
 #   kafka is the messaging backbone of the micro-service architecture. The objective is avoid point 2 point connections.
   kafka:
     image: confluentinc/cp-kafka:5.1.0
-    container_name: kafka 
+    container_name: kafka
     hostname: kafka
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "9092:9092"
     environment:
@@ -66,16 +66,16 @@ services:
 
   #The counterparty service provides counterparty data, it is also the single version of truth for these data
   counterparty-service:
-    container_name: counterparty-service    
-    image: unige/counterparty-service:latest
+    container_name: counterparty-service
+    image: pinfo4/counterparty-service:latest
     hostname: counterparty-service
     environment:
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_COUNTERPARTYDS_CONNECTION_DASH_URL: "jdbc:postgresql://counterparty-database:5432/counterparty"
-      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_COUNTERPARTYDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_COUNTERPARTYDS_DRIVER_DASH_NAME: 'postgresql'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_COUNTERPARTYDS_USER_DASH_NAME: 'cpty'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_COUNTERPARTYDS_PASSWORD: 'cpty'
     networks:
-      - backend-network    
+      - backend-network
     ports:
       - "10080:28080"
     depends_on:
@@ -102,10 +102,10 @@ services:
     restart: on-failure
     stdin_open: true
     tty: true
-    
+
   instrument-service:
-    container_name: instrument-service    
-    image: unige/instrument-service:latest
+    container_name: instrument-service
+    image: pinfo4/instrument-service:latest
     hostname: instrument-service
     networks:
       - backend-network
@@ -115,16 +115,16 @@ services:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INSTRUMENTDS_CONNECTION_DASH_URL: "jdbc:postgresql://instrument-database:5432/instrument"
-      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INSTRUMENTDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INSTRUMENTDS_DRIVER_DASH_NAME: 'postgresql'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INSTRUMENTDS_USER_DASH_NAME: 'inst'
-      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INSTRUMENTDS_PASSWORD: 'inst'      
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INSTRUMENTDS_PASSWORD: 'inst'
     depends_on:
        - kafka
        - instrument-database
 
   valuation-service:
-    container_name: valuation-service    
-    image: unige/valuation-service:latest
+    container_name: valuation-service
+    image: pinfo4/valuation-service:latest
     hostname: valuation-service
     networks:
       - backend-network
@@ -132,15 +132,15 @@ services:
       - "12080:28080"
     environment:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"      
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
     depends_on:
        - kafka
-       - instrument-service   
+       - instrument-service
 
 volumes:
    pgdata-cpty:
    pgdata-inst:
-  
+
 
 networks:
   backend-network:
