@@ -67,13 +67,13 @@ before_deploy: # Decrypts the ssh-key for the VM connection
   - ssh-add /tmp/pinfo4_deploy_rsa
 
 deploy:
-  - provider: script
+  - provider: script # Clear then Copy the docker-compose folder to the VM
     skip_cleanup: true # Avoid Travis resetting the git directory state
-    script: scp -r docker-compose smithlu7@129.194.69.131:~/Kernel/ # TODO: Write the deploy script
+    script: pre_deploy_script.sh
     on:
       branch: master # Only deploy if the master branch has been updated
-  - provider: script
+  - provider: script # Run the deploy script on the VM
     skip_cleanup: true # Avoid Travis resetting the git directory state
-    script: ssh smithlu7@129.194.69.131 'bash ' < deploy_script.sh # TODO: Write the deploy script
+    script: ssh smithlu7@129.194.69.131 'bash ' < deploy_script.sh
     on:
       branch: master # Only deploy if the master branch has been updated
