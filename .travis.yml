@@ -57,6 +57,7 @@ jobs:
     - docker tag unige/web-ui pinfo4/web-ui:latest
     - docker push pinfo4/web-ui:latest
   - stage: Pre-Deploy
+    script:
     - cd $TRAVIS_BUILD_DIR
     - pwd
     - ls
@@ -65,6 +66,7 @@ jobs:
     - chmod 600 /tmp/pinfo4_deploy_rsa
     - ssh-add /tmp/pinfo4_deploy_rsa
   - stage: Deploy
+    script:
     - sh pre_deploy_script.sh
     - ssh smithlu7@129.194.69.131 'bash ' < deploy_script.sh
 
