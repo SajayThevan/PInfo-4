@@ -67,7 +67,7 @@ jobs:
     - ssh-add /tmp/pinfo4_deploy_rsa
   - stage: Deploy
     script:
-    - sh pre_deploy_script.sh
+    - bash pre_deploy_script.sh
     - ssh smithlu7@129.194.69.131 'bash ' < deploy_script.sh
 
 # before_deploy: # Decrypts the ssh-key for the VM connection
