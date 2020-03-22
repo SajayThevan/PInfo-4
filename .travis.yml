@@ -69,7 +69,7 @@ before_deploy: # Decrypts the ssh-key for the VM connection
 deploy:
   - provider: script # Clear then Copy the docker-compose folder to the VM
     skip_cleanup: true # Avoid Travis resetting the git directory state
-    script: pre_deploy_script.sh
+    script: sh pre_deploy_script.sh
     on:
       branch: master # Only deploy if the master branch has been updated
   - provider: script # Run the deploy script on the VM
