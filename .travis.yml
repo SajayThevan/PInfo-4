@@ -56,8 +56,9 @@ jobs:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker tag unige/web-ui pinfo4/web-ui:latest
     - docker push pinfo4/web-ui:latest
-  - stage: Pre-Deploy
+  - stage: Deploy
     script:
+    # Unencrypt ssh-key for VM
     - cd $TRAVIS_BUILD_DIR
     - pwd
     - ls
@@ -65,9 +66,10 @@ jobs:
     - eval "$(ssh-agent -s)" # 'eval' to load the ssh-agent variables into the current environment upon starting of the ssh-agent, which we will use for logging in to the VM
     - chmod 600 /tmp/pinfo4_deploy_rsa
     - ssh-add /tmp/pinfo4_deploy_rsa
-  - stage: Deploy
-    script:
-    - bash pre_deploy_script.sh
+    # Clean docker-compose on VM
+    - ssh smithlu7@129.194.69.131 'rm -rf ~/Kernel/docker-compose' # Remove the current docker compose
+    - scp -r docker-compose smithlu7@129.194.69.131:~/Kernel/
+    # Deploy script
     - ssh smithlu7@129.194.69.131 'bash ' < deploy_script.sh
 
 # before_deploy: # Decrypts the ssh-key for the VM connection
