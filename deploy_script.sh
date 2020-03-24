@@ -9,9 +9,10 @@ cd ~/Kernel
                                # If needed later, need to fix docker-credentials-pass (pass logs out after 2h or so and so docker login can no longer access the credentials)
 
 # Clean up docker
-docker container stop $(docker container ls -aq) # Stop all containers
-docker system prune -f -a # remove all stopped containers, dangling and unused images(-a) (& unused networks) , -f to avoid questions
-                          # TODO: '-a' might be too much
+docker stop $(docker ps -aq)  # Stop all containers
+docker system prune -f -a # remove all stopped containers, dangling and unused(-a) images (& unused networks) , -f to avoid questions
+                          # TODO: '-a' might be too much, not sure we need to delete all unused images
+                          # TODO: For when were deploying the actual containers we probably wont want to stop the database containers???
 
 docker pull pinfo4/api-gateway:latest
 docker pull pinfo4/regulatory-service:latest
