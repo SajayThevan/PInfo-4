@@ -22,7 +22,7 @@ docker pull pinfo4/instrument-service:latest
 docker pull pinfo4/counterparty-service:latest
 docker images
 cd  docker-compose
-docker-compose -f docker-compose-microservices.yml up # &
-docker-compose -f docker-compose-log.yml up &
-docker-compose -f docker-compose-api-gw.yml up &
+docker-compose -f docker-compose-microservices.yml up & > ~/Kernel/docker-compose-microservice.txt
+docker-compose -f docker-compose-log.yml up & > ~/Kernel/docker-compose-log.txt
+docker-compose -f docker-compose-api-gw.yml up & > ~/Kernel/docker-compose-api=gw.txt
 echo "Finished composing"
