@@ -71,3 +71,4 @@ jobs:
     - scp -r docker-compose smithlu7@129.194.69.131:~/Kernel/
     # Deploy script
     - ssh smithlu7@129.194.69.131 'bash ' < deploy_script.sh
+    #
