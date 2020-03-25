@@ -66,8 +66,10 @@ jobs:
     - eval "$(ssh-agent -s)" # 'eval' to load the ssh-agent variables into the current environment upon starting of the ssh-agent, which we will use for logging in to the VM
     - chmod 600 /tmp/pinfo4_deploy_rsa
     - ssh-add /tmp/pinfo4_deploy_rsa
-    # Copy docker-compose to VM
+    # Clean docker compose
+    - ssh smithlu7@129.194.69.131 'bash ' < clean_script.sh
     # - ssh smithlu7@129.194.69.131 'bash ~/Kernel/clean_docker_compose.sh' # Remove the current docker compose TODO: Not working, requires sudo
+    # Copy docker-compose to VM
     - scp -r docker-compose smithlu7@129.194.69.131:~/Kernel/
     # Deploy script
     - ssh smithlu7@129.194.69.131 'bash ' < deploy_script.sh
