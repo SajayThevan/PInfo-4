@@ -4,6 +4,8 @@
 # It cleans the docker-compose for the the application 'Kernel'
   # in cancels any currently running docker-composes
 
+cd ~/Kernel/docker-compose
+
 # docker login index.docker.io # Credentials setup with pass on the VM
                                # Note: not needed for now as dockerHub repo is public
                                # If needed later, need to fix docker-credentials-pass (pass logs out after 2h or so and so docker login can no longer access the credentials)
