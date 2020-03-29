@@ -15,7 +15,8 @@
   export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "microservices.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
   echo http://$SERVICE_IP:{{ .Values.service.port }}
 {{- else if contains "ClusterIP" .Values.service.type }}
-  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "microservices.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
-  echo "Visit http://127.0.0.1:8080 to use your application"
-  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:80
+  echo "Visit https://localhost to use your application"
+  echo "Visit https://localhost/auth to access the identity manager"
+  echo "kubectl port-forward svc/pinfo-v1-counterparty-db 5432:5432 to expose the postgres counterparty database to port 5432 on localhost"
+  echo "kubectl port-forward svc/pinfo-v1-instrument-db 5432:5432 to expose the postgres instrument database to port 5432 on localhost" 
 {{- end }}
