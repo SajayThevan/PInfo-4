@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Probably Obsolete!!!!!!!
+
 # This script is ran on the Virtual Machine at: smithlu7@129.194.69.131
 # It cleans the docker-compose for the the application 'Kernel'
   # in cancels any currently running docker-composes

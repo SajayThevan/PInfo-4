@@ -1,8 +1,13 @@
 #!/bin/bash
 
 # This script is ran on the Virtual Machine at: smithlu7@129.194.69.131
-# It deploys the application 'Kernel'
+# It deploys the application 'FridgeHub' on Kubernetes
 
+# TODO: DEPLOY ON KUBE
+
+
+
+# Previous docker-compose deploy
 cd ~/Kernel/docker-compose
 
 # docker login index.docker.io # Credentials setup with pass on the VM

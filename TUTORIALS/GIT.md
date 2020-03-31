@@ -39,6 +39,7 @@ git checkout <new-feature>
 * repeat
 
 **Notes**  
+* **Always check you're on the right branch before doing ANYTHING!!!**
 * You can ``git push`` already if you want others to see your code but.
 * You can also create a pull request early if you'd like help with your code, and you can tag specific people in the pull request.
 * Beware of pulling other peoples feature branches, it can easily result in annoying merge conflicts, e.g:
@@ -52,13 +53,13 @@ git checkout <new-feature>
 * Solve merge conflicts (on local and push)
     * There will without a doubt be some merge conflicts, tough shit
 
-**Notes**
+**Notes**  
 Pull request when finished coding the feature **and** the tests pass  
 **or**  
 If you'd like help with your code
 
 ## 4. Merge
-* Only after discussion with at least one other team member **and** successful tests, accept the pull request to merge to develop branch on Github.  
+* Only after **discussion** with at least one other team member **and** successful tests, accept the pull request to merge to develop branch on Github  
 * **Make sure to delete** the branch **once the feature has been merged**:
 
 ```bash
@@ -72,7 +73,7 @@ You can run the full application locally with docker-compose or local kubernetes
 
 ## Note on your branches
 You should only really have the **master**, **develop** and your **<feature>** branches on your local machine.  
-Avoid ```git pull --all`` and pulling other people feature branches unless they ask you for helpm you communicate to avoid merge conflicts, and you stay up to date with eachother with regular pulls/pushes
+Avoid ``git pull --all`` and pulling other people feature branches **unless**: they ask you for help, you communicate to avoid merge conflicts, and you stay up to date with eachother with regular pulls/pushes
 
 ## Notes on deploying: i.e Merging to master
 * The master branch is the source of truth and will contain a functioning application at any given time  
