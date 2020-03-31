@@ -21,7 +21,7 @@ Installation of Helm and the main repositories
 ------------------------------------------
 To install helm please refer to https://helm.sh/docs/intro/install/
 
-	$ helm init
+	$ helm init   																						# Tiller was removed in helm 3 => no need for helm init (Tiller was the server) (https://github.com/helm/helm/issues/7052)
 	$ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 	$ helm repo add bitnami https://charts.bitnami.com/bitnami
 	$ helm repo update
@@ -32,11 +32,11 @@ Switching between the different clusters
 	$ kubectl config get-contexts
 	$ kubectl config use-context context-name
 
-Configuring the cluster for the pinfo application 
+Configuring the cluster for the pinfo application
 -------------------------------------------------
 	$ kubectl create secret generic keycloak-realm-secret --from-file=../../docker-compose/iam-config/realms.json
 	$ kubectl delete configmap instrument-scripts
-	$ kubectl create configmap instrument-scripts  --from-file ./test-data/200_instruments.sql.gz
+	$ kubectl create configmap instrument-scripts  --from-file ./test-data/200_instruments.sql.gz								 # .gz???????
 	$ kubectl delete configmap counterparty-scripts
 	$ kubectl create configmap counterparty-scripts  --from-file ./test-data/100_counterparties.sql.gz
 
@@ -52,6 +52,6 @@ After a change in one of the files of the chart you can run the following comman
 
 	$ helm upgrade pinfo-v1 .
 
-Stop the application	
+Stop the application
 --------------------
 	$ helm delete pinfo-v1
