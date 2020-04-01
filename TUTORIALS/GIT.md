@@ -6,7 +6,7 @@ I would like to add a feature, e.g
 * to debug something
 * to ...
 
-I need to 
+I need to
 * Branch from develop branch
 * Develop **and test** the feature
 * Push to GitHub
@@ -29,6 +29,7 @@ git checkout <new-feature>
 **Notes**
 * Branch names should be descriptive, e.g profile\_language\_setting, recipe\_elasticsearch\_setup,...
 * Features should be small enough for a single developer to complete in no more than a day
+* **Never commit changes to develop directly**
 
 
 ## 2. Develop
@@ -65,13 +66,14 @@ If you'd like help with your code
 * **Make sure to delete** the branch **once the feature has been merged**:
 
 ```bash
-git branch -d <new-feature>             # To delete on local                 
+git checkout develop                    # Never commit changes to develop directly
+git branch -d <new-feature>             # To delete on local, -D if you haven't pulled the updated develop                 
 git push origin --delete <new-feature>  # To delete on remote
 ```
 
 
 ## Note on testing
-You can run the full application locally with docker-compose or local kubernetes, c.f LOCAL_DEPLOY.md
+You can run the full application locally with docker-compose or kubernetes, c.f LOCAL_DEPLOY.md
 
 ## Note on your branches
 You should only really have the **master**, **develop** and your **<feature>** branches on your local machine.  
@@ -88,9 +90,9 @@ Avoid ``git pull --all`` and pulling other people feature branches **unless**: t
 https://guides.github.com/introduction/flow/  
 https://nvie.com/posts/a-successful-git-branching-model/  
 https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow  
-  
+
 **pull requests**  
 https://www.atlassian.com/git/tutorials/making-a-pull-request  
-  
+
 **merge conflicts**  
 https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts  
