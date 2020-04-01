@@ -49,7 +49,8 @@ git checkout <new-feature>
 
 ## 3. Pull Request
 * ```git push -u origin <new-feature>      # '-u <new-feature>' necessary for the initial push, then 'git push' can be used from then on in the branch```
-* Create a pull request for the feature branch to the develop
+* Create a pull request for the **feature branch** to the **develop**: **make sure to specify the correct base/compare**
+    * **base: develop, compare: <new-feature>**
 * Solve merge conflicts (on local and push)
     * There will without a doubt be some merge conflicts, tough shit
 
@@ -57,6 +58,7 @@ git checkout <new-feature>
 Pull request when finished coding the feature **and** the tests pass  
 **or**  
 If you'd like help with your code
+
 
 ## 4. Merge
 * Only after **discussion** with at least one other team member **and** successful tests, accept the pull request to merge to develop branch on Github  
