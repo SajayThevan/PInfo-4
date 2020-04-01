@@ -45,15 +45,15 @@ git checkout <new-feature>
 * You can also create a pull request early if you'd like help with your code, and you can tag specific people in the pull request.
 * Beware of pulling other peoples feature branches, it can easily result in annoying merge conflicts, e.g:
     * Mathias pulls Deniz's feature branch: 'fat\_print\_statement', he changes some code, then pushes.  The next time Deniz pushes he might have a merge conflict to resolve if he has changed the same lines that Mathias has.  
-      * I would therefore advise against working on the same exact feature, the features should be small enough for a single developper (i.e stories on a storyboard)
+      * I would therefore advise against working on the same exact feature, the features should be small enough for a single developper (i.e stories/tasks/items on the taskboard)
 
 
 ## 3. Pull Request
 * ```git push -u origin <new-feature>      # '-u <new-feature>' necessary for the initial push, then 'git push' can be used from then on in the branch```
 * Create a pull request for the **feature branch** to the **develop**: **make sure to specify the correct base/compare**
-    * **base: develop, compare: <new-feature>**
+    * **base: develop, compare: \<new-feature\>**
 * Solve merge conflicts (on local and push)
-    * There will without a doubt be some merge conflicts, tough shit
+    * There will without a doubt be some merge conflicts at some point, tough shit...
 
 **Notes**  
 Pull request when finished coding the feature **and** the tests pass  
@@ -66,7 +66,7 @@ If you'd like help with your code
 * **Make sure to delete** the branch **once the feature has been merged**:
 
 ```bash
-git checkout develop                    # Never commit changes to develop directly
+git checkout develop                    # You can't delete the feature branch if you are currently checking it out
 git branch -d <new-feature>             # To delete on local, -D if you haven't pulled the updated develop                 
 git push origin --delete <new-feature>  # To delete on remote
 ```
