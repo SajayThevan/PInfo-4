@@ -76,7 +76,7 @@ git push origin --delete <new-feature>  # To delete on remote
 You can run the full application locally with docker-compose or kubernetes, c.f LOCAL_DEPLOY.md
 
 ## Note on your branches
-You should only really have the **master**, **develop** and your **<feature>** branches on your local machine.  
+You should only really have the **master**, **develop** and your **\<feature\>** branches on your local machine.  
 Avoid ``git pull --all`` and pulling other people feature branches **unless**: they ask you for help, you communicate to avoid merge conflicts, and you stay up to date with eachother with regular pulls/pushes
 
 ## Notes on deploying: i.e Merging to master
