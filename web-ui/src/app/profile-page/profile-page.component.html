@@ -6,6 +6,7 @@
       <div class="col-4 d-flex justify-content-end align-items-center">
         <a class="text-muted space" href="/home"><mat-icon aria-hidden="false" class="logopad">home</mat-icon></a>
         <a class="text-muted space" href="/home"><mat-icon aria-hidden="false" class="logopad">settings</mat-icon></a>
+        <a class="text-muted space" href="/home"><mat-icon aria-hidden="false" class="logopad">logout</mat-icon></a>
       </div>
 
     </div>
@@ -21,14 +22,15 @@
                 <div class="profilepic"></div>
             </div>
             <div class="col-md-1">
-                <div class="font-weight-lighter">{{name}}</div>
+                <div class="font-weight-lighter">{{profile.name}}</div>
             </div>
             <div class="col-md-1">
-                <div class="font-weight-lighter">{{lastname}}</div>
+                <div class="font-weight-lighter">{{profile.lastname}}</div>
             </div>
             <div class="col-md-1">
-                <div class="font-weight-lighter">{{points}}</div>
+                <div class="font-weight-lighter">{{profile.points}}</div>
             </div>
+            
         </div>
     </div>
 </div>
@@ -49,7 +51,14 @@
             <div class="card-body"> 
                 Favoris
                 <hr>
-                list des recettes favoris
+                <div class="pad1" *ngFor="let recep of recettes">
+                    <div class="tab">
+                        <div class="recepe_image row"></div>
+                        <div class="recepe_name">
+                            {{recep.name}}
+                        </div>
+                    </div>
+                </div>     
             </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     MonthSpecialComponent,
     ChallengesComponent,
     LoginPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,

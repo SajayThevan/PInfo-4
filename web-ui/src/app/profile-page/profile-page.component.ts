@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { $ } from 'protractor';
+import { summaryForJitFileName } from '@angular/compiler/src/aot/util';
 
 @Component({
   selector: 'app-profile-page',
@@ -13,10 +14,38 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  name = "Sajay";
+  name = "Sajay"
   lastname = "Thevan"
   points = 100
-  
+
+  profile = {
+    name : "Sajay",
+    lastname : "Thevan",
+    points : 100 
+  }
+
+  recettes = [ 
+    {
+      name:'Cake',
+      auteur:'Sajay'
+    },
+    {
+      name:'Brownie',
+      auteur:'Luke'
+    },
+    {
+      name:'Pizza',
+      auteur:'Deniz'
+    },
+    {
+      name:'Juice',
+      auteur:'Mathias'
+    },
+    {
+      name:'MilkShake',
+      auteur:'Ella'
+    }
+  ]
 
 }
 
