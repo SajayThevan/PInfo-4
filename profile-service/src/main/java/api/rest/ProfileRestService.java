@@ -1,4 +1,4 @@
-package api;
+package api.rest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
@@ -8,9 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 @ApplicationScoped
 @Path("/regulatory")
-public class RegulatoryRestService {
-
-	// TODO: Implement
+public class ProfileRestService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

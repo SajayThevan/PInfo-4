@@ -12,10 +12,8 @@ import domain.model.Profile;
 
 @ApplicationScoped
 public class ProfileServiceImpl implements ProfileService {
-
-	// TODO: Implement
 	
-	@PersistenceContext(unitName = "InstrumentPU")
+	@PersistenceContext(unitName = "InstrumentPU") // What is the unitName?
 	private EntityManager em;
 
 	public ProfileServiceImpl() {
@@ -26,7 +24,7 @@ public class ProfileServiceImpl implements ProfileService {
 		this.em = em;
 	}
 	
-	@Override
+	@Override				//The @Override annotation indicates that the child class method is over-writing its base class method.
 	public List<Profile> getAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Profile> criteria = builder.createQuery(Profile.class);
@@ -42,8 +40,7 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 		em.merge(profile);
 	}
-
-	@Override
+	@Override							
 	public Profile get(Long profileId) {
 		return em.find(Profile.class, profileId);
 	}
@@ -63,6 +60,14 @@ public class ProfileServiceImpl implements ProfileService {
 		cq.select(qb.count(cq.from(Profile.class)));
 		return em.createQuery(cq).getSingleResult();
 	}
+	
+	
+	
+	
+	
+
+	
+// I let those in comment no to be forced to see it on github -> me speak very good English language
 
 //	@Override
 //	public List<Instrument> getAll() {

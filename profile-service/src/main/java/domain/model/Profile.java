@@ -1,39 +1,34 @@
 package domain.model;
 
-//import javax.inject; In comment because not in the "Equivalent" code of Steve -> Instrument.java
-import java.math.BigDecimal;
-import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
+//import java.math.BigDecimal;
+//import java.util.Date;
+//import javax.persistence.Column;
+//import javax.persistence.DiscriminatorColumn;
+//import javax.persistence.InheritanceType;
+//import java.util.ArrayList;					
+//import io.swagger.annotations.ApiModel; -- These are not used for the moment --  If error fix the project to add the libraries.
+
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
-
-//import io.swagger.annotations.ApiModel; // Need a Maven Build or Install to generate swagger files
-
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.util.ArrayList;
-//import javafx.util.Pair; // Need sudo apt-get install openjfx --> import used for the definition of fridge content
-
-
-// Lombok: Getter/Setter/ToString/Hashcode
+// Lombok: Getter/Setter/ToString
 @Data
-//@EqualsAndHashCode(callSuper=true) //In comment because not in the "Equivalent" code of Steve -> Instrument.java
 
 // DataBase
 @Entity
 public class Profile {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "Profile_SEQ", sequenceName = "Profile_SEQ")  //Defines a primary key generator that may be referenced by name when a generator element is specified for the GeneratedValue annotation.
+	@GeneratedValue(strategy = GenerationType.IDENTITY)						//The scope of the generator name is global to the persistence unit => Maybe a link with the database?
 	private Long id;
-	
 	
 	// Profile info
 	@NotNull
@@ -51,12 +46,11 @@ public class Profile {
 	@NotNull
 	private int score;
 	
-	
 	// Lists
-//	@NotNull
-//	private ArrayList<Pair<int, int>> fridge_contents; // <(IngredientID, Quantity)> // In comment because of error
-//		
-//	@NotNull
-//	private ArrayList<int> favourite_recipes; // <RecipeID> // In comment because of error
+	@NotNull
+	private ArrayList<AbstractMap.SimpleEntry<Integer, Integer>> fridge_contents; // <(IngredientID, Quantity)> 
+		
+	@NotNull
+	private ArrayList<Integer> favourite_recipes; // <RecipeID> //
 	
 }
