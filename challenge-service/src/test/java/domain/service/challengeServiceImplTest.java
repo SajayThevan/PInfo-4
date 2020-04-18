@@ -23,7 +23,11 @@ import eu.drus.jpa.unit.api.JpaUnit;
 
 @ExtendWith(JpaUnit.class)
 @ExtendWith(MockitoExtension.class)
-class CounterpartyServiceImplTest {
+
+class challengeServiceImplTest{
+	
+}
+/*class CounterpartyServiceImplTest {
 
 	@Spy
 	@PersistenceContext(unitName = "CounterpartyPUTest")
@@ -98,4 +102,4 @@ class CounterpartyServiceImplTest {
 
 		return c;
 	}
-}
+}*/
