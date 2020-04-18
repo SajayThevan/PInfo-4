@@ -1,5 +1,5 @@
 package domain.model;
-enum CategoryEnum {
+public enum CategoryEnum {
 	// TODO: More categories
 	Breakfast,
 	Lunch,

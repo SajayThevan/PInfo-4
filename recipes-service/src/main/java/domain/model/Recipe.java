@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 
@@ -23,6 +23,20 @@ import java.util.ArrayList;
 @Entity
 public class Recipe {
 	
+	public Recipe(String name2,@NotNull int profilID, ArrayList<Integer> ingredients2, @NotNull @NotNull ArrayList<CategoryEnum> category2,
+			ArrayList<String> steps2, Integer difficulty2, Integer time2, @NotNull @NotNull ArrayList<Integer> rating, ArrayList<String> comments2) {
+			this.name = name2;
+			this.authorID = profilID;
+			this.ingredients = ingredients2;
+			this.category = category2;
+			this.steps = steps2;
+			this.difficulty = difficulty2;
+			this.time = time2;
+			this.ratings = rating;
+			this.comments = comments2;
+			
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
