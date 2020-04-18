@@ -37,11 +37,10 @@ public class RecipeServiceImpl implements RecipeService {
 	//TODO: Implement that shit
 	
 	public void addRecipe(Recipe r) {
-//		if (r.getId() != null) {
-//			throw new IllegalArgumentException("Instrument already exists : " + r.getId());
-//		}
-//		em.persist(r);
-		System.out.println("Je suis dans addRecipe");
+		if (r.getId() != null) {
+			throw new IllegalArgumentException("Instrument already exists : " + r.getId());
+		}
+		em.persist(r);
 	}
 
 	

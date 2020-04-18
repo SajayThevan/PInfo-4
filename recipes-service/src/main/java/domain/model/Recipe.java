@@ -23,18 +23,12 @@ import java.util.ArrayList;
 @Entity
 public class Recipe {
 	
-	public Recipe(String name2,@NotNull int profilID, ArrayList<Integer> ingredients2, @NotNull @NotNull ArrayList<CategoryEnum> category2,
-			ArrayList<String> steps2, Integer difficulty2, Integer time2, @NotNull @NotNull ArrayList<Integer> rating, ArrayList<String> comments2) {
+	public Recipe(String name2, int profilID,String date,int difficulty2, int time2) {
 			this.name = name2;
+			this.date = date;
 			this.authorID = profilID;
-			this.ingredients = ingredients2;
-			this.category = category2;
-			this.steps = steps2;
 			this.difficulty = difficulty2;
-			this.time = time2;
-			this.ratings = rating;
-			this.comments = comments2;
-			
+			this.time = time2;	
 	}
 
 	@Id
@@ -48,16 +42,17 @@ public class Recipe {
 	private int authorID; // ProfileID
 	
 	@NotNull
-	private Date date;
+	//private Date date;
+	private String date;
 	
-	@NotNull
-	private ArrayList<Integer> ingredients; // IngredientID
+	//@NotNull
+	//private ArrayList<Integer> ingredients; // IngredientID
 	
-	@NotNull
-	private ArrayList<String> steps;
+	//@NotNull
+	//private ArrayList<String> steps;
 	
-	@NotNull
-	private ArrayList<CategoryEnum> category; // TODO: Test the enum
+	//@NotNull
+	//private ArrayList<CategoryEnum> category; // TODO: Test the enum
 	
 	@NotNull
 	private int difficulty;
@@ -65,10 +60,10 @@ public class Recipe {
 	@NotNull
 	private int time;
 	
-	@NotNull
-	private ArrayList<Integer> ratings;
+	//@NotNull
+	//private ArrayList<Integer> ratings;
 	
-	@NotNull
-	private ArrayList<String> comments;
+	//@NotNull
+	//private ArrayList<String> comments;
 
 }
