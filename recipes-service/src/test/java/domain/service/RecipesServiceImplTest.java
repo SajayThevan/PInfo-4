@@ -1,5 +1,7 @@
 package domain.service;
 
+//TODO: import.model.<attribut>
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -19,8 +21,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domain.model.Bond;
-import domain.model.Instrument;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 @ExtendWith(JpaUnit.class)
@@ -32,7 +32,7 @@ class RecipesServiceImplTest {
 	EntityManager em;
 
 	@InjectMocks
-	private InstrumentServiceImpl recipesService;
+	private RecipeServiceImpl recipesService;
 
 //	@Test
 //	void testGetAll() {

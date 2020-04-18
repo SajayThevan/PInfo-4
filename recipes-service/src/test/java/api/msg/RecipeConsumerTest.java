@@ -11,8 +11,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class InstrumentConsumerTest {
+class RecipeConsumerTest {
 
+	/*
+	 
+	 ********************* Keep in here for test example ***********************
+	 
 	@Mock
 	private InstrumentProducer producer;
 	
@@ -36,5 +40,5 @@ class InstrumentConsumerTest {
 		assertThrows(IllegalArgumentException.class,
 				() -> consumer.updateInstrument("XXX"));
 	}
-
+		*/
 }
