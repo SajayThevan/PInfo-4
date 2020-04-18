@@ -2,34 +2,32 @@ package api.msg;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-
 import org.aerogear.kafka.cdi.annotation.Consumer;
 import org.aerogear.kafka.cdi.annotation.KafkaConfig;
-
 import lombok.extern.java.Log;
+
+
 
 @ApplicationScoped
 @KafkaConfig(bootstrapServers = "#{thorntail.kafka-configuration.host}:#{thorntail.kafka-configuration.port}")
 @Log
-public class InstrumentConsumer {
+public class ProfileConsumer {
 
-	// TODO: Implement
-	
 	@Inject
-	private InstrumentProducer producer;
+	private ProfileProducer producer;
 
-	@Consumer(topics = "instrumentsReq", groupId = "pinfo-microservices")
-	public void updateInstrument(final String message) {
+	@Consumer(topics = "profilsReq", groupId = "pinfo-microservices")
+	public void updateProfile(final String message) {
 		log.info("Consumer got following message : " + message);
 		if ("all".equals(message)) {
-			producer.sendAllInstruments();
+			producer.sendAllProfiles();
 		} else {
 			// interpret the instrument id
 			try {
-				Long instrumentId = Long.valueOf(message);
-				producer.send(instrumentId);
+				//Long profileId = Long.valueOf(message);  // Error due to the function "send(profileId)" defined in ProfileProducer.java waiting for the database issue.
+				//producer.send(profileId);        
 			} catch(NumberFormatException e) {
-				throw new IllegalArgumentException("Message must be wither a numeric instrument identifier or 'all'");
+				throw new IllegalArgumentException("Message must be wither a numeric profile identifier or 'all'");
 			}
 		}
 	}
