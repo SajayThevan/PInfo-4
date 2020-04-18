@@ -17,19 +17,50 @@
 <div class="useroption">
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="profilepic"></div>
             </div>
             <div class="col-md-1">
-                <div class="font-weight-lighter">Name</div>
+                <div class="font-weight-lighter">{{name}}</div>
             </div>
             <div class="col-md-1">
-                <div class="space font-weight-lighter"> Points</div>
+                <div class="font-weight-lighter">{{lastname}}</div>
+            </div>
+            <div class="col-md-1">
+                <div class="font-weight-lighter">{{points}}</div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="font-weight-lighter pad"> Contenu Profile</div>
-</div>
+<div class="container pad font-weight-lighter">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+            <div class="card-body"> 
+                Mes Recettes
+                <hr>
+                list de mes recettes
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="card-body"> 
+                Favoris
+                <hr>
+                list des recettes favoris
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+            <div class="card-body"> 
+                Mon Frigo
+                <hr>
+                Element frigo
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -14,6 +14,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   name = "Sajay";
+  lastname = "Thevan"
+  points = 100
   
 
 }
