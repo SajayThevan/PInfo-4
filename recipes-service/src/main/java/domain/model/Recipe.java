@@ -1,19 +1,23 @@
 package domain.model;
 
-import javax.inject;
+//import javax.inject;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode
 
 // DataBase
 @Entity
@@ -33,7 +37,7 @@ public class Recipe {
 	private Date date;
 	
 	@NotNull
-	private ArrayList<Int> ingredients; // IngredientID
+	private ArrayList<Integer> ingredients; // IngredientID
 	
 	@NotNull
 	private ArrayList<String> steps;
@@ -48,7 +52,7 @@ public class Recipe {
 	private int time;
 	
 	@NotNull
-	private ArrayList<int> ratings;
+	private ArrayList<Integer> ratings;
 	
 	@NotNull
 	private ArrayList<String> comments;

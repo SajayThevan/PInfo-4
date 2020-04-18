@@ -1,4 +1,4 @@
-
+package domain.model;
 enum CategoryEnum {
 	// TODO: More categories
 	Breakfast,
