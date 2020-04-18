@@ -32,6 +32,11 @@ class ProfileServiceImplTest {
 
 	@InjectMocks
 	private ProfileServiceImpl profileService;
+	
+	@Test
+	void test( ) {
+		System.out.println("yo");
+	}
 
 //	@Test
 //	void testGetAll() {
