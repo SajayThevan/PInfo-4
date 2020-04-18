@@ -12,8 +12,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import api.msg.InstrumentProducer;
-import domain.model.Instrument;
+//import api.msg.InstrumentProducer;
+//import domain.model.Instrument;
+import api.msg.RecipeProducer;
+import domain.model.Recipe;
+
 import domain.service.InstrumentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +27,9 @@ import io.swagger.annotations.Authorization;
 @Api(value = "instrument", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
-public class InstrumentRestService {
+public class RecipeRestService {
 
+	/*
 	@Inject
 	private InstrumentService instrumentService;
 	@Inject
@@ -86,4 +90,6 @@ public class InstrumentRestService {
 	public void propagateAllInstruments() {
 		instrumentProducer.sendAllInstruments();
 	}
+	
+	*/
 }

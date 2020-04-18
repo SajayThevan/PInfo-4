@@ -11,12 +11,12 @@ import lombok.extern.java.Log;
 @ApplicationScoped
 @KafkaConfig(bootstrapServers = "#{thorntail.kafka-configuration.host}:#{thorntail.kafka-configuration.port}")
 @Log
-public class InstrumentConsumer {
+public class RecipeConsumer {
 
 	@Inject
-	private InstrumentProducer producer;
+	private RecipeProducer producer;
 
-	@Consumer(topics = "instrumentsReq", groupId = "pinfo-microservices")
+	/*@Consumer(topics = "instrumentsReq", groupId = "pinfo-microservices")
 	public void updateInstrument(final String message) {
 		log.info("Consumer got following message : " + message);
 		if ("all".equals(message)) {
@@ -30,5 +30,5 @@ public class InstrumentConsumer {
 				throw new IllegalArgumentException("Message must be wither a numeric instrument identifier or 'all'");
 			}
 		}
-	}
+	}*/
 }
