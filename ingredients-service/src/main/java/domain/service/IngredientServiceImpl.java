@@ -1,6 +1,7 @@
 package domain.service;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -8,24 +9,85 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import domain.model.Instrument;
+import domain.model.Ingredient;
 
 @ApplicationScoped
-public class InstrumentServiceImpl implements InstrumentService {
+public class IngredientServiceImpl implements IngredientService {
 
 	// TODO: Implement
 	
-	@PersistenceContext(unitName = "InstrumentPU")
+	@PersistenceContext(unitName = "IngredientPU")
 	private EntityManager em;
 
-	public InstrumentServiceImpl() {
+	public IngredientServiceImpl() {
 	}
+	
+	// https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html
 
-	public InstrumentServiceImpl(EntityManager em) {
+	public IngredientServiceImpl(EntityManager em) {
 		this();
 		this.em = em;
 	}
+	
+	@Override
+	public List<Ingredient> getAll() {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
+		criteria.from(Ingredient.class);
+		return em.createQuery(criteria).getResultList();
+	}
 
+	@Override
+	public Ingredient get(Long id) {
+		return em.find(Ingredient.class, id);
+	}
+
+	@Override
+	public int computeCalories(List<Integer> IngredientID) {
+		// TODO Auto-generated method stub
+		int totalCalories = 0;
+		for (int id : IngredientID) {
+			// take the kcal : 
+			Ingredient ing = em.find(Ingredient.class, id);
+			if (ing == null) {
+				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+			}
+			totalCalories += ing.getKcal();
+		}
+		return totalCalories;
+	}
+	
+	// return every ingredient containing possibleIngredient in their name 
+	// return : Array<(IngredientID, Name)>
+	@Override
+	public List<Object> getPossibleIngredients(String possibleIngredient) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
+		criteria.from(Ingredient.class);
+		List<Ingredient> allIngredients = em.createQuery(criteria).getResultList();
+		List<Object> possibilities = new ArrayList<>(); 
+		
+		for(Ingredient i : allIngredients) {
+			String nameIngredient = i.getName();
+			if (possibleIngredient.equals(nameIngredient)) {
+				List<Object> elt = new ArrayList<>(); 
+				elt.add(i.getId());
+				elt.add(nameIngredient);
+				possibilities.add(elt);
+			}
+		}
+		
+		return possibilities;
+	}
+	
+	@Override
+	public void create(Ingredient ingredient) {
+		if (ingredient.getId() != null) {
+			throw new IllegalArgumentException("Instrument already exists : " + ingredient.getId());
+		}
+		em.persist(ingredient);
+	}
+	/*
 	@Override
 	public List<Instrument> getAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -33,34 +95,5 @@ public class InstrumentServiceImpl implements InstrumentService {
 		criteria.from(Instrument.class);
 		return em.createQuery(criteria).getResultList();
 	}
-
-	@Override
-	public void update(Instrument instrument) {
-		Instrument i = em.find(Instrument.class, instrument.getId());
-		if (i == null) {
-			throw new IllegalArgumentException("Instrument does not exist : " + instrument.getId());
-		}
-		em.merge(instrument);
-	}
-
-	@Override
-	public Instrument get(Long instrumentId) {
-		return em.find(Instrument.class, instrumentId);
-	}
-
-	@Override
-	public void create(Instrument instrument) {
-		if (instrument.getId() != null) {
-			throw new IllegalArgumentException("Instrument already exists : " + instrument.getId());
-		}
-		em.persist(instrument);
-	}
-	
-	@Override
-	public Long count() {
-		CriteriaBuilder qb = em.getCriteriaBuilder();
-		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-		cq.select(qb.count(cq.from(Instrument.class)));
-		return em.createQuery(cq).getSingleResult();
-	}
+	*/
 }

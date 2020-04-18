@@ -14,8 +14,11 @@
 	<packaging>war</packaging>
 
 	<properties>
+		<container.folder>${project.build.directory}/wildfly-${wildfly.version}</container.folder>
 		<skip-docker-build>false</skip-docker-build>
+		<version.postgresql>42.2.2</version.postgresql>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -33,6 +36,10 @@
 		<dependency>
 			<groupId>io.thorntail</groupId>
 			<artifactId>transactions</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.thorntail</groupId>
+			<artifactId>swagger</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.enterprise</groupId>
@@ -59,6 +66,35 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.aerogear.kafka</groupId>
+			<artifactId>kafka-cdi-extension</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${java-ee-api.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-entitymanager.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.github.dadrus.jpa-unit</groupId>
+			<artifactId>jpa-unit5</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.dadrus.jpa-unit</groupId>
+			<artifactId>jpa-unit-rdbms</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 		</dependency>
@@ -76,9 +112,14 @@
 			<artifactId>hamcrest-all</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.jdbc.driver.version}</version>
+		</dependency>
 	</dependencies>
-
 	<build>
+
 		<plugins>
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -193,7 +234,41 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+						<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.h2database</groupId>
+						<artifactId>h2</artifactId>
+						<version>${version.h2}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<driver>org.h2.Driver</driver>
+					<url>jdbc:h2:${java.io.tmpdir}/target/IngredientDB;AUTO_SERVER=TRUE;AUTO_SERVER=TRUE</url>
+					<username>sa</username>
+					<password>sa</password>
+					<autocommit>true</autocommit>
+					<skip>${maven.test.skip}</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>create-db</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<srcFiles>
+								<srcFile>${project.basedir}/src/main/resources/META-INF/ingredients_test_data.sql</srcFile>
+							</srcFiles>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>
