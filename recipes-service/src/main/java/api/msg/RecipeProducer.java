@@ -8,7 +8,7 @@ import org.aerogear.kafka.cdi.annotation.KafkaConfig;
 import org.aerogear.kafka.cdi.annotation.Producer;
 
 import domain.model.Recipe;
-import domain.service.InstrumentService;
+import domain.service.RecipeService;
 import lombok.extern.java.Log;
 
 @ApplicationScoped

@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import api.msg.RecipeProducer;
 import domain.model.Recipe;
 
-import domain.service.InstrumentService;
+import domain.service.RecipeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
