@@ -1,64 +1,47 @@
 package domain.service;
 
+
+import java.lang.reflect.Array;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.validation.constraints.NotNull;
 
-import domain.model.Instrument;
+import domain.model.CategoryEnum;
+import domain.model.Recipe;
+import lombok.Data;
 
 @ApplicationScoped
-public class InstrumentServiceImpl implements InstrumentService {
-
-	@PersistenceContext(unitName = "InstrumentPU")
+public class RecipeServiceImpl implements RecipeService {
+	
+	@PersistenceContext(unitName = "RecipePU")
 	private EntityManager em;
-
-	public InstrumentServiceImpl() {
+	
+	
+	public RecipeServiceImpl() {
 	}
 
-	public InstrumentServiceImpl(EntityManager em) {
+	public RecipeServiceImpl(EntityManager em) {
 		this();
 		this.em = em;
 	}
-
-	@Override
-	public List<Instrument> getAll() {
-		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Instrument> criteria = builder.createQuery(Instrument.class);
-		criteria.from(Instrument.class);
-		return em.createQuery(criteria).getResultList();
-	}
-
-	@Override
-	public void update(Instrument instrument) {
-		Instrument i = em.find(Instrument.class, instrument.getId());
-		if (i == null) {
-			throw new IllegalArgumentException("Instrument does not exist : " + instrument.getId());
-		}
-		em.merge(instrument);
-	}
-
-	@Override
-	public Instrument get(Long instrumentId) {
-		return em.find(Instrument.class, instrumentId);
-	}
-
-	@Override
-	public void create(Instrument instrument) {
-		if (instrument.getId() != null) {
-			throw new IllegalArgumentException("Instrument already exists : " + instrument.getId());
-		}
-		em.persist(instrument);
-	}
 	
-	@Override
-	public Long count() {
-		CriteriaBuilder qb = em.getCriteriaBuilder();
-		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-		cq.select(qb.count(cq.from(Instrument.class)));
-		return em.createQuery(cq).getSingleResult();
+	
+	//TODO: Implement that shit
+	
+	public void addRecipe(Recipe r) {
+		if (r.getId() != null) {
+			throw new IllegalArgumentException("Instrument already exists : " + r.getId());
+		}
+		em.persist(r);
 	}
+
+	
 }

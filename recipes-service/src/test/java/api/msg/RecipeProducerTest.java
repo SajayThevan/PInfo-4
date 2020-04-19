@@ -1,5 +1,7 @@
 package api.msg;
 
+//TODO: import.model.<attribut>
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
@@ -19,13 +21,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domain.model.Bond;
-import domain.model.Instrument;
-import domain.service.InstrumentService;
 
 @ExtendWith(MockitoExtension.class)
-class InstrumentProducerTest {
+class RecipeProducerTest {
 
+	/*
+	  
+	 ********************* Keep for test examplt ************* 
+	 
 	@Mock
 	private SimpleKafkaProducer<String, Instrument> kafkaProducer;
 	@Mock
@@ -86,6 +89,8 @@ class InstrumentProducerTest {
 		b.setQuantity(Long.valueOf(Math.round(Math.random() * 1000)));
 		return b;
 	}
+	
+	*/
 
 	
 }
