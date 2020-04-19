@@ -12,7 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-//import api.msg.InstrumentProducer;
+import api.msg.IngredientProducer;
 import domain.model.Ingredient;
 import domain.service.IngredientService;
 import io.swagger.annotations.Api;
@@ -28,10 +28,18 @@ public class IngredientRestService {
 
 	@Inject
 	private IngredientService ingredientService;
-	/*
+	
 	@Inject
 	private IngredientProducer ingredientProducer;
-	*/
+	
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get all the instruments",
+    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
+	public List<Ingredient> getAll() {
+		return ingredientService.getAll();
+	}
 	
 	@GET
 	@Path("{id}")
@@ -56,6 +64,24 @@ public class IngredientRestService {
 	@ApiOperation(value = "Get the possible ingredients")
     public List<Object> getPossibleIngredients(String possibleIngredient) {
 		return ingredientService.getPossibleIngredients(possibleIngredient);
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Create a new instrument",
+    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
+	public void create(Ingredient instrument) {
+		ingredientService.create(instrument);
+		ingredientProducer.send(instrument);
+	}
+	
+	@POST
+	@Path("propagateAllInstruments")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Propagate all instruments to the bus to sync up downstream services",
+    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
+	public void propagateAllInstruments() {
+		ingredientProducer.sendAllIngredients();
 	}
 	
 	/*

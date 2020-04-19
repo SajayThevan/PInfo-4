@@ -1,5 +1,6 @@
 package api.msg;
 
+//import org.apache.kafka.clients.consumer.ConsumerRebalanceListener 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.aerogear.kafka.SimpleKafkaProducer;

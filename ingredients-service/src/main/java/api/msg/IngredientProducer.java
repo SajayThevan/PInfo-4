@@ -20,7 +20,14 @@ public class IngredientProducer {
 	private SimpleKafkaProducer<String, Ingredient> producer;
 
 	@Inject
-	private IngredientService instrumentService;
+	private IngredientService ingredientService;
+	
+	public void sendAllIngredients() {
+		log.info("Send the current state of ALL instruments to the topic");
+		for (Ingredient ingredient : ingredientService.getAll()) {
+			producer.send("instruments", ingredient);	
+		}
+	}
 
 	public void send(Ingredient ingredient) {
 		log.info("Send the state of an ingredient to the topic with id " + ingredient.getId() );
@@ -29,7 +36,7 @@ public class IngredientProducer {
 
 	public void send(Long ingredientId) {
 		log.info("Send the state of an instrument to the topic with id " + ingredientId);
-		Ingredient ingredient = instrumentService.get(ingredientId);
+		Ingredient ingredient = ingredientService.get(ingredientId);
 		if (ingredient != null) {
 			send(ingredient);
 		}
