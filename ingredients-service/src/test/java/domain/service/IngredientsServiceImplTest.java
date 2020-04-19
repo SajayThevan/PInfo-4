@@ -19,52 +19,79 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domain.model.Bond;
 import domain.model.Ingredient;
 import eu.drus.jpa.unit.api.JpaUnit;
 
+//import domain.service.IngredientServiceImpl;  
+
 @ExtendWith(JpaUnit.class)
 @ExtendWith(MockitoExtension.class)
-class IngredientServiceImplTest {
+class IngredientsServiceImplTest {
 
 	@Spy
 	@PersistenceContext(unitName = "IngredientPUTest")
 	EntityManager em;
 
 	@InjectMocks
-	private IngredientServiceImpl ingredientService;
-	
+	private IngredientServiceImpl ingredientsService;
+	/*
 	@Test
 	void testGet() {
-		ingredientService.create(getRandomIngredient());
-		Ingredient ingredient = ingredientService.getAll().get(0);
+		System.out.println("--- testGet : ---");
+		ingredientsService.create(getRandomIngredient());
+		Ingredient ingredient = ingredientsService.getAll().get(0);
 		assertNotNull(ingredient);
 		Long id = ingredient.getId();
-		Ingredient getInstrument = ingredientService.get(id);
-		assertEquals(ingredient.getName(), getInstrument.getName());
+		Ingredient getIngredient = ingredientsService.get(id);
+		assertEquals(ingredient.getName(), getIngredient.getName());
 	}
+	*/
+	@Test
+	void testGet() {
+		System.out.println("--- testGet : ---");
+		Long id = (long) 1;
+		Ingredient ing = ingredientsService.get(id);
+		System.out.println("YOUHOU ICI ");
+		System.out.println("Ingredient = " + ing.getName());
+	}
+
 
 	@Test
 	void testGetNonExistant() {
-		List<Ingredient> ingredients = ingredientService.getAll();
+		System.out.println("--- testGetNonExistant : ---");
+		List<Ingredient> ingredients = ingredientsService.getAll();
 		System.out.println("testGetNonExistant:" + ingredients.size());
 
-		assertNull(ingredientService.get(Long.MAX_VALUE));
+		assertNull(ingredientsService.get(Long.MAX_VALUE));
 	}
+	
+	@Test
+	void testCreate() {
+		System.out.println("--- testCreate : ---");
+		// RECRIRE LE GET!! 
+		Ingredient ingredientTest = getRandomIngredient();
+		ingredientsService.create(ingredientTest);
+		assertNotNull(ingredientTest.getId());
+	}
+	
 	@Test
 	private Ingredient getRandomIngredient() {
-		Bond b = new Bond();
-		b.setName(UUID.randomUUID().toString());
-		b.setKcal((int) Math.round(Math.random()*1000));
-		b.setFat((int) Math.round(Math.random()*1000));
-		b.setCholesterol((int) Math.round(Math.random()*1000));
-		b.setProtein((int) Math.round(Math.random()*1000));
-		b.setCholesterol((int) Math.round(Math.random()*1000));
-		b.setSalt((int) Math.round(Math.random()*1000));
+		Ingredient ing = new Ingredient();
+		//ing.setName(UUID.randomUUID().toString());
+		ing.setName("test hello");
+		ing.setKcal((int) Math.round(Math.random()*1000));
+		//ing.setFat((int) Math.round(Math.random()*1000));
+		ing.setFat(3);
+		ing.setCholesterol((int) Math.round(Math.random()*1000));
+		ing.setProtein((int) Math.round(Math.random()*1000));
+		ing.setCholesterol((int) Math.round(Math.random()*1000));
+		ing.setSalt((int) Math.round(Math.random()*1000));
+		/*
 		b.setMaturityDate(new Date());
 		b.setIsin(UUID.randomUUID().toString());
 		b.setQuantity(Long.valueOf(Math.round(Math.random()*1000)));
-		return b;
+		*/
+		return ing;
 	}
 	
 }
