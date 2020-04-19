@@ -1,5 +1,7 @@
 package domain.model;
 
+import javax.persistence.ElementCollection;
+
 //import javax.inject;
 
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 import java.util.ArrayList;
 
 
@@ -23,14 +26,6 @@ import java.util.ArrayList;
 @Entity
 public class Recipe {
 	
-	public Recipe(String name2, int profilID,String date,int difficulty2, int time2) {
-			this.name = name2;
-			this.date = date;
-			this.authorID = profilID;
-			this.difficulty = difficulty2;
-			this.time = time2;	
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -39,20 +34,23 @@ public class Recipe {
 	private String name;
 	
 	@NotNull
-	private int authorID; // ProfileID
+	private Long authorID; // ProfileID
 	
 	@NotNull
 	//private Date date;
 	private String date;
 	
-	//@NotNull
-	//private ArrayList<Integer> ingredients; // IngredientID
+	@NotNull
+	@ElementCollection
+	private List<Long> ingredients; // IngredientID
 	
-	//@NotNull
-	//private ArrayList<String> steps;
+	@NotNull
+	@ElementCollection
+	List<String> steps;
 	
-	//@NotNull
-	//private ArrayList<CategoryEnum> category; // 
+	@NotNull
+	@ElementCollection
+	private List<CategoryEnum> category; // 
 	
 	@NotNull
 	private int difficulty;
@@ -60,11 +58,13 @@ public class Recipe {
 	@NotNull
 	private int time;
 	
-	//@NotNull
-	//private ArrayList<Integer> ratings;
+	@NotNull
+	@ElementCollection
+	private List<Integer> ratings;
 	
-	//@NotNull
-	//private ArrayList<String> comments;
+	@NotNull
+	@ElementCollection
+	private List<String> comments;
 	
 	public void addComent(String comment) {
 		//TODO: Implements once figure out how to do with comments
