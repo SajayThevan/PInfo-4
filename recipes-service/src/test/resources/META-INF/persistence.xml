@@ -11,18 +11,18 @@
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
 			<property name="javax.persistence.jdbc.url"
-		    	value="jdbc:h2:mem:InstrumentDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
+		    	value="jdbc:h2:mem:RecipeDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
 			<property name="javax.persistence.jdbc.user" value="sa" />
 			<property name="javax.persistence.jdbc.password" value="sa" />
-								  		
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+								 
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />		
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.id.new_generator_mappings" value="true" />
 			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8"/>	
-			<property name="javax.persistence.sql-load-script-source" value="META-INF/recipe_test_data.sql"/>
+			<property name="javax.persistence.sql-load-script-source" value="${project.basedir}/src/main/resources/META-INF/recipes_test_data.sql"/>
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -39,21 +39,9 @@ class RecipesServiceImplTest {
 
 	@Test
 	void testDatabase() {
-		em.createNativeQuery("INSERT INTO Recipe (id,authorID,date,difficulty,name,time) VALUES (1,100,'demain',2,'pizza',2)").executeUpdate();
+		em.createNativeQuery("INSERT INTO recipe ( authorID, date, difficulty, name, time) VALUES ( 1, 'demain',2,'choux fleur',1);").executeUpdate();
 		List reDB = em.createQuery("SELECT name from Recipe").getResultList();
-		assertEquals(reDB.size(),1);
+		assertEquals(reDB.size(),2);
 	}
 	
-	
-	@Test
-	void testaddRecipe() {
-		Recipe re= new Recipe("Pates", 1,"date",2, 2);
-		System.out.println(re.getName());
-		recipesService.addRecipe(re);
-		System.out.println("Start test addRecipe");
-
-		assertEquals(re.getTime(),1+1);
-	}
-
-
 }
