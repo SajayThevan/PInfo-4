@@ -40,7 +40,7 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	public void addRecipe(Recipe r) {
 		if (r.getId() != null) {
-			throw new IllegalArgumentException("Instrument already exists : " + r.getId());
+			throw new IllegalArgumentException("Recipe already exists : " + r.getId());
 		}
 		em.persist(r);
 	}
@@ -64,8 +64,8 @@ public class RecipeServiceImpl implements RecipeService {
         return listToReturn;
 	}
 	
-	public List getRecipiesIdForProfiles(int id){
-		List ids = em.createQuery("SELECT id from Recipe where author = id").getResultList();
+	public List getRecipiesIdForProfiles(long id){
+		List ids = em.createQuery("SELECT id from Recipe where authorID = id").getResultList();
 		return ids;
 	}
 	
