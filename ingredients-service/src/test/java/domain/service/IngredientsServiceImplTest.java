@@ -51,7 +51,7 @@ class IngredientServiceImplTest {
 
 		assertNull(ingredientService.get(Long.MAX_VALUE));
 	}
-
+	@Test
 	private Ingredient getRandomIngredient() {
 		Bond b = new Bond();
 		b.setName(UUID.randomUUID().toString());
@@ -66,4 +66,5 @@ class IngredientServiceImplTest {
 		b.setQuantity(Long.valueOf(Math.round(Math.random()*1000)));
 		return b;
 	}
+	
 }
