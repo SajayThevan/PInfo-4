@@ -52,7 +52,7 @@ public class Recipe {
 	//private ArrayList<String> steps;
 	
 	//@NotNull
-	//private ArrayList<CategoryEnum> category; // TODO: Test the enum
+	//private ArrayList<CategoryEnum> category; // 
 	
 	@NotNull
 	private int difficulty;
@@ -65,5 +65,14 @@ public class Recipe {
 	
 	//@NotNull
 	//private ArrayList<String> comments;
+	
+	public void addComent(String comment) {
+		//TODO: Implements once figure out how to do with comments
+		//this.comments.add(comment);
+	}
+	
+	public void updateRating(int rate) {
+		//TODO: Implements once we figure out how to do with ratings
+	}
 
 }
