@@ -9,7 +9,9 @@ package domain.model;
 //import io.swagger.annotations.ApiModel; -- These are not used for the moment --  If error fix the project to add the libraries.
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -46,11 +48,13 @@ public class Profile {
 	@NotNull
 	private int score;
 	
-	// Lists
+
 	@NotNull
-	private ArrayList<AbstractMap.SimpleEntry<Integer, Integer>> fridge_contents; // <(IngredientID, Quantity)> 
+	@ElementCollection
+	private List<AbstractMap.SimpleEntry<Integer, Integer>> fridge_contents; // <(IngredientID, Quantity)> 
 		
 	@NotNull
-	private ArrayList<Integer> favourite_recipes; // <RecipeID> //
+	@ElementCollection
+	private List<Integer> favourite_recipes; // <RecipeID> //
 	
 }

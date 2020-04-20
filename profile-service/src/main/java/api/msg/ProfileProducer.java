@@ -33,38 +33,16 @@ public class ProfileProducer {
 		producer.send("profiles", profile);			
 	}
 
-// 			IN COMMENT FOR THE MOMENT BUT USEFUL
-//	public void send(Long profileId) {
-//		log.info("Send the state of an profile to the topic with id " + profileId);
-//		Profile profile = ProfileService.get(profileId);       // Error: I have to modify ProfileService.java get(Long profileId) to static ? (It add a body to the method get in profileService)
-//		if (profile != null) {								  //  I think the error is due to the way we define the dataBase at the moment, we should not fix the error quickly as suggested.
-//			send(profile);
-//		}
-//	}
+ 			
+	public void send(Long profileId) {
+		log.info("Send the state of an profile to the topic with id " + profileId);
+		Profile profile = profileService.get(profileId);      
+		if (profile != null) {								  
+			send(profile);
+		}
+	}
 }
 
 
 
-
-// I let those in comment no to be forced to see it on github -> me speak very good English language
-
-//public void sendAllInstruments() {
-//	log.info("Send the current state of ALL instruments to the topic");
-//	for (Profile profile : instrumentService.getAll()) {
-//		producer.send("instruments", profile);	
-//	}
-//}
-//
-//public void send(Profile profile) {
-//	log.info("Send the state of an profile to the topic with id " + profile.getId() );
-//	producer.send("instruments", profile);			
-//}
-//
-//public void send(Long instrumentId) {
-//	log.info("Send the state of an profile to the topic with id " + instrumentId);
-//	Profile profile = instrumentService.get(instrumentId);
-//	if (profile != null) {
-//		send(profile);
-//	}
-//}
 
