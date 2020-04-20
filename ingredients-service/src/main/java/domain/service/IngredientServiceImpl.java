@@ -3,6 +3,9 @@ package domain.service;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.io.*; 
+import java.lang.*; 
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -43,10 +46,9 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 
 	@Override
-	public int computeCalories(List<Integer> IngredientID) {
-		// TODO Auto-generated method stub
+	public int computeCalories(List<Long> IngredientID) {
 		int totalCalories = 0;
-		for (int id : IngredientID) {
+		for (Long id : IngredientID) {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
@@ -69,7 +71,7 @@ public class IngredientServiceImpl implements IngredientService {
 		
 		for(Ingredient i : allIngredients) {
 			String nameIngredient = i.getName();
-			if (possibleIngredient.equals(nameIngredient)) {
+			if (nameIngredient.contains(possibleIngredient)) {
 				List<Object> elt = new ArrayList<>(); 
 				elt.add(i.getId());
 				elt.add(nameIngredient);

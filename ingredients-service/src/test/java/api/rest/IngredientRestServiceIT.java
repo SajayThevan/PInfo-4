@@ -12,8 +12,13 @@ public class IngredientRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {
-		RestAssured.baseURI = "http://localhost:28080/instrument";
+		RestAssured.baseURI = "http://localhost:28080/ingredient";
 		RestAssured.port = 8080;
+	}
+	
+	@Test
+	public void testGetAll() {
+		when().get("/").then().body(containsString("254900LAW6SKNVPBBN21"));
 	}
 
 	@Test
@@ -21,14 +26,15 @@ public class IngredientRestServiceIT {
 		when().get("/1").then().body(containsString("254900LAW6SKNVPBBN21"));
 	}
 
+	// see how we want to manage paths !!  
 	@Test
-	public void testcomputeCalories() {
-		when().get("/computeCalories").then().body(containsString("10"));
+	public void testComputeCalories() {
+		when().get("/computeCalories/[2, 3]").then().body(containsString("10"));
 	}
 	
 	@Test
 	public void testGetPossibleIngredients() {
-		when().get("/getPossibleIngredients").then().body(containsString("10"));
+		when().get("/getPossibleIngredients/choco").then().body(containsString("10"));
 	}
 
 }
