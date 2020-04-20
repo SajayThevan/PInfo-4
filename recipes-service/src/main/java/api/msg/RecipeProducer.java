@@ -1,5 +1,7 @@
 package api.msg;
 
+import java.util.ArrayList;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -16,29 +18,21 @@ import lombok.extern.java.Log;
 @Log
 public class RecipeProducer {
 
-	/*@Producer
-	private SimpleKafkaProducer<String, Instrument> producer;
-
+	@SuppressWarnings("rawtypes")
+	@Producer
+	private SimpleKafkaProducer<String, ArrayList> producer;
+	
 	@Inject
-	private InstrumentService instrumentService;
+	private RecipeService rs;
 
-	public void sendAllInstruments() {
-		log.info("Send the current state of ALL instruments to the topic");
-		for (Instrument instrument : instrumentService.getAll()) {
-			producer.send("instruments", instrument);	
-		}
+	@SuppressWarnings("rawtypes")
+	public void sendRecipeAdded(Recipe r) {
+		log.info("Send that a recipe has been added");
+		ArrayList toSend = new ArrayList();
+		toSend.add(r.getAuthorID());
+		toSend.add(r.getId());
+		producer.send("Recipe added",toSend);
 	}
+	
 
-	public void send(Instrument instrument) {
-		log.info("Send the state of an instrument to the topic with id " + instrument.getId() );
-		producer.send("instruments", instrument);			
-	}
-
-	public void send(Long instrumentId) {
-		log.info("Send the state of an instrument to the topic with id " + instrumentId);
-		Instrument instrument = instrumentService.get(instrumentId);
-		if (instrument != null) {
-			send(instrument);
-		}
-	}*/
 }
