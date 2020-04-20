@@ -13,7 +13,7 @@ public interface IngredientService {
 	void create(Ingredient ingredient);
 	//int computeCalories(Array<int IngredientID>);  
 	// use instead : https://www.w3schools.com/java/java_arrays.asp
-	int computeCalories(List<Integer> IngredientID);
+	int computeCalories(List<Long> IngredientID);
 	// OR :
 	//int computeCalories(int[] IngredientID);
 	// ------

@@ -23,9 +23,9 @@ public class IngredientProducer {
 	private IngredientService ingredientService;
 	
 	public void sendAllIngredients() {
-		log.info("Send the current state of ALL instruments to the topic");
+		log.info("Send the current state of ALL ingredients to the topic");
 		for (Ingredient ingredient : ingredientService.getAll()) {
-			producer.send("instruments", ingredient);	
+			producer.send("ingredients", ingredient);	
 		}
 	}
 
@@ -35,7 +35,7 @@ public class IngredientProducer {
 	}
 
 	public void send(Long ingredientId) {
-		log.info("Send the state of an instrument to the topic with id " + ingredientId);
+		log.info("Send the state of an ingredient to the topic with id " + ingredientId);
 		Ingredient ingredient = ingredientService.get(ingredientId);
 		if (ingredient != null) {
 			send(ingredient);

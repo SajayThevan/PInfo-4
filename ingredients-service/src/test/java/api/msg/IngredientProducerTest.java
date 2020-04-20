@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,68 +22,68 @@ import domain.model.Ingredient;
 import domain.service.IngredientService;
 
 @ExtendWith(MockitoExtension.class)
-class InstrumentProducerTest {
+class IngredientProducerTest {
 
 	@Mock
 	private SimpleKafkaProducer<String, Ingredient> kafkaProducer;
 	@Mock
-	private IngredientService instrumentService;
+	private IngredientService ingredientService;
 
 	@InjectMocks
 	private IngredientProducer producer;
-	/*
+
 	@Test
-	void testSendAllInstruments() {
-		List<Instrument> instruments = getRandomInstrumentCollection();
-		when(instrumentService.getAll()).thenReturn(instruments);
-		producer.sendAllInstruments();
-		verify(kafkaProducer, times(instruments.size())).send(eq("instruments"), any(Instrument.class));
+	void testSendAllIngredients() {
+		List<Ingredient> ingredients = getRandomIngredientCollection();
+		when(ingredientService.getAll()).thenReturn(ingredients);
+		producer.sendAllIngredients();
+		verify(kafkaProducer, times(ingredients.size())).send(eq("instruments"), any(Ingredient.class));
 	}
 
 	@Test
-	void testSendInstrument() {
-		Instrument instrument = getRandomInstrument();
-		producer.send(instrument);
-		verify(kafkaProducer, times(1)).send("instruments", instrument);
+	void testSendIngredient() {
+		Ingredient ingredients = getRandomIngredient();
+		producer.send(ingredients);
+		verify(kafkaProducer, times(1)).send("ingredients", ingredients);
 	}
 
 	@Test
 	void testSendLong() {
-		Instrument instrument = getRandomInstrument();
-		when(instrumentService.get(instrument.getId())).thenReturn(instrument);
-		producer.send(instrument.getId());
-		verify(kafkaProducer, times(1)).send("instruments", instrument);
+		Ingredient ingredients = getRandomIngredient();
+		when(ingredientService.get(ingredients.getId())).thenReturn(ingredients);
+		producer.send(ingredients.getId());
+		verify(kafkaProducer, times(1)).send("ingredients", ingredients);
 	}
 
 	@Test
 	void testSendLongNull() {
-		Instrument instrument = getRandomInstrument();
-		when(instrumentService.get(instrument.getId())).thenReturn(null);
-		producer.send(instrument.getId());
-		verify(kafkaProducer, times(0)).send("instruments", instrument);
+		Ingredient ingredients = getRandomIngredient();
+		when(ingredientService.get(ingredients.getId())).thenReturn(null);
+		producer.send(ingredients.getId());
+		verify(kafkaProducer, times(0)).send("ingredients", ingredients);
 	}
 
-	private List<Instrument> getRandomInstrumentCollection() {
-		List<Instrument> instruments = new ArrayList<>();
+	private List<Ingredient> getRandomIngredientCollection() {
+		List<Ingredient> ingredients = new ArrayList<>();
 		long numberOfInstrument = Math.round((Math.random() * 1000));
 		for (int i = 0; i < numberOfInstrument; i++) {
-			instruments.add(getRandomInstrument());
+			ingredients.add(getRandomIngredient());
 		}
-		return instruments;
+		return ingredients;
 	}
 
-	private Instrument getRandomInstrument() {
-		Bond b = new Bond();
-		b.setBrokerLei(UUID.randomUUID().toString());
-		b.setCounterpartyLei(UUID.randomUUID().toString());
-		b.setAmountInOriginalCurrency(new BigDecimal("0.0"));
-		b.setOriginalCurrency("USD");
-		b.setValueDate(new Date());
-		b.setMaturityDate(new Date());
-		b.setIsin(UUID.randomUUID().toString());
-		b.setQuantity(Long.valueOf(Math.round(Math.random() * 1000)));
-		return b;
+	private Ingredient getRandomIngredient() {
+		Ingredient ing = new Ingredient();
+		//ing.setName(UUID.randomUUID().toString());
+		ing.setName("ingredient test0");
+		ing.setKcal(8);
+		//ing.setFat((int) Math.round(Math.random()*1000));
+		ing.setFat(3);
+		ing.setCholesterol(4);
+		ing.setProtein(5);
+		ing.setCholesterol(6);
+		ing.setSalt(7);
+		return ing;
 	}
-*/
 	
 }

@@ -35,8 +35,8 @@ public class IngredientRestService {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get all the instruments",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
+	@ApiOperation(value = "Get all the ingredients",
+    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
 	public List<Ingredient> getAll() {
 		return ingredientService.getAll();
 	}
@@ -44,43 +44,43 @@ public class IngredientRestService {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc instrument",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
+	@ApiOperation(value = "Get a specifc ingredient",
+    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
 	public Ingredient get(@PathParam("id") Long IngredientId) {
 		return ingredientService.get(IngredientId);
 	}
 	
 	@GET
-	@Path("/computeCalories")
+	@Path("/computeCalories/{listIngredients}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a the count of instrument")
-    public int computeCalories(@PathParam("id") List<Integer> IngredientID) {
+	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
+    public int computeCalories(@PathParam("listIngredients") List<Long> IngredientID) {
 		return ingredientService.computeCalories(IngredientID);
 	}
 	
 	@GET
-	@Path("/PossibleIngredients")
+	@Path("/PossibleIngredients/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get the possible ingredients")
-    public List<Object> getPossibleIngredients(String possibleIngredient) {
-		return ingredientService.getPossibleIngredients(possibleIngredient);
+	@ApiOperation(value = "Get the possible ingredients compared to a string")
+    public List<Object> getPossibleIngredients(@PathParam("name") String ingredientWanted) {
+		return ingredientService.getPossibleIngredients(ingredientWanted);
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Create a new instrument",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public void create(Ingredient instrument) {
-		ingredientService.create(instrument);
-		ingredientProducer.send(instrument);
+	@ApiOperation(value = "Create a new ingredient",
+    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
+	public void create(Ingredient ingredient) {
+		ingredientService.create(ingredient);
+		ingredientProducer.send(ingredient);
 	}
 	
 	@POST
-	@Path("propagateAllInstruments")
+	@Path("propagateAllIngredients")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Propagate all instruments to the bus to sync up downstream services",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public void propagateAllInstruments() {
+	@ApiOperation(value = "Propagate all ingredients to the bus to sync up downstream services",
+    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
+	public void propagateAllIngredients() {
 		ingredientProducer.sendAllIngredients();
 	}
 	
@@ -92,15 +92,6 @@ public class IngredientRestService {
 	public void upadte(Instrument instrument) {
 		instrumentService.update(instrument);
 		instrumentProducer.send(instrument);
-	}
-	
-	@POST
-	@Path("propagateAllIngredients")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Propagate all instruments to the bus to sync up downstream services",
-    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
-	public void propagateAllInstruments() {
-		ingredientProducer.sendAllInstruments();
 	}
 	*/
 }
