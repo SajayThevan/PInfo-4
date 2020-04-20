@@ -67,12 +67,11 @@ public class Recipe {
 	private List<String> comments;
 	
 	public void addComent(String comment) {
-		//TODO: Implements once figure out how to do with comments
-		//this.comments.add(comment);
+		this.comments.add(comment);
 	}
 	
 	public void updateRating(int rate) {
-		//TODO: Implements once we figure out how to do with ratings
+		this.ratings.add(rate);
 	}
 
 }

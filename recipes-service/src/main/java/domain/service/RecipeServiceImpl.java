@@ -12,6 +12,8 @@ import org.javatuples.Triplet;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.constraints.NotNull;
@@ -45,16 +47,17 @@ public class RecipeServiceImpl implements RecipeService {
 		em.persist(r);
 	}
 	
-	public void addRating(int id,int rate) {
+	public void addRating(long id,int rate) {
 		Recipe r = em.find(Recipe.class, id);
 		r.updateRating(rate);
 		em.merge(r);
 	}
 
-	public ArrayList<Triplet> getRecipesForProfil(int id){
-		//TODO: Update when decidie how to store array
-		
-		List<Recipe> tmp = em.createQuery("SELECT * from Recipe where author = id").getResultList();
+	public ArrayList<Triplet> getRecipesForProfil(long id){
+		String sID = String.valueOf(id);
+		String q = "select * from Recipe where authorID = "+sID;
+		Query query = em.createNativeQuery(q,Recipe.class);
+		List<Recipe> tmp =query.getResultList();
 		ArrayList<Triplet> listToReturn = new ArrayList();
         Iterator it = tmp.iterator();
         while (it.hasNext()) {
@@ -69,27 +72,37 @@ public class RecipeServiceImpl implements RecipeService {
 		return ids;
 	}
 	
-	public void addComment(String comment, int id) {
+	public void addComment(String comment, long id) {
 		Recipe r = em.find(Recipe.class, id);
 		r.addComent(comment);
 		em.merge(r);
 	}
 	
-	public void removeRecipe(int id) {
+	public void removeRecipe(long id) {
 		Recipe r = em.find(Recipe.class, id);
-		em.detach(r);
+		em.remove(r);
 	}
 	
-	public ArrayList getRecipe(int id) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ArrayList getRecipe(long id) {
+		//Return an ArrayList as follow:
+		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
+		
 		Recipe r = em.find(Recipe.class, id);
-		ArrayList rl = new ArrayList();
-		rl.add(r.getName());
-		rl.add(r.getDate());
-		rl.add(r.getAuthorID());
-		rl.add(r.getDifficulty());
-		rl.add(r.getTime());
-		//TODO: Finish and be sure to pass an ArrayList r.get
-		return rl;
+		ArrayList l = new ArrayList();
+		l.add(r.getId());
+		l.add(r.getName());
+		l.add(r.getAuthorID());
+		l.add(r.getDate());
+		l.add(r.getIngredients());
+		l.add(r.getSteps());
+		l.add(r.getCategory());
+		l.add(r.getDifficulty());
+		l.add(r.getTime());
+		l.add(r.getRatings());
+		l.add(r.getComments());
+	
+		return l;
 	}
 	
 	

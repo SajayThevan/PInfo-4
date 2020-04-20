@@ -11,10 +11,13 @@ import domain.model.Recipe;
 
 public interface RecipeService {
 	public void addRecipe(Recipe r);
-	public void addRating(int id,int rate);
-	public ArrayList<Triplet> getRecipesForProfil(int id);
-	public List getRecipiesIdForProfiles(int id);
-	public void addComment(String comment, int id);
-	public void removeRecipe(int id);
-	public ArrayList getRecipe(int id);
+	public void addRating(long id,int rate);
+	public ArrayList<Triplet> getRecipesForProfil(long id);
+	public List getRecipiesIdForProfiles(long id);
+	public void addComment(String comment, long id);
+	public void removeRecipe(long id);
+	public ArrayList getRecipe(long id);
+	//Return an ArrayList as follow:
+	//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
+	
 }
