@@ -24,8 +24,8 @@ public class ProfileConsumer {
 		} else {
 			// interpret the instrument id
 			try {
-				//Long profileId = Long.valueOf(message);  // Error due to the function "send(profileId)" defined in ProfileProducer.java waiting for the database issue.
-				//producer.send(profileId);        
+				Long profileId = Long.valueOf(message);  // Error due to the function "send(profileId)" defined in ProfileProducer.java waiting for the database issue.
+				producer.send(profileId);        
 			} catch(NumberFormatException e) {
 				throw new IllegalArgumentException("Message must be wither a numeric profile identifier or 'all'");
 			}

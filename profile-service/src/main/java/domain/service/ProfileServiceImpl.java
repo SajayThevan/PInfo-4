@@ -13,7 +13,7 @@ import domain.model.Profile;
 @ApplicationScoped
 public class ProfileServiceImpl implements ProfileService {
 	
-	@PersistenceContext(unitName = "InstrumentPU") // What is the unitName?
+	@PersistenceContext(unitName = "ProfilePU") 
 	private EntityManager em;
 
 	public ProfileServiceImpl() {
@@ -36,7 +36,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public void update(Profile profile) {
 		Profile p = em.find(Profile.class, profile.getId());
 		if (p == null) {
-			throw new IllegalArgumentException("Instrument does not exist : " + profile.getId());
+			throw new IllegalArgumentException("Profile does not exist : " + profile.getId());
 		}
 		em.merge(profile);
 	}
@@ -48,7 +48,7 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public void create(Profile profile) {
 		if (profile.getId() != null) {
-			throw new IllegalArgumentException("Instrument already exists : " + profile.getId());
+			throw new IllegalArgumentException("Profile already exists : " + profile.getId());
 		}
 		em.persist(profile);
 	}
@@ -62,48 +62,4 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	
-	
-	
-	
-
-	
-// I let those in comment no to be forced to see it on github -> me speak very good English language
-
-//	@Override
-//	public List<Instrument> getAll() {
-//		CriteriaBuilder builder = em.getCriteriaBuilder();
-//		CriteriaQuery<Instrument> criteria = builder.createQuery(Instrument.class);
-//		criteria.from(Instrument.class);
-//		return em.createQuery(criteria).getResultList();
-//	}
-//
-//	@Override
-//	public void update(Instrument instrument) {
-//		Instrument i = em.find(Instrument.class, instrument.getId());
-//		if (i == null) {
-//			throw new IllegalArgumentException("Instrument does not exist : " + instrument.getId());
-//		}
-//		em.merge(instrument);
-//	}
-//
-//	@Override
-//	public Instrument get(Long instrumentId) {
-//		return em.find(Instrument.class, instrumentId);
-//	}
-//
-//	@Override
-//	public void create(Instrument instrument) {
-//		if (instrument.getId() != null) {
-//			throw new IllegalArgumentException("Instrument already exists : " + instrument.getId());
-//		}
-//		em.persist(instrument);
-//	}
-//	
-//	@Override
-//	public Long count() {
-//		CriteriaBuilder qb = em.getCriteriaBuilder();
-//		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-//		cq.select(qb.count(cq.from(Instrument.class)));
-//		return em.createQuery(cq).getSingleResult();
-//	}
 }

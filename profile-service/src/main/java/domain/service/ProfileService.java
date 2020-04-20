@@ -7,7 +7,7 @@ public interface ProfileService {
 	List<Profile> getAll();
 	void update(Profile profile);
 	void create(Profile profile);
-	Profile get(Long profileId);  // This function generates a problem for the moment c.f ProfileProducer.java
+	Profile get(Long profileId);
 	Long count();
 	
 }
