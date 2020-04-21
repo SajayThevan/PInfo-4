@@ -103,7 +103,7 @@ class ProfileServiceImplTest {
 		assertNotNull(profile);
 		Long id = profile.getId();
 		Profile getProfile = profileService.get(id);
-		//System.out.println("---------------------"+profileService.get(id)+"----------------");
+		System.out.println("---------------------"+profile.getFridge_contents()+"----------------");
 		assertEquals(profile.getFirst_name(), getProfile.getFirst_name());
 		System.out.println("-----------------TEST GET TERMINE-----------------");
 	}
