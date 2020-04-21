@@ -35,9 +35,12 @@ class IngredientProducerTest {
 	@Test
 	void testSendAllIngredients() {
 		List<Ingredient> ingredients = getRandomIngredientCollection();
+		// test print
+		System.out.println("TEST SendAllIngredients : " + ingredients);
+		// end test print (no id because not created (in service)
 		when(ingredientService.getAll()).thenReturn(ingredients);
 		producer.sendAllIngredients();
-		verify(kafkaProducer, times(ingredients.size())).send(eq("instruments"), any(Ingredient.class));
+		verify(kafkaProducer, times(ingredients.size())).send(eq("ingredients"), any(Ingredient.class));
 	}
 
 	@Test
@@ -50,6 +53,7 @@ class IngredientProducerTest {
 	@Test
 	void testSendLong() {
 		Ingredient ingredients = getRandomIngredient();
+		System.out.println("TEST testSendLong : " + ingredients);
 		when(ingredientService.get(ingredients.getId())).thenReturn(ingredients);
 		producer.send(ingredients.getId());
 		verify(kafkaProducer, times(1)).send("ingredients", ingredients);
@@ -65,8 +69,9 @@ class IngredientProducerTest {
 
 	private List<Ingredient> getRandomIngredientCollection() {
 		List<Ingredient> ingredients = new ArrayList<>();
-		long numberOfInstrument = Math.round((Math.random() * 1000));
-		for (int i = 0; i < numberOfInstrument; i++) {
+		//long numberOfIngredient = Math.round((Math.random() * 1000));
+		long numberOfIngredient = 3;
+		for (int i = 0; i < numberOfIngredient; i++) {
 			ingredients.add(getRandomIngredient());
 		}
 		return ingredients;
@@ -75,6 +80,7 @@ class IngredientProducerTest {
 	private Ingredient getRandomIngredient() {
 		Ingredient ing = new Ingredient();
 		//ing.setName(UUID.randomUUID().toString());
+		//ing.setId((long) 1);
 		ing.setName("ingredient test0");
 		ing.setKcal(8);
 		//ing.setFat((int) Math.round(Math.random()*1000));

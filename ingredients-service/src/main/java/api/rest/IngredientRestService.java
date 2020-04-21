@@ -47,7 +47,22 @@ public class IngredientRestService {
 	@ApiOperation(value = "Get a specifc ingredient",
     notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
 	public Ingredient get(@PathParam("id") Long IngredientId) {
+		//System.out.println("id : " + IngredientId);
+		//System.out.println("corresponding ingredient : " + ingredientService.get(IngredientId));
 		return ingredientService.get(IngredientId);
+	}
+	
+	@GET
+	@Path("/heyIciTest")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a specifc ingredient",
+    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
+	public int get1() {
+		System.out.println("on est ici");
+		//System.out.println("id : " + IngredientId);
+		//System.out.println("corresponding ingredient : " + ingredientService.get(IngredientId));
+		//return ingredientService.get(IngredientId);
+		return 10;
 	}
 	
 	@GET
@@ -83,15 +98,5 @@ public class IngredientRestService {
 	public void propagateAllIngredients() {
 		ingredientProducer.sendAllIngredients();
 	}
-	
-	/*
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Update a given instrument",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public void upadte(Instrument instrument) {
-		instrumentService.update(instrument);
-		instrumentProducer.send(instrument);
-	}
-	*/
+
 }

@@ -16,8 +16,6 @@ import domain.model.Ingredient;
 
 @ApplicationScoped
 public class IngredientServiceImpl implements IngredientService {
-
-	// TODO: Implement
 	
 	@PersistenceContext(unitName = "IngredientPU")
 	private EntityManager em;
@@ -85,7 +83,7 @@ public class IngredientServiceImpl implements IngredientService {
 	@Override
 	public void create(Ingredient ingredient) {
 		if (ingredient.getId() != null) {
-			throw new IllegalArgumentException("Instrument already exists : " + ingredient.getId());
+			throw new IllegalArgumentException("Ingredient already exists : " + ingredient.getId());
 		}
 		em.persist(ingredient);
 	}
