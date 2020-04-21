@@ -29,13 +29,14 @@ public class RecipeConsumer {
 
 	
 	@Consumer(topics = "profilDelete", groupId = "pinfo-microservices")
-	public void deleteRecipe(final long message) {
+	public int deleteRecipe(final long message) {
 		log.info("Consumer got following message : " + message); //Suppose message = author ID
 		List ids = rs.getRecipiesIdForProfiles(message);
 		for (int i=0; i < ids.size(); i++) {
 			long recipeID = (long) ids.get(i);
 			rs.removeRecipe(recipeID);
 		}
+		return 1;
 	}
 	
 	@Consumer(topics = "challengeAccepted", groupId = "pinfo-microservices")
