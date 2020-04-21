@@ -1,9 +1,12 @@
 package api.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -12,8 +15,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-//import api.msg.InstrumentProducer;
-//import domain.model.Instrument;
+import org.javatuples.Triplet;
+
 import api.msg.RecipeProducer;
 import domain.model.Recipe;
 
@@ -23,17 +26,68 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
 @ApplicationScoped
-@Path("/instrument")
-@Api(value = "instrument", authorizations = {
+@Path("/Recipe")
+@Api(value = "Recipe", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
 public class RecipeRestService {
 
+	@Inject
+	private RecipeService rs;
+
+	
+	
+	@POST
+	@Path("/create")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Create a new Recipe",  notes = "Create a new Recip.")
+	public void createRecipe(Recipe r) {
+		rs.addRecipe(r);
+	}
+	
+	@PUT
+	@Path("/rate/{recipeId}/{rate}")
+	@ApiOperation(value ="Update recipe ratings")
+	public void addRates(@PathParam("recipeId") long id, @PathParam("rate")int rate) {
+		rs.addRating(id,rate);
+	}
+	
+	@GET
+	@Path("/recipesProfil/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value ="Get Recipes for profil ID")
+	public ArrayList<Triplet> getRecipesForProfilRest(@PathParam("id") long id) {
+		return rs.getRecipesForProfil(id);
+	}
+
+	@PUT
+	@Path("addComments/{comment}/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Add a comment")
+	public void addCommentRest(@PathParam("comment") String co, @PathParam("id") long id) {
+		rs.addComment(co,id);
+	}
+	
+	@DELETE
+	@Path("/rm/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value= "Remove a Recipe")
+	public void removeRecipeRest(@PathParam("id") long id) {
+		rs.removeRecipe(id);
+	}
+	
+	@GET
+	@Path("/getRecipe/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a full Recipe")
+	public ArrayList getRecipeRest(@PathParam("id") long id) {
+		return rs.getRecipe(id);
+	}
+	
+	
+	
 	/*
-	@Inject
-	private InstrumentService instrumentService;
-	@Inject
-	private InstrumentProducer instrumentProducer;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

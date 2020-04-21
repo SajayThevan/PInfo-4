@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 public class Recipe {
 	
 	@Id
+	@SequenceGenerator(name = "Recipe_SEQ", sequenceName = "Recipe_SEQ")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
