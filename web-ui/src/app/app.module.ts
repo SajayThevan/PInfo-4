@@ -11,6 +11,7 @@ import { ChallengesComponent } from './challenges/challenges.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
+import { SubscribeComponent } from './subscribe/subscribe.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SearchComponent } from './search/search.component';
     LoginPageComponent,
     ProfilePageComponent,
     SearchComponent,
+    SubscribeComponent,
   ],
   imports: [
     BrowserModule,
