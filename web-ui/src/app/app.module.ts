@@ -10,6 +10,7 @@ import { MonthSpecialComponent } from './month-special/month-special.component';
 import { ChallengesComponent } from './challenges/challenges.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     ChallengesComponent,
     LoginPageComponent,
     ProfilePageComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

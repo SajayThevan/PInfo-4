@@ -31,7 +31,7 @@ export class ProfilePageComponent implements OnInit {
     },
     {
       name:'Brownie',
-      auteur:'Luke'
+      auteur:'Ella'
     },
     {
       name:'Pizza',
@@ -43,7 +43,7 @@ export class ProfilePageComponent implements OnInit {
     },
     {
       name:'MilkShake',
-      auteur:'Ella'
+      auteur:'Luke'
     }
   ]
 
