@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
 import api.msg.IngredientProducer;
@@ -53,23 +54,11 @@ public class IngredientRestService {
 	}
 	
 	@GET
-	@Path("/heyIciTest")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc ingredient",
-    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
-	public int get1() {
-		System.out.println("on est ici");
-		//System.out.println("id : " + IngredientId);
-		//System.out.println("corresponding ingredient : " + ingredientService.get(IngredientId));
-		//return ingredientService.get(IngredientId);
-		return 10;
-	}
-	
-	@GET
-	@Path("/computeCalories/{listIngredients}")
+	@Path("/computeCalories")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
-    public int computeCalories(@PathParam("listIngredients") List<Long> IngredientID) {
+    public int computeCalories(List<Long> IngredientID) {
 		return ingredientService.computeCalories(IngredientID);
 	}
 	
