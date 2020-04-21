@@ -6,6 +6,7 @@ import { MonthSpecialComponent } from './month-special/month-special.component';
 import { ChallengesComponent } from './challenges/challenges.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { SearchComponent } from './search/search.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path :'month', component : MonthSpecialComponent},
   { path :'challenge', component : ChallengesComponent},
   { path :'login_page', component : LoginPageComponent},
-  { path :'profile', component : ProfilePageComponent}
+  { path :'profile', component : ProfilePageComponent},
+  { path: 'search', component:SearchComponent}
 ];
 
 @NgModule({
@@ -28,5 +30,6 @@ export const routingComponent = [HomeComponent,
   MonthSpecialComponent,
   ChallengesComponent,
   LoginPageComponent,
-  ProfilePageComponent
+  ProfilePageComponent,
+  SearchComponent
 ]
