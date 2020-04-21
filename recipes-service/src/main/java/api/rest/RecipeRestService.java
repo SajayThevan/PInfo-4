@@ -34,8 +34,7 @@ public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
-	@Inject
-	private RecipeProducer rp;
+
 	
 	
 	@POST
