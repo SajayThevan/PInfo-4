@@ -1,6 +1,6 @@
 drop table Recipe if exists;
 drop sequence if exists RECIPIES_SEQ;
-create sequence RECIPES_SEQ start with 1 increment by 50;
+create sequence Recipe_SEQ start with 1 increment by 50;
 create table Recipe (
 
         id bigint not null,

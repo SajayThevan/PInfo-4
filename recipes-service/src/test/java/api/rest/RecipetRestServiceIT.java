@@ -12,7 +12,7 @@ public class RecipetRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {
-		RestAssured.baseURI = "http://localhost:28080/instrument";
+		RestAssured.baseURI = "http://localhost:28080/Recipe";
 		RestAssured.port = 8080;
 	}
 	/*
