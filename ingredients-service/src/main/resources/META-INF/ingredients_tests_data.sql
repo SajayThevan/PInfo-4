@@ -13,7 +13,5 @@ create table Ingredients (
 
 INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( 1, 'poivron', 10, 0.5, 2, 1);
 INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( 2, 'aubergine', 11, 1, 3, 2);
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( 3, 'courgette', 12, 1.5, 4,3);
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'poivron', 10, 0.5, 2, 1);
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'aubergine', 11, 1, 3, 2);
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'courgette', 12, 1.5, 4,3);
+INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( 3, 'choco', 12, 1.5, 4,3);
+INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'lait', 10, 0.5, 2, 1);
