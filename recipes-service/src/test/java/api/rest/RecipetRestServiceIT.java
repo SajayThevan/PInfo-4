@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import io.restassured.RestAssured;
+import domain.service.RecipeService;
 
 public class RecipetRestServiceIT {
 
@@ -15,6 +16,16 @@ public class RecipetRestServiceIT {
 		RestAssured.baseURI = "http://localhost:28080/Recipe";
 		RestAssured.port = 8080;
 	}
+	
+	RecipeService rs;
+	
+	@Test
+	public void testGet() {
+		
+		when().post("create").then().body(containsString("254900LAW6SKNVPBBN21"));
+	}
+	
+	
 	/*
 	  
 	 *******************Keep for test example *********************** 
@@ -25,11 +36,7 @@ public class RecipetRestServiceIT {
 
 	}
 
-	@Test
-	public void testGet() {
-		when().get("/1").then().body(containsString("254900LAW6SKNVPBBN21"));
-	}
-	
+
 	@Test
 	public void testCount() {
 		when().get("/count").then().body(containsString("10"));
