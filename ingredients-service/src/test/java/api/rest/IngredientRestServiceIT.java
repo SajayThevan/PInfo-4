@@ -37,24 +37,13 @@ public class IngredientRestServiceIT {
 	*/
 	@Test
 	public void testGet() {
-		System.out.println("part 1");
-		when().get("/4").then().body(containsString("chocolat"));
-		System.out.println("part 2");
-
-	}
-	
-	@Test
-	public void testGet2() {
-		System.out.println("part 1 bis ");
-		when().get1("/heyIciTest").then().body(containsString("10"));
-		System.out.println("part 2 bis");
-
+		when().get("/1").then().body(containsString("chocolat"));
 	}
 
 	// see how we want to manage paths !!  
 	@Test
 	public void testComputeCalories() {
-		when().get("/computeCalories/[4, 5]").then().body(containsString("11"));
+		when().get("/computeCalories").then().body(containsString("2"));
 	}
 	
 	@Test

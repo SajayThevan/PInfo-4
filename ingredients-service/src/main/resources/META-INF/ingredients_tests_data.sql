@@ -8,10 +8,10 @@ create table Ingredients (
 		fat int not null,
 		cholesterol int not null,
 		protein int not null,
-		salt int not null,
+		salt int not null
 );
 
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( 1, 'poivron', 10, 0.5, 2, 1);
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( 2, 'aubergine', 11, 1, 3, 2);
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( 3, 'choco', 12, 1.5, 4,3);
-INSERT INTO Ingredients (id, name, kcal, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'lait', 10, 0.5, 2, 1);
+INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, "chocolat", 1, 5, 3, 2, 1);
+INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, "chocolat", 1, 2, 1, 3, 2);
+INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 1, 5, 4, 2, 3);
+INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 1, 2, 2, 4, 1);
