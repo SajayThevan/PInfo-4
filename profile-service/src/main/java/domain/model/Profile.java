@@ -20,6 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
+
 // Lombok: Getter/Setter/ToString
 @Data
 
