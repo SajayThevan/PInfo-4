@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 // DataBase
 
-//@Entity
+@Entity
 public class Recipe{
 	
 
