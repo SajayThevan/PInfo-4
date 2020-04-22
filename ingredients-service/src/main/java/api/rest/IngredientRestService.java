@@ -70,6 +70,15 @@ public class IngredientRestService {
 		return ingredientService.getPossibleIngredients(ingredientWanted);
 	}
 	
+	@GET
+	@Path("/count")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the count of ingredients")
+    public Long count() {
+		System.out.println("------------------ici test count" + ingredientService.count() + "----------------");
+		return ingredientService.count();
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new ingredient",

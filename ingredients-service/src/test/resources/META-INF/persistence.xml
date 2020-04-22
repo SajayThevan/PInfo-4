@@ -7,6 +7,7 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>domain.model.Ingredient</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
 			<property name="javax.persistence.jdbc.url"
@@ -21,7 +22,8 @@
 				value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.id.new_generator_mappings" value="true" />
 			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8"/>	
-			<property name="javax.persistence.sql-load-script-source" value="META-INF/ingredients_test_data.sql"/>
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/ingredients_tests_data.sql"/>
+			
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -87,6 +87,15 @@ public class IngredientServiceImpl implements IngredientService {
 		}
 		em.persist(ingredient);
 	}
+	
+	@Override
+	public Long count() {
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+		cq.select(qb.count(cq.from(Ingredient.class)));
+		return em.createQuery(cq).getSingleResult();
+	}
+	
 	/*
 	@Override
 	public List<Instrument> getAll() {
