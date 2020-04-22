@@ -70,7 +70,7 @@ alter table Recipe_steps
 
 
 
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, '21/02/2020', 3, pizza, 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 10,'21/02/2020', 3, pizza, 1);
 INSERT INTO Recipe_category(Recipe_id, category) values (Recipe_SEQ.currval, 1);
 INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'c'était bon');
 INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'Manque de sel');
