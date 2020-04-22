@@ -20,11 +20,17 @@ public class RecipetRestServiceIT {
 	RecipeService rs;
 	
 	@Test
-	public void count() {
+	public void testCount() {
 		
-		when().get("/count").then().body(containsString("2"));
+		when().get("/count").then().body(containsString("4"));
 
 	}
+	
+	@Test
+	public void recipesProfil() {
+		when().get("/recipesProfil/10").then().body(containsString("pizza"));
+	}
+	/*
 	
 //	@Test
 //	public void test() {

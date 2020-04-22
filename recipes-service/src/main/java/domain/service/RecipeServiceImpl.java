@@ -10,7 +10,11 @@ import java.util.Iterator;
 
 import org.javatuples.Triplet; 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -82,6 +86,8 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+
 	public ArrayList getRecipe(long id) {
 		//Return an ArrayList as follow:
 		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>

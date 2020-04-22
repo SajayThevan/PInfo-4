@@ -78,8 +78,6 @@ INSERT INTO Recipe_ratings(Recipe_id, ratings) values (Recipe_SEQ.currval, 5);
 INSERT INTO Recipe_steps(Recipe_id, steps) values (Recipe_SEQ.currval,'ajouter les oeufs');
 
 
-
-
 INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 10,'22/02/2020', 1, 'Vodka',3);
 INSERT INTO Recipe_category(Recipe_id, category) values (Recipe_SEQ.currval, 3);
 INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'c était bon');
@@ -87,4 +85,16 @@ INSERT INTO Recipe_ingredients(Recipe_id, ingredients) values (Recipe_SEQ.currva
 INSERT INTO Recipe_ratings(Recipe_id, ratings) values (Recipe_SEQ.currval, 7);
 INSERT INTO Recipe_steps(Recipe_id, steps) values (Recipe_SEQ.currval,'Mets la vodka');
 
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 10,'12/02/2020', 1, 'Pain',3);
+INSERT INTO Recipe_category(Recipe_id, category) values (Recipe_SEQ.currval, 3);
+INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'c était Mauvais');
+INSERT INTO Recipe_ingredients(Recipe_id, ingredients) values (Recipe_SEQ.currval, 2);
+INSERT INTO Recipe_ratings(Recipe_id, ratings) values (Recipe_SEQ.currval, 3);
+INSERT INTO Recipe_steps(Recipe_id, steps) values (Recipe_SEQ.currval,'melange la farine');
 
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 10,'2/02/2020', 1, 'fromage',3);
+INSERT INTO Recipe_category(Recipe_id, category) values (Recipe_SEQ.currval, 3);
+INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'c était moyen');
+INSERT INTO Recipe_ingredients(Recipe_id, ingredients) values (Recipe_SEQ.currval, 2);
+INSERT INTO Recipe_ratings(Recipe_id, ratings) values (Recipe_SEQ.currval, 3);
+INSERT INTO Recipe_steps(Recipe_id, steps) values (Recipe_SEQ.currval,'lait');
