@@ -26,12 +26,12 @@ public class IngredientRestServiceIT {
 	public void testGet() {
 		when().get("/1").then().body(containsString("chocolat"));
 	}
-	/*
+	
 	@Test
 	public void testComputeCalories() {
-		when().get("/computeCalories").then().body(containsString("2"));
+		when().get("/computeCalories").then().body(containsString("6"));
 	}
-	
+	/*
 	@Test
 	public void testGetPossibleIngredients() {
 		when().get("/getPossibleIngredients/choco").then().body(containsString("chocolat"));
