@@ -13,7 +13,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import domain.model.CategoryEnum;
 import domain.model.Recipe;
@@ -84,7 +85,8 @@ public class RecipeServiceImpl implements RecipeService {
 	public ArrayList getRecipe(long id) {
 		//Return an ArrayList as follow:
 		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
-		
+		System.out.println("===================================================ICICICI==============================================================");
+		System.out.println("----------------------------------------------------"+em.find(Recipe.class, id)+"----------------------------------------");
 		Recipe r = em.find(Recipe.class, id);
 		ArrayList l = new ArrayList();
 		l.add(r.getId());
@@ -102,5 +104,12 @@ public class RecipeServiceImpl implements RecipeService {
 		return l;
 	}
 	
+		
+	public Long count() {
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+		cq.select(qb.count(cq.from(Recipe.class)));
+		return em.createQuery(cq).getSingleResult();
+	}
 	
 }

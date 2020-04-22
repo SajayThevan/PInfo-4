@@ -70,13 +70,21 @@ alter table Recipe_steps
 
 
 
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 10,'21/02/2020', 3, pizza, 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 10,'21/02/2020', 3, 'pizza', 1);
 INSERT INTO Recipe_category(Recipe_id, category) values (Recipe_SEQ.currval, 1);
-INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'c'était bon');
-INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'Manque de sel');
+INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'c était bon');
 INSERT INTO Recipe_ingredients(Recipe_id, ingredients) values (Recipe_SEQ.currval, 2);
-INSERT INTO Recipe_ingredients(Recipe_id, ingredients) values (Recipe_SEQ.currval,4);
 INSERT INTO Recipe_ratings(Recipe_id, ratings) values (Recipe_SEQ.currval, 5);
-INSERT INTO Recipe_ratings(Recipe_id, ratings) values (Recipe_SEQ.currval, 3);
 INSERT INTO Recipe_steps(Recipe_id, steps) values (Recipe_SEQ.currval,'ajouter les oeufs');
-INSERT INTO Recipe_steps(Recipe_id, steps) values (Recipe_SEQ.currbal, 'cuir a 180');
+
+
+
+
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 10,'22/02/2020', 1, 'Vodka',3);
+INSERT INTO Recipe_category(Recipe_id, category) values (Recipe_SEQ.currval, 3);
+INSERT INTO Recipe_comments(Recipe_id, comments) values (Recipe_SEQ.currval,'c était bon');
+INSERT INTO Recipe_ingredients(Recipe_id, ingredients) values (Recipe_SEQ.currval, 2);
+INSERT INTO Recipe_ratings(Recipe_id, ratings) values (Recipe_SEQ.currval, 7);
+INSERT INTO Recipe_steps(Recipe_id, steps) values (Recipe_SEQ.currval,'Mets la vodka');
+
+

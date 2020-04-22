@@ -24,6 +24,7 @@ import java.util.ArrayList;
 @EqualsAndHashCode
 
 // DataBase
+
 @Entity
 public class Recipe {
 	

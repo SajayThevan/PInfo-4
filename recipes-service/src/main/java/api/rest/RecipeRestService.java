@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.javatuples.Triplet;
@@ -34,7 +35,6 @@ public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
-
 	
 	
 	@POST
@@ -60,13 +60,14 @@ public class RecipeRestService {
 		return rs.getRecipesForProfil(id);
 	}
 
-	@PUT
-	@Path("addComments/{comment}/{id}")
+	/*@PUT
+	@Path("/addComments)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Add a comment")
-	public void addCommentRest(@PathParam("comment") String co, @PathParam("id") long id) {
-		rs.addComment(co,id);
-	}
+	public void addCommentRest( @Context MediaType arg) {
+		
+		rs.addComment(arg.valueOf(Comment),arg.valueOf(id));
+	}*/
 	
 	@DELETE
 	@Path("/rm/{id}")
@@ -78,13 +79,26 @@ public class RecipeRestService {
 	
 	@GET
 	@Path("/getRecipe/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a full Recipe")
 	public ArrayList getRecipeRest(@PathParam("id") long id) {
-		return rs.getRecipe(id);
+		System.out.println("============================================================ ICICI ==================================");
+		System.out.println(id);
+		ArrayList a = rs.getRecipe(id);
+		System.out.println("-------------------------------------------------------------"+a.size()+"-------------------------------------------");
+		System.out.println("Devrait être 11");
+		
+		return a;
 	}
 	
+	@GET
+	@Path("/count")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the count of instrument")
+    public Long count() {
+		System.out.println("---------------------------------------------"+rs.count()+"---------------------------------------------------------");
+		return rs.count();
+	}
 	
 	
 	/*

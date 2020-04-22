@@ -20,21 +20,26 @@ public class RecipetRestServiceIT {
 	RecipeService rs;
 	
 	@Test
-	public void testGet() {
+	public void count() {
 		
-		when().post("create").then().body(containsString("254900LAW6SKNVPBBN21"));
+		when().get("/count").then().body(containsString("2"));
+
 	}
+	
+//	@Test
+//	public void test() {
+//		 when().get("/1")
+//	        .then()
+//	        .body(containsString));
+//	
+//	}
 	
 	
 	/*
 	  
 	 *******************Keep for test example *********************** 
 	 
-	@Test
-	public void testGetAll() {
-		when().get("/").then().body(containsString("254900LAW6SKNVPBBN21"));
-
-	}
+	
 
 
 	@Test
