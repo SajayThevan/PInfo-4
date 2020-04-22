@@ -46,6 +46,8 @@ public class ProfileRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of profile")
     public Long count() {
+		System.out.println("-----------------LONG COUNT:"+profileService.count()+"-----------------");
+		
 		return profileService.count();
 	}
 	
