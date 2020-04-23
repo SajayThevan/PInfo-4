@@ -56,6 +56,7 @@ public class ProfileRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specifc profile")
 	public Profile get(@PathParam("id") Long profileId) {
+		
 		return profileService.get(profileId);
 	}
 	

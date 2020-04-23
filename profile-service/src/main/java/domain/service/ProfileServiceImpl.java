@@ -42,6 +42,8 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	@Override							
 	public Profile get(Long profileId) {
+		System.out.println("-----------VOIR------------"+profileId+"----------VOIR----------------");
+		System.out.println("-----------VOIR------------"+em.find(Profile.class, profileId)+"----------VOIR----------------");
 		return em.find(Profile.class, profileId);
 	}
 
@@ -58,6 +60,7 @@ public class ProfileServiceImpl implements ProfileService {
 		CriteriaBuilder qb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
 		cq.select(qb.count(cq.from(Profile.class)));
+		System.out.println("-----------asdafsfaedgdsgf------------"+em.createQuery(cq).getSingleResult()+"----------asdasfsagR----------------");
 		return em.createQuery(cq).getSingleResult();
 	}
 	

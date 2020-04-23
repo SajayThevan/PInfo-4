@@ -21,7 +21,7 @@ public class ProfileRestServiceIT {
 	@Test
 	public void testGetAll() {
 		System.out.println("-----------------DEBUT TEST GETAllREST-----------------");
-		when().get("/").then().body(containsString("1"));
+		when().get("/").then().body(containsString("deniz"));
 		System.out.println("-----------------FIN TEST GETAllREST-----------------");
 
 	}
@@ -29,8 +29,7 @@ public class ProfileRestServiceIT {
 	@Test
 	public void testGet() {
 		System.out.println("-----------------DEBUT TEST GETREST-----------------");
-		System.out.println("-----------------"+when().get("/1").then().body(containsString("deniz"))+"-----------------");
-		when().get("/1").then().body(containsString("1"));
+		when().get("/1").then().body(containsString("deniz"));
 		System.out.println("-----------------FIN TEST GETREST-----------------");
 	}
 	

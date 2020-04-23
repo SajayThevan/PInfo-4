@@ -1,22 +1,16 @@
 package domain.model;
 
-//import java.math.BigDecimal;
-//import java.util.Date;
-//import javax.persistence.Column;
-//import javax.persistence.DiscriminatorColumn;
-//import javax.persistence.InheritanceType;
-//import java.util.ArrayList;					
-//import io.swagger.annotations.ApiModel; -- These are not used for the moment --  If error fix the project to add the libraries.
-
-import java.util.AbstractMap;
-import java.util.List;
-
-import javax.persistence.ElementCollection;
+import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -26,11 +20,17 @@ import lombok.Data;
 
 // DataBase
 @Entity
-public class Profile {
+@Table(name ="Profile")
+public class Profile implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2425396202264911160L;
+
 	@Id
-	@SequenceGenerator(name = "Profile_SEQ", sequenceName = "Profile_SEQ")  //Defines a primary key generator that may be referenced by name when a generator element is specified for the GeneratedValue annotation.
-	@GeneratedValue(strategy = GenerationType.IDENTITY)						//The scope of the generator name is global to the persistence unit => Maybe a link with the database?
+	@SequenceGenerator(name = "PROFILE_SEQ", sequenceName = "PROFILE_SEQ")  
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_SEQ")			
 	private Long id;
 	
 	// Profile info
@@ -49,13 +49,14 @@ public class Profile {
 	@NotNull
 	private int score;
 	
-
-	@NotNull
-	@ElementCollection
-	private List<AbstractMap.SimpleEntry<Integer, Integer>> fridge_contents; // <(IngredientID, Quantity)> 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "ingprofile")
+	private Set<Ingrediant> fridge_contents; // <(IngredientID, Quantity)> 
+	
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "recetteprofile")
+	private Set<RecetteFav> favourite_recipes; // <(IngredientID, Quantity)> 
 		
-	@NotNull
-	@ElementCollection
-	private List<Integer> favourite_recipes; // <RecipeID> //
+	
 	
 }
