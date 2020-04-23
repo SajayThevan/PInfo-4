@@ -1,10 +1,19 @@
-drop table Profile_favourite_recipes if exists;
-drop table Profile_fridge_contents;
+drop table Ingrediant if exists;
+drop table RecetteFav if exists;
 drop table Profile if exists;
-drop table Profile_favourite_recipes if exists;
-drop table Profile_fridge_contents if exists;
-drop sequence if exists Profile_SEQ;
-create sequence Profile_SEQ start with 1 increment by 50;
+drop sequence if exists INGREDIANT_SEQ;
+drop sequence if exists RECETTEFAV_SEQ;
+drop sequence if exists PROFILE_SEQ;
+create sequence INGREDIANT_SEQ start with 1 increment by 50;
+create sequence RECETTEFAV_SEQ start with 1 increment by 50;
+create sequence PROFILE_SEQ start with 1 increment by 50;
+create table Ingrediant (
+		id bigint not null,
+        Ingrediantid bigint,
+        quantite integer not null,
+        Profile_id bigint,
+        primary key (id)
+    );
 create table Profile (
         id bigint not null,
         email varchar(255),
@@ -15,45 +24,42 @@ create table Profile (
         primary key (id)
     );
         
-create table Profile_favourite_recipes (
-        Profile_id bigint not null,
-        favourite_recipes integer
+    create table RecetteFav (
+        id bigint not null,
+        Recetteid bigint,
+        Profile_id bigint,
+        primary key (id)
     );
-
-create table Profile_fridge_contents (
-        Profile_id bigint not null,
-        fridge_contents binary(255)
-    );
- 
-alter table Profile_favourite_recipes 
-        add constraint FKnx6lagkx01di86u4nuyi54skn 
-        foreign key (Profile_id) 
-        references Profile;
- 
-alter table Profile_fridge_contents 
-        add constraint FKgn7r2u39aqyu73pgosr3s0pr8 
-        foreign key (Profile_id) 
-        references Profile;
     
+alter table Ingrediant 
+        add constraint FKrdpn2snneh3pypmmm3ebh3i1b 
+        foreign key (Profile_id) 
+        references Profile  ;  
+ 
+alter table RecetteFav 
+        add constraint FKl63dy37w8aupfgv4oj2i5kf48 
+        foreign key (Profile_id) 
+        references Profile;
+ 
+   
 
+INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
+INSERT INTO RecetteFav (Recetteid, Profile_id, id) values (14,PROFILE_SEQ.currval,RECETTEFAV_SEQ.nextval);
+INSERT INTO Ingrediant (Ingrediantid, Profile_id, quantite, id) values (4, PROFILE_SEQ.currval,20,INGREDIANT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( Profile_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
-INSERT INTO Profile_favourite_recipes (Profile_id, favourite_recipes) values (Profile_SEQ.currval, 10);
-INSERT INTO Profile_fridge_contents (Profile_id, fridge_contents) values (Profile_SEQ.currval, 10);
+INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'sajay@gmail.com', 'sajay', 'trolong', 'ui', 0);
+INSERT INTO RecetteFav (Recetteid, Profile_id, id) values (25,PROFILE_SEQ.currval,RECETTEFAV_SEQ.nextval);
+INSERT INTO Ingrediant (Ingrediantid, Profile_id, quantite, id) values (5, PROFILE_SEQ.currval,22,INGREDIANT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( Profile_SEQ.nextval, 'sajay@gmail.com', 'sajay', 'trolong', 'ui', 0);
-INSERT INTO Profile_favourite_recipes (Profile_id, favourite_recipes) values (Profile_SEQ.currval, 11);
-INSERT INTO Profile_fridge_contents (Profile_id, fridge_contents) values (Profile_SEQ.currval, 11);
+INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'luke@gmail.com', 'luke', 'smith', 'inge', 0);
+INSERT INTO RecetteFav (Recetteid, Profile_id, id) values (7,PROFILE_SEQ.currval,RECETTEFAV_SEQ.nextval);
+INSERT INTO Ingrediant (Ingrediantid, Profile_id, quantite, id) values (2, PROFILE_SEQ.currval,30,INGREDIANT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( Profile_SEQ.nextval, 'luke@gmail.com', 'luke', 'smith', 'inge', 0);
-INSERT INTO Profile_favourite_recipes (Profile_id, favourite_recipes) values (Profile_SEQ.currval, 12);
-INSERT INTO Profile_fridge_contents (Profile_id, fridge_contents) values (Profile_SEQ.currval, 12);
+INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'ella@gmail.com', 'ella', 'kummer', 'chef', 0);
+INSERT INTO RecetteFav (Recetteid, Profile_id, id) values (2,PROFILE_SEQ.currval,RECETTEFAV_SEQ.nextval);
+INSERT INTO Ingrediant (Ingrediantid, Profile_id, quantite, id) values (8, PROFILE_SEQ.currval,37,INGREDIANT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( Profile_SEQ.nextval, 'ella@gmail.com', 'ella', 'kummer', 'chef', 0);
-INSERT INTO Profile_favourite_recipes (Profile_id, favourite_recipes) values (Profile_SEQ.currval, 12);
-INSERT INTO Profile_fridge_contents (Profile_id, fridge_contents) values (Profile_SEQ.currval, 12);
-
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( Profile_SEQ.nextval, 'mathias@gmail.com', 'mathias', 'tonini', 'dev', 0);
-INSERT INTO Profile_favourite_recipes (Profile_id, favourite_recipes) values (Profile_SEQ.currval, 13);
-INSERT INTO Profile_fridge_contents (Profile_id, fridge_contents) values (Profile_SEQ.currval, 13);
+INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'mathias@gmail.com', 'mathias', 'tonini', 'dev', 0);
+INSERT INTO RecetteFav (Recetteid, Profile_id, id) values (4,PROFILE_SEQ.currval,RECETTEFAV_SEQ.nextval);
+INSERT INTO Ingrediant (Ingrediantid, Profile_id, quantite, id) values (12, PROFILE_SEQ.currval,26,INGREDIANT_SEQ.nextval);
 
