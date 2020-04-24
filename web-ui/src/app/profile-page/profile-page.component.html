@@ -42,7 +42,14 @@
             <div class="card-body"> 
                 Mes Recettes
                 <hr>
-                list de mes recettes
+                <div class="pad1" *ngFor="let recep of recettes">
+                    <div class="tab">
+                        <div class="recepe_image row"></div>
+                        <div class="recepe_name">
+                            {{recep.name}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
       </div>
@@ -51,7 +58,7 @@
             <div class="card-body"> 
                 Favoris
                 <hr>
-                <div class="pad1" *ngFor="let recep of recettes">
+                <div class="pad1" *ngFor="let recep of favoris">
                     <div class="tab">
                         <div class="recepe_image row"></div>
                         <div class="recepe_name">
@@ -67,7 +74,9 @@
             <div class="card-body"> 
                 Mon Frigo
                 <hr>
-                Element frigo
+                <div class="pad1" *ngFor="let ingre of frigo">
+                    {{ingre.name}} : {{ingre.quantity}}
+                </div>
             </div>
         </div>
       </div>
