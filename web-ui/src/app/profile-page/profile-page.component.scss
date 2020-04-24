@@ -62,7 +62,10 @@
     width: 80px;
     border : 1px black solid;
     border-radius: 20px;
-    background-color : rgb(5, 20, 24);
+    background-image: url(../../assets/recep_logo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .recepe_name {
