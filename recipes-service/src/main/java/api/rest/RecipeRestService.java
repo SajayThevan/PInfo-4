@@ -1,7 +1,11 @@
 package api.rest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 import org.javatuples.Triplet;
 
 import api.msg.RecipeProducer;
+import domain.model.Comments;
 import domain.model.Recipe;
 
 import domain.service.RecipeService;
@@ -57,20 +62,19 @@ public class RecipeRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value ="Get Recipes for profil ID")
 	public ArrayList<Triplet> getRecipesForProfilRest(@PathParam("id") long id) {
-		System.out.println("============================================================ PUTAIN DE RECIPESPROFIL ID !!!!!!!!!!!!!!!!!!!! ==================================");
-		System.out.println(rs.getRecipiesIdForProfiles(id).size());
+
 		return rs.getRecipesForProfil(id);
 	}
 
-	/*@PUT
-	@Path("/addComments)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Add a comment")
-	public void addCommentRest( @Context MediaType arg) {
-		
-		rs.addComment(arg.valueOf(Comment),arg.valueOf(id));
-	}*/
-	
+//	@PUT
+//	@Path("/addComments")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@ApiOperation(value = "Add a comment")
+//	public void addCommentRest( @Context MediaType arg) {
+//		
+//		rs.addComment(arg.valueOf(Comments),arg.valueOf(id));
+//	}
+//	
 	@DELETE
 	@Path("/rm/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -83,11 +87,26 @@ public class RecipeRestService {
 	@Path("/getRecipe/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a full Recipe")
-	public ArrayList getRecipeRest(@PathParam("id") long id) {
+	public Set getRecipeRest(@PathParam("id") long id) {
 		System.out.println(id);
 		ArrayList a = rs.getRecipe(id);
+		System.out.println("=====================================================TEST getRecipe/id===========================");
+		System.out.println(a.size());
+		Set<Comments> c = (Set<Comments>)a.get(10);
+		System.out.println(c.size());
+		System.out.println("=================================================== Affichage des commentaire ===================");
+		for (Iterator<Comments> it = c.iterator(); it.hasNext(); ) {
+			Comments cTmp = it.next();
+			System.out.println(cTmp.getComment());
+		}
+		Set<Object> toreturn = new HashSet();
+		for (Iterator<Object> it = a.iterator(); it.hasNext(); )
+		{
+			toreturn.add(it.next());
+		}
 		
-		return a;
+		
+		return toreturn;
 	}
 	
 	@GET

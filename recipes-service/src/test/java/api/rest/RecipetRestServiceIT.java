@@ -3,6 +3,8 @@ package api.rest;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.containsString;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -38,28 +40,9 @@ public class RecipetRestServiceIT {
 		
 		when().get("/getRecipe/1").then().body(containsString("pizza")); //Test name  -OK
 		when().get("/getRecipe/1").then().body(containsString("90")); //Test ingredients-OK
+		when().get("/getRecipe/1").then().body(containsString("Mauvais")); //Test commentaire
 	}
-	/*
 	
-//	@Test
-//	public void test() {
-//		 when().get("/1")
-//	        .then()
-//	        .body(containsString));
-//	
-//	}
-	
-	
-	/*
-	  
-	 *******************Keep for test example *********************** 
-	 
 	
 
-
-	@Test
-	public void testCount() {
-		when().get("/count").then().body(containsString("10"));
-	}
-	*/
 }
