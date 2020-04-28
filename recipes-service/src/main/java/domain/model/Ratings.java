@@ -33,7 +33,7 @@ public class Ratings implements Serializable{
 
 	@Id
 	@SequenceGenerator(name = "RATINGS_SEQ", sequenceName = "RATINGS_SEQ")  
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_SEQ")			
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RATINGS_SEQ")			
 	private Long id;
 	
 	private long recipeID;

@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -21,6 +22,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import domain.model.CategoryEnum;
+import domain.model.Comments;
+import domain.model.Ingredients;
 import domain.model.Recipe;
 import domain.model.Ratings;
 import lombok.Data;
@@ -40,8 +43,6 @@ public class RecipeServiceImpl implements RecipeService {
 		this.em = em;
 	}
 	
-	
-	//TODO: Implement that shit
 	
 	public void addRecipe(Recipe r) {
 		if (r.getId() != null) {
@@ -73,8 +74,7 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	public List getRecipiesIdForProfiles(long id){
 		List ids = em.createQuery("SELECT id from Recipe where authorID = id").getResultList();
-		System.out.println("--------------------------------Size of the service result----------------------------------");
-		System.out.println(ids.size());
+
 		return ids;
 	}
 	
@@ -102,14 +102,18 @@ public class RecipeServiceImpl implements RecipeService {
 		l.add(r.getName());
 		l.add(r.getAuthorID());
 		l.add(r.getDate());
-		l.add(r.getIngredients());
+		l.add((Set<Ingredients>)r.getIngredients());
 		l.add(r.getSteps());
 		l.add(r.getCategory());
 		l.add(r.getDifficulty());
 		l.add(r.getTime());
 		l.add(r.getRatings());
-		l.add(r.getComments());
+		
+		//debug:
+		l.add((Set<Comments>)r.getComments());
+		Set<Comments> c1 = r.getComments();
 	
+			
 		return l;
 	}
 	

@@ -26,7 +26,8 @@
 				value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.id.new_generator_mappings" value="true" />
 			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8"/>	
-			
+			<property name="hibernate.event.merge.entity_copy_observer" value="allow"/> 
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/recipe_test_data.sql"/>	
 		</properties>
 	</persistence-unit>
 </persistence>

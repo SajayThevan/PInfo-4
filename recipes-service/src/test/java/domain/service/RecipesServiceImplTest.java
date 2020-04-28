@@ -1,10 +1,8 @@
 package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -43,6 +41,7 @@ class RecipesServiceImplTest {
 	@InjectMocks
 	private RecipeServiceImpl recipesService;
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	void testAddRecipe() {
 		Recipe r1 = randomRecipe();
@@ -54,7 +53,6 @@ class RecipesServiceImplTest {
 		
 	}
 
-	//TODO: correct this test
 	
 	@Test
 	void testAddRating() {
@@ -62,13 +60,15 @@ class RecipesServiceImplTest {
 		Set<Ratings> ini = r.getRatings();
 		int testVal = ini.size();
 		em.persist(r);
-		recipesService.addRating(r.getId(), 3);
+		recipesService.addRating(r.getId(), 4);
 		Recipe r2 = em.find(Recipe.class, r.getId());
 		Set<Ratings> fin = r2.getRatings();
 		assertEquals(testVal+1,fin.size());
 		
 	}
 	
+	
+	@SuppressWarnings("rawtypes")
 	@Test
 	void testGetRecipesForProfil() {
 		Recipe r1 = randomRecipe();
@@ -114,12 +114,30 @@ class RecipesServiceImplTest {
 		assertEquals(ini,fin);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test 
 	void testGetRecipes(){
 		Recipe r = randomRecipe();
 		em.persist(r);
-		ArrayList res = recipesService.getRecipe(r.getId());
-		assertEquals(r.getAuthorID(),res.get(2));
+		ArrayList res = recipesService.getRecipe(r.getId());	
+		assertEquals(r.getAuthorID(),res.get(2)); //
+		
+		Set<Comments>  c = r.getComments();
+		Set<Comments> cf = (Set<Comments>)res.get(10);
+		assertTrue(c.containsAll(cf));
+		assertTrue(cf.containsAll(c));
+		
+		Set<Category>  cat = r.getCategory();
+		Set<Category> catRes = (Set<Category>)res.get(6);
+		assertTrue(cat.containsAll(catRes));
+		assertTrue(catRes.containsAll(cat));
+		
+		Set<Ratings>  rates = r.getRatings();
+		Set<Ratings> ratesRes = (Set<Ratings>)res.get(9);
+		assertTrue(rates.containsAll(ratesRes));
+		assertTrue(ratesRes.containsAll(rates));
+		
+		
 	}
 	
 	

@@ -9,7 +9,7 @@ drop sequence if exists CATEGORY_SEQ;
 drop sequence if exists COMMENTS_SEQ;
 drop sequence if exists INGREDIENTS_SEQ;
 drop sequence if exists RATINGS_SEQ;
-drop sequence if exists RECIPE_SEQ;
+drop sequence if exists Recipe_SEQ;
 drop sequence if exists STEPS_SEQ;
 
 
@@ -95,10 +95,10 @@ alter table Steps
     foreign key (Recipe_id) 
     references Recipe ;
     
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (RECIPE_SEQ.nextval, 1,'21/02/2020', 3, 'pizza', 1);
-INSERT INTO Category(id, category, recipeID, Recipe_id) values (CATEGORY_SEQ.nextval,1,RECIPE_SEQ.currval, Recipe_SEQ.currval);
-INSERT INTO Comments(id, comment, recipeID,Recipe_id) values (COMMENTS_SEQ.nextval,'c etait bon',RECIPE_SEQ.currval,Recipe_SEQ.currval);
-INSERT INTO Ingredients(id, quantite, recipeID,Recipe_id) values (INGREDIENTS_SEQ.nextval, 1, RECIPE_SEQ.currval, RECIPE_SEQ.currval);
-INSERT INTO Ratings(id, rate, recipeID, Recipe_id) values (INGREDIENTS_SEQ.nextval, 4, RECIPE_SEQ.currval,RECIPE_SEQ.currval);
-INSERT INTO Steps (id, recipeID, steps, Recipe_id) values (STEPS_SEQ.nextval,RECIPE_SEQ.currval,'mettre dans le four',RECIPE_SEQ.currval);
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 1,'21/02/2020', 3, 'pizza', 1);
+INSERT INTO Category(id, category, recipeID, Recipe_id) values (CATEGORY_SEQ.nextval,1,Recipe_SEQ.currval, Recipe_SEQ.currval);
+INSERT INTO Comments(id, comment, recipeID,Recipe_id) values (COMMENTS_SEQ.nextval,'c etait bon',Recipe_SEQ.currval,Recipe_SEQ.currval);
+INSERT INTO Ingredients(id, quantite, recipeID,Recipe_id) values (90, 1, RECIPE_SEQ.currval, RECIPE_SEQ.currval);
+INSERT INTO Ratings(id, rate, recipeID, Recipe_id) values (INGREDIENTS_SEQ.nextval, 4, Recipe_SEQ.currval,Recipe_SEQ.currval);
+INSERT INTO Steps (id, recipeID, steps, Recipe_id) values (STEPS_SEQ.nextval,Recipe_SEQ.currval,'mettre dans le four',Recipe_SEQ.currval);
 

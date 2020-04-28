@@ -37,7 +37,7 @@ public class Comments implements Serializable{
 
 	@Id
 	@SequenceGenerator(name = "COMMENTS_SEQ", sequenceName = "COMMENTS_SEQ")  
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_SEQ")			
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMMENTS_SEQ")			
 	private Long id;
 	
 	private long recipeID;

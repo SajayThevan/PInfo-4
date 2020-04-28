@@ -30,7 +30,7 @@ public class Recipe{
 	
 
 	@Id
-	@SequenceGenerator(name = "RECIPE_SEQ", sequenceName = "RECIPE_SEQ")
+	@SequenceGenerator(name = "Recipe_SEQ", sequenceName = "Recipe_SEQ")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

@@ -86,8 +86,6 @@ public class RecipeRestService {
 	public ArrayList getRecipeRest(@PathParam("id") long id) {
 		System.out.println(id);
 		ArrayList a = rs.getRecipe(id);
-		System.out.println("-------------------------------------------------------------"+a.size()+"-------------------------------------------");
-		System.out.println("Devrait être 11");
 		
 		return a;
 	}
