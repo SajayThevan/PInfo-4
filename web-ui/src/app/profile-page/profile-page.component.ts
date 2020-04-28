@@ -27,7 +27,8 @@ export class ProfilePageComponent implements OnInit {
   recettes = [ 
     {
       name:'Cake',
-      auteur:'Sajay'
+      auteur:'Sajay',
+      link : '/recipe'
     }
   ]
 

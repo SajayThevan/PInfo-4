@@ -1,1 +1,47 @@
-<p>recipe-page works!</p>
+<div class="container">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="center">
+          <a class="btn font-weight-lighter" href="#"><img class ="logo" src="../../assets/logo.jpeg"></a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          <a class="text-muted space" href="/home"><mat-icon aria-hidden="false">home</mat-icon></a>
+          <a class="text-muted space" href="/search"><mat-icon aria-hidden="false">search</mat-icon></a>
+          <a class="text-muted space" href="/login_page"><mat-icon aria-hidden="false">person</mat-icon></a>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+    
+    <div>
+      <div class="recep_photo">
+    </div>
+
+    <div class="name font-weight-lighter">
+        {{info[0]}}
+    </div>
+    
+    <div class="author font-weight-lighter">
+        by : {{info[1]}}
+    </div>
+    
+    <div class="note">
+      Note : {{info[2]}}/10
+    </div>
+
+    <div class="diff">
+      Difficulty : {{info[3]}}/10
+    </div>
+
+    <div class="btn1" *ngIf="connected">
+      <a class="btn"><mat-icon>folder_special</mat-icon></a>
+    </div>
+
+    <div class="btn2" *ngIf="connected">
+      <a class="btn"><mat-icon>create</mat-icon></a>
+    </div>
+    <div class="spacer"></div>
+    <div class="line"></div>
+    
+    
+</div>

@@ -9,7 +9,11 @@ export class RecipePageComponent implements OnInit {
 
   constructor() { }
 
+  connected = true;
+
   ngOnInit(): void {
   }
+
+  info = ['Cake','Sajay',9,7]
 
 }
