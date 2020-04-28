@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: stevehostettler/
+  repository: PInfo-2020/PInfo-4
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -16,6 +16,33 @@ kafka:
         enabled: false
   persistence:
      enabled: false
+
+# TODO
+counterparty-db:
+  driver_name: org.postgresql
+  persistence:
+     enabled: false
+  postgresDatabase: counterparty
+  postgresqlDatabase: counterparty
+  global:
+      persistence:
+         enabled: false
+      postgresqlDatabase: counterparty
+  initdbScriptsConfigMap:
+    counterparty-scripts
+    
+counterparty-db:
+  driver_name: org.postgresql
+  persistence:
+     enabled: false
+  postgresDatabase: counterparty
+  postgresqlDatabase: counterparty
+  global:
+      persistence:
+         enabled: false
+      postgresqlDatabase: counterparty
+  initdbScriptsConfigMap:
+    counterparty-scripts
 
 counterparty-db:
   driver_name: org.postgresql
