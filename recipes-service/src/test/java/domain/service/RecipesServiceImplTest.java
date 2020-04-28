@@ -54,7 +54,9 @@ class RecipesServiceImplTest {
 		assertEquals(res.size(),2);
 		
 	}
-//	
+
+	//TODO: correct this test
+	
 //	@Test
 //	void testAddRating() {
 //		Recipe r = randomRecipe();
@@ -68,60 +70,60 @@ class RecipesServiceImplTest {
 //		
 //	}
 //	
-//	@Test
-//	void testGetRecipesForProfil() {
-//		Recipe r1 = randomRecipe();
-//		em.persist(r1);
-//		long profilID = r1.getAuthorID();
-//		ArrayList<Triplet> recipes = recipesService.getRecipesForProfil(profilID);
-//		assertEquals(recipes.size(),1);
-//		assertEquals(recipes.get(0).getValue(0),r1.getId());
-//		assertEquals(recipes.get(0).getValue(1),r1.getName());
-//		assertEquals(recipes.get(0).getValue(2),r1.getIngredients());
-//	}
-//	
-//	
-//	@SuppressWarnings("rawtypes")
-//	@Test
-//	void testGetRecipiesIDForProfiles() {
-//		List res = em.createNativeQuery("select name from Recipe").getResultList(); // Get the inital number of element in DB
-//		Recipe r = randomRecipe();
-//		em.persist(r);
-//		List a = recipesService.getRecipiesIdForProfiles(r.getAuthorID());
-//		assertEquals(a.size(),res.size());		
-//	}
-//	
-//	@Test
-//	void testAddComment() {
-//		Recipe r = randomRecipe();
-//		em.persist(r);
-//		int ini=r.getComments().size();
-//		recipesService.addComment("C'était bon",r.getId());
-//		int fin = r.getComments().size();
-//		assertEquals(ini+1,fin);
-//	}
-//	
-//	@Test
-//	void testRemoveRecipe() {
-//		Recipe r = randomRecipe();
-//		int ini =  em.createNativeQuery("select name from Recipe").getResultList().size();
-//		em.persist(r);
-//		int mid =  em.createNativeQuery("select name from Recipe").getResultList().size();
-//		assertEquals(ini+1,mid); // To be sure persist works
-//		recipesService.removeRecipe(r.getId());
-//		int fin =  em.createNativeQuery("select name from Recipe").getResultList().size();
-//		assertEquals(ini,fin);
-//	}
-//	
-//	@Test 
-//	void testGetRecipes(){
-//		Recipe r = randomRecipe();
-//		em.persist(r);
-//		ArrayList res = recipesService.getRecipe(r.getId());
-//		assertEquals(r.getAuthorID(),res.get(2));
-//	}
-//	
-//	
+	@Test
+	void testGetRecipesForProfil() {
+		Recipe r1 = randomRecipe();
+		em.persist(r1);
+		long profilID = r1.getAuthorID();
+		ArrayList<Triplet> recipes = recipesService.getRecipesForProfil(profilID);
+		assertEquals(recipes.size(),1);
+		assertEquals(recipes.get(0).getValue(0),r1.getId());
+		assertEquals(recipes.get(0).getValue(1),r1.getName());
+		assertEquals(recipes.get(0).getValue(2),r1.getIngredients());
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	@Test
+	void testGetRecipiesIDForProfiles() {
+		List res = em.createNativeQuery("select name from Recipe").getResultList(); // Get the inital number of element in DB
+		Recipe r = randomRecipe();
+		em.persist(r);
+		List a = recipesService.getRecipiesIdForProfiles(r.getAuthorID());
+		assertEquals(a.size(),res.size());		
+	}
+	
+	@Test
+	void testAddComment() {
+		Recipe r = randomRecipe();
+		em.persist(r);
+		int ini=r.getComments().size();
+		recipesService.addComment("C'était bon",r.getId());
+		int fin = r.getComments().size();
+		assertEquals(ini+1,fin);
+	}
+	
+	@Test
+	void testRemoveRecipe() {
+		Recipe r = randomRecipe();
+		int ini =  em.createNativeQuery("select name from Recipe").getResultList().size();
+		em.persist(r);
+		int mid =  em.createNativeQuery("select name from Recipe").getResultList().size();
+		assertEquals(ini+1,mid); // To be sure persist works
+		recipesService.removeRecipe(r.getId());
+		int fin =  em.createNativeQuery("select name from Recipe").getResultList().size();
+		assertEquals(ini,fin);
+	}
+	
+	@Test 
+	void testGetRecipes(){
+		Recipe r = randomRecipe();
+		em.persist(r);
+		ArrayList res = recipesService.getRecipe(r.getId());
+		assertEquals(r.getAuthorID(),res.get(2));
+	}
+	
+	
 	
 	public Recipe randomRecipe() {
 		Recipe r = new Recipe();
