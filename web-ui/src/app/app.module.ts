@@ -12,6 +12,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
+import { RecipePageComponent } from './recipe-page/recipe-page.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SubscribeComponent } from './subscribe/subscribe.component';
     ProfilePageComponent,
     SearchComponent,
     SubscribeComponent,
+    RecipePageComponent,
   ],
   imports: [
     BrowserModule,

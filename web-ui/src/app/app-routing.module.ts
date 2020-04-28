@@ -8,6 +8,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
+import { RecipePageComponent } from './recipe-page/recipe-page.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path :'login_page', component : LoginPageComponent},
   { path :'profile', component : ProfilePageComponent},
   { path: 'search', component:SearchComponent},
-  { path: 'subscribe',component:SubscribeComponent}
+  { path: 'subscribe',component:SubscribeComponent},
+  { path: 'recipe', component:RecipePageComponent}
 ];
 
 @NgModule({
@@ -34,5 +36,6 @@ export const routingComponent = [HomeComponent,
   LoginPageComponent,
   ProfilePageComponent,
   SearchComponent,
-  SubscribeComponent
+  SubscribeComponent,
+  RecipePageComponent
 ]
