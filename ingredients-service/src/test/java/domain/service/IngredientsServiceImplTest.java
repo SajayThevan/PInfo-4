@@ -139,6 +139,22 @@ class IngredientsServiceImplTest {
 	}
 	
 	@Test
+	void testCount() {
+		System.out.println("-----------------DEBUT TEST COUNT-----------------");
+		List<Ingredient> ingredients = ingredientsService.getAll();
+		int size = ingredients.size();
+		
+		ingredientsService.create(getRandomIngredient());
+		ingredientsService.create(getRandomIngredient());
+		ingredientsService.create(getRandomIngredient());
+		ingredientsService.create(getRandomIngredient());
+		
+		Long count = ingredientsService.count();
+		assertEquals(size + 4, count);
+		System.out.println("-----------------TEST COUNT TERMINE-----------------");
+	}
+	
+	@Test
 	private Ingredient getRandomIngredient() {
 		Ingredient ing = new Ingredient();
 		//ing.setId((long) 10);

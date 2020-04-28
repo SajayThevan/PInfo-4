@@ -19,13 +19,12 @@ import lombok.EqualsAndHashCode;
 import java.util.ArrayList;
 
 
-// Lombok: Getter/Setter/ToString/Hashcode
+// Lombok: Getter/Setter/ToString
 @Data
-@EqualsAndHashCode//(callSuper=true)
+//@EqualsAndHashCode(callSuper=true)
 
 // DataBase
 @Entity
-@DiscriminatorColumn(name = "instrumentType")
 public class Ingredient {
 	
 	// TODO: Unfinished
@@ -38,7 +37,6 @@ public class Ingredient {
 	private Long id; 
 
 	@NotNull
-	@Column(name="name", insertable=false, updatable=false)
 	private String name;
 	
 	@NotNull

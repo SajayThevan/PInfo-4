@@ -6,10 +6,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import org.aerogear.kafka.SimpleKafkaProducer;
@@ -19,7 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import domain.model.Ingrediant;
 import domain.model.Profile;
+import domain.model.RecetteFav;
 import domain.service.ProfileService;
 
 @ExtendWith(MockitoExtension.class)
@@ -81,20 +84,43 @@ class ProfileProducerTest {
 		return profiles;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+
 	private Profile getRandomProfile() {
 		Profile p = new Profile();
 		Random rand = new Random();
 		
-		List<AbstractMap.SimpleEntry<Integer, Integer>> Fridge = new ArrayList<AbstractMap.SimpleEntry<Integer, Integer> >(); 
-		Fridge.add(new AbstractMap.SimpleEntry(rand.nextInt(100), rand.nextInt(100))); 
-        Fridge.add(new AbstractMap.SimpleEntry(rand.nextInt(100), rand.nextInt(100))); 
-        Fridge.add(new AbstractMap.SimpleEntry(rand.nextInt(100), rand.nextInt(100)));
-        
-        List<Integer> Favorites = new ArrayList<Integer>();
-        Favorites.add(rand.nextInt(100));
-        Favorites.add(rand.nextInt(100));
-        Favorites.add(rand.nextInt(100));
+		Ingrediant ing = new Ingrediant();
+		ing.setIngrediantid(((long) rand.nextInt(100)));
+		ing.setQuantite(rand.nextInt(100));
+		
+		
+		Ingrediant ing2 = new Ingrediant();
+		ing2.setIngrediantid(((long) rand.nextInt(100)));
+		ing2.setQuantite(rand.nextInt(100));
+		
+		Ingrediant ing3 = new Ingrediant();
+		ing3.setIngrediantid(((long) rand.nextInt(100)));
+		ing3.setQuantite(rand.nextInt(100));
+		
+		Set<Ingrediant> Fridge = new HashSet<Ingrediant>();
+		Fridge.add(ing);
+		Fridge.add(ing2);
+		Fridge.add(ing3);
+		
+		RecetteFav re = new RecetteFav();
+		re.setRecetteid((long) 4);
+	
+		RecetteFav re2 = new RecetteFav();
+		re2.setRecetteid((long) 12);
+		
+		RecetteFav re3 = new RecetteFav();
+		re3.setRecetteid((long) 5);
+
+		Set<RecetteFav> Favoris = new HashSet<RecetteFav>();
+		Favoris.add(re);
+		Favoris.add(re2);
+		Favoris.add(re3);
+		
         
 		p.setPseudo(UUID.randomUUID().toString());
 		p.setEmail(UUID.randomUUID().toString());
@@ -102,7 +128,7 @@ class ProfileProducerTest {
 		p.setLast_name(UUID.randomUUID().toString());
 		p.setScore(rand.nextInt(100));
 		p.setFridge_contents(Fridge);
-		p.setFavourite_recipes(Favorites);
+		p.setFavourite_recipes(Favoris);
 		return p;	
 	}
 

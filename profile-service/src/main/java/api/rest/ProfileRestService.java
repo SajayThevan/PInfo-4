@@ -46,6 +46,8 @@ public class ProfileRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of profile")
     public Long count() {
+		System.out.println("-----------------LONG COUNT:"+profileService.count()+"-----------------");
+		
 		return profileService.count();
 	}
 	
@@ -54,6 +56,7 @@ public class ProfileRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specifc profile")
 	public Profile get(@PathParam("id") Long profileId) {
+		
 		return profileService.get(profileId);
 	}
 	

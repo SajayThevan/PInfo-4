@@ -1,5 +1,6 @@
 package api.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -55,11 +56,18 @@ public class IngredientRestService {
 	
 	@GET
 	@Path("/computeCalories")
-	@Consumes(MediaType.APPLICATION_JSON)
+	//@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
-    public int computeCalories(List<Long> IngredientID) {
-		return ingredientService.computeCalories(IngredientID);
+   	//public int computeCalories(List<Long> IngredientID) {
+	public int computeCalories() {
+		System.out.println("------------------ici test calories");
+		List<Long> IngredientIDList = new ArrayList<>(); 
+		IngredientIDList.add(Long.valueOf(2));
+		IngredientIDList.add(Long.valueOf(3));
+		System.out.println("------------------ici test calories" + IngredientIDList + "----------------");
+		System.out.println("------------------ici test calories" + ingredientService.computeCalories(IngredientIDList) + "----------------");
+		return ingredientService.computeCalories(IngredientIDList);
 	}
 	
 	@GET
@@ -67,7 +75,17 @@ public class IngredientRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get the possible ingredients compared to a string")
     public List<Object> getPossibleIngredients(@PathParam("name") String ingredientWanted) {
+		System.out.println("------------------ici test possible ingredient " + ingredientWanted + "----------------");
 		return ingredientService.getPossibleIngredients(ingredientWanted);
+	}
+	
+	@GET
+	@Path("/count")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the count of ingredients")
+    public Long count() {
+		System.out.println("------------------ici test count" + ingredientService.count() + "----------------");
+		return ingredientService.count();
 	}
 	
 	@POST

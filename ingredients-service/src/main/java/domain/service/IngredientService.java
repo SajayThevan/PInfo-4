@@ -23,4 +23,5 @@ public interface IngredientService {
 	// Object[] getPossibleIngredients(String enter);
 	// https://docs.oracle.com/javase/specs/jls/se7/html/jls-10.html
 	//https://stackoverflow.com/questions/16363547/how-to-declare-an-array-of-different-data-types
+	Long count();
 }

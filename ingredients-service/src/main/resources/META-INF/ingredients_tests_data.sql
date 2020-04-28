@@ -1,7 +1,7 @@
-drop table Ingredients if exists;
+drop table Ingredient if exists;
 drop sequence if exists INGREDIENT_SEQ;
 create sequence INGREDIENT_SEQ start with 1 increment by 50;
-create table Ingredients (
+create table Ingredient (
         id bigint not null,
 		name varchar(255),
 		kcal int not null,
@@ -11,7 +11,7 @@ create table Ingredients (
 		salt int not null
 );
 
-INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, "chocolat", 1, 5, 3, 2, 1);
-INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, "chocolat", 1, 2, 1, 3, 2);
-INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 1, 5, 4, 2, 3);
-INSERT INTO Ingredients (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 1, 2, 2, 4, 1);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 1, 5, 3, 2, 1);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 3, 2, 1, 3, 2);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 3, 5, 4, 2, 3);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'poivron', 4, 2, 2, 4, 1);

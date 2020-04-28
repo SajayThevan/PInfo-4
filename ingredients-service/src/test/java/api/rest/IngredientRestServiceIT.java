@@ -21,34 +21,25 @@ public class IngredientRestServiceIT {
 	public void testGetAll() {
 		when().get("/").then().body(containsString("chocolat"));
 	}
-	/*
-	@Test
-	public void testGet() {
-		// ingredientsService.create(getRandomIngredient());
-		Ingredient ingredients1 = getRandomIngredient();
-		Long id = ingredients1.getId();
-		String idLink = "/" + id;
-		System.out.println("TEST : " + ingredients1);
-		System.out.println("TEST : " + idLink);
-		//when().get("/1").then().body(containsString("chocolat"));
-		when().get(idLink).then().body(containsString("chocolat"));
-
-	}
-	*/
+	
 	@Test
 	public void testGet() {
 		when().get("/1").then().body(containsString("chocolat"));
 	}
-
-	// see how we want to manage paths !!  
+	
 	@Test
 	public void testComputeCalories() {
-		when().get("/computeCalories").then().body(containsString("2"));
+		when().get("/computeCalories").then().body(containsString("6"));
 	}
-	
+	/*
 	@Test
 	public void testGetPossibleIngredients() {
 		when().get("/getPossibleIngredients/choco").then().body(containsString("chocolat"));
+	}
+	*/
+	@Test
+	public void testCount() {
+		when().get("/count").then().body(containsString("4"));
 	}
 
 }
