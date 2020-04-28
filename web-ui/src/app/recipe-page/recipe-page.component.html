@@ -22,7 +22,7 @@
     </div>
     
     <div class="author font-weight-lighter">
-        by : {{info[1]}}
+        by {{info[1]}}
     </div>
     
     <div class="note">
@@ -40,8 +40,49 @@
     <div class="btn2" *ngIf="connected">
       <a class="btn"><mat-icon>create</mat-icon></a>
     </div>
+
     <div class="spacer"></div>
     <div class="line"></div>
-    
+    <div class="spacer"></div>
+
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8" style="padding-top: 10px;">Ingredients</div>
+              <div class="col-2">
+                <a class = "btn pad"><mat-icon>check</mat-icon></a>
+              </div>
+            </div>
+            <hr>
+              <div *ngFor="let ingredient of ingredients">
+                {{ingredient}}
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="card">
+          <div class="card-body">
+            Steps
+            <hr>
+
+            <div *ngFor="let step of steps">
+              {{step}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="spacer"></div>
+  <div class="line"></div>
+  <div class="spacer"></div>
+
+  <div>
+    #Commet box
+  </div>
     
 </div>

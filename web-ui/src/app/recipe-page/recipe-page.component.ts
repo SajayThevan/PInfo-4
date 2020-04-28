@@ -14,6 +14,8 @@ export class RecipePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  info = ['Cake','Sajay',9,7]
+  info = ['Cake','Sajay',9,7];
 
+  ingredients = ['Flour','Egg','Sugar','Vanilla'];
+  steps = ['Add Flour','Add Egg','Add Sugar','Add Vanilla'];
 }

@@ -11,6 +11,10 @@
     padding-right: 35px;
 }
 
+.pad {
+    padding-left: 40px;
+}
+
 .space{
     padding-left: 20px;
 }
@@ -40,13 +44,14 @@
     left: 20%;
     font-size: 70px;
     font-size-adjust: 0.5;
-    font-family: monaco;
+    font-family: Apple Chancery, cursive;
 }
 
 .author{
     position: absolute;
     top: 220px;
     left: 30%;
+    font-family: Apple Chancery, cursive;
 }
 
 .note{
@@ -74,5 +79,5 @@
 }
 
 .spacer {
-    padding : 20px
+    padding : 20px;
 }
