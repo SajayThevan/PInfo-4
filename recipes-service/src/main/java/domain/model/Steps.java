@@ -21,22 +21,18 @@ import lombok.ToString;
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
 @EqualsAndHashCode
-@ToString
+
 
 // DataBase
 
 @Entity
-public class Steps implements Serializable{/**
-	 * 
-	 */
+public class Steps implements Serializable{
+
 	private static final long serialVersionUID = 6515741718230212220L;
 
-/**
-	 * 
-	 */
 	
 	@Id
-	@SequenceGenerator(name = "PROFILE_SEQ", sequenceName = "PROFILE_SEQ")  
+	@SequenceGenerator(name = "STEPS_SEQ", sequenceName = "STEPS_SEQ")  
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_SEQ")			
 	private Long id;
 	
@@ -48,6 +44,27 @@ public class Steps implements Serializable{/**
 	@JoinColumn(name="Recipe_id",nullable = true)
 	private Recipe recipesteps;
 
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+ 
+        if (!(o instanceof Steps))
+            return false;
+ 
+        Steps other = (Steps) o;
+ 
+        return id != null &&
+               id.equals(other.getId());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return 31;
+    }
 	
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "-" + getId();
+    }
 
 }

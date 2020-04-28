@@ -57,6 +57,8 @@ public class RecipeRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value ="Get Recipes for profil ID")
 	public ArrayList<Triplet> getRecipesForProfilRest(@PathParam("id") long id) {
+		System.out.println("============================================================ PUTAIN DE RECIPESPROFIL ID !!!!!!!!!!!!!!!!!!!! ==================================");
+		System.out.println(rs.getRecipiesIdForProfiles(id).size());
 		return rs.getRecipesForProfil(id);
 	}
 
@@ -82,7 +84,6 @@ public class RecipeRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a full Recipe")
 	public ArrayList getRecipeRest(@PathParam("id") long id) {
-		System.out.println("============================================================ ICICI ==================================");
 		System.out.println(id);
 		ArrayList a = rs.getRecipe(id);
 		System.out.println("-------------------------------------------------------------"+a.size()+"-------------------------------------------");

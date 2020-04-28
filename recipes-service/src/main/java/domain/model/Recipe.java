@@ -1,37 +1,27 @@
 package domain.model;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-
-//import javax.inject;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
 @EqualsAndHashCode
-@ToString
+
 
 // DataBase
 
@@ -40,7 +30,7 @@ public class Recipe{
 	
 
 	@Id
-	@SequenceGenerator(name = "Recipe_SEQ", sequenceName = "Recipe_SEQ")
+	@SequenceGenerator(name = "RECIPE_SEQ", sequenceName = "RECIPE_SEQ")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -84,9 +74,7 @@ public class Recipe{
 		this.comments.add(c);
 	}
 	
-	public void updateRating(int rate) {
-		Ratings r = new Ratings();
-		r.setRate(rate);
+	public void updateRating(Ratings r) {
 		this.ratings.add(r);
 	}
 

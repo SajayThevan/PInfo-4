@@ -21,7 +21,6 @@ import lombok.ToString;
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
 @EqualsAndHashCode
-@ToString
 
 // DataBase
 
@@ -32,7 +31,7 @@ public class Category implements Serializable{
 
 
 	@Id
-	@SequenceGenerator(name = "PROFILE_SEQ", sequenceName = "PROFILE_SEQ")  
+	@SequenceGenerator(name = "CATEGORY_SEQ", sequenceName = "CATEGORY_SEQ")  
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_SEQ")			
 	private Long id;
 	
@@ -44,6 +43,28 @@ public class Category implements Serializable{
 	@JoinColumn(name="Recipe_id",nullable = true)
 	private Recipe recipecat;
 
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+ 
+        if (!(o instanceof Category))
+            return false;
+ 
+        Category other = (Category) o;
+ 
+        return id != null &&
+               id.equals(other.getId());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+	
 	
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "-" + getId();
+    }
 }

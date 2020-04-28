@@ -22,6 +22,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import domain.model.CategoryEnum;
 import domain.model.Recipe;
+import domain.model.Ratings;
 import lombok.Data;
 
 @ApplicationScoped
@@ -51,7 +52,8 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	public void addRating(long id,int rate) {
 		Recipe r = em.find(Recipe.class, id);
-		r.updateRating(rate);
+		Ratings rating = new Ratings();
+		r.updateRating(rating);
 		em.merge(r);
 	}
 
@@ -71,6 +73,8 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	public List getRecipiesIdForProfiles(long id){
 		List ids = em.createQuery("SELECT id from Recipe where authorID = id").getResultList();
+		System.out.println("--------------------------------Size of the service result----------------------------------");
+		System.out.println(ids.size());
 		return ids;
 	}
 	
@@ -91,8 +95,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public ArrayList getRecipe(long id) {
 		//Return an ArrayList as follow:
 		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
-		System.out.println("===================================================ICICICI==============================================================");
-		System.out.println("----------------------------------------------------"+em.find(Recipe.class, id)+"----------------------------------------");
+	
 		Recipe r = em.find(Recipe.class, id);
 		ArrayList l = new ArrayList();
 		l.add(r.getId());

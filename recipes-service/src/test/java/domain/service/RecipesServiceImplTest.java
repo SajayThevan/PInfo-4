@@ -16,7 +16,6 @@ import org.javatuples.Triplet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -57,19 +56,19 @@ class RecipesServiceImplTest {
 
 	//TODO: correct this test
 	
-//	@Test
-//	void testAddRating() {
-//		Recipe r = randomRecipe();
-//		Set<Ratings> ini = r.getRatings();
-//		int testVal = ini.size();
-//		em.persist(r);
-//		recipesService.addRating(r.getId(), 3);
-//		Recipe r2 = em.find(Recipe.class, r.getId());
-//		Set<Ratings> fin = r2.getRatings();
-//		assertEquals(testVal+1,fin.size());
-//		
-//	}
-//	
+	@Test
+	void testAddRating() {
+		Recipe r = randomRecipe();
+		Set<Ratings> ini = r.getRatings();
+		int testVal = ini.size();
+		em.persist(r);
+		recipesService.addRating(r.getId(), 3);
+		Recipe r2 = em.find(Recipe.class, r.getId());
+		Set<Ratings> fin = r2.getRatings();
+		assertEquals(testVal+1,fin.size());
+		
+	}
+	
 	@Test
 	void testGetRecipesForProfil() {
 		Recipe r1 = randomRecipe();

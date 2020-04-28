@@ -1,9 +1,3 @@
- drop table Recipe_ratings if exists;
- drop table Recipe_steps if exists;
- drop table Recipe_ingredients if exists;
- drop table Recipe_comments if exists;
- drop table Recipe_category if exists;
-
 drop table Steps if exists;
 drop table Ratings if exists;
 drop table Category if exists;
@@ -101,7 +95,7 @@ alter table Steps
     foreign key (Recipe_id) 
     references Recipe ;
     
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (RECIPE_SEQ.nextval, 10,'21/02/2020', 3, 'pizza', 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (RECIPE_SEQ.nextval, 1,'21/02/2020', 3, 'pizza', 1);
 INSERT INTO Category(id, category, recipeID, Recipe_id) values (CATEGORY_SEQ.nextval,1,RECIPE_SEQ.currval, Recipe_SEQ.currval);
 INSERT INTO Comments(id, comment, recipeID,Recipe_id) values (COMMENTS_SEQ.nextval,'c etait bon',RECIPE_SEQ.currval,Recipe_SEQ.currval);
 INSERT INTO Ingredients(id, quantite, recipeID,Recipe_id) values (INGREDIENTS_SEQ.nextval, 1, RECIPE_SEQ.currval, RECIPE_SEQ.currval);
