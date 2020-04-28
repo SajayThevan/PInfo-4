@@ -49,13 +49,13 @@ public class Profile implements Serializable {
 	@NotNull
 	private int score;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "ingprofile")
-	private Set<Ingrediant> fridge_contents; // <(IngredientID, Quantity)> 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "ingredientProfile")
+	private Set<Ingredient> fridge_contents; // <(IngredientID, Quantity)> 
 	
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "recetteprofile")
-	private Set<RecetteFav> favourite_recipes; // <(IngredientID, Quantity)> 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "recipeProfile")
+	private Set<RecipeFav> favourite_recipes; // <(IngredientID, Quantity)> 
 		
 	
 	

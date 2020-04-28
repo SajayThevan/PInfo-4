@@ -64,7 +64,7 @@ public class ProfileRestService {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Update a given profile")
-	public void upadte(Profile profile) {
+	public void update(Profile profile) {
 		profileService.update(profile);
 		profileProducer.send(profile);
 	}

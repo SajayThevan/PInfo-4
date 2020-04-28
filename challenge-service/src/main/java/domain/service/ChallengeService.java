@@ -2,12 +2,15 @@ package domain.service;
 
 import java.util.List;
 
-import domain.model.Counterparty;
+import domain.model.Challenge;
 
-public interface CounterpartyService {
 
-	List<Counterparty> getAll();
-	Counterparty get(String lei);
+public interface ChallengeService {
+
+	List<Challenge> getAll();
+	void update(Challenge challenge);
+	void create(Challenge challenge);
+	Challenge get(Long challengeId);
 	Long count();
 
 }

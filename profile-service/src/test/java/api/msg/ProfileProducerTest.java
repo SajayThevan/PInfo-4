@@ -20,9 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import domain.model.Ingrediant;
+import domain.model.Ingredient;
 import domain.model.Profile;
-import domain.model.RecetteFav;
+import domain.model.RecipeFav;
 import domain.service.ProfileService;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,34 +89,34 @@ class ProfileProducerTest {
 		Profile p = new Profile();
 		Random rand = new Random();
 		
-		Ingrediant ing = new Ingrediant();
-		ing.setIngrediantid(((long) rand.nextInt(100)));
-		ing.setQuantite(rand.nextInt(100));
+		Ingredient ing = new Ingredient();
+		ing.setIngredientId(((long) rand.nextInt(100)));
+		ing.setQuantity(rand.nextInt(100));
 		
 		
-		Ingrediant ing2 = new Ingrediant();
-		ing2.setIngrediantid(((long) rand.nextInt(100)));
-		ing2.setQuantite(rand.nextInt(100));
+		Ingredient ing2 = new Ingredient();
+		ing2.setIngredientId(((long) rand.nextInt(100)));
+		ing2.setQuantity(rand.nextInt(100));
 		
-		Ingrediant ing3 = new Ingrediant();
-		ing3.setIngrediantid(((long) rand.nextInt(100)));
-		ing3.setQuantite(rand.nextInt(100));
+		Ingredient ing3 = new Ingredient();
+		ing3.setIngredientId(((long) rand.nextInt(100)));
+		ing3.setQuantity(rand.nextInt(100));
 		
-		Set<Ingrediant> Fridge = new HashSet<Ingrediant>();
+		Set<Ingredient> Fridge = new HashSet<Ingredient>();
 		Fridge.add(ing);
 		Fridge.add(ing2);
 		Fridge.add(ing3);
 		
-		RecetteFav re = new RecetteFav();
-		re.setRecetteid((long) 4);
+		RecipeFav re = new RecipeFav();
+		re.setRecipeId((long) 4);
 	
-		RecetteFav re2 = new RecetteFav();
-		re2.setRecetteid((long) 12);
+		RecipeFav re2 = new RecipeFav();
+		re2.setRecipeId((long) 12);
 		
-		RecetteFav re3 = new RecetteFav();
-		re3.setRecetteid((long) 5);
+		RecipeFav re3 = new RecipeFav();
+		re3.setRecipeId((long) 5);
 
-		Set<RecetteFav> Favoris = new HashSet<RecetteFav>();
+		Set<RecipeFav> Favoris = new HashSet<RecipeFav>();
 		Favoris.add(re);
 		Favoris.add(re2);
 		Favoris.add(re3);

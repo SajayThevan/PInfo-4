@@ -1,14 +1,23 @@
 package domain.model;
 
-import javax.inject;
 
+
+import javax.inject.Inject;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 
 
 // Lombok: Getter/Setter/ToString/Hashcode
@@ -17,10 +26,16 @@ import java.util.ArrayList;
 
 // DataBase
 @Entity
-public class Challenge {
+@Table(name ="Profile")
+public class Challenge implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4080220078360449057L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "CHALLENGE_SEQ", sequenceName = "CHALLENGE_SEQ")  
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CHALLENGE_SEQ")			
 	private Long id;
 	
 	@NotNull
@@ -30,10 +45,10 @@ public class Challenge {
 	private int authorID; // ProfileID
 	
 	@NotNull
-	private ArrayList<int> ingredients; // IngredientID's
+	private List<Integer> ingredients; // IngredientID's
 	
 	@NotNull
 	@Inject
-	private ArrayList<Recipe> solutions;
+	private List<Recipe> solutions;
 	
 }

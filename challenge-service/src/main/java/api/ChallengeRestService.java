@@ -10,21 +10,21 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import domain.model.Counterparty;
-import domain.service.CounterpartyService;
+import domain.model.Challenge;
+import domain.service.ChallengeService;
 import io.swagger.annotations.ApiOperation;
 
 @ApplicationScoped
 @Path("/counterparties")
-public class CounterpartyRestService {
+public class ChallengeRestService {
 
 	@Inject
-	private CounterpartyService counterpartyService;
+	private ChallengeService counterpartyService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all coutnerparties")
-	public List<Counterparty> getAll() {
+	public List<Challenge> getAll() {
 		return counterpartyService.getAll();
 	}
 	
@@ -40,7 +40,7 @@ public class CounterpartyRestService {
 	@Path("{lei}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specific counterparty using its lei")
-	public Counterparty get(@PathParam("lei") String lei) {
+	public Challenge get(@PathParam("lei") String lei) {
 		return counterpartyService.get(lei);
 	}
 
