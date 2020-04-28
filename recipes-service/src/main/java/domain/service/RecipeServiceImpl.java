@@ -5,18 +5,27 @@ import java.lang.reflect.Array;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
 
 import org.javatuples.Triplet; 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import domain.model.CategoryEnum;
+import domain.model.Comments;
+import domain.model.Ingredients;
 import domain.model.Recipe;
+import domain.model.Ratings;
 import lombok.Data;
 
 @ApplicationScoped
@@ -35,8 +44,6 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	
-	//TODO: Implement that shit
-	
 	public void addRecipe(Recipe r) {
 		if (r.getId() != null) {
 			throw new IllegalArgumentException("Recipe already exists : " + r.getId());
@@ -46,7 +53,8 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	public void addRating(long id,int rate) {
 		Recipe r = em.find(Recipe.class, id);
-		r.updateRating(rate);
+		Ratings rating = new Ratings();
+		r.updateRating(rating);
 		em.merge(r);
 	}
 
@@ -66,6 +74,7 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	public List getRecipiesIdForProfiles(long id){
 		List ids = em.createQuery("SELECT id from Recipe where authorID = id").getResultList();
+
 		return ids;
 	}
 	
@@ -81,26 +90,39 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+
 	public ArrayList getRecipe(long id) {
 		//Return an ArrayList as follow:
 		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
-		
+	
 		Recipe r = em.find(Recipe.class, id);
 		ArrayList l = new ArrayList();
 		l.add(r.getId());
 		l.add(r.getName());
 		l.add(r.getAuthorID());
 		l.add(r.getDate());
-		l.add(r.getIngredients());
+		l.add((Set<Ingredients>)r.getIngredients());
 		l.add(r.getSteps());
 		l.add(r.getCategory());
 		l.add(r.getDifficulty());
 		l.add(r.getTime());
 		l.add(r.getRatings());
-		l.add(r.getComments());
+		
+		//debug:
+		l.add((Set<Comments>)r.getComments());
+		Set<Comments> c1 = r.getComments();
 	
+			
 		return l;
 	}
 	
+		
+	public Long count() {
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+		cq.select(qb.count(cq.from(Recipe.class)));
+		return em.createQuery(cq).getSingleResult();
+	}
 	
 }

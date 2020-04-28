@@ -1,32 +1,34 @@
 package domain.model;
 
-import javax.persistence.ElementCollection;
-
-//import javax.inject;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
 
 
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
 @EqualsAndHashCode
 
+
 // DataBase
+
 @Entity
-public class Recipe {
+public class Recipe{
 	
+
 	@Id
 	@SequenceGenerator(name = "Recipe_SEQ", sequenceName = "Recipe_SEQ")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,16 +45,15 @@ public class Recipe {
 	private String date;
 	
 	@NotNull
-	@ElementCollection
-	private List<Long> ingredients; // IngredientID
 	
-	@NotNull
-	@ElementCollection
-	List<String> steps;
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipeing")
+	private Set<Ingredients> ingredients;
 	
-	@NotNull
-	@ElementCollection
-	private List<CategoryEnum> category; // 
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipesteps")
+	private Set<Steps> steps;
+	
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipecat")
+	private Set<Category> category;
 	
 	@NotNull
 	private int difficulty;
@@ -60,20 +61,21 @@ public class Recipe {
 	@NotNull
 	private int time;
 	
-	@NotNull
-	@ElementCollection
-	private List<Integer> ratings;
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "reciperatings")
+	private Set<Ratings> ratings;
 	
-	@NotNull
-	@ElementCollection
-	private List<String> comments;
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipeComments")
+	private Set<Comments> comments;
+	
 	
 	public void addComent(String comment) {
-		this.comments.add(comment);
+		Comments c = new Comments();
+		c.setComment(comment);
+		this.comments.add(c);
 	}
 	
-	public void updateRating(int rate) {
-		this.ratings.add(rate);
+	public void updateRating(Ratings r) {
+		this.ratings.add(r);
 	}
 
 }

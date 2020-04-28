@@ -1,7 +1,11 @@
 package api.rest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,11 +17,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.javatuples.Triplet;
 
 import api.msg.RecipeProducer;
+import domain.model.Comments;
 import domain.model.Recipe;
 
 import domain.service.RecipeService;
@@ -34,7 +40,6 @@ public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
-
 	
 	
 	@POST
@@ -57,17 +62,19 @@ public class RecipeRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value ="Get Recipes for profil ID")
 	public ArrayList<Triplet> getRecipesForProfilRest(@PathParam("id") long id) {
+
 		return rs.getRecipesForProfil(id);
 	}
 
-	@PUT
-	@Path("addComments/{comment}/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Add a comment")
-	public void addCommentRest(@PathParam("comment") String co, @PathParam("id") long id) {
-		rs.addComment(co,id);
-	}
-	
+//	@PUT
+//	@Path("/addComments")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@ApiOperation(value = "Add a comment")
+//	public void addCommentRest( @Context MediaType arg) {
+//		
+//		rs.addComment(arg.valueOf(Comments),arg.valueOf(id));
+//	}
+//	
 	@DELETE
 	@Path("/rm/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -76,15 +83,30 @@ public class RecipeRestService {
 		rs.removeRecipe(id);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GET
 	@Path("/getRecipe/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a full Recipe")
-	public ArrayList getRecipeRest(@PathParam("id") long id) {
-		return rs.getRecipe(id);
+	public Set getRecipeRest(@PathParam("id") long id) {
+		System.out.println(id);
+		ArrayList a = rs.getRecipe(id);
+		Set<Object> toreturn = new HashSet();
+		for (Iterator<Object> it = a.iterator(); it.hasNext(); )
+		{
+			toreturn.add(it.next());
+		}
+
+		return toreturn;
 	}
 	
+	@GET
+	@Path("/count")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the count of instrument")
+    public Long count() {
+		return rs.count();
+	}
 	
 	
 	/*

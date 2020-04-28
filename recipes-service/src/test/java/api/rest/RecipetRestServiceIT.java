@@ -3,6 +3,8 @@ package api.rest;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.containsString;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -20,26 +22,27 @@ public class RecipetRestServiceIT {
 	RecipeService rs;
 	
 	@Test
-	public void testGet() {
-		
-		when().post("create").then().body(containsString("254900LAW6SKNVPBBN21"));
-	}
-	
-	
-	/*
-	  
-	 *******************Keep for test example *********************** 
-	 
-	@Test
-	public void testGetAll() {
-		when().get("/").then().body(containsString("254900LAW6SKNVPBBN21"));
-
-	}
-
-
-	@Test
 	public void testCount() {
-		when().get("/count").then().body(containsString("10"));
+		
+		when().get("/count").then().body(containsString("1"));
+
 	}
-	*/
+	
+	@Test
+	public void recipesProfil() {
+		when().get("/recipesProfil/1").then().body(containsString("pizza"));
+	}
+	
+	@Test
+	public void getRecipiesRestTest() {
+		
+		//Seemes to receive only ingredients and multiple times
+		
+		when().get("/getRecipe/1").then().body(containsString("pizza")); //Test name  -OK
+		when().get("/getRecipe/1").then().body(containsString("90")); //Test ingredients-OK
+		when().get("/getRecipe/1").then().body(containsString("Mauvais")); //Test commentaire
+	}
+	
+	
+
 }

@@ -1,19 +1,19 @@
 package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
 import org.javatuples.Triplet; 
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +22,11 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domain.model.CategoryEnum;
+import domain.model.Ratings;
+import domain.model.Steps;
+import domain.model.Ingredients;
+import domain.model.Comments;
+import domain.model.Category;
 import domain.model.Recipe;
 import eu.drus.jpa.unit.api.JpaUnit;
 
@@ -36,6 +41,7 @@ class RecipesServiceImplTest {
 	@InjectMocks
 	private RecipeServiceImpl recipesService;
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	void testAddRecipe() {
 		Recipe r1 = randomRecipe();
@@ -46,20 +52,23 @@ class RecipesServiceImplTest {
 		assertEquals(res.size(),2);
 		
 	}
+
 	
 	@Test
 	void testAddRating() {
 		Recipe r = randomRecipe();
-		List<Integer> ini = r.getRatings();
+		Set<Ratings> ini = r.getRatings();
 		int testVal = ini.size();
 		em.persist(r);
-		recipesService.addRating(r.getId(), 3);
+		recipesService.addRating(r.getId(), 4);
 		Recipe r2 = em.find(Recipe.class, r.getId());
-		List<Integer> fin = r2.getRatings();
+		Set<Ratings> fin = r2.getRatings();
 		assertEquals(testVal+1,fin.size());
 		
 	}
 	
+	
+	@SuppressWarnings("rawtypes")
 	@Test
 	void testGetRecipesForProfil() {
 		Recipe r1 = randomRecipe();
@@ -105,38 +114,74 @@ class RecipesServiceImplTest {
 		assertEquals(ini,fin);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test 
 	void testGetRecipes(){
 		Recipe r = randomRecipe();
 		em.persist(r);
-		ArrayList res = recipesService.getRecipe(r.getId());
-		assertEquals(r.getAuthorID(),res.get(2));
+		ArrayList res = recipesService.getRecipe(r.getId());	
+		assertEquals(r.getAuthorID(),res.get(2)); //
+		
+		Set<Comments>  c = r.getComments();
+		Set<Comments> cf = (Set<Comments>)res.get(10);
+		assertTrue(c.containsAll(cf));
+		assertTrue(cf.containsAll(c));
+		
+		Set<Category>  cat = r.getCategory();
+		Set<Category> catRes = (Set<Category>)res.get(6);
+		assertTrue(cat.containsAll(catRes));
+		assertTrue(catRes.containsAll(cat));
+		
+		Set<Ratings>  rates = r.getRatings();
+		Set<Ratings> ratesRes = (Set<Ratings>)res.get(9);
+		assertTrue(rates.containsAll(ratesRes));
+		assertTrue(ratesRes.containsAll(rates));
+		
+		
 	}
 	
 	
 	
 	public Recipe randomRecipe() {
 		Recipe r = new Recipe();
-		List<String> co = new ArrayList<String>();
-		co.add("TG");
-		List<Long> ing = new ArrayList<Long>();
-		ing.add((long)2);
-		List<String> step = new ArrayList<String>();
-		step.add("Tu mets dans le four et tg");
-		List<Integer> rating = new ArrayList<Integer>();
-		rating.add(5);
-		List cat = new ArrayList<CategoryEnum>();
-		cat.add(CategoryEnum.Dinner);
+		
+		Set<Comments> commentaire = new HashSet<Comments>();
+		Comments c1 = new Comments(); c1.setComment("C etait bon");
+		Comments c2 = new Comments(); c2.setComment("C etait pas bon");
+		commentaire.add(c1);commentaire.add(c2);
+		
+		Set<Ingredients> ing = new HashSet<Ingredients>();
+		Ingredients i1 = new Ingredients(); i1.setId((long) 2); i1.setQuantite(2);
+		Ingredients i2 = new Ingredients(); i2.setId((long) 1); i2.setQuantite(1);
+		ing.add(i1); ing.add(i2);
+
+		Set<Steps> step = new HashSet<Steps>();
+		Steps s1 = new Steps(); s1.setSteps("Prechauffe le four");
+		Steps s2 = new Steps(); s2.setSteps("Mets dans le four");
+		step.add(s1); step.add(s2);
+		
+		Set<Ratings> rate = new HashSet<Ratings>();
+		Ratings r1 = new Ratings(); r1.setRate(new Random().nextInt(5 + 1)+1);
+		Ratings r2 = new Ratings(); r2.setRate(new Random().nextInt(5 + 1)+1);
+		rate.add(r1);rate.add(r2);
+		
+		Set<Category> cat = new HashSet<Category>();
+		Category cat1 = new Category(); cat1.setCategory(CategoryEnum.Breakfast);
+		Category cat2 = new Category(); cat2.setCategory(CategoryEnum.Vegetarian);
+		cat.add(cat1); cat.add(cat2);
+		
+
 		r.setAuthorID((long) new Random().nextInt(9999 + 1)+1); // Set the profilID between 1 et 10000
 		r.setDate("Demain");
 		r.setDifficulty(new Random().nextInt(10 + 1)+1); // Set the difficulty between 1 et 10
 		r.setName("Pizza");
 		r.setTime(2);
+		
 		r.setSteps(step);
-		r.setRatings(rating);
+		r.setRatings(rate);
 		r.setCategory(cat);
 		r.setIngredients(ing);
-		r.setComments(co);
+		r.setComments(commentaire);
 		
 		return r;
 	}
