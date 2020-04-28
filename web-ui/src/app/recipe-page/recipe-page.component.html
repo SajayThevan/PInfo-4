@@ -34,11 +34,11 @@
     </div>
 
     <div class="btn1" *ngIf="connected">
-      <a class="btn"><mat-icon>folder_special</mat-icon></a>
+      <a class="btn" title='Add to Favorites'><mat-icon>folder_special</mat-icon></a>
     </div>
 
     <div class="btn2" *ngIf="connected">
-      <a class="btn"><mat-icon>create</mat-icon></a>
+      <a class="btn" title="Note"><mat-icon>create</mat-icon></a>
     </div>
 
     <div class="spacer"></div>
@@ -81,8 +81,17 @@
   <div class="line"></div>
   <div class="spacer"></div>
 
-  <div>
-    #Commet box
+  <div class="card">
+    <div class="card-body">
+      Comments
+      <hr>
+      <div *ngFor="let comment of comments">
+        {{comment.name}} : {{comment.comment}}
+        <hr>
+      </div>
+    </div>
   </div>
-    
+
+  <div class="spacer"></div>
+  <div class="spacer"></div>
 </div>

@@ -18,4 +18,14 @@ export class RecipePageComponent implements OnInit {
 
   ingredients = ['Flour','Egg','Sugar','Vanilla'];
   steps = ['Add Flour','Add Egg','Add Sugar','Add Vanilla'];
+  comments = [
+    {
+      name : 'Luke',
+      comment : 'blablablaaa'
+    },
+    {
+      name : 'Deniz',
+      comment : 'blaablaablaa'
+    }
+  ];
 }
