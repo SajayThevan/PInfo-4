@@ -83,6 +83,7 @@ public class RecipeRestService {
 		rs.removeRecipe(id);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GET
 	@Path("/getRecipe/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -90,22 +91,12 @@ public class RecipeRestService {
 	public Set getRecipeRest(@PathParam("id") long id) {
 		System.out.println(id);
 		ArrayList a = rs.getRecipe(id);
-		System.out.println("=====================================================TEST getRecipe/id===========================");
-		System.out.println(a.size());
-		Set<Comments> c = (Set<Comments>)a.get(10);
-		System.out.println(c.size());
-		System.out.println("=================================================== Affichage des commentaire ===================");
-		for (Iterator<Comments> it = c.iterator(); it.hasNext(); ) {
-			Comments cTmp = it.next();
-			System.out.println(cTmp.getComment());
-		}
 		Set<Object> toreturn = new HashSet();
 		for (Iterator<Object> it = a.iterator(); it.hasNext(); )
 		{
 			toreturn.add(it.next());
 		}
-		
-		
+
 		return toreturn;
 	}
 	
@@ -114,7 +105,6 @@ public class RecipeRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of instrument")
     public Long count() {
-		System.out.println("---------------------------------------------"+rs.count()+"---------------------------------------------------------");
 		return rs.count();
 	}
 	
