@@ -16,7 +16,25 @@ export class RecipePageComponent implements OnInit {
 
   info = ['Cake','Sajay',9,7];
 
-  ingredients = ['Flour','Egg','Sugar','Vanilla'];
+  ingredients = [
+    {
+      name: 'Flour',
+      disp : 'black'
+    },
+    {
+      name: 'Egg',
+      disp : 'black'
+    },
+    {
+      name: 'Sugar',
+      disp : 'black'
+    },
+    {
+      name: 'Vanilla',
+      disp : 'black'
+    }
+  ];
+
   steps = ['Add Flour','Add Egg','Add Sugar','Add Vanilla'];
   comments = [
     {
@@ -28,4 +46,11 @@ export class RecipePageComponent implements OnInit {
       comment : 'blaablaablaa'
     }
   ];
+
+  check() {
+    this.ingredients[0].disp = 'green';
+    this.ingredients[1].disp = 'red';
+    this.ingredients[2].disp = 'red';
+    this.ingredients[3].disp = 'red';
+  }
 }
