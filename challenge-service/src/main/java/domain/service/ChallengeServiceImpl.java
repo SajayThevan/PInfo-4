@@ -8,36 +8,52 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import domain.model.Counterparty;
-import lombok.extern.java.Log;
+import domain.model.Challenge;
 
 @ApplicationScoped
-@Log
-public class CounterpartyServiceImpl implements CounterpartyService {
+public class ChallengeServiceImpl implements ChallengeService {
 
-    @PersistenceContext(unitName = "CounterpartyPU")
+    @PersistenceContext(unitName = "ChallengePU")
     private EntityManager em;
     
-	@Override
-	public List<Counterparty> getAll() {
-		log.info("retrieve all counterparties");
+    @Override				//The @Override annotation indicates that the child class method is over-writing its base class method.
+	public List<Challenge> getAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Counterparty> criteria = builder.createQuery( Counterparty.class );
-		criteria.from(Counterparty.class);
-		return em.createQuery( criteria ).getResultList();
+		CriteriaQuery<Challenge> criteria = builder.createQuery(Challenge.class);
+		criteria.from(Challenge.class);
+		return em.createQuery(criteria).getResultList();
 	}
 	
 	@Override
-	public Counterparty get(String lei) {
-		return em.find(Counterparty.class, lei);
+	public void update(Challenge challenge) {
+		Challenge p = em.find(Challenge.class, challenge.getId());
+		if (p == null) {
+			throw new IllegalArgumentException("Challenge does not exist : " + challenge.getId());
+		}
+		em.merge(challenge);
+	}
+	@Override							
+	public Challenge get(Long challengeId) {
+		System.out.println("-----------VOIR------------"+challengeId+"----------VOIR----------------");
+		System.out.println("-----------VOIR------------"+em.find(Challenge.class, challengeId)+"----------VOIR----------------");
+		return em.find(Challenge.class, challengeId);
 	}
 
 	@Override
+	public void create(Challenge challenge) {
+		if (challenge.getId() != null) {
+			throw new IllegalArgumentException("Challenge already exists : " + challenge.getId());
+		}
+		em.persist(challenge);
+	}
+	
+	@Override
 	public Long count() {
-		log.info("Count the number of counterparties");	
 		CriteriaBuilder qb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-		cq.select(qb.count(cq.from(Counterparty.class)));
+		cq.select(qb.count(cq.from(Challenge.class)));
+		System.out.println("-----------asdafsfaedgdsgf------------"+em.createQuery(cq).getSingleResult()+"----------asdasfsagR----------------");
 		return em.createQuery(cq).getSingleResult();
 	}
+	
 }

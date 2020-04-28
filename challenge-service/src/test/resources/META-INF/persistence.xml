@@ -7,7 +7,7 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>domain.model.Address</class>
-		<class>domain.model.Counterparty</class>
+		<class>domain.model.Challenge</class>
 		<class>domain.model.Registration</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

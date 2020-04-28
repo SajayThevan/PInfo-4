@@ -2,6 +2,7 @@ package domain.model;
 
 
 import java.io.Serializable;
+//import lombok.EqualsAndHashCode;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,12 +12,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Data;
+//import lombok.ToString;
+
 // Yo
 @Data
+//@EqualsAndHashCode
+//@ToString
 
 @Entity
-@Table(name ="Ingrediant")
-public class Ingrediant implements Serializable  {
+@Table(name ="Ingredient")  // Ingredient
+public class Ingredient implements Serializable  {
 	
 
 	
@@ -27,27 +32,27 @@ public class Ingrediant implements Serializable  {
 
 
 	@Id
-	@SequenceGenerator(name = "INGREDIANT_SEQ", sequenceName = "INGREDIANT_SEQ") 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INGREDIANT_SEQ")
+	@SequenceGenerator(name = "INGREDIENT_SEQ", sequenceName = "INGREDIENT_SEQ") 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INGREDIENT_SEQ")
 	private Long id;
 	
-	private Long Ingrediantid;
+	private Long ingredientId;   //IngredientId
 	
 	
-	private int quantite;
+	private int quantity;
 	
 	@ManyToOne
 	@JoinColumn(name="Profile_id",nullable = true)
-	private Profile ingprofile;
+	private Profile ingredientProfile;
 	
 	   @Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
 	 
-	        if (!(o instanceof Ingrediant))
+	        if (!(o instanceof Ingredient))
 	            return false;
 	 
-	        Ingrediant other = (Ingrediant) o;
+	        Ingredient other = (Ingredient) o;
 	 
 	        return id != null &&
 	               id.equals(other.getId());
@@ -56,14 +61,15 @@ public class Ingrediant implements Serializable  {
 	    @Override
 	    public int hashCode() {
 	        return 31;
-	    }
+    }
 	    
 	    @Override
 	    public String toString() {
 	        return this.getClass().getSimpleName() + "-" + getId();
-	    }
+    }
+
 	
-	
+
 	
 
 }

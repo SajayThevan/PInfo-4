@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import io.restassured.RestAssured;
 
-public class CounterpartyRestServiceIT {
+public class ChallengeRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {

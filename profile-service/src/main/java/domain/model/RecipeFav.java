@@ -14,8 +14,8 @@ import lombok.Data;
 @Data
 
 @Entity
-@Table(name ="RecetteFav")
-public class RecetteFav implements Serializable  {
+@Table(name ="RecipeFav")  //RecipeFav
+public class RecipeFav implements Serializable  {
 
 	/**
 	 * 
@@ -23,24 +23,24 @@ public class RecetteFav implements Serializable  {
 	private static final long serialVersionUID = 4370273419623542742L;
 
 	@Id
-	@SequenceGenerator(name = "RECETTEFAV_SEQ", sequenceName = "RECETTEFAV_SEQ") 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECETTEFAV_SEQ")
+	@SequenceGenerator(name = "RECIPEFAV_SEQ", sequenceName = "RECIPEFAV_SEQ") 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECIPEFAV_SEQ")
 	private Long id;
 	
-	private Long Recetteid;
+	private Long RecipeId;  //Recipe
 	
 	@ManyToOne
 	@JoinColumn(name="Profile_id",nullable = true)
-	private Profile recetteprofile;
+	private Profile recipeProfile;
 	
 	   @Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
 	 
-	        if (!(o instanceof RecetteFav))
+	        if (!(o instanceof RecipeFav))
 	            return false;
 	 
-	        RecetteFav other = (RecetteFav) o;
+	        RecipeFav other = (RecipeFav) o;
 	 
 	        return id != null &&
 	               id.equals(other.getId());
