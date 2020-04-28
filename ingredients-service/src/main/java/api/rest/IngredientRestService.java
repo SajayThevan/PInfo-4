@@ -21,6 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
+
 @ApplicationScoped
 @Path("/ingredient")
 @Api(value = "ingredient", authorizations = {
@@ -56,19 +57,30 @@ public class IngredientRestService {
 	
 	@GET
 	@Path("/computeCalories")
-	//@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
-   	//public int computeCalories(List<Long> IngredientID) {
 	public int computeCalories() {
 		System.out.println("------------------ici test calories");
-		List<Long> IngredientIDList = new ArrayList<>(); 
-		IngredientIDList.add(Long.valueOf(2));
-		IngredientIDList.add(Long.valueOf(3));
-		System.out.println("------------------ici test calories" + IngredientIDList + "----------------");
-		System.out.println("------------------ici test calories" + ingredientService.computeCalories(IngredientIDList) + "----------------");
+		List<Long> IngredientIDList2 = new ArrayList<>(); 
+		IngredientIDList2.add(Long.valueOf(2));
+		IngredientIDList2.add(Long.valueOf(3));
+		System.out.println("------------------ici test calories" + IngredientIDList2 + "----------------");
+		System.out.println("------------------ici test calories" + ingredientService.computeCalories(IngredientIDList2) + "----------------");
+		return ingredientService.computeCalories(IngredientIDList2);
+	}
+	
+	/*
+	@POST
+	@Path("/computeCalories")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
+   	public int computeCalories(List<Long> IngredientIDList) {		
+		System.out.println("------------------ici test calories");
+		System.out.println("element = "+ IngredientIDList);
 		return ingredientService.computeCalories(IngredientIDList);
 	}
+	*/
 	
 	@GET
 	@Path("/PossibleIngredients/{name}")
