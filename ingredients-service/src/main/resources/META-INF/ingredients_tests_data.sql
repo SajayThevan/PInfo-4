@@ -22,5 +22,5 @@ INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values 
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'salade', 2, 5, 3, 2, 1);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'tomates', 3, 2, 1, 3, 2);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'pain', 3, 5, 4, 2, 3);
-INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'tacos', 4, 2, 2, 4, 1);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat noir', 4, 2, 2, 4, 1);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'guacamole', 2, 5, 3, 2, 1);

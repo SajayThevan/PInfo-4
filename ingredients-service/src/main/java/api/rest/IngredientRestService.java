@@ -95,11 +95,13 @@ public class IngredientRestService {
 	}
 	
 	@GET
-	@Path("/PossibleIngredients/{name}")
+	@Path("/possibleIngredients")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get the possible ingredients compared to a string")
-    public List<Object> getPossibleIngredients(@PathParam("name") String ingredientWanted) {
-		System.out.println("------------------ici test possible ingredient " + ingredientWanted + "----------------");
+    public List<Object> getPossibleIngredients(@QueryParam("ing") String ingredientWanted) {
+		System.out.println("------------------ici test possible ingredient ----------------");
+		System.out.println("------------------ ingredient search :  " + ingredientWanted + "----------------");
+		System.out.println("------------------ answer" + ingredientService.getPossibleIngredients(ingredientWanted) + "----------------");
 		return ingredientService.getPossibleIngredients(ingredientWanted);
 	}
 	

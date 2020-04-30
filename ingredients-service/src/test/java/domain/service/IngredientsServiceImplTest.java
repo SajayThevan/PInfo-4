@@ -127,6 +127,8 @@ class IngredientsServiceImplTest {
 		possibilities.add(possibleIng2);
 		
 		List<Object> possibleIngredients = ingredientsService.getPossibleIngredients("choco");
+		System.out.println("retour de possibilites : ");
+		System.out.println(possibleIngredients);
 		assertEquals(possibilities, possibleIngredients); 
 	}
 	
