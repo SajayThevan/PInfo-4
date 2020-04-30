@@ -29,7 +29,8 @@ public class IngredientRestServiceIT {
 	
 	@Test
 	public void testComputeCalories() {
-		when().get("/computeCalories").then().body(containsString("6"));
+		//when().get("/computeCalories").then().body(containsString("6"));
+		when().get("/computeCalories/1").then().body(containsString("1"));
 	}
 	/*
 	@Test
@@ -37,9 +38,11 @@ public class IngredientRestServiceIT {
 		when().get("/getPossibleIngredients/choco").then().body(containsString("chocolat"));
 	}
 	*/
+	
 	@Test
 	public void testCount() {
 		when().get("/count").then().body(containsString("4"));
 	}
+	
 
 }
