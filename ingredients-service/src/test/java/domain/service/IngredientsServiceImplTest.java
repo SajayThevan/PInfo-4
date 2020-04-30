@@ -89,6 +89,7 @@ class IngredientsServiceImplTest {
 		listID.add(ingredient2.getId());
 		
 		System.out.println(listID);
+		System.out.println(getKcalTotal);
 		
 		int testComputeCalories = ingredientsService.computeCalories(listID);
 		//assertEquals(getKcalTotal, 11)
@@ -126,6 +127,8 @@ class IngredientsServiceImplTest {
 		possibilities.add(possibleIng2);
 		
 		List<Object> possibleIngredients = ingredientsService.getPossibleIngredients("choco");
+		System.out.println("retour de possibilites : ");
+		System.out.println(possibleIngredients);
 		assertEquals(possibilities, possibleIngredients); 
 	}
 	

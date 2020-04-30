@@ -24,24 +24,24 @@ public class IngredientRestServiceIT {
 	
 	@Test
 	public void testGet() {
-		when().get("/1").then().body(containsString("chocolat"));
+		when().get("/2").then().body(containsString("amande"));
 	}
-	
+
 	@Test
 	public void testComputeCalories() {
-		//when().get("/computeCalories").then().body(containsString("6"));
-		when().get("/computeCalories/1").then().body(containsString("1"));
+		when().get("/computeCalories?id=1&id=2&id=4").then().body(containsString("9"));
 	}
-	/*
+	
+	
 	@Test
 	public void testGetPossibleIngredients() {
-		when().get("/getPossibleIngredients/choco").then().body(containsString("chocolat"));
+		when().get("/possibleIngredients?ing=choco").then().body(containsString("chocolat"));
 	}
-	*/
+	
 	
 	@Test
 	public void testCount() {
-		when().get("/count").then().body(containsString("4"));
+		when().get("/count").then().body(containsString("13"));
 	}
 	
 
