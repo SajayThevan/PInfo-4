@@ -56,19 +56,20 @@ public class IngredientRestService {
 	}
 	
 	@GET
-	@Path("/computeCalories")
+	@Path("/computeCalories/{id}")
+	//@Path("/computeCalories")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
 	//public int computeCalories() {
-	//public int computeCalories(@PathParam("id") Long IngredientId) {
-	public int computeCalories(@PathParam("id") List<Long> IngredientIDList2) {
+	public int computeCalories(@PathParam("id") Long IngredientId) {
+	//public int computeCalories(@PathParam("id") List<Long> IngredientIDList2) {
 		System.out.println("------------------ici test calories");
-		//List<Long> IngredientIDList2 = new ArrayList<>(); 
+		List<Long> IngredientIDList2 = new ArrayList<>(); 
 		
 		//IngredientIDList2.add(Long.valueOf(2));
 		//IngredientIDList2.add(Long.valueOf(3));
 		
-		//IngredientIDList2.add(IngredientId);
+		IngredientIDList2.add(IngredientId);
 
 		System.out.println("------------------ici test calories" + IngredientIDList2 + "----------------");
 		System.out.println("------------------ici test calories" + ingredientService.computeCalories(IngredientIDList2) + "----------------");
