@@ -89,6 +89,7 @@ class IngredientsServiceImplTest {
 		listID.add(ingredient2.getId());
 		
 		System.out.println(listID);
+		System.out.println(getKcalTotal);
 		
 		int testComputeCalories = ingredientsService.computeCalories(listID);
 		//assertEquals(getKcalTotal, 11)
