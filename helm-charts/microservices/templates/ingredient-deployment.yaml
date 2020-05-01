@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "microservices.fullname" . }}.ingredient-service
-  namespace: {{ .Release.Namespace }} 
+  name: {{ include "fridgehub.fullname" . }}.ingredient-service
+  namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "microservices.labels" . | nindent 4 }}
-    {{- include "microservices.labels" . | nindent 4 }}.ingredient-service    
+    {{- include "fridgehub.labels" . | nindent 4 }}
+    {{- include "fridgehub.labels" . | nindent 4 }}.ingredient-service
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "microservices.selectorLabels" . | nindent 6 }}
+      {{- include "fridgehub.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ include "microservices.fullname" . }}.ingredient-service        
-        {{- include "microservices.selectorLabels" . | nindent 8 }}
+        app: {{ include "fridgehub.fullname" . }}.ingredient-service
+        {{- include "fridgehub.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "microservices.serviceAccountName" . }}
+      serviceAccountName: {{ include "fridgehub.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
       - name: check-db-ready
         image: postgres:12.1-alpine
-        command: ['sh', '-c', 
-          'until pg_isready -h {{ .Release.Name }}-ingredient-db -p 5432; 
-          do echo waiting for database; sleep 2; done;']            
+        command: ['sh', '-c',
+          'until pg_isready -h {{ .Release.Name }}-ingredient-db -p 5432;
+          do echo waiting for database; sleep 2; done;']
       - name: check-kafka-ready
         image: busybox
         command: ['sh', '-c', 'until echo "TEST" | nc {{ .Release.Name }}-kafka:9092; do echo "Waiting for Kafka"; sleep 5; done;']
@@ -49,11 +49,11 @@ spec:
             - name: THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INGREDIENTDS_CONNECTION_DASH_URL
               value: "jdbc:postgresql://{{ .Release.Name }}-ingredient-db:5432/ingredient"
             - name: THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INGREDIENTDS_DRIVER_DASH_NAME
-              value: "postgresql"   
+              value: "postgresql"
             - name: THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INGREDIENTDS_USER_DASH_NAME
               value: "inst"
             - name: THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_INGREDIENTDS_PASSWORD
-              value: "inst"               
+              value: "inst"
           ports:
             - name: http
               containerPort: 28080
@@ -63,13 +63,13 @@ spec:
               path: /ingredient/count
               port: http
             initialDelaySeconds: 60
-            periodSeconds: 20                            
+            periodSeconds: 20
           readinessProbe:
             httpGet:
               path: /ingredient/count
               port: http
             initialDelaySeconds: 60
-            periodSeconds: 20                                                 
+            periodSeconds: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

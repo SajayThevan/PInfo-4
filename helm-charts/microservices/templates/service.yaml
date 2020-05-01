@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "microservices.fullname" . }}-counterparty-service
+  name: {{ include "fridgehub.fullname" . }}-ingredient-service
   labels:
-    {{- include "microservices.labels" . | nindent 4 }}.counterparty-service
+    {{- include "fridgehub.labels" . | nindent 4 }}.ingredient-service
 spec:
   type: ClusterIP
   ports:
@@ -11,14 +11,14 @@ spec:
       targetPort: 28080
       protocol: TCP
   selector:
-    app: {{ include "microservices.fullname" . }}.counterparty-service
+    app: {{ include "fridgehub.fullname" . }}.ingredient-service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "microservices.fullname" . }}-valuation-service
+  name: {{ include "fridgehub.fullname" . }}-profile-service
   labels:
-    {{- include "microservices.labels" . | nindent 4 }}.valuation-service
+    {{- include "fridgehub.labels" . | nindent 4 }}.profile-service
 spec:
   type: ClusterIP
   ports:
@@ -26,14 +26,14 @@ spec:
       targetPort: 28080
       protocol: TCP
   selector:
-    app: {{ include "microservices.fullname" . }}.valuation-service
+    app: {{ include "fridgehub.fullname" . }}.profile-service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "microservices.fullname" . }}-instrument-service
+  name: {{ include "fridgehub.fullname" . }}-recipe-service
   labels:
-    {{- include "microservices.labels" . | nindent 4 }}.instrument-service
+    {{- include "fridgehub.labels" . | nindent 4 }}.recipe-service
 spec:
   type: ClusterIP
   ports:
@@ -41,14 +41,29 @@ spec:
       targetPort: 28080
       protocol: TCP
   selector:
-    app: {{ include "microservices.fullname" . }}.instrument-service
+    app: {{ include "fridgehub.fullname" . }}.recipe-service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "microservices.fullname" . }}-web-ui
+  name: {{ include "fridgehub.fullname" . }}-challenge-service
   labels:
-    {{- include "microservices.labels" . | nindent 4 }}.web-ui
+    {{- include "fridgehub.labels" . | nindent 4 }}.challenge-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 28080
+      targetPort: 28080
+      protocol: TCP
+  selector:
+    app: {{ include "fridgehub.fullname" . }}.challenge-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fridgehub.fullname" . }}-web-ui
+  labels:
+    {{- include "fridgehub.labels" . | nindent 4 }}.web-ui
 spec:
   type: ClusterIP
   ports:
@@ -56,4 +71,4 @@ spec:
       targetPort: 80
       protocol: TCP
   selector:
-    app: {{ include "microservices.fullname" . }}.web-ui
+    app: {{ include "fridgehub.fullname" . }}.web-ui

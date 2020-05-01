@@ -17,60 +17,58 @@ kafka:
   persistence:
      enabled: false
 
-# TODO
-counterparty-db:
+ingredient-db:
   driver_name: org.postgresql
   persistence:
      enabled: false
-  postgresDatabase: counterparty
-  postgresqlDatabase: counterparty
+  postgresDatabase: ingredient
+  postgresqlDatabase: ingredient
   global:
       persistence:
          enabled: false
-      postgresqlDatabase: counterparty
+      postgresqlDatabase: ingredient
   initdbScriptsConfigMap:
-    counterparty-scripts
-    
-counterparty-db:
-  driver_name: org.postgresql
-  persistence:
-     enabled: false
-  postgresDatabase: counterparty
-  postgresqlDatabase: counterparty
-  global:
-      persistence:
-         enabled: false
-      postgresqlDatabase: counterparty
-  initdbScriptsConfigMap:
-    counterparty-scripts
+    ingredient-scripts
 
-counterparty-db:
+profile-db:
   driver_name: org.postgresql
   persistence:
      enabled: false
-  postgresDatabase: counterparty
-  postgresqlDatabase: counterparty
+  postgresDatabase: profile
+  postgresqlDatabase: profile
   global:
       persistence:
          enabled: false
-      postgresqlDatabase: counterparty
+      postgresqlDatabase: profile
   initdbScriptsConfigMap:
-    counterparty-scripts
+    profile-scripts
 
-instrument-db:
+recipe-db:
+  driver_name: org.postgresql
+  persistence:
+     enabled: false
+  postgresDatabase: recipe
+  postgresqlDatabase: recipe
+  global:
+      persistence:
+         enabled: false
+      postgresqlDatabase: recipe
+  initdbScriptsConfigMap:
+    recipe-scripts
+
+challenge-db:
   driver_name: org.postgresql
   persistence:
      enabled: false
   postgresUser: inst
-  postgresDatabase: instrument
-  postgresqlDatabase: instrument
+  postgresDatabase: challenge
+  postgresqlDatabase: challenge
   global:
       persistence:
          enabled: false
-      postgresqlDatabase: instrument
+      postgresqlDatabase: challenge
   initdbScriptsConfigMap:
-    instrument-scripts
-
+    challenge-scripts
 
 keycloak:
   keycloak:
@@ -82,7 +80,7 @@ keycloak:
     extraVolumeMounts: |
       - name: keycloak-realm-secret
         mountPath: "/realm/"
-        readOnly: true          
+        readOnly: true
     extraArgs: -Dkeycloak.import=/realm/realms.json
 
 imagePullSecrets: []
@@ -133,5 +131,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-
