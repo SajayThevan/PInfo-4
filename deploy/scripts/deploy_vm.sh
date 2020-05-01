@@ -14,17 +14,11 @@ then
 else
   echo "$RELEASE doesn't exist"
   # Config Maps
-  cd ~/fridgehub-deploy
-  rm ./ingredient.sql
-  rm ./profile.sql
-  rm ./recipe.sql
-  rm ./challenge.sql
-  rm ./realms.sql
-  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/ingredient.sql
-  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/profile.sql
-  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/recipe.sql
-  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/challenge.sql
-  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/keycloak/realms.json
+  cd ~/fridgehub-sql
+  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/sql/ingredient.sql
+  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/sql/profile.sql
+  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/sql/recipe.sql
+  wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/sql/challenge.sql
   ls
   microk8s kubectl delete configmap ingredient-scripts
   microk8s kubectl create configmap ingredient-scripts  --from-file ./ingredient.sql
@@ -34,7 +28,5 @@ else
   microk8s kubectl create configmap recipe-scripts  --from-file ./recipe.sql
   microk8s kubectl delete configmap challenge-scripts
   microk8s kubectl create configmap challenge-scripts  --from-file ./challenge.sql
-  kubectl create secret generic keycloak-realm-secret --from-file= ./realms.json
-
   helm install $RELEASE hung-repo/fridgehub
 fi
