@@ -5,10 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: PInfo-2020/PInfo-4
+  repository: PInfo-2020/PInfo-4/
   tag: latest
   pullPolicy: IfNotPresent
-
 
 kafka:
   zookeeper:
