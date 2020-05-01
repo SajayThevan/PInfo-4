@@ -22,11 +22,11 @@ import java.util.List;
 
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
-@EqualsAndHashCode(callSuper=true)
+//@EqualsAndHashCode(callSuper=true)
 
 // DataBase
 @Entity
-@Table(name ="Profile")
+@Table(name ="Challenge")
 public class Challenge implements Serializable {
 	/**
 	 * 
@@ -44,11 +44,11 @@ public class Challenge implements Serializable {
 	@NotNull
 	private int authorID; // ProfileID
 	
-	@NotNull
-	private List<Integer> ingredients; // IngredientID's
+//	@NotNull
+//	private List<Integer> ingredients; // IngredientID's
 	
-	@NotNull
-	@Inject
-	private List<Recipe> solutions;
-	
+//	@NotNull
+//	@Inject
+//	private List<Recipe> solutions;
+//	
 }
