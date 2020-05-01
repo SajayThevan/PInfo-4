@@ -21,27 +21,27 @@ public class ChallengeRestService {
 	@Inject
 	private ChallengeService counterpartyService;
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get all coutnerparties")
-	public List<Challenge> getAll() {
-		return counterpartyService.getAll();
-	}
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@ApiOperation(value = "Get all coutnerparties")
+//	public List<Challenge> getAll() {
+//		return counterpartyService.getAll();
+//	}
+//	
+//	@GET
+//	@Path("/count")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@ApiOperation(value = "Count the number of counterparties")
+//	public Long count() {
+//		return counterpartyService.count();
+//	}
 	
-	@GET
-	@Path("/count")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Count the number of counterparties")
-	public Long count() {
-		return counterpartyService.count();
-	}
-	
-	@GET
-	@Path("{lei}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specific counterparty using its lei")
-	public Challenge get(@PathParam("lei") String lei) {
-		return counterpartyService.get(lei);
-	}
+//	@GET
+//	@Path("{lei}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@ApiOperation(value = "Get a specific counterparty using its lei")
+//	public Challenge get(@PathParam("lei") String lei) {
+//		return counterpartyService.get(lei);
+//	}
 
 }
