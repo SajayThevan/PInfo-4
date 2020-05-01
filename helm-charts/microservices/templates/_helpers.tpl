@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "microservices.name" -}}
+{{- define "fridgehub.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "microservices.fullname" -}}
+{{- define "fridgehub.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "microservices.chart" -}}
+{{- define "fridgehub.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "microservices.labels" -}}
-helm.sh/chart: {{ include "microservices.chart" . }}
-{{ include "microservices.selectorLabels" . }}
+{{- define "fridgehub.labels" -}}
+helm.sh/chart: {{ include "fridgehub.chart" . }}
+{{ include "fridgehub.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,17 +46,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "microservices.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "microservices.name" . }}
+{{- define "fridgehub.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "fridgehub.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "microservices.serviceAccountName" -}}
+{{- define "fridgehub.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "microservices.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "fridgehub.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}

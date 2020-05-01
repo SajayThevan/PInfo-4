@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "microservices.fullname" . }}.web-ui
-  namespace: {{ .Release.Namespace }} 
+  name: {{ include "fridgehub.fullname" . }}.web-ui
+  namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "microservices.labels" . | nindent 4 }}
-    {{- include "microservices.labels" . | nindent 4 }}.web-ui    
+    {{- include "fridgehub.labels" . | nindent 4 }}
+    {{- include "fridgehub.labels" . | nindent 4 }}.web-ui
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "microservices.selectorLabels" . | nindent 6 }}
+      {{- include "fridgehub.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ include "microservices.fullname" . }}.web-ui
-        {{- include "microservices.selectorLabels" . | nindent 8 }}       
+        app: {{ include "fridgehub.fullname" . }}.web-ui
+        {{- include "fridgehub.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "microservices.serviceAccountName" . }}
+      serviceAccountName: {{ include "fridgehub.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}     
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -46,13 +46,13 @@ spec:
 #               path: /instrument
 #               port: http
 #             initialDelaySeconds: 60
-#             periodSeconds: 20                            
+#             periodSeconds: 20
 #           readinessProbe:
 #             httpGet:
 #               path: /instrument
 #               port: http
 #             initialDelaySeconds: 60
-#             periodSeconds: 20                                                 
+#             periodSeconds: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
