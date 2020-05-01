@@ -10,8 +10,8 @@ helm repo update
 if helm list --all-namespaces -a | grep -q $RELEASE
 then
   echo "$RELEASE exists"
-  helm upgrade $RELEASE hung-repo/microservices
+  helm upgrade $RELEASE hung-repo/fridgehub
 else
   echo "$RELEASE doesn't exist"
-  helm install $RELEASE hung-repo/microservices
+  helm install $RELEASE hung-repo/fridgehub
 fi
