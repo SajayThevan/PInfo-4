@@ -41,7 +41,6 @@
 		<module>ingredients-service</module>
 		<module>profile-service</module>
 		<module>recipes-service</module>
-		<module>api-gateway</module>
 	</modules>
 
 
