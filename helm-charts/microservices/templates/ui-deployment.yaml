@@ -41,18 +41,6 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-#           livenessProbe:
-#             httpGet:
-#               path: /instrument
-#               port: http
-#             initialDelaySeconds: 60
-#             periodSeconds: 20
-#           readinessProbe:
-#             httpGet:
-#               path: /instrument
-#               port: http
-#             initialDelaySeconds: 60
-#             periodSeconds: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
