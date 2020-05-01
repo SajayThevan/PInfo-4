@@ -28,6 +28,8 @@ before_install:
   - ssh-add /tmp/pinfo4_deploy_rsa
 
 script:
+  # Tests
+  # - mvn install
   # Static analysis
   - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd -Dsonar.projectName=Kernel_pinfo4
   # Build helm package
