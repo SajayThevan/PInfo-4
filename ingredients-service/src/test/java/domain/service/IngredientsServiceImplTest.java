@@ -58,8 +58,8 @@ class IngredientsServiceImplTest {
 	
 	@Test
 	void testGetAll() {
-		List<Ingredient> instruments = ingredientsService.getAll();
-		int size = instruments.size();
+		List<Ingredient> ingredients = ingredientsService.getAll();
+		int size = ingredients.size();
 		
 		ingredientsService.create(getRandomIngredient()); // tests create at the same time 
 		ingredientsService.create(getRandomIngredient1());
