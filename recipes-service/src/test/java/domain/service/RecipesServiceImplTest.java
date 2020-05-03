@@ -78,18 +78,20 @@ class RecipesServiceImplTest {
 		assertEquals(recipes.size(),1);
 		assertEquals(recipes.get(0).getValue(0),r1.getId());
 		assertEquals(recipes.get(0).getValue(1),r1.getName());
-		assertEquals(recipes.get(0).getValue(2),r1.getIngredients());
+		Set<Ingredients> ing = (Set<Ingredients>) recipes.get(0).getValue(2);
+		assertEquals(ing.size(),r1.getIngredients().size());
+
 	}
 	
 	
 	@SuppressWarnings("rawtypes")
 	@Test
 	void testGetRecipiesIDForProfiles() {
-		List res = em.createNativeQuery("select name from Recipe").getResultList(); // Get the inital number of element in DB
 		Recipe r = randomRecipe();
+		List res = recipesService.getRecipiesIdForProfiles(r.getAuthorID()); // Get the inital number of element in DB
 		em.persist(r);
 		List a = recipesService.getRecipiesIdForProfiles(r.getAuthorID());
-		assertEquals(a.size(),res.size());		
+		assertEquals(a.size(),res.size()+1);		
 	}
 	
 	@Test
@@ -120,23 +122,19 @@ class RecipesServiceImplTest {
 		Recipe r = randomRecipe();
 		em.persist(r);
 		ArrayList res = recipesService.getRecipe(r.getId());	
-		assertEquals(r.getAuthorID(),res.get(2)); //
+		assertEquals(r.getAuthorID(),res.get(2)); 
 		
 		Set<Comments>  c = r.getComments();
 		Set<Comments> cf = (Set<Comments>)res.get(10);
-		assertTrue(c.containsAll(cf));
-		assertTrue(cf.containsAll(c));
+		assertEquals(cf.size(),c.size());
 		
 		Set<Category>  cat = r.getCategory();
 		Set<Category> catRes = (Set<Category>)res.get(6);
-		assertTrue(cat.containsAll(catRes));
-		assertTrue(catRes.containsAll(cat));
+		assertEquals(cat.size(),catRes.size());
 		
 		Set<Ratings>  rates = r.getRatings();
 		Set<Ratings> ratesRes = (Set<Ratings>)res.get(9);
-		assertTrue(rates.containsAll(ratesRes));
-		assertTrue(ratesRes.containsAll(rates));
-		
+		assertEquals(rates.size(),ratesRes.size());
 		
 	}
 	
@@ -151,9 +149,16 @@ class RecipesServiceImplTest {
 		commentaire.add(c1);commentaire.add(c2);
 		
 		Set<Ingredients> ing = new HashSet<Ingredients>();
-		Ingredients i1 = new Ingredients(); i1.setId((long) 2); i1.setQuantite(2);
-		Ingredients i2 = new Ingredients(); i2.setId((long) 1); i2.setQuantite(1);
-		ing.add(i1); ing.add(i2);
+		Ingredients i1 = new Ingredients();
+		i1.setIngredientID((long) 2);
+		i1.setQuantite(2);
+		
+		Ingredients i2 = new Ingredients(); 
+		i2.setIngredientID((long) 1);
+		i2.setQuantite(1);
+		
+		ing.add(i1); 
+		ing.add(i2);
 
 		Set<Steps> step = new HashSet<Steps>();
 		Steps s1 = new Steps(); s1.setSteps("Prechauffe le four");
@@ -171,7 +176,7 @@ class RecipesServiceImplTest {
 		cat.add(cat1); cat.add(cat2);
 		
 
-		r.setAuthorID((long) new Random().nextInt(9999 + 1)+1); // Set the profilID between 1 et 10000
+		r.setAuthorID((long) new Random().nextInt(9999 + 1)+1);  //Set the profilID between 1 et 10000
 		r.setDate("Demain");
 		r.setDifficulty(new Random().nextInt(10 + 1)+1); // Set the difficulty between 1 et 10
 		r.setName("Pizza");
@@ -180,8 +185,8 @@ class RecipesServiceImplTest {
 		r.setSteps(step);
 		r.setRatings(rate);
 		r.setCategory(cat);
-		r.setIngredients(ing);
 		r.setComments(commentaire);
+		r.setIngredients(ing);
 		
 		return r;
 	}

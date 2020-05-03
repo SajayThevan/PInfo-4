@@ -73,8 +73,8 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	public List getRecipiesIdForProfiles(long id){
-		List ids = em.createQuery("SELECT id from Recipe where authorID = id").getResultList();
-
+		String query = "SELECT id from Recipe where authorID = "+id;
+		List ids = em.createQuery(query).getResultList();
 		return ids;
 	}
 	
