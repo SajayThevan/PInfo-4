@@ -72,10 +72,10 @@ class ProfileServiceImplTest {
 		Profile profile = profileService.getAll().get(0);
 		assertNotNull(profile);
 		Long id = profile.getId();
-		profile.setFirst_name("Deniz");
+		profile.setFirstName("Deniz");
 		profileService.update(profile);
 		profile = profileService.get(id);
-		assertEquals("Deniz", profile.getFirst_name());
+		assertEquals("Deniz", profile.getFirstName());
 		System.out.println("-----------------TEST UPDATE TERMINE-----------------");
 	}
 	
@@ -103,8 +103,7 @@ class ProfileServiceImplTest {
 		assertNotNull(profile);
 		Long id = profile.getId();
 		Profile getProfile = profileService.get(id);
-		System.out.println("---------------------"+profile.getFridge_contents()+"----------------");
-		assertEquals(profile.getFirst_name(), getProfile.getFirst_name());     
+		assertEquals(profile.getFirstName(), getProfile.getFirstName());     
 		System.out.println("-----------------TEST GET TERMINE-----------------");
 	}
 
@@ -179,11 +178,11 @@ class ProfileServiceImplTest {
         
 		p.setPseudo(UUID.randomUUID().toString());
 		p.setEmail(UUID.randomUUID().toString());
-		p.setFirst_name(UUID.randomUUID().toString());
-		p.setLast_name(UUID.randomUUID().toString());
+		p.setFirstName(UUID.randomUUID().toString());
+		p.setLastName(UUID.randomUUID().toString());
 		p.setScore(rand.nextInt(100));
-		p.setFridge_contents(Fridge);
-		p.setFavourite_recipes(Favoris);
+		p.setFridgeContents(Fridge);
+		p.setFavouriteRecipes(Favoris);
 		return p;	
 	}
 	

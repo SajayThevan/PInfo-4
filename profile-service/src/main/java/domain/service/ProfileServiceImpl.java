@@ -24,7 +24,7 @@ public class ProfileServiceImpl implements ProfileService {
 		this.em = em;
 	}
 	
-	@Override				//The @Override annotation indicates that the child class method is over-writing its base class method.
+	@Override				
 	public List<Profile> getAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Profile> criteria = builder.createQuery(Profile.class);

@@ -1,6 +1,5 @@
 package api.msg;
 
-//import org.apache.kafka.clients.consumer.ConsumerRebalanceListener 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.aerogear.kafka.SimpleKafkaProducer;
@@ -24,7 +23,7 @@ public class ProfileProducer {
 	public void sendAllProfiles() {
 		log.info("Send the current state of ALL instruments to the topic");
 		for (Profile profile : profileService.getAll()) {
-			producer.send("profiles", profile);	 				//send is a kafka's method
+			producer.send("profiles", profile);	 				
 		}
 	}
 

@@ -2,35 +2,31 @@ package domain.model;
 
 
 
-import javax.inject.Inject;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 
 
-// Lombok: Getter/Setter/ToString/Hashcode
+
+
 @Data
-//@EqualsAndHashCode(callSuper=true)
-
-// DataBase
 @Entity
 @Table(name ="Challenge")
 public class Challenge implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -4080220078360449057L;
 
 	@Id
@@ -42,13 +38,14 @@ public class Challenge implements Serializable {
 	private String name;
 	
 	@NotNull
-	private int authorID; // ProfileID
+	private Long authorID; // ProfileID
 	
-//	@NotNull
-//	private List<Integer> ingredients; // IngredientID's
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "CHALLENGE_ID", nullable = true)
+	private Set<Ingredient> ingredients; // <(IngredientID, Quantity)> 
 	
-//	@NotNull
-//	@Inject
-//	private List<Recipe> solutions;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "CHALLENGE_ID", nullable = true)
+	private Set<Recipe> solutions; // <(recipeId)> 
 //	
 }

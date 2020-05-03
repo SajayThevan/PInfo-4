@@ -7,26 +7,25 @@ import org.aerogear.kafka.cdi.annotation.KafkaConfig;
 import lombok.extern.java.Log;
 
 
-
 @ApplicationScoped
 @KafkaConfig(bootstrapServers = "#{thorntail.kafka-configuration.host}:#{thorntail.kafka-configuration.port}")
 @Log
-public class ProfileConsumer {
+public class ChallengeConsumer {
 
 	@Inject
-	private ProfileProducer producer;
+	private ChallengeProducer producer;
 
-	@Consumer(topics = "profilsReq", groupId = "pinfo-microservices")
-	public void updateProfile(final String message) {
+	@Consumer(topics = "challengesReq", groupId = "pinfo-microservices")
+	public void updateChallenge(final String message) {
 		log.info("Consumer got following message : " + message);
 		if ("all".equals(message)) {
-			producer.sendAllProfiles();
+			producer.sendAllChallenges();
 		} else {
 			try {
-				Long profileId = Long.valueOf(message);  
-				producer.send(profileId);        
+				Long challengeId = Long.valueOf(message);  
+				producer.send(challengeId);        
 			} catch(NumberFormatException e) {
-				throw new IllegalArgumentException("Message must be wither a numeric profile identifier or 'all'");
+				throw new IllegalArgumentException("Message must be wither a numeric challenge identifier or 'all'");
 			}
 		}
 	}
