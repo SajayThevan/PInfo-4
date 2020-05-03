@@ -15,7 +15,7 @@ else
   echo "$RELEASE doesn't exist"
   # Config Maps
   cd ~/fridgehub-deploy
-  rm ./ingredient.sw
+  rm ./ingredient.sql
   rm ./profile.sql
   rm ./recipe.sql
   rm ./challenge.sql
