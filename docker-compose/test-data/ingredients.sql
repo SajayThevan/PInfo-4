@@ -4,11 +4,11 @@ create sequence INGREDIENT_SEQ start with 1 increment by 1;
 create table Ingredient (
         id bigint not null,
 		name varchar(255),
-		kcal int not null,
-		fat int not null,
-		cholesterol int not null,
-		protein int not null,
-		salt int not null
+		kcal double not null,
+		fat double not null,
+		cholesterol double not null,
+		protein double not null,
+		salt double not null
 );
 GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to inst;
 GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to inst;
@@ -24,10 +24,10 @@ INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values 
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'tofu', 4, 2, 2, 4, 1);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'salade', 2, 5, 3, 2, 1);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'tomates', 3, 2, 1, 3, 2);
-INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 2, 5, 3, 2, 1);
-INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'amande', 3, 2, 1, 3, 2);
-INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'noix', 3, 5, 4, 2, 3);
-INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'pate', 4, 2, 2, 4, 1);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'agar agar', 160, 0.2, 0, 2.4, 0.3);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'agave syrup', 293, 0, 0, 0.2, 0);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'almond', 593, 49.9, 1, 25.5, 0);
+INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'amaranth', 126, 2.4, 0, 5.3, 0);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'sucre', 10, 5, 3, 2, 1);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'sel', 3, 2, 1, 3, 2);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'fajitas', 3, 5, 4, 2, 3);

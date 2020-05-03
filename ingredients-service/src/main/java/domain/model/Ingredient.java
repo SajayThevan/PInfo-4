@@ -40,19 +40,19 @@ public class Ingredient {
 	private String name;
 	
 	@NotNull
-	private int kcal;
+	private double kcal;
 	
 	@NotNull
-	private int fat;
+	private double fat;
 	
 	@NotNull
-	private int cholesterol;
+	private double cholesterol;
 	
 	@NotNull
-	private int protein;
+	private double protein;
 	
 	@NotNull
-	private int salt;
+	private double salt;
 
 	
 }
