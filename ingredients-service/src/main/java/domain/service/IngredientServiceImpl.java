@@ -44,8 +44,8 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 
 	@Override
-	public int computeCalories(List<Long> IngredientID) {
-		int totalCalories = 0;
+	public double computeCalories(List<Long> IngredientID) {
+		double totalCalories = 0;
 		for (Long id : IngredientID) {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);

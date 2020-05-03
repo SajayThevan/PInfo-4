@@ -87,7 +87,7 @@ public class IngredientRestService {
 	@Path("/computeCalories")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
-	public int computeCalories(@QueryParam("id") List<Long> IngredientIdList) {
+	public double computeCalories(@QueryParam("id") List<Long> IngredientIdList) {
 		System.out.println("------------------ici test calories");
 		System.out.println("------------------ici list id wanted " + IngredientIdList + "----------------");
 		System.out.println("------------------ici test total calories " + ingredientService.computeCalories(IngredientIdList) + "----------------");
