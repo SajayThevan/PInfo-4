@@ -19,7 +19,7 @@ else
   rm ./profile.sql
   rm ./recipe.sql
   rm ./challenge.sql
-  rm ./realms.sql
+  rm ./realms.json
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/ingredient.sql
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/profile.sql
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/recipe.sql
@@ -38,4 +38,3 @@ else
 
   helm install $RELEASE hung-repo/fridgehub
 fi
-
