@@ -17,8 +17,8 @@ create table Ingredient (
 create table Profile (
         id bigint not null,
         email varchar(255),
-        first_name varchar(255),
-        last_name varchar(255),
+        firstName varchar(255),
+        lastName varchar(255),
         pseudo varchar(255),
         score integer not null,
         primary key (id)
@@ -26,7 +26,7 @@ create table Profile (
         
     create table RecipeFav (
         id bigint not null,
-        RecipeId bigint,
+        recipeId bigint,
         Profile_id bigint,
         primary key (id)
     );
@@ -43,23 +43,23 @@ alter table RecipeFav
  
    
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
-INSERT INTO RecipeFav (RecipeId, Profile_id, id) values (14,PROFILE_SEQ.currval,RECIPEFAV_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, Profile_id, quantity, id) values (4, PROFILE_SEQ.currval,20,INGREDIENT_SEQ.nextval);
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
+INSERT INTO RecipeFav (recipeId, id) values (14, RECIPEFAV_SEQ.nextval);
+INSERT INTO Ingredient (ingredientId, quantity, id) values (4, 50, INGREDIENT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'sajay@gmail.com', 'sajay', 'trolong', 'ui', 0);
-INSERT INTO RecipeFav (RecipeId, Profile_id, id) values (25,PROFILE_SEQ.currval,RECIPEFAV_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, Profile_id, quantity, id) values (5, PROFILE_SEQ.currval,22,INGREDIENT_SEQ.nextval);
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'sajay@gmail.com', 'sajay', 'trolong', 'ui', 0);
+INSERT INTO RecipeFav (recipeId, id) values (25, RECIPEFAV_SEQ.nextval);
+INSERT INTO Ingredient (ingredientId, quantity, id) values (5, 22,INGREDIENT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'luke@gmail.com', 'luke', 'smith', 'inge', 0);
-INSERT INTO RecipeFav (RecipeId, Profile_id, id) values (7,PROFILE_SEQ.currval,RECIPEFAV_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, Profile_id, quantity, id) values (2, PROFILE_SEQ.currval,30,INGREDIENT_SEQ.nextval);
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'luke@gmail.com', 'luke', 'smith', 'inge', 0);
+INSERT INTO RecipeFav (recipeId, id) values (7, RECIPEFAV_SEQ.nextval);
+INSERT INTO Ingredient (ingredientId, quantity, id) values (2,30,INGREDIENT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'ella@gmail.com', 'ella', 'kummer', 'chef', 0);
-INSERT INTO RecipeFav (RecipeId, Profile_id, id) values (2,PROFILE_SEQ.currval,RECIPEFAV_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, Profile_id, quantity, id) values (8, PROFILE_SEQ.currval,37,INGREDIENT_SEQ.nextval);
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'ella@gmail.com', 'ella', 'kummer', 'chef', 0);
+INSERT INTO RecipeFav (recipeId, id) values (2, RECIPEFAV_SEQ.nextval);
+INSERT INTO Ingredient (ingredientId, quantity, id) values (8, 46, INGREDIENT_SEQ.nextval);
 
-INSERT INTO Profile (ID, email, first_name, last_name, pseudo, score) values ( PROFILE_SEQ.nextval, 'mathias@gmail.com', 'mathias', 'tonini', 'dev', 0);
-INSERT INTO RecipeFav (RecipeId, Profile_id, id) values (4,PROFILE_SEQ.currval,RECIPEFAV_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, Profile_id, quantity, id) values (12, PROFILE_SEQ.currval,26,INGREDIENT_SEQ.nextval);
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'mathias@gmail.com', 'mathias', 'tonini', 'dev', 0);
+INSERT INTO RecipeFav (recipeId, id) values (4, RECIPEFAV_SEQ.nextval);
+INSERT INTO Ingredient (ingredientId, quantity, id) values (12, 26,INGREDIENT_SEQ.nextval);
 

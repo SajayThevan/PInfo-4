@@ -11,24 +11,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-
 @Data
 @EqualsAndHashCode
 @ToString
-
 @Entity
-@Table(name ="Ingredient")  // Ingredient
-public class Ingredient implements Serializable  {
-	
-	private static final long serialVersionUID = -4618373781528392556L;
+@Table(name ="Recipe")  //Recipe
+public class Recipe implements Serializable  {
+
+	private static final long serialVersionUID = 4370273419623542742L;
 
 	@Id
-	@SequenceGenerator(name = "INGREDIENT_SEQ", sequenceName = "INGREDIENT_SEQ") 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INGREDIENT_SEQ")
+	@SequenceGenerator(name = "RECIPE_SEQ", sequenceName = "RECIPE_SEQ") 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECIPE_SEQ")
 	private Long id;
 	
-	private Long ingredientId;   //IngredientId
-	
-	private int quantity;
-
+	private Long recipeId;  //Recipe
 }

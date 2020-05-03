@@ -15,7 +15,6 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode
 @ToString
-
 @Entity
 @Table(name ="Ingredient")  // Ingredient
 public class Ingredient implements Serializable  {

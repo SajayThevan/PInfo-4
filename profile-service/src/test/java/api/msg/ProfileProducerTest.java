@@ -124,11 +124,11 @@ class ProfileProducerTest {
         
 		p.setPseudo(UUID.randomUUID().toString());
 		p.setEmail(UUID.randomUUID().toString());
-		p.setFirst_name(UUID.randomUUID().toString());
-		p.setLast_name(UUID.randomUUID().toString());
+		p.setFirstName(UUID.randomUUID().toString());
+		p.setLastName(UUID.randomUUID().toString());
 		p.setScore(rand.nextInt(100));
-		p.setFridge_contents(Fridge);
-		p.setFavourite_recipes(Favoris);
+		p.setFridgeContents(Fridge);
+		p.setFavouriteRecipes(Favoris);
 		return p;	
 	}
 

@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -18,13 +19,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import domain.model.Challenge;
+import domain.model.Ingredient;
+import domain.model.Recipe;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 @ExtendWith(JpaUnit.class)
 @ExtendWith(MockitoExtension.class)
-
 
 class ChallengeServiceImplTest {
 
@@ -65,19 +66,19 @@ class ChallengeServiceImplTest {
 		System.out.println("-----------------TEST COUNT TERMINE-----------------");
 	}
 	
-//	@Test
-//	void testUpdate() {
-//		System.out.println("-----------------DEBUT TEST UPDATE-----------------");
-//		challengeService.create(getRandomChallenge());
-//		Challenge challenge = challengeService.getAll().get(0);
-//		assertNotNull(challenge);
-//		Long id = challenge.getId();
-//		challenge.setFirst_name("Deniz");
-//		challengeService.update(challenge);
-//		challenge = challengeService.get(id);
-//		assertEquals("Deniz", challenge.getFirst_name());
-//		System.out.println("-----------------TEST UPDATE TERMINE-----------------");
-//	}
+	@Test
+	void testUpdate() {
+		System.out.println("-----------------DEBUT TEST UPDATE-----------------");
+		challengeService.create(getRandomChallenge());
+		Challenge challenge = challengeService.getAll().get(0);
+		assertNotNull(challenge);
+		Long id = challenge.getId();
+		challenge.setName("Deniz");
+		challengeService.update(challenge);
+		challenge = challengeService.get(id);
+		assertEquals("Deniz", challenge.getName());
+		System.out.println("-----------------TEST UPDATE TERMINE-----------------");
+	}
 	
 	@SuppressWarnings("serial")
 	@Test
@@ -95,18 +96,17 @@ class ChallengeServiceImplTest {
 		System.out.println("-----------------TEST UPDATE NON EXISTANT TERMINE-----------------");
 	}
 
-//	@Test
-//	void testGet() {
-//		System.out.println("-----------------DEBUT TEST GET-----------------");
-//		challengeService.create(getRandomChallenge());
-//		Challenge challenge = challengeService.getAll().get(0);
-//		assertNotNull(challenge);
-//		Long id = challenge.getId();
-//		Challenge getChallenge = challengeService.get(id);
-//		System.out.println("---------------------"+challenge.getFridge_contents()+"----------------");
-//		assertEquals(challenge.getFirst_name(), getChallenge.getFirst_name());     
-//		System.out.println("-----------------TEST GET TERMINE-----------------");
-//	}
+	@Test
+	void testGet() {
+		System.out.println("-----------------DEBUT TEST GET-----------------");
+		challengeService.create(getRandomChallenge());
+		Challenge challenge = challengeService.getAll().get(0);
+		assertNotNull(challenge);
+		Long id = challenge.getId();
+		Challenge getChallenge = challengeService.get(id);
+		assertEquals(challenge.getName(), getChallenge.getName());     
+		System.out.println("-----------------TEST GET TERMINE-----------------");
+	}
 
 	@Test
 	void testGetNonExistant() {
@@ -120,11 +120,11 @@ class ChallengeServiceImplTest {
 
 	@Test
 	void testCreate() {
-		System.out.println("-----------------DEBUT TEST CREATION PROFILE-----------------");
+		System.out.println("-----------------DEBUT TEST CREATION CHALLENGE-----------------");
 		Challenge challenge = getRandomChallenge();
 		challengeService.create(challenge);
 		assertNotNull(challenge.getId());
-		System.out.println("-----------------TEST CREATION PROFILE TERMINE-----------------");
+		System.out.println("-----------------TEST CREATION CHALLENGE TERMINE-----------------");
 	}
 
 
@@ -141,7 +141,44 @@ class ChallengeServiceImplTest {
 
 	private Challenge getRandomChallenge() {
 		Challenge c = new Challenge();
+		Random rand = new Random();
+		
+		Ingredient ing = new Ingredient();
+		ing.setIngredientId(((long) rand.nextInt(100)));
+		ing.setQuantity(rand.nextInt(100));
+		
+		
+		Ingredient ing2 = new Ingredient();
+		ing2.setIngredientId(((long) rand.nextInt(100)));
+		ing2.setQuantity(rand.nextInt(100));;
+		
+		Ingredient ing3 = new Ingredient();
+		ing3.setIngredientId(((long) rand.nextInt(100)));
+		ing3.setQuantity(rand.nextInt(100));
+		
+		Set<Ingredient> Ingredients = new HashSet<Ingredient>();
+		Ingredients.add(ing);
+		Ingredients.add(ing2);
+		Ingredients.add(ing3);
+		
+		Recipe re = new Recipe();
+		re.setRecipeId((long) 4);
+	
+		Recipe re2 = new Recipe();
+		re2.setRecipeId((long) 12);
+		
+		Recipe re3 = new Recipe();
+		re3.setRecipeId((long) 5);
 
+		Set<Recipe> Solutions = new HashSet<Recipe>();
+		Solutions.add(re);
+		Solutions.add(re2);
+		Solutions.add(re3);
+		
+		c.setName(UUID.randomUUID().toString());
+		c.setAuthorID((long) rand.nextInt(100));
+		c.setIngredients(Ingredients);
+		c.setSolutions(Solutions);
 
 		return c;
 	}

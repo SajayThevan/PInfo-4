@@ -16,7 +16,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     @PersistenceContext(unitName = "ChallengePU")
     private EntityManager em;
     
-    @Override				//The @Override annotation indicates that the child class method is over-writing its base class method.
+    @Override				
 	public List<Challenge> getAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Challenge> criteria = builder.createQuery(Challenge.class);
