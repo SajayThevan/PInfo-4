@@ -7,14 +7,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -26,8 +29,14 @@ import java.util.Set;
 // DataBase
 
 @Entity
-public class Recipe{
+@Table(name ="Recipe")
+public class Recipe implements Serializable{
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5056698075957095958L;
 
 	@Id
 	@SequenceGenerator(name = "Recipe_SEQ", sequenceName = "Recipe_SEQ")
@@ -46,13 +55,17 @@ public class Recipe{
 	
 	@NotNull
 	
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipeing")
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Recipe_ID", nullable = true)
 	private Set<Ingredients> ingredients;
 	
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipesteps")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Recipe_ID", nullable = true)
 	private Set<Steps> steps;
 	
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipecat")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Recipe_ID", nullable = true)
 	private Set<Category> category;
 	
 	@NotNull
@@ -61,10 +74,12 @@ public class Recipe{
 	@NotNull
 	private int time;
 	
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "reciperatings")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Recipe_ID", nullable = true)
 	private Set<Ratings> ratings;
 	
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "recipeComments")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Recipe_ID", nullable = true)
 	private Set<Comments> comments;
 	
 	
