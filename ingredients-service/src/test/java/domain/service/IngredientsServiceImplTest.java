@@ -83,7 +83,7 @@ class IngredientsServiceImplTest {
 		System.out.println(ingredient1);
 		System.out.println(ingredient2);
 		
-		int getKcalTotal = ingredient1.getKcal() + ingredient2.getKcal();
+		double getKcalTotal = ingredient1.getKcal() + ingredient2.getKcal();
 		List<Long> listID = new ArrayList<>();
 		listID.add(ingredient1.getId());
 		listID.add(ingredient2.getId());
@@ -91,7 +91,7 @@ class IngredientsServiceImplTest {
 		System.out.println(listID);
 		System.out.println(getKcalTotal);
 		
-		int testComputeCalories = ingredientsService.computeCalories(listID);
+		double testComputeCalories = ingredientsService.computeCalories(listID);
 		//assertEquals(getKcalTotal, 11)
 		//assertEquals(testComputeCalories, 11);
 		assertEquals(getKcalTotal, testComputeCalories); 
@@ -179,7 +179,7 @@ class IngredientsServiceImplTest {
 		//ing.setName(UUID.randomUUID().toString());
 		//ing.setId((long) 2);
 		ing.setName("chocolat au lait");
-		ing.setKcal(3);
+		ing.setKcal(3.1);
 		//ing.setFat((int) Math.round(Math.random()*1000));
 		ing.setFat(3);
 		ing.setCholesterol(4);

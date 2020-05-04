@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,11 +21,12 @@ import lombok.ToString;
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
 @EqualsAndHashCode
-
+@ToString
 
 // DataBase
 
 @Entity
+@Table(name ="Ingredients")
 public class Ingredients implements Serializable{/**
 	 * 
 	 */
@@ -36,37 +37,37 @@ public class Ingredients implements Serializable{/**
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INGREDIENTS_SEQ")			
 	private Long id;
 	
-	private long recipeID;
+	private long IngredientID;
 	
 	private int quantite;
 	
-	@ManyToOne
-	@JoinColumn(name="Recipe_id",nullable = true)
-	private Recipe recipeing;
+//	@ManyToOne
+//	@JoinColumn(name="Recipe_id",nullable = true)
+//	private Recipe recipeing;
 
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
- 
-        if (!(o instanceof Ingredients))
-            return false;
- 
-        Ingredients other = (Ingredients) o;
- 
-        return id != null &&
-               id.equals(other.getId());
-    }
- 
-    @Override
-    public int hashCode() {
-        return 31;
-    }
-	
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + "-" + getId();
-    }
+//	@Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+// 
+//        if (!(o instanceof Ingredients))
+//            return false;
+// 
+//        Ingredients other = (Ingredients) o;
+// 
+//        return id != null &&
+//               id.equals(other.getId());
+//    }
+// 
+//    @Override
+//    public int hashCode() {
+//        return 31;
+//    }
+//	
+//
+//    @Override
+//    public String toString() {
+//        return this.getClass().getSimpleName() + "-" + getId();
+//    }
 	
 
 }

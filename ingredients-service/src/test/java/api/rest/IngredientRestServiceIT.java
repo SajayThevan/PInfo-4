@@ -29,7 +29,7 @@ public class IngredientRestServiceIT {
 
 	@Test
 	public void testComputeCalories() {
-		when().get("/computeCalories?id=1&id=2&id=4").then().body(containsString("9"));
+		when().get("/computeCalories?id=1&id=2&id=4").then().body(containsString("9.1"));
 	}
 	
 	
