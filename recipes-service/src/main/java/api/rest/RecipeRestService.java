@@ -57,6 +57,7 @@ public class RecipeRestService {
 		rs.addRating(id,rate);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@GET
 	@Path("/recipesProfil/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -83,21 +84,16 @@ public class RecipeRestService {
 		rs.removeRecipe(id);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	@GET
 	@Path("/getRecipe/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a full Recipe")
-	public Set getRecipeRest(@PathParam("id") long id) {
+	public ArrayList<Object> getRecipeRest(@PathParam("id") long id) {
+		System.out.println("==================================================================");
 		System.out.println(id);
-		ArrayList a = rs.getRecipe(id);
-		Set<Object> toreturn = new HashSet();
-		for (Iterator<Object> it = a.iterator(); it.hasNext(); )
-		{
-			toreturn.add(it.next());
-		}
-
-		return toreturn;
+		ArrayList<Object> a = rs.getRecipe(id);
+		return a;
 	}
 	
 	@GET
@@ -108,64 +104,5 @@ public class RecipeRestService {
 		return rs.count();
 	}
 	
-	
-	/*
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get all the instruments",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public List<Instrument> getAll() {
-		return instrumentService.getAll();
-	}
 
-	@GET
-	@Path("/count")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a the count of instrument")
-    public Long count() {
-		return instrumentService.count();
-	}
-	
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc instrument",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public Instrument get(@PathParam("id") Long instrumentId) {
-		return instrumentService.get(instrumentId);
-	}
-	
-
-	
-	
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Update a given instrument",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public void upadte(Instrument instrument) {
-		instrumentService.update(instrument);
-		instrumentProducer.send(instrument);
-	}
-
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Create a new instrument",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public void create(Instrument instrument) {
-		instrumentService.create(instrument);
-		instrumentProducer.send(instrument);
-	}
-
-	
-	@POST
-	@Path("propagateAllInstruments")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Propagate all instruments to the bus to sync up downstream services",
-    notes = "Instruments are specialized and thus might contain more fields than the one of the base class.")
-	public void propagateAllInstruments() {
-		instrumentProducer.sendAllInstruments();
-	}
-	
-	*/
 }

@@ -95,9 +95,12 @@ public class RecipeServiceImpl implements RecipeService {
 	public ArrayList getRecipe(long id) {
 		//Return an ArrayList as follow:
 		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
-	
-		Recipe r = em.find(Recipe.class, id);
+		System.out.println("---------------------------------------------------------------------------------------------");
 		ArrayList l = new ArrayList();
+		String query = "SELECT name from Recipe where id = "+id;
+		System.out.println(em.createQuery(query).getResultList().size());
+		Recipe r = em.find(Recipe.class, id);
+
 		l.add(r.getId());
 		l.add(r.getName());
 		l.add(r.getAuthorID());
@@ -111,8 +114,7 @@ public class RecipeServiceImpl implements RecipeService {
 		
 		//debug:
 		l.add((Set<Comments>)r.getComments());
-		Set<Comments> c1 = r.getComments();
-	
+		
 			
 		return l;
 	}

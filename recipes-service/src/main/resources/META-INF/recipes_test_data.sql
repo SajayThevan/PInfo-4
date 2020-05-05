@@ -85,15 +85,22 @@ alter table Steps
     references Recipe;
     
 INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (Recipe_SEQ.nextval, 1,'21/02/2020', 3, 'pizza', 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (2, 1,'21/02/2020', 3, 'pizza', 1);
+
 INSERT INTO Category(id, category, Recipe_ID) values (CATEGORY_SEQ.nextval,1, Recipe_SEQ.currval);
 
 
 INSERT INTO Comments(id, comment, Recipe_ID) values (COMMENTS_SEQ.nextval,'Mauvais',Recipe_SEQ.currval);
 INSERT INTO Comments(id, comment, Recipe_ID) values (COMMENTS_SEQ.nextval,'Bon',Recipe_SEQ.currval);
+INSERT INTO Comments(id, comment, Recipe_ID) values (COMMENTS_SEQ.nextval,'Mauvais',2);
+INSERT INTO Comments(id, comment, Recipe_ID) values (COMMENTS_SEQ.nextval,'Bon',2);
 
 INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id) values (90, 4,2,RECIPE_SEQ.currval);
+INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id) values (91, 4,2,2);
 
 INSERT INTO Ratings(id, rate, Recipe_ID) values (INGREDIENTS_SEQ.nextval, 4, Recipe_SEQ.currval);
+INSERT INTO Ratings(id, rate, Recipe_ID) values (INGREDIENTS_SEQ.nextval, 4,2);
 
 INSERT INTO Steps (id, steps, Recipe_id) values (STEPS_SEQ.nextval,'mettre dans le four',Recipe_SEQ.currval);
+INSERT INTO Steps (id, steps, Recipe_id) values (STEPS_SEQ.nextval,'mettre dans le four',2);
 
