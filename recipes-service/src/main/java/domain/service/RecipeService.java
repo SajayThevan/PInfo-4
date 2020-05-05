@@ -16,7 +16,7 @@ public interface RecipeService {
 	public List getRecipiesIdForProfiles(long id);
 	public void addComment(String comment, long id);
 	public void removeRecipe(long id);
-	public ArrayList getRecipe(long id);
+	public Recipe getRecipe(long id);
 	public Long count();
 
 	//Return an ArrayList as follow:
