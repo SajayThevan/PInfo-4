@@ -89,10 +89,10 @@ public class RecipeRestService {
 	@Path("/getRecipe/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a full Recipe")
-	public ArrayList<Object> getRecipeRest(@PathParam("id") long id) {
+	public Recipe getRecipeRest(@PathParam("id") long id) {
 		System.out.println("==================================================================");
 		System.out.println(id);
-		ArrayList<Object> a = rs.getRecipe(id);
+		Recipe a = rs.getRecipe(id);
 		return a;
 	}
 	

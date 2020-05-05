@@ -21,7 +21,7 @@ import lombok.ToString;
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
 @EqualsAndHashCode
-
+@ToString
 
 // DataBase
 
@@ -38,31 +38,6 @@ public class Steps implements Serializable{
 		
 	private String steps;
 	
-	@ManyToOne
-	@JoinColumn(name="Recipe_id",nullable = true)
-	private Recipe recipesteps;
 
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
- 
-        if (!(o instanceof Steps))
-            return false;
- 
-        Steps other = (Steps) o;
- 
-        return id != null &&
-               id.equals(other.getId());
-    }
- 
-    @Override
-    public int hashCode() {
-        return 31;
-    }
-	
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + "-" + getId();
-    }
 
 }

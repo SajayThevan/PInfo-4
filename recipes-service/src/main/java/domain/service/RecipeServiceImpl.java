@@ -90,33 +90,33 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	//@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 
-	public ArrayList getRecipe(long id) {
+	public Recipe getRecipe(long id) {
 		//Return an ArrayList as follow:
 		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
-		System.out.println("---------------------------------------------------------------------------------------------");
-		ArrayList l = new ArrayList();
-		String query = "SELECT name from Recipe where id = "+id;
-		System.out.println(em.createQuery(query).getResultList().size());
+//		System.out.println("---------------------------------------------------------------------------------------------");
+//		ArrayList l = new ArrayList();
+////		String query = "SELECT name from Recipe where id = "+id;
+//		System.out.println(em.createQuery(query).getResultList().size());
 		Recipe r = em.find(Recipe.class, id);
 
-		l.add(r.getId());
-		l.add(r.getName());
-		l.add(r.getAuthorID());
-		l.add(r.getDate());
-		l.add((Set<Ingredients>)r.getIngredients());
-		l.add(r.getSteps());
-		l.add(r.getCategory());
-		l.add(r.getDifficulty());
-		l.add(r.getTime());
-		l.add(r.getRatings());
-		
-		//debug:
-		l.add((Set<Comments>)r.getComments());
-		
+//		l.add(r.getId());
+//		l.add(r.getName());
+//		l.add(r.getAuthorID());
+//		l.add(r.getDate());
+//		l.add((Set<Ingredients>)r.getIngredients());
+//		l.add(r.getSteps());
+//		l.add(r.getCategory());
+//		l.add(r.getDifficulty());
+//		l.add(r.getTime());
+//		l.add(r.getRatings());
+//		
+//		//debug:
+//		l.add((Set<Comments>)r.getComments());
+//		
 			
-		return l;
+		return r;
 	}
 	
 		
