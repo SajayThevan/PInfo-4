@@ -9,6 +9,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
+import { Browser } from 'protractor';
 
 
 const routes: Routes = [
