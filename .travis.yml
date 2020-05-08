@@ -6,20 +6,35 @@ branches:
     - develop
 
 env:
+  matrix:
+  - NODE_VERSION="12.13.1"
   global:
     - HELM_URL=https://get.helm.sh
     - HELM_TGZ=helm-v3.2.0-rc.1-linux-amd64.tar.gz
+    - secure: SpHm9ImOZdYpHggw2JcpFtlTXSJ5orBbKcz1sXvVfCpXtKCW4hlQ0Oi49PYKGH+EwXKmweSZLjQWLuUcjE7nUQs+c3vpzBtYyi/b9oOfIOyOKU/fpc+buz3W5mTkvWZxEufz0cmtKB6z1J2t9wfC2to4qF4g0V6d621mNwxaVadWz4gVAN8BRWYskBGqfAtH22pPWP2uSpMtEpT5cDQv39loTaSyqW1xcidu0N6gqY20rGI8Tu5sDH9jhV5sR9xrjA69keXnPokkS37r0uixgAlAB4X3G6oSt9DSGajmzRf8oaSgfNab0+wynvR41K0CTbQDsSI+bZEB2DxZUzVPQdsv4gwQL16MbST7dmvm1JbRO6fWg/zMiIFoE1U9FwjyeJ1PA+PJAe0jBUvQ1fFWxzdKpZJKOYHbytfOCTU5oxUcAAOJr4jA4FBzE6tTnxwRrdpANnQpIfUGqah8h4jnPOY1iCaVcsUgwhQBy1KmAERSI7Y9YKVxbVeRKafWQXb/uxdny7/2JMBlB7rKL2SlmZnrVavtkZcF5v1nOoqVSfmrcIFhuYgOKltb6vQ9LUm30s624es17i2joQwVZdwEUjK1Pft/h04KFJdnAk9k3ymUNrZKMM2wiLH9SS5hqIlr60ccFQcODEHjF7v9zNB/qY2DTjfiFuatUiPBjBm9+og=
+    - secure: oycM0xy379mNxlmwRgDPUV5lUmwrV77TYBqlIV9bB+muent6gN2IkqImO6fEyyECc1Lcnrc2YkjSkGv8YeuzkZBEpfxNt+LXPHIpoZOz8K/manzxtrzBCz/Tlcsby0VHKLkJDUpYtCDq2GDyiO414mkbdMMuW5l8ydJRcsXF1P2eNEaXSyqCrdwRm8R+GWI7kPHqBzBA3e3DsvBFJKdPd1q+kBFkIYoshhdrjoAXZi2Ttp5ZDvKWmCNM5CK7+GBfnnYh9GWnP9XgEfwj0wS6r5wgYZjHplxCMAqGjRrgAlR5afwtsZCsQwJiW86BVmMtiZcUrHrqW21YJOWJRs4ty0n8uTJRwlIEkVlU9bNb0M1ggIepjn6HvBWD+45D9LeEwgo0Kl/LXI5qZl1C7xUbyqkFHgWT6OfuthgVxz3mKtCdsEKi4VwP/OPlK4YWOpchC+bTgQQmnhJZpe7UMxpmx8qVfb5zZTqEN92kgrcYnCTian+mhkA3zIFHS0AB3pNGVMOwZILlAfGCK4lBthp4tsNYeOj2sckdNCAYLMZGhoehn0R2zdalJeTn708VX12zWrEdQ8L+5CRMWBbP8qe64ooeLJgDvG0Ddy5+mVAhAnRnySF3gkA1GRM2zEGHniDiZaf1pafZSQQSu8u3SBp/TmWQZlThgZMWmQMLtrjP3PI=
+
+services:
+  - docker
 
 addons:
   ssh_known_hosts: smithlu7@129.194.69.131
   sonarcloud:
     organization: pinfo-2020
 
+cache:
+    directories:
+      - .autoconf
+      - $HOME/.m2
+      - node_modules
+
 before_install:
   # Install helm
   - wget ${HELM_URL}/${HELM_TGZ}
   - tar xzfv ${HELM_TGZ}
   - PATH=`pwd`/linux-amd64/:$PATH
+  # Install nodejs
+  - nvm install $NODE_VERSION
   # Unencrypt ssh-key for VM
   - cd $TRAVIS_BUILD_DIR
   - openssl aes-256-cbc -K $encrypted_ba497ca00145_key -iv $encrypted_ba497ca00145_iv -in ./deploy/ssh/pinfo4_deploy_rsa.enc -out /tmp/pinfo4_deploy_rsa -d
@@ -27,17 +42,30 @@ before_install:
   - chmod 600 /tmp/pinfo4_deploy_rsa
   - ssh-add /tmp/pinfo4_deploy_rsa
 
-script:
-  # Tests
-  # - mvn install
-  # Static analysis
-  - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd -Dsonar.projectName=Kernel_pinfo4
-  # Build helm package
-  - cd $TRAVIS_BUILD_DIR
-  - mkdir files-to-gh-pages
-  - helm package helm-charts/fridgehub -d files-to-gh-pages
-  - cd files-to-gh-pages
-  - helm repo index .
+jobs:
+  include:
+    - stage: Static Analysis
+      script:
+      - cd $TRAVIS_BUILD_DIR
+      - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd -Dsonar.projectName=Kernel_pinfo4
+    - stage: Build Docker
+      script:
+      - cd $TRAVIS_BUILD_DIR
+      - mvn install -Ppackage-docker-image
+    - stage: Build WebUI
+      script:
+      - cd $TRAVIS_BUILD_DIR/web-ui
+      - npm install
+      - npm update
+      - npm run-script build --prod
+      - docker build -t unige/web-ui .
+    - stage: Build Helm
+      script:
+      - cd $TRAVIS_BUILD_DIR
+      - mkdir files-to-gh-pages
+      - helm package helm-charts/fridgehub -d files-to-gh-pages
+      - cd files-to-gh-pages
+      - helm repo index .
 
 deploy:
     # Push to gh-pages branch
@@ -48,6 +76,23 @@ deploy:
       target_branch: gh-pages
       verbose: true
       keep_history: true
+      on:
+        branch: master
+    # Push docker images
+    - provider: script
+      skip_cleanup: true
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker tag unige/profile-service    pinfo4/profile-service:latest
+        - docker tag unige/ingredient-service pinfo4/ingredient-service:latest
+        - docker tag unige/recipe-service     pinfo4/recipe-service:latest
+        - docker tag unige/challenge-service  pinfo4/challenge-service:latest
+        - docker tag unige/web-ui             pinfo4/web-ui:latest
+        - docker push pinfo4/profile-service:latest
+        - docker push pinfo4/ingredient-service:latest
+        - docker push pinfo4/recipe-service:latest
+        - docker push pinfo4/challenge-service:latest
+        - docker push pinfo4/web-ui:latest
       on:
         branch: master
     # Run deployment script on vm
