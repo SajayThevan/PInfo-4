@@ -45,22 +45,22 @@ before_install:
 jobs:
   include:
     - stage: Static Analysis
-    script:
+      script:
       - cd $TRAVIS_BUILD_DIR
       - mvn sonar:sonar -Dsonar.projectKey=PInfo-2020_PInfo-4 -Dsonar.organization=pinfo-2020 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dcc92ae7dc64eccb859dcb446883d405a94733bd -Dsonar.projectName=Kernel_pinfo4
     - stage: Build Docker
-    script:
+      script:
       - cd $TRAVIS_BUILD_DIR
       - mvn install -Ppackage-docker-image
     - stage: Build WebUI
-    script:
+      script:
       - cd $TRAVIS_BUILD_DIR/web-ui
       - npm install
       - npm update
       - npm run-script build --prod
       - docker build -t unige/web-ui .
     - stage: Build Helm
-    script:
+      script:
       - cd $TRAVIS_BUILD_DIR
       - mkdir files-to-gh-pages
       - helm package helm-charts/fridgehub -d files-to-gh-pages
