@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { $ } from 'protractor';
 import { summaryForJitFileName } from '@angular/compiler/src/aot/util';
+import {ProfileService} from '../services/profile/profile.service'
 
 @Component({
   selector: 'app-profile-page',

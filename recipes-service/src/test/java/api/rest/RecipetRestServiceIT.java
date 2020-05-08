@@ -35,14 +35,14 @@ public class RecipetRestServiceIT {
 	
 	@Test
 	public void getRecipiesRestTest() {
-		
-		//Seemes to receive only ingredients and multiple times
-		
+				
 		when().get("/getRecipe/2").then().body(containsString("pizza")); 
 		when().get("/getRecipe/2").then().body(containsString("91")); 
 		when().get("/getRecipe/2").then().body(containsString("Mauvais"));
 		when().get("/getRecipe/2").then().body(containsString("Bon"));
 	}
+	
+	
 	
 	
 

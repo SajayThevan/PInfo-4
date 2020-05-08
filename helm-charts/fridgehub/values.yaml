@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: PInfo-2020/PInfo-4/
+  repository: fridgehub
   tag: latest
   pullPolicy: IfNotPresent
 
