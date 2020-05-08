@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { setupMaster } from 'cluster';
 
 @Component({
   selector: 'app-month-special',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonthSpecialComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
   }
 
+  
 }
