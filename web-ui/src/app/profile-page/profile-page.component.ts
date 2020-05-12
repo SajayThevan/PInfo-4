@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { $ } from 'protractor';
 import { summaryForJitFileName } from '@angular/compiler/src/aot/util';
-import {ProfileService} from '../services/profile/profile.service'
 import { first } from 'rxjs/operators';
+import {ProfileService} from '../services/profile/profile.service'
+import { RecipeService } from '../services/recipe/recipe.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,7 +12,7 @@ import { first } from 'rxjs/operators';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private profileservice:ProfileService) { }
+  constructor(private profileservice:ProfileService,private recipeService:RecipeService) { }
 
   
 

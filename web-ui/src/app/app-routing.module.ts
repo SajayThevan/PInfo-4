@@ -22,7 +22,7 @@ const routes: Routes = [
   { path :'profile', component : ProfilePageComponent},
   { path: 'search', component:SearchComponent},
   { path: 'subscribe',component:SubscribeComponent},
-  { path: 'recipe', component:RecipePageComponent}
+  { path: 'recipe/:id', component:RecipePageComponent}
 ];
 
 @NgModule({

@@ -22,7 +22,7 @@
     </div>
     
     <div class="author font-weight-lighter">
-        by {{info[1]}} 
+        by {{info[1]}} & {{Recipe_ID}}
     </div>
     
     <div class="note">
@@ -89,6 +89,16 @@
         {{comment.name}} : {{comment.comment}}
         <hr>
       </div>
+
+      <div class="row" *ngIf="connected" >
+        <div class="col-sm-11 col">
+          <input type="text" class="form-control font-weight-lighter" id="comment" placeholder="Your comments ...">
+        </div>
+        <div class="col">
+          <a class="btn" (click)="addComment"><mat-icon>add_comment</mat-icon></a>
+        </div>
+      </div>
+
     </div>
   </div>
 

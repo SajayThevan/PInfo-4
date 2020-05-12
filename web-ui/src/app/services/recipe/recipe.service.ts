@@ -22,4 +22,19 @@ export class RecipeService {
     var Request_url = "https://pinfo4.unige.ch/Recipe/rate/"+stringify(id)+"/"+stringify(Rate);
     this.http.put(Request_url,null);
   }
+
+  createNewRecipe(json) {
+    var Request_url = "https://pinfo4.unige.ch/Recipe/create"
+    this.http.post(Request_url,json);
+  }
+
+  deleteRecipe(id) {
+    var Request_url = "https://pinfo4.unige.ch/Recipe/rm/"+stringify(id)
+    this.http.delete(Request_url);
+  }
+
+  getRecipeforProfile(Profile_id) {
+    var Request_url = "https://pinfo4.unige.ch/Recipe/recipesProfil/"+stringify(Profile_id)
+    return this.http.get(Request_url); // [ RecipeID,RecipeName,Ingredients ]
+  }
 }
