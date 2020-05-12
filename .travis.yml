@@ -75,7 +75,7 @@ deploy:
     # Push docker images
     - provider: script
       skip_cleanup: true
-      script: bash ./deploy/scripts/docker_image_push.sh
+      script: cd $TRAVIS_BUILD_DIR; bash ./deploy/scripts/docker_image_push.sh
       on:
         branch: master
     # Run deployment script on vm
