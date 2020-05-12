@@ -15,11 +15,16 @@ export class HomeComponent implements OnInit {
 
    }
 
+  action () {
+    this.testserive.getcount
+  }
   
   ngOnInit(): void {
     this.testserive.getInfo().subscribe( (data) => {
       this.name = data;
     });
+
+     
   }
 
 
