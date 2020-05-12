@@ -3,8 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "fridgehub.fullname" . }}-web-ui-config
   namespace: {{ .Release.Namespace }}
-  labels:
-{{- include "fridgehub.labels" . | nindent 4 }}
+  labels: {{- include "fridgehub.labels" . | nindent 4 }}
 data:
   {{ (.Files.Glob "config/app-config.json").AsConfig | indent 2 }}
 ---
