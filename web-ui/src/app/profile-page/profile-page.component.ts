@@ -30,7 +30,7 @@ export class ProfilePageComponent implements OnInit {
     {
       name:'Cake',
       auteur:'Sajay',
-      link : '/recipe'
+      link : '/recipe/12'
     }
   ]
 
