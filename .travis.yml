@@ -68,7 +68,7 @@ jobs:
        - npm run-script build --prod
        - docker build -t unige/web-ui .
      - stage: Build
-       name: "Build WebUI"
+       name: "Build Helm"
        script:
        - cd $TRAVIS_BUILD_DIR
        - mkdir files-to-gh-pages
