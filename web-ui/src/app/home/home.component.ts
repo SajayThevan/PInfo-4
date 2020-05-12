@@ -9,6 +9,7 @@ import { TestService } from '../services/test.service';
 export class HomeComponent implements OnInit {
 
   name:any= [];
+  
 
   constructor(private testserive:TestService) {
 
