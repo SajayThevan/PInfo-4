@@ -9,5 +9,12 @@ public interface ProfileService {
 	void create(Profile profile);
 	Profile get(Long profileId);
 	Long count();
+	void removeProfile(long id);
+	void addIngredient(long challengeId, long ingredientId, int quantity);
+	void removeIngredient(long profileId, long ingredientId, int quantity);
+	void addFavourite(long id, long recipeId);
+	void removeFavourite(long id, long recipeId);
+
+
 	
 }

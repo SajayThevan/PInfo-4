@@ -4,6 +4,8 @@ package api.rest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -13,8 +15,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import java.util.List;
+import java.util.Set;
+
 import api.msg.ProfileProducer;
+import domain.model.Ingredient;
 import domain.model.Profile;
+import domain.model.RecipeFav;
 import domain.service.ProfileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,8 +52,6 @@ public class ProfileRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of profile")
     public Long count() {
-		System.out.println("-----------------LONG COUNT:"+profileService.count()+"-----------------");
-		
 		return profileService.count();
 	}
 	
@@ -60,6 +64,22 @@ public class ProfileRestService {
 		return profileService.get(profileId);
 	}
 	
+	@GET
+	@Path("/ingredients/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the fridge content of a profile")
+	public Set<Ingredient> getIngredient(@PathParam("id") Long profileId){
+		return profileService.get(profileId).getFridgeContents();
+	}
+	
+	@GET
+	@Path("/favourites/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the favourites  of a profile")
+	public Set<RecipeFav> getFavourite(@PathParam("id") Long profileId){
+		return profileService.get(profileId).getFavouriteRecipes();
+	}
+	
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
@@ -67,6 +87,34 @@ public class ProfileRestService {
 	public void update(Profile profile) {
 		profileService.update(profile);
 		profileProducer.send(profile);
+	}
+	
+	@PUT
+	@Path("/add/{id}/{ingredient}/{quantity}")
+	@ApiOperation(value ="add Ingredient")
+	public void addIngredientById(@PathParam("id") long profileId, @PathParam("ingredient") long ingredientId, @PathParam("quantity") int quantity) {
+		profileService.addIngredient(profileId, ingredientId, quantity);
+	}
+	
+	@PUT
+	@Path("/add/{id}/{favourite}")
+	@ApiOperation(value ="add favourite")
+	public void addFavouriteById(@PathParam("id") long profileId, @PathParam("favourite") long favouriteId) {
+		profileService.addFavourite(profileId, favouriteId);
+	}
+	
+	@PUT
+	@Path("/remove/{id}/{ingredient}/{quantity}")
+	@ApiOperation(value ="Remove Ingredient from fridge")
+	public void removeIngredient(@PathParam("id") long profileId, @PathParam("ingredient") long ingredientId, @PathParam("quantity") int quantity) {
+		profileService.removeIngredient(profileId,ingredientId,quantity);
+	}
+	
+	@PUT
+	@Path("/remove/{id}/{favourite}")
+	@ApiOperation(value ="Remove Favourite from fridge")
+	public void removeFavourite(@PathParam("id") long profileId, @PathParam("favourite") long favouriteId) {
+		profileService.removeFavourite(profileId,favouriteId);
 	}
 
 	@POST
@@ -77,12 +125,19 @@ public class ProfileRestService {
 		profileProducer.send(profile);
 	}
 
-	
 	@POST
 	@Path("propagateAllProfiles")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Propagate all profiles to the bus to sync up downstream services")
 	public void propagateAllProfiles() {
 		profileProducer.sendAllProfiles();
+	}
+	
+	@DELETE
+	@Path("/delete/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value= "Remove a Challenge")
+	public void removeProfileById(@PathParam("id") long id) {
+		profileService.removeProfile(id);
 	}
 }
