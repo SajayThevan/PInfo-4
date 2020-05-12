@@ -12,19 +12,19 @@ image:
 kafka:
   zookeeper:
      persistence:
-        enabled: false
+        enabled: true
   persistence:
-     enabled: false
+     enabled: true
 
 ingredient-db:
   driver_name: org.postgresql
   persistence:
-     enabled: false
+     enabled: true
   postgresDatabase: ingredient
   postgresqlDatabase: ingredient
   global:
       persistence:
-         enabled: false
+         enabled: true
       postgresqlDatabase: ingredient
   initdbScriptsConfigMap:
     ingredient-scripts
@@ -32,12 +32,12 @@ ingredient-db:
 profile-db:
   driver_name: org.postgresql
   persistence:
-     enabled: false
+     enabled: true
   postgresDatabase: profile
   postgresqlDatabase: profile
   global:
       persistence:
-         enabled: false
+         enabled: true
       postgresqlDatabase: profile
   initdbScriptsConfigMap:
     profile-scripts
@@ -45,12 +45,12 @@ profile-db:
 recipe-db:
   driver_name: org.postgresql
   persistence:
-     enabled: false
+     enabled: true
   postgresDatabase: recipe
   postgresqlDatabase: recipe
   global:
       persistence:
-         enabled: false
+         enabled: true
       postgresqlDatabase: recipe
   initdbScriptsConfigMap:
     recipe-scripts
@@ -58,13 +58,13 @@ recipe-db:
 challenge-db:
   driver_name: org.postgresql
   persistence:
-     enabled: false
+     enabled: true
   postgresUser: inst
   postgresDatabase: challenge
   postgresqlDatabase: challenge
   global:
       persistence:
-         enabled: false
+         enabled: true
       postgresqlDatabase: challenge
   initdbScriptsConfigMap:
     challenge-scripts
