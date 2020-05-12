@@ -39,7 +39,13 @@
       <div class="col">
         <div class="card">
             <div class="card-body"> 
-                Mes Recettes
+                
+                <div class="row">
+                     <div class="col">Mes Recettes</div>
+                     <div class="col-2">
+                        <a class="text-muted" href="/add_recipe" ><mat-icon>add_to_photos</mat-icon></a>
+                    </div>
+                </div>
                 <hr>
                 <div class="pad1" *ngFor="let recep of recettes">
                     <div class="tab">
