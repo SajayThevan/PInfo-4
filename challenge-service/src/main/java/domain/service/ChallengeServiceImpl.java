@@ -1,6 +1,7 @@
 package domain.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import domain.model.Challenge;
+import domain.model.Recipe;
 
 @ApplicationScoped
 public class ChallengeServiceImpl implements ChallengeService {
@@ -32,10 +34,19 @@ public class ChallengeServiceImpl implements ChallengeService {
 		}
 		em.merge(challenge);
 	}
+	
+	@Override
+	public void addSolution(long id, long recipeId) {
+		Challenge ch = get(id);
+		Recipe r = new Recipe();
+		r.setRecipeId(recipeId);
+		Set <Recipe> oldSolution = ch.getSolutions();
+		oldSolution.add(r);
+		em.merge(ch);
+		
+	}
 	@Override							
 	public Challenge get(Long challengeId) {
-		System.out.println("-----------VOIR------------"+challengeId+"----------VOIR----------------");
-		System.out.println("-----------VOIR------------"+em.find(Challenge.class, challengeId)+"----------VOIR----------------");
 		return em.find(Challenge.class, challengeId);
 	}
 
@@ -52,8 +63,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 		CriteriaBuilder qb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
 		cq.select(qb.count(cq.from(Challenge.class)));
-		System.out.println("-----------asdafsfaedgdsgf------------"+em.createQuery(cq).getSingleResult()+"----------asdasfsagR----------------");
 		return em.createQuery(cq).getSingleResult();
+	}
+	
+	@Override
+	public void removeChallenge(long id) {
+		Challenge ch = get(id);
+		em.remove(ch);
 	}
 	
 }
