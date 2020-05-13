@@ -7,10 +7,10 @@
 
 ### STAGE 1: Build ###
 FROM node:latest AS build
-WORKDIR /usr/src/app
-COPY package.json ./
+WORKDIR /app
+COPY package.json ./app
 RUN npm install
-COPY . .
+COPY . /app
 RUN npm run build
 ### STAGE 2: Run ###
 FROM nginx:alpine
