@@ -1,4 +1,4 @@
-CREATE USER ingd WITH PASSWORD 'ingd';
+-- CREATE USER ingd WITH PASSWORD 'ingd';
 
 drop table Ingredient if exists;
 drop sequence if exists INGREDIENT_SEQ;
@@ -12,8 +12,8 @@ create table Ingredient (
 		protein double not null,
 		salt double not null
 );
-GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to inst;
-GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to inst;
+GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to ingd;
+GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to ingd;
 TRUNCATE TABLE INGREDIENT;
 
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( INGREDIENT_SEQ.nextval, 'chocolat', 2, 5, 3, 2, 1);
