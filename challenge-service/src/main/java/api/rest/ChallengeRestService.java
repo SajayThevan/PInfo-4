@@ -39,6 +39,7 @@ public class ChallengeRestService {
 	@Inject
 	private ChallengeProducer challengeProducer;
 	
+	// Tested
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the challenges")
@@ -47,6 +48,7 @@ public class ChallengeRestService {
 		return challengeService.getAll();
 	}
 
+	// Tested
 	@GET
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -55,6 +57,7 @@ public class ChallengeRestService {
 		return challengeService.count();
 	}
 	
+	// Tested
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -63,6 +66,7 @@ public class ChallengeRestService {
 		return challengeService.get(challengeId);
 	}
 	
+	//Tested
 	@GET
 	@Path("/ingredients/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -70,7 +74,7 @@ public class ChallengeRestService {
 	public Set<Ingredient> getIngredients(@PathParam("id") Long challengeId) {
 		return challengeService.get(challengeId).getIngredients();
 	}
-	
+	//Tested
 	@GET
 	@Path("/solutions/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -78,17 +82,17 @@ public class ChallengeRestService {
 	public Set<Recipe> getSolutions(@PathParam("id") Long challengeId) {
 		return challengeService.get(challengeId).getSolutions();
 	}
-	
+	//Tested
 	@GET
-	@Path("{/name/{id}")
+	@Path("/name/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specifc challenge name")
 	public String getName(@PathParam("id") Long challengeId) {
 		return challengeService.get(challengeId).getName();
 	}
-	
+	//Tested
 	@GET
-	@Path("{/author/{id}")
+	@Path("/author/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specifc challenge name")
 	public Long getAuthor(@PathParam("id") Long challengeId) {

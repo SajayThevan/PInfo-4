@@ -47,7 +47,7 @@ public class ProfileRestService {
 		return profileService.getAll();
 	}
 
-	@GET
+	@GET    //Tested
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of profile")
@@ -55,16 +55,15 @@ public class ProfileRestService {
 		return profileService.count();
 	}
 	
-	@GET
+	@GET   //Tested
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specifc profile")
 	public Profile get(@PathParam("id") Long profileId) {
-		
 		return profileService.get(profileId);
 	}
 	
-	@GET
+	@GET	//Tested
 	@Path("/ingredients/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the fridge content of a profile")
@@ -72,7 +71,7 @@ public class ProfileRestService {
 		return profileService.get(profileId).getFridgeContents();
 	}
 	
-	@GET
+	@GET	//Tested
 	@Path("/favourites/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the favourites  of a profile")
@@ -80,7 +79,7 @@ public class ProfileRestService {
 		return profileService.get(profileId).getFavouriteRecipes();
 	}
 	
-
+		   // Not tested because methode update of Service and Send of Producer already Tested
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Update a given profile")
@@ -88,7 +87,7 @@ public class ProfileRestService {
 		profileService.update(profile);
 		profileProducer.send(profile);
 	}
-	
+		
 	@PUT
 	@Path("/add/{id}/{ingredient}/{quantity}")
 	@ApiOperation(value ="add Ingredient")
@@ -116,7 +115,8 @@ public class ProfileRestService {
 	public void removeFavourite(@PathParam("id") long profileId, @PathParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
 	}
-
+	
+		// Create and send already tested
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new profile")
@@ -125,7 +125,7 @@ public class ProfileRestService {
 		profileProducer.send(profile);
 	}
 
-	@POST
+	@POST // sendAllProfiles Already tested
 	@Path("propagateAllProfiles")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Propagate all profiles to the bus to sync up downstream services")
@@ -136,7 +136,7 @@ public class ProfileRestService {
 	@DELETE
 	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value= "Remove a Challenge")
+	@ApiOperation(value= "Remove a Profile")
 	public void removeProfileById(@PathParam("id") long id) {
 		profileService.removeProfile(id);
 	}
