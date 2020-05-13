@@ -41,11 +41,14 @@ alter table RecipeFav
         foreign key (Profile_id) 
         references Profile;
  
-   
 
 INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
 INSERT INTO RecipeFav (recipeId, id) values (14, RECIPEFAV_SEQ.nextval);
 INSERT INTO Ingredient (ingredientId, quantity, id) values (4, 50, INGREDIENT_SEQ.nextval);
+
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( 2, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
+INSERT INTO RecipeFav (recipeId, id, Profile_id) values (14, RECIPEFAV_SEQ.nextval,2);
+INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id) values (4, 50, INGREDIENT_SEQ.nextval,2);
 
 INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'sajay@gmail.com', 'sajay', 'trolong', 'ui', 0);
 INSERT INTO RecipeFav (recipeId, id) values (25, RECIPEFAV_SEQ.nextval);
