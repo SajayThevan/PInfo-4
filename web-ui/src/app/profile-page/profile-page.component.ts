@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { $ } from 'protractor';
 import { summaryForJitFileName } from '@angular/compiler/src/aot/util';
+import { first } from 'rxjs/operators';
 import {ProfileService} from '../services/profile/profile.service'
+import { RecipeService } from '../services/recipe/recipe.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,10 +12,9 @@ import {ProfileService} from '../services/profile/profile.service'
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private profileservice:ProfileService,private recipeService:RecipeService) { }
 
-  ngOnInit(): void {
-  }
+  
 
   name = "Sajay"
   lastname = "Thevan"
@@ -29,7 +30,7 @@ export class ProfilePageComponent implements OnInit {
     {
       name:'Cake',
       auteur:'Sajay',
-      link : '/recipe'
+      link : '/recipe/12'
     }
   ]
 
@@ -58,6 +59,12 @@ export class ProfilePageComponent implements OnInit {
       quantity : '200 gr'
     }
   ]
+
+  profile1:any= []; 
+  
+
+  ngOnInit(): void {
+  }
 
 }
 

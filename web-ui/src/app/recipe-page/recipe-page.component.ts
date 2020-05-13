@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { RecipeService } from '../services/recipe/recipe.service';
+import {ActivatedRoute} from '@angular/router'
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
@@ -7,13 +8,53 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private recipeService : RecipeService, private route:ActivatedRoute) { }
 
   connected = true;
 
+  Author_id = 0;
+  Author_nom = "";
+  Recipe_ID = 0;
+  Recipe_name = "";
+  Date = "";
+
+  Ingredients = [];
+  Ingredients_name = [];
+
+  Steps = [];
+
+  Category = [];
+
+  Difficulty = 0;
+  Time = 0;
+
+  Ratings = [];
+
+  Comments = [];
+
+  new_comment = "";
+
   ngOnInit(): void {
+
+    this.Recipe_ID = +this.route.snapshot.paramMap.get('id');
+
+    this.recipeService.getRecipe(this.Recipe_ID).subscribe( (data) => {
+      this.Recipe_name = data["name"];
+      this.Author_id = data["authorID"];
+      this.Date = data["date"];
+      this.Ingredients = data["ingredients"];
+      this.Steps = data["steps"];
+      this.Category = data["category"];
+      this.Difficulty = data["difficulty"];
+      this.Time = data["time"];
+      this.Ratings = data["ratings"]; // Take mean
+      this.Comments = data["comments"];
+    });
   }
 
+  
+  
+  // TEST
   info = ['Cake','Sajay',9,7];
 
   ingredients = [
@@ -46,6 +87,14 @@ export class RecipePageComponent implements OnInit {
       comment : 'blaablaablaa'
     }
   ];
+
+  addRating () {
+    
+  }
+
+  addComment () {
+    this.recipeService.addComment(this.Recipe_ID,this.new_comment)
+  }
 
   check() {
     this.ingredients[0].disp = 'green';

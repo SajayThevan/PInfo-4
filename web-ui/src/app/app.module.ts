@@ -20,6 +20,7 @@ import { ChallengeService } from './services/challenge/challenge.service';
 import { IngredientService } from './services/ingredient/ingredient.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RecipeService } from './services/recipe/recipe.service';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RecipeService } from './services/recipe/recipe.service';
     SearchComponent,
     SubscribeComponent,
     RecipePageComponent,
+    AddRecipeComponent,
   ],
   imports: [
     BrowserModule,
