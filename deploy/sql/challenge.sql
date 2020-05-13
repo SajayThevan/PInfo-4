@@ -1,4 +1,4 @@
-CREATE USER chlg WITH PASSWORD 'chlg';
+-- CREATE USER chlg WITH PASSWORD 'chlg';
 
 drop table Recipe if exists;
 drop table Ingredient if exists;
@@ -16,7 +16,7 @@ create table Challenge (
     name varchar(255),
     primary key (id)
 );
-    
+
 create table Ingredient (
     id bigint not null,
     ingredientId bigint,
@@ -24,7 +24,7 @@ create table Ingredient (
     CHALLENGE_ID bigint,
     primary key (id)
 );
-    
+
 create table Recipe (
     id bigint not null,
     recipeId bigint,
@@ -32,16 +32,19 @@ create table Recipe (
     primary key (id)
 );
 
-alter table Ingredient 
-    add constraint FKaisyn8fyyxdnhm6knmgbt335i 
-    foreign key (CHALLENGE_ID) 
-    references Challenge;
-    
-alter table Recipe 
-    add constraint FKk503phg1qn2raeqfsvghkwymq 
-    foreign key (CHALLENGE_ID) 
+alter table Ingredient
+    add constraint FKaisyn8fyyxdnhm6knmgbt335i
+    foreign key (CHALLENGE_ID)
     references Challenge;
 
+alter table Recipe
+    add constraint FKk503phg1qn2raeqfsvghkwymq
+    foreign key (CHALLENGE_ID)
+    references Challenge;
+
+  GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to chlg;
+  GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to chlg;
+  TRUNCATE TABLE INGREDIENT;
 
 INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', Challenge_SEQ.nextval);
 INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,INGREDIENT_SEQ.nextval);
