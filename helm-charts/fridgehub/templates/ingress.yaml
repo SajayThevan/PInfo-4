@@ -14,7 +14,7 @@ spec:
         backend:
           serviceName: {{ .Release.Name  }}-keycloak-http
           servicePort: 80
-      - path: /ui
+      - path: /
         backend:
           serviceName: {{ include "fridgehub.fullname" . }}-web-ui
           servicePort: 80
