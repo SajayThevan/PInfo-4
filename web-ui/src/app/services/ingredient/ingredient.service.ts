@@ -12,12 +12,6 @@ export class IngredientService {
     return this.http.get("https://jsonplaceholder.typicode.com/users");
   }
 
-
-  
-
-
-}
-
   // recupere ingredient pour affichages des recettes 
   getIngredient(id) {
     return this.http.get("https://pinfo4.unige.ch/ingredient/"+stringify(id));
