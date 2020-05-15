@@ -116,29 +116,13 @@ class RecipesServiceImplTest {
 		assertEquals(ini,fin);
 	}
 	
-	//TODO: Remake this test
-	
-//	@SuppressWarnings({ "unchecked", "rawtypes" })
-//	@Test 
-//	void testGetRecipes(){
-//		Recipe r = randomRecipe();
-//		em.persist(r);
-//		ArrayList res = recipesService.getRecipe(r.getId());	
-//		assertEquals(r.getAuthorID(),res.get(2)); 
-//		
-//		Set<Comments>  c = r.getComments();
-//		Set<Comments> cf = (Set<Comments>)res.get(10);
-//		assertEquals(cf.size(),c.size());
-//		
-//		Set<Category>  cat = r.getCategory();
-//		Set<Category> catRes = (Set<Category>)res.get(6);
-//		assertEquals(cat.size(),catRes.size());
-//		
-//		Set<Ratings>  rates = r.getRatings();
-//		Set<Ratings> ratesRes = (Set<Ratings>)res.get(9);
-//		assertEquals(rates.size(),ratesRes.size());
-//		
-//	}
+	@Test 
+	void testGetRecipes(){
+		Recipe r = randomRecipe();
+		em.persist(r);
+		Recipe res = recipesService.getRecipe(r.getId());
+		assertEquals(r.getRatings().size(),res.getRatings().size());
+	}
 	
 	
 	
