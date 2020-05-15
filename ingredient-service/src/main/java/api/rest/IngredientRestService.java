@@ -48,6 +48,17 @@ public class IngredientRestService {
 	}
 	
 	@GET
+	@Path("/research")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get all the ingredients as pair name-id",
+    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
+	public  List<Object> getAllResearch() {
+		System.out.println("------------------ici test getAllResearch ----------------");
+		System.out.println(ingredientService.getAllResearch());
+		return ingredientService.getAllResearch();
+	}
+	
+	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specifc ingredient",
