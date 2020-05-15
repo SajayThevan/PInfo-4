@@ -32,6 +32,10 @@ create table Recipe (
     primary key (id)
 );
 
+GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to chlg;
+GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to chlg;
+TRUNCATE TABLE CHALLENGE;
+
 alter table Ingredient
     add constraint FKaisyn8fyyxdnhm6knmgbt335i
     foreign key (CHALLENGE_ID)
@@ -41,10 +45,6 @@ alter table Recipe
     add constraint FKk503phg1qn2raeqfsvghkwymq
     foreign key (CHALLENGE_ID)
     references Challenge;
-
-GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to chlg;
-GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to chlg;
-TRUNCATE TABLE CHALLENGE;
 
 INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', Challenge_SEQ.nextval);
 INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,INGREDIENT_SEQ.nextval);
