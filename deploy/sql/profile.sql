@@ -45,7 +45,7 @@ alter table RecipeFav
 
 GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to prf;
 GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to prf;
-TRUNCATE TABLE INGREDIENT;
+TRUNCATE TABLE PROFILE;
 
 INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
 INSERT INTO RecipeFav (recipeId, id) values (14, RECIPEFAV_SEQ.nextval);

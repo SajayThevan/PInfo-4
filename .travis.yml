@@ -50,9 +50,6 @@ script:
   - mvn install -Ppackage-docker-image
   # Build WebUI
   - cd $TRAVIS_BUILD_DIR/web-ui
-  - npm install
-  - npm update
-  - npm run-script build --prod
   - docker build -t unige/web-ui .
   # Build Helm
   - cd $TRAVIS_BUILD_DIR
