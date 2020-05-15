@@ -10,4 +10,8 @@ export class IngredientService {
   getInfo() {
     return this.http.get("https://jsonplaceholder.typicode.com/users");
   }
+
+  
+
+
 }
