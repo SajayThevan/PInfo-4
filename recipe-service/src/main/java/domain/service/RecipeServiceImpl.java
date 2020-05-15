@@ -89,33 +89,9 @@ public class RecipeServiceImpl implements RecipeService {
 		em.remove(r);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	//@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 
 	public Recipe getRecipe(long id) {
-		//Return an ArrayList as follow:
-		//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
-//		System.out.println("---------------------------------------------------------------------------------------------");
-//		ArrayList l = new ArrayList();
-////		String query = "SELECT name from Recipe where id = "+id;
-//		System.out.println(em.createQuery(query).getResultList().size());
 		Recipe r = em.find(Recipe.class, id);
-
-//		l.add(r.getId());
-//		l.add(r.getName());
-//		l.add(r.getAuthorID());
-//		l.add(r.getDate());
-//		l.add((Set<Ingredients>)r.getIngredients());
-//		l.add(r.getSteps());
-//		l.add(r.getCategory());
-//		l.add(r.getDifficulty());
-//		l.add(r.getTime());
-//		l.add(r.getRatings());
-//		
-//		//debug:
-//		l.add((Set<Comments>)r.getComments());
-//		
-			
 		return r;
 	}
 	
@@ -127,4 +103,21 @@ public class RecipeServiceImpl implements RecipeService {
 		return em.createQuery(cq).getSingleResult();
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public ArrayList <Long> getRecipeWithIngredientID(ArrayList<Long> ing_id){
+		ArrayList <Long> tr = new ArrayList<Long>();
+		List<Recipe> rl = em.createQuery("from Recipe").getResultList();
+		for(Recipe r: rl ) {
+			Set<Ingredients> ing = r.getIngredients();
+			ArrayList containedIngId = new ArrayList();
+			for(Ingredients i: ing) {
+				containedIngId.add(i.getId());
+			}
+			if(containedIngId.containsAll(ing_id)) {
+				tr.add(r.getId());
+			}
+		}
+
+	return tr;
+	}
 }
