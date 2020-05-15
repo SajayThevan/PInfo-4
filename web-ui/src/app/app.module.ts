@@ -21,12 +21,9 @@ import { IngredientService } from './services/ingredient/ingredient.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RecipeService } from './services/recipe/recipe.service';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
-
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
-import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown'
-
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 @NgModule({
   declarations: [
@@ -49,8 +46,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown'
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    NgSelectModule,
-    NgMultiSelectDropDownModule.forRoot()
+    DropDownsModule
   ],
   providers: [TestService,ChallengeService,IngredientService,ProfileService,RecipeService],
   bootstrap: [AppComponent]
