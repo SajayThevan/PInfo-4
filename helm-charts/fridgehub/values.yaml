@@ -39,8 +39,8 @@ profile-db:
       persistence:
          enabled: true
       postgresqlDatabase: profile
-  initdbScriptsConfigMap:
-    profile-scripts
+  # initdbScriptsConfigMap:
+  #   profile-scripts
 
 recipe-db:
   driver_name: org.postgresql
