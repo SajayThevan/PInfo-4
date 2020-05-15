@@ -24,9 +24,9 @@ export class SearchComponent implements OnInit {
   Ingredients:any = [];
 
   ngOnInit() {
-    this.ingredientService.getAllIngredientsResearch().subscribe( (data) => {
-      this.Ingredients = data;
-    });
+    //this.ingredientService.getAllIngredientsResearch().subscribe( (data) => {
+    //  this.Ingredients = data;
+    //});
   }
 
   items = [
