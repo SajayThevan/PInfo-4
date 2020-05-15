@@ -1,4 +1,4 @@
--- CREATE USER ingd WITH PASSWORD 'ingd';
+CREATE USER ingd WITH PASSWORD 'ingd';
 
 drop table Ingredient if exists;
 drop sequence if exists INGREDIENT_SEQ;

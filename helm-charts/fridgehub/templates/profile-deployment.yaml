@@ -51,9 +51,9 @@ spec:
             - name: THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_PROFILEDS_DRIVER_DASH_NAME
               value: "postgresql"
             - name: THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_PROFILEDS_USER_DASH_NAME
-              value: "inst"
+              value: "prf"
             - name: THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_PROFILEDS_PASSWORD
-              value: "inst"
+              value: "prf"
           ports:
             - name: http
               containerPort: 28080

@@ -68,6 +68,20 @@ class IngredientsServiceImplTest {
 		
 		assertEquals(size + 4, ingredientsService.getAll().size());
 	}
+	
+	@Test
+	void testGetAllResearch() {
+		List<Ingredient> ingredients = ingredientsService.getAll();
+		int size = ingredients.size();
+		
+		ingredientsService.create(getRandomIngredient()); // tests create at the same time 
+		ingredientsService.create(getRandomIngredient1());
+		ingredientsService.create(getRandomIngredient2());
+		ingredientsService.create(getRandomIngredient3());
+		System.out.println("--- get all pairs for research : ---");
+		System.out.println(ingredientsService.getAllResearch());
+		assertEquals(size + 4, ingredientsService.getAllResearch().size());
+	}
 
 	@Test
 	void testComputeCalories() {
