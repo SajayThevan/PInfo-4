@@ -14,13 +14,13 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 
 const routes: Routes = [
-  { path : '',redirectTo:"/home",pathMatch:"full"},
-  { path : 'home',component : HomeComponent},
-  { path :'tendances', component : TendancesComponent},
-  { path :'month', component : MonthSpecialComponent},
-  { path :'challenge', component : ChallengesComponent},
-  { path :'login_page', component : LoginPageComponent},
-  { path :'profile', component : ProfilePageComponent},
+  { path: '',redirectTo:"/home",pathMatch:"full"},
+  { path: 'home',component : HomeComponent},
+  { path: 'tendances', component : TendancesComponent},
+  { path: 'month', component : MonthSpecialComponent},
+  { path: 'challenge', component : ChallengesComponent},
+  { path: 'login_page', component : LoginPageComponent},
+  { path: 'profile', component : ProfilePageComponent},
   { path: 'search', component:SearchComponent},
   { path: 'subscribe',component:SubscribeComponent},
   { path: 'recipe/:id', component:RecipePageComponent},

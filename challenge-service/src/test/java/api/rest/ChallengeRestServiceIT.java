@@ -36,8 +36,36 @@ public class ChallengeRestServiceIT {
 	@Test
 	public void testCount() {
 		System.out.println("-----------------DEBUT TEST COUNTREST-----------------");
-		when().get("/count").then().body(containsString("2"));
+		when().get("/count").then().body(containsString("3"));
 		System.out.println("-----------------FIN TEST COUNTREST-----------------");
+	}
+	
+	@Test
+	public void testGetIngredient() {
+		System.out.println("-----------------DEBUT TEST GetIngredient-----------------");
+		when().get("/ingredients/2").then().body(containsString("20"));
+		System.out.println("-----------------FIN TEST GetIngredient-----------------");
+	}
+	
+	@Test
+	public void testGetSolution() {
+		System.out.println("-----------------DEBUT TEST GetSolution-----------------");
+		when().get("/solutions/2").then().body(containsString("14"));
+		System.out.println("-----------------FIN TEST GetSolution-----------------");
+	}
+	
+	@Test
+	public void testGetName() {
+		System.out.println("-----------------DEBUT TEST GetName-----------------");
+		when().get("/name/2").then().body(containsString("CREPESAMERE"));
+		System.out.println("-----------------FIN TEST GetName-----------------");
+	}
+	
+	@Test
+	public void testGetAuthor() {
+		System.out.println("-----------------DEBUT TEST GetAuthorID-----------------");
+		when().get("/author/2").then().body(containsString("14"));
+		System.out.println("-----------------FIN TEST GetAuthorID-----------------");
 	}
 
 }
