@@ -11,19 +11,30 @@
 
   <div class="line"></div>
 
+  
+
   <div class="pos">
-      <form class="form-inline md-form mr-auto mb-4">
-          <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
-      </form>
+      <div class="row">
+        <div class="col">
+          <div class="searchbar">
+            <ng-select [items]="items"
+                       bindLabel="name"
+                       placeholder="Search"
+                       appendTo="body"
+                       multiple="true"
+                       [(ngModel)]="selected">
+            </ng-select>
+          </div>
+        </div>
+        <div class="col">
+          <button class="btn btn-sm btn btn-outline-dark" type="submit" (click)="Show()">Search</button>
+        </div>
+      </div>
+      
   </div>
 
-  <div class="example-config">
-    Current value: {{value | json}}
-  </div>
-  <div class="example-wrapper">
-    <p>Favorite sport:</p>
-    <kendo-multiselect class = "k-multiselect k-widget" [data]="listItems" [(ngModel)]="value"></kendo-multiselect>
-  </div>
+  
+  
   
   
 

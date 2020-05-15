@@ -23,7 +23,7 @@ import { RecipeService } from './services/recipe/recipe.service';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { FormsModule } from '@angular/forms';
 
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import {NgSelectModule} from '@ng-select/ng-select'
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    DropDownsModule
+    NgSelectModule
   ],
   providers: [TestService,ChallengeService,IngredientService,ProfileService,RecipeService],
   bootstrap: [AppComponent]

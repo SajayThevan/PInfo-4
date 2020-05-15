@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@ng-select/ng-select": "^4.0.0",
     "@progress/kendo-angular-common": "^1.2.2",
     "@progress/kendo-angular-dropdowns": "^4.2.7",
     "@progress/kendo-angular-l10n": "^2.0.1",

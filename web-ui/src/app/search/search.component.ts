@@ -29,8 +29,19 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  public listItems: Array<string> = ['Baseball', 'Basketball', 'Cricket', 'Field Hockey', 'Football', 'Table Tennis', 'Tennis', 'Volleyball'];
-  public value: any = [];
+  items = [
+    {id: 1, name: 'Chocolate'},
+    {id: 2, name: 'Butter'},
+    {id: 3, name: 'Milk'},
+    {id: 4, name: 'Flour'},
+    {id: 5, name: 'Vanilla'}
+  ];
+
+  selected = [];
+
+  Show() {
+    console.log(this.selected);
+  }
     
 
 }
