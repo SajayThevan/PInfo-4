@@ -87,6 +87,14 @@ public class RecipeRestService {
 		Recipe a = rs.getRecipe(id);
 		return a;
 	}
+	@GET
+	@Path("/recipesWithIngIds")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get recipes wich you need the ingredients passed in paramaters")
+	public ArrayList<Long> getRecipesWithIngIds(ArrayList<Long> ing_id){
+		return rs.getRecipeWithIngredientID(ing_id);
+	}
 	
 	@GET
 	@Path("/count")
@@ -95,6 +103,8 @@ public class RecipeRestService {
     public Long count() {
 		return rs.count();
 	}
+	
+	
 	
 
 }

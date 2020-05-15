@@ -63,27 +63,31 @@ create table Steps (
     primary key (id)
 );
 
-alter table Category 
-    add constraint FK3id5k3clok8i99x858e0au3oc 
-    foreign key (Recipe_ID) 
+GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to rcp;
+GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to rcp;
+TRUNCATE TABLE RECIPE;
+
+alter table Category
+    add constraint FK3id5k3clok8i99x858e0au3oc
+    foreign key (Recipe_ID)
     references Recipe;
 
-alter table Comments 
-    add constraint FKitod1h0fmt0dfg3399h3hl3vx 
-    foreign key (Recipe_ID) 
+alter table Comments
+    add constraint FKitod1h0fmt0dfg3399h3hl3vx
+    foreign key (Recipe_ID)
     references Recipe;
 
-alter table Ingredients 
-    add constraint FKpx948xuk56dhbwrt0owopr8au 
-    foreign key (Recipe_ID) 
+alter table Ingredients
+    add constraint FKpx948xuk56dhbwrt0owopr8au
+    foreign key (Recipe_ID)
     references Recipe;
 
-alter table Ratings 
-    add constraint FK8bdfwavk430j695y0v6f1nwc2 
-    foreign key (Recipe_ID) 
+alter table Ratings
+    add constraint FK8bdfwavk430j695y0v6f1nwc2
+    foreign key (Recipe_ID)
     references Recipe;
 
-alter table Steps 
-    add constraint FK1f9l28viiu893aug0bi3d4ji6 
-    foreign key (Recipe_id) 
+alter table Steps
+    add constraint FK1f9l28viiu893aug0bi3d4ji6
+    foreign key (Recipe_id)
     references Recipe;

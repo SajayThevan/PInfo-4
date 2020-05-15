@@ -1,8 +1,10 @@
 package domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.javatuples.Pair; 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -107,8 +109,6 @@ public class ProfileServiceImpl implements ProfileService {
 		oldIngredients.remove(ing); // Doute id primaire nessaisaire?
 		p.setFridgeContents(oldIngredients);
 		em.merge(p);
-		
-		
 	}
 	
 	@Override
@@ -123,6 +123,15 @@ public class ProfileServiceImpl implements ProfileService {
 		
 		
 	}
+	
+//	@Override
+//	public ArrayList<Pair> getIngredients(long id){
+//		Profile p = get(id);
+//		ArrayList<Pair> ingredients = new ArrayList();
+//		Set <Ingredient> ingredientSet = p.getFridgeContents();
+//		
+//		
+//	}
 	
 	
 }

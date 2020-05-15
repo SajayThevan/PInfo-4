@@ -37,6 +37,22 @@ public class IngredientServiceImpl implements IngredientService {
 		criteria.from(Ingredient.class);
 		return em.createQuery(criteria).getResultList();
 	}
+	
+	@Override
+	public List<Object> getAllResearch() {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
+		criteria.from(Ingredient.class);
+		List<Ingredient> allIngredients = em.createQuery(criteria).getResultList();
+		List<Object> allIngredientsToSend = new ArrayList<>(); 
+		for(Ingredient i : allIngredients) {
+			List<Object> pair = new ArrayList<>(); 
+			pair.add(i.getId());
+			pair.add(i.getName());
+			allIngredientsToSend.add(pair);
+		}
+		return allIngredientsToSend;
+	}
 
 	@Override
 	public Ingredient get(Long id) {
