@@ -6,11 +6,11 @@ create sequence INGREDIENT_SEQ start with 1 increment by 1;
 create table Ingredient (
         id bigint not null,
 		name varchar(255),
-		kcal double not null,
-		fat double not null,
-		cholesterol double not null,
-		protein double not null,
-		salt double not null
+		kcal double precision not null,
+		fat double precision not null,
+		cholesterol double precision not null,
+		protein double precision not null,
+		salt double precision not null
 );
 GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to ingd;
 GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to ingd;
