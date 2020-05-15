@@ -23,6 +23,13 @@ public class IngredientRestServiceIT {
 	}
 	
 	@Test
+	public void testGetAllResearch() {
+		when().get("/research").then().body(containsString("amande"));
+		when().get("/research").then().body(containsString("3"));
+	}
+	
+	
+	@Test
 	public void testGet() {
 		when().get("/2").then().body(containsString("amande"));
 	}

@@ -9,6 +9,7 @@ import domain.model.Ingredient;
 public interface IngredientService {
 	
 	List<Ingredient> getAll();
+	List<Object> getAllResearch();
 	Ingredient get(Long ingredientId);
 	void create(Ingredient ingredient);
 	//int computeCalories(Array<int IngredientID>);  
