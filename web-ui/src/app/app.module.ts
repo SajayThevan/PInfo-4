@@ -22,6 +22,12 @@ import { ProfileService } from './services/profile/profile.service';
 import { RecipeService } from './services/recipe/recipe.service';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +47,10 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
     AppRoutingModule,
     MatIconModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    NgSelectModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [TestService,ChallengeService,IngredientService,ProfileService,RecipeService],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { stringify } from 'querystring';
 })
 export class RecipeService {
 
-  constructor( private http:HttpClient) { }
+  constructor(private http:HttpClient) { }
 
   getRecipe(id) {
     return this.http.get("https://jsonplaceholder.typicode.com/users");
@@ -36,5 +36,9 @@ export class RecipeService {
   getRecipeforProfile(Profile_id) {
     var Request_url = "https://pinfo4.unige.ch/Recipe/recipesProfil/"+stringify(Profile_id)
     return this.http.get(Request_url); // [ RecipeID,RecipeName,Ingredients ]
+  }
+
+  getTendance(){
+    var Request_url = "https://pinfo4.unige.ch/Recipe/best";
   }
 }

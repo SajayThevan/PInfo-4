@@ -1,22 +1,35 @@
 <div class="container">
-    <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="center">
-        <a class="btn font-weight-lighter" href="#"><img class ="logo" src="../../assets/logo.jpeg"></a>
-      </div>
-      <div class="col-4 d-flex justify-content-end align-items-center">
-        <a class="text-muted pad" href="/home"><mat-icon aria-hidden="false" class="logopad">home</mat-icon></a>
-        <a class="text-muted" href="/login_page"><mat-icon aria-hidden="false" class="logopad">person</mat-icon></a>
-      </div>
+  <div class="row flex-nowrap justify-content-between align-items-center">
+    <div class="center">
+      <a class="btn font-weight-lighter" href="#"><img class ="logo" src="../../assets/logo.jpeg"></a>
     </div>
-
-    <div class="line"></div>
-
-    <div class="pos">
-        <form class="form-inline md-form mr-auto mb-4">
-            <input class="form-control mr-sm-2" type="text" placeholder="Chocolat, Lait ..." aria-label="Search">
-            <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
-        </form>
+    <div class="col-4 d-flex justify-content-end align-items-center">
+      <a class="text-muted pad" href="/home"><mat-icon aria-hidden="false" class="logopad">home</mat-icon></a>
+      <a class="text-muted" href="/login_page"><mat-icon aria-hidden="false" class="logopad">person</mat-icon></a>
     </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="pos">
+      <form class="form-inline md-form mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Chocolat, Lait ..." aria-label="Search">
+          <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+      </form>
+  </div>
+
+  
+  <ng-multiselect-dropdown
+  [placeholder]="'custom placeholder'"
+  [data]="dropdownList"
+  [(ngModel)]="selectedItems"
+  [settings]="dropdownSettings"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+>
+</ng-multiselect-dropdown>
+  
+  
+  
     
-      
 </div>
