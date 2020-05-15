@@ -26,12 +26,12 @@ create table Profile (
         primary key (id)
     );
 
-    create table RecipeFav (
-        id bigint not null,
-        recipeId bigint,
-        Profile_id bigint,
-        primary key (id)
-    );
+create table RecipeFav (
+    id bigint not null,
+    recipeId bigint,
+    Profile_id bigint,
+    primary key (id)
+);
 
 GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to prf;
 GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to prf;
