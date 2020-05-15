@@ -1,4 +1,4 @@
--- CREATE USER rcp WITH PASSWORD 'rcp';
+CREATE USER rcp WITH PASSWORD 'rcp';
 
 drop table Category if exists;
 drop table Comments if exists;

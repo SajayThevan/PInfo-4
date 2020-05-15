@@ -1,4 +1,4 @@
--- CREATE USER chlg WITH PASSWORD 'chlg';
+CREATE USER chlg WITH PASSWORD 'chlg';
 
 drop table Recipe if exists;
 drop table Ingredient if exists;

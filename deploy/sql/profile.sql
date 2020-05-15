@@ -1,4 +1,4 @@
--- CREATE USER prf WITH PASSWORD 'prf';
+CREATE USER prf WITH PASSWORD 'prf';
 
 drop table Ingredient if exists;
 drop table RecipeFav if exists;
