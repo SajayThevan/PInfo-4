@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -59,10 +60,15 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	public ArrayList<Triplet> getRecipesForProfil(long id){
-		String sID = String.valueOf(id);
-		String q = "select * from Recipe where authorID = "+sID;
-		Query query = em.createNativeQuery(q,Recipe.class);
-		List<Recipe> tmp =query.getResultList();
+		
+	    
+	    
+		String sID = String.valueOf(id);  // Selon le prof inutile de le mtre en string du coup à toi de voir 
+//		String q = "select * from Recipe where authorID = "+sID;
+		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r WHERE r.authorID = :authorID", Recipe.class);
+//		Query query = em.createNativeQuery(q,Recipe.class); // en com c'est tes trucs check si ca marche
+		query.setParameter("authorID", sID);
+		List<Recipe> tmp = query.getResultList();
 		ArrayList<Triplet> listToReturn = new ArrayList();
         Iterator it = tmp.iterator();
         while (it.hasNext()) {
