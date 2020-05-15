@@ -18,7 +18,7 @@ public interface RecipeService {
 	public void removeRecipe(long id);
 	public Recipe getRecipe(long id);
 	public Long count();
-
+	public ArrayList <Long> getRecipeWithIngredientID(ArrayList<Long> ing_id);
 	//Return an ArrayList as follow:
 	//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
 	
