@@ -25,6 +25,6 @@ export class IngredientService {
   // synthaxe : /computeCalories?id=1&id=2&id=4
   // on prendra les ids des ingredients de la recette a afficher
   getComputeCalories(idList) {
-    return this.http.get("https://pinfo4.unige.ch/ingredient/computeCalories"+stringify(idList));
+    return this.http.get("https://pinfo4.unige.ch/ingredient/computeCalories?"+stringify(idList));
   }
 }

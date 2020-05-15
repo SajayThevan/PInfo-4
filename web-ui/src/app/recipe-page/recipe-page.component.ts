@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../services/recipe/recipe.service';
 import {ActivatedRoute} from '@angular/router'
+import { IngredientService } from '../services/ingredient/ingredient.service';
+import { stringify } from 'querystring';
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
@@ -8,7 +10,8 @@ import {ActivatedRoute} from '@angular/router'
 })
 export class RecipePageComponent implements OnInit {
 
-  constructor(private recipeService : RecipeService, private route:ActivatedRoute) { }
+  constructor(private recipeService : RecipeService, private route:ActivatedRoute,
+    private ingredientService : IngredientService) { }
 
   connected = true;
 
@@ -24,6 +27,7 @@ export class RecipePageComponent implements OnInit {
   Steps = [];
 
   Category = [];
+  Calorie = 0;
 
   Difficulty = 0;
   Time = 0;
@@ -50,6 +54,24 @@ export class RecipePageComponent implements OnInit {
       this.Ratings = data["ratings"]; // Take mean
       this.Comments = data["comments"];
     });
+
+    let url : String= "";
+    // synthaxe : /computeCalories?id=1&id=2&id=4
+    // Ingredient ID --> Ingredient Name
+    for (var val of this.Ingredients) {
+      this.ingredientService.getIngredient(val).subscribe( (data) => {
+        this.Ingredients_name.push(data["name"]);
+      }); 
+      // Url for Compute Calories
+      url = url + "id="+stringify(val)+"&"
+    }
+
+    // Removing the last &
+    url = url.substring(0, url.length - 1);
+    this.ingredientService.getComputeCalories(url).subscribe( (data) => {
+      this.Calorie = data[0]; // ????
+    });
+
   }
 
   

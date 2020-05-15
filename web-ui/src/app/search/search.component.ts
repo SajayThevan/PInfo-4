@@ -2,6 +2,7 @@ import { Component, OnInit,} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { IngredientService } from '../services/ingredient/ingredient.service';
 
 @Component({
   selector: 'app-search',
@@ -10,39 +11,15 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ingredientService : IngredientService) { }
 
-  dropdownList:any[] = [];
-  selectedItems = [];
-  dropdownSettings= {};
+  Ingredients:any = [];
+
   ngOnInit() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 7,
-      allowSearchFilter: true
-    };
+    this.ingredientService.getAllIngredientsResearch().subscribe( (data) => {
+      this.Ingredients = data;
+    });
   }
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
+    
 
 }
