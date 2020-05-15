@@ -42,9 +42,9 @@ alter table Recipe
     foreign key (CHALLENGE_ID)
     references Challenge;
 
-  GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to chlg;
-  GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to chlg;
-  TRUNCATE TABLE INGREDIENT;
+GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to chlg;
+GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to chlg;
+TRUNCATE TABLE CHALLENGE;
 
 INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', Challenge_SEQ.nextval);
 INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,INGREDIENT_SEQ.nextval);
