@@ -123,6 +123,17 @@ class RecipesServiceImplTest {
 		Recipe res = recipesService.getRecipe(r.getId());
 		assertEquals(r.getRatings().size(),res.getRatings().size());
 	}
+	@Test
+	void testGetRecipeWithIngredientID() {
+		Recipe r = randomRecipe();
+		em.persist(r);
+		ArrayList<Long> ing_id = new ArrayList<Long>();
+		ArrayList<Long> res = recipesService.getRecipeWithIngredientID(ing_id);
+		assertEquals(res.size(),1);
+		long recipeID = res.get(0);
+		Recipe RecRes = recipesService.getRecipe(recipeID);
+		assertEquals(r.getName(),RecRes.getName());
+	}
 	
 	
 	
