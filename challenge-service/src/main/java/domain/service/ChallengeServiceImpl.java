@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import domain.model.Challenge;
 import domain.model.Recipe;
 
+
 @ApplicationScoped
 public class ChallengeServiceImpl implements ChallengeService {
 
@@ -43,8 +44,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 		Set <Recipe> oldSolution = ch.getSolutions();
 		oldSolution.add(r);
 		em.merge(ch);
-		
 	}
+	
 	@Override							
 	public Challenge get(Long challengeId) {
 		return em.find(Challenge.class, challengeId);
