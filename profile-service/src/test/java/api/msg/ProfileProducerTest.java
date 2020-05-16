@@ -38,41 +38,33 @@ class ProfileProducerTest {
 
 	@Test
 	void testSendAllProfiles() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendAllProfiles-----------------");
 		List<Profile> profiles = getRandomProfileCollection();
 		when(profileService.getAll()).thenReturn(profiles);
 		producer.sendAllProfiles();
 		verify(kafkaProducer, times(profiles.size())).send(eq("profiles"), any(Profile.class));
-		System.out.println("-----------------FIN TEST PRODUCER SendAllProfiles-----------------");
 	}
 
 	@Test
 	void testSendProfile() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendProfile-----------------");
 		Profile profile = getRandomProfile();
 		producer.send(profile);
 		verify(kafkaProducer, times(1)).send("profiles", profile);
-		System.out.println("-----------------FIN TEST PRODUCER SendProfile-----------------");
 	}
 
 	@Test
 	void testSendLong() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendLong-----------------");
 		Profile profile = getRandomProfile();
 		when(profileService.get(profile.getId())).thenReturn(profile);
 		producer.send(profile.getId());
 		verify(kafkaProducer, times(1)).send("profiles", profile);
-		System.out.println("-----------------FIN TEST PRODUCER SendLong-----------------");
 	}
 
 	@Test
 	void testSendLongNull() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendLongNull-----------------");
 		Profile profile = getRandomProfile();
 		when(profileService.get(profile.getId())).thenReturn(null);
 		producer.send(profile.getId());
 		verify(kafkaProducer, times(0)).send("profiles", profile);
-		System.out.println("-----------------FIN TEST PRODUCER SendLongNull-----------------");
 	}
 
 	private List<Profile> getRandomProfileCollection() {
