@@ -60,14 +60,8 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	public ArrayList<Triplet> getRecipesForProfil(long id){
-		
-	    
-	    
-		String sID = String.valueOf(id);  // Selon le prof inutile de le mtre en string du coup à toi de voir 
-//		String q = "select * from Recipe where authorID = "+sID;
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r WHERE r.authorID = :authorID", Recipe.class);
-//		Query query = em.createNativeQuery(q,Recipe.class); // en com c'est tes trucs check si ca marche
-		query.setParameter("authorID", sID);
+		query.setParameter("authorID", id);
 		List<Recipe> tmp = query.getResultList();
 		ArrayList<Triplet> listToReturn = new ArrayList();
         Iterator it = tmp.iterator();
@@ -79,8 +73,9 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	public List getRecipiesIdForProfiles(long id){
-		String query = "SELECT id from Recipe where authorID = "+id;
-		List ids = em.createQuery(query).getResultList();
+		TypedQuery<Long> query = em.createQuery("SELECT r.id FROM Recipe r WHERE r.authorID = :authorID",Long.class);
+		query.setParameter("authorID", id);
+		List ids = query.getResultList();
 		return ids;
 	}
 	
@@ -112,7 +107,8 @@ public class RecipeServiceImpl implements RecipeService {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList <Long> getRecipeWithIngredientID(ArrayList<Long> ing_id){
 		ArrayList <Long> tr = new ArrayList<Long>();
-		List<Recipe> rl = em.createQuery("from Recipe").getResultList();
+		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
+		List<Recipe> rl = query.getResultList();
 		for(Recipe r: rl ) {
 			Set<Ingredients> ing = r.getIngredients();
 			ArrayList containedIngId = new ArrayList();
