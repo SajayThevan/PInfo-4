@@ -87,6 +87,7 @@ public class RecipeRestService {
 		Recipe a = rs.getRecipe(id);
 		return a;
 	}
+	
 	@GET
 	@Path("/recipesWithIngIds")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -94,6 +95,14 @@ public class RecipeRestService {
 	@ApiOperation(value = "Get recipes wich you need the ingredients passed in paramaters")
 	public ArrayList<Long> getRecipesWithIngIds(ArrayList<Long> ing_id){
 		return rs.getRecipeWithIngredientID(ing_id);
+	}
+	
+	@GET
+	@Path("/tendancies")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "return the 20 best recipes")
+	public ArrayList<Long> getTendanciess(){
+		return rs.getTendancies();
 	}
 	
 	@GET
