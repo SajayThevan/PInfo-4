@@ -1,8 +1,8 @@
 CREATE USER prf WITH PASSWORD 'prf';
 
-drop table Ingredient if exists;
-drop table RecipeFav if exists;
-drop table Profile if exists cascade;
+drop table if exists Ingredient;
+drop table if exists RecipeFav;
+drop table if exists Profile cascade;
 drop sequence if exists INGREDIENT_SEQ;
 drop sequence if exists RECIPEFAV_SEQ;
 drop sequence if exists PROFILE_SEQ;
