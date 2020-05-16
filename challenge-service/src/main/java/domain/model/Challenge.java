@@ -20,8 +20,6 @@ import java.util.Set;
 
 
 
-
-
 @Data
 @Entity
 @Table(name ="Challenge")
@@ -38,14 +36,14 @@ public class Challenge implements Serializable {
 	private String name;
 	
 	@NotNull
-	private Long authorID; // ProfileID
+	private Long authorID;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CHALLENGE_ID", nullable = true)
-	private Set<Ingredient> ingredients; // <(IngredientID, Quantity)> 
+	private Set<Ingredient> ingredients; 
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CHALLENGE_ID", nullable = true)
-	private Set<Recipe> solutions; // <(recipeId)> 
+	private Set<Recipe> solutions;  
 //	
 }

@@ -47,7 +47,7 @@ public class ProfileRestService {
 		return profileService.getAll();
 	}
 
-	@GET    //Tested
+	@GET   
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of profile")
@@ -55,7 +55,7 @@ public class ProfileRestService {
 		return profileService.count();
 	}
 	
-	@GET   //Tested
+	@GET   
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specifc profile")
@@ -63,7 +63,7 @@ public class ProfileRestService {
 		return profileService.get(profileId);
 	}
 	
-	@GET	//Tested
+	@GET	
 	@Path("/ingredients/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the fridge content of a profile")
@@ -71,7 +71,7 @@ public class ProfileRestService {
 		return profileService.get(profileId).getFridgeContents();
 	}
 	
-	@GET	//Tested
+	@GET	
 	@Path("/favourites/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the favourites  of a profile")
@@ -79,7 +79,7 @@ public class ProfileRestService {
 		return profileService.get(profileId).getFavouriteRecipes();
 	}
 	
-		   // Not tested because methode update of Service and Send of Producer already Tested
+		   
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Update a given profile")
@@ -88,35 +88,34 @@ public class ProfileRestService {
 		profileProducer.send(profile);
 	}
 		
-	@PUT
+	@POST
 	@Path("/add/{id}/{ingredient}/{quantity}")
 	@ApiOperation(value ="add Ingredient")
 	public void addIngredientById(@PathParam("id") long profileId, @PathParam("ingredient") long ingredientId, @PathParam("quantity") int quantity) {
 		profileService.addIngredient(profileId, ingredientId, quantity);
 	}
 	
-	@PUT
+	@POST
 	@Path("/add/{id}/{favourite}")
 	@ApiOperation(value ="add favourite")
 	public void addFavouriteById(@PathParam("id") long profileId, @PathParam("favourite") long favouriteId) {
 		profileService.addFavourite(profileId, favouriteId);
 	}
 	
-	@PUT
-	@Path("/remove/{id}/{ingredient}/{quantity}")
+	@DELETE
+	@Path("/remove/{id}/{ingredient}")
 	@ApiOperation(value ="Remove Ingredient from fridge")
-	public void removeIngredient(@PathParam("id") long profileId, @PathParam("ingredient") long ingredientId, @PathParam("quantity") int quantity) {
-		profileService.removeIngredient(profileId,ingredientId,quantity);
+	public void removeIngredient(@PathParam("id") long profileId, @PathParam("ingredient") long ingredientId) {
+		profileService.removeIngredient(profileId,ingredientId);
 	}
 	
-	@PUT
+	@DELETE
 	@Path("/remove/{id}/{favourite}")
 	@ApiOperation(value ="Remove Favourite from fridge")
 	public void removeFavourite(@PathParam("id") long profileId, @PathParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
 	}
 	
-		// Create and send already tested
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new profile")
@@ -125,7 +124,7 @@ public class ProfileRestService {
 		profileProducer.send(profile);
 	}
 
-	@POST // sendAllProfiles Already tested
+	@POST 
 	@Path("propagateAllProfiles")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Propagate all profiles to the bus to sync up downstream services")

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import domain.service.ProfileServiceImpl; 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -36,7 +37,6 @@ class ProfileServiceImplTest {
 	
 	@Test
 	void testGetAll() {
-		System.out.println("-----------------DEBUT TEST GETALL-----------------");
 		List<Profile> profiles = profileService.getAll();
 		int size = profiles.size();
 		
@@ -44,14 +44,12 @@ class ProfileServiceImplTest {
 		profileService.create(getRandomProfile());
 		profileService.create(getRandomProfile());
 		profileService.create(getRandomProfile());
-		
+	
 		assertEquals(size + 4, profileService.getAll().size());
-		System.out.println("-----------------TEST GETALL TERMINE-----------------");
 	}
 
 	@Test
 	void testCount() {
-		System.out.println("-----------------DEBUT TEST COUNT-----------------");
 		List<Profile> profiles = profileService.getAll();
 		int size = profiles.size();
 		
@@ -62,12 +60,10 @@ class ProfileServiceImplTest {
 		
 		Long count = profileService.count();
 		assertEquals(size + 4, count);
-		System.out.println("-----------------TEST COUNT TERMINE-----------------");
 	}
 	
 	@Test
 	void testUpdate() {
-		System.out.println("-----------------DEBUT TEST UPDATE-----------------");
 		profileService.create(getRandomProfile());
 		Profile profile = profileService.getAll().get(0);
 		assertNotNull(profile);
@@ -76,13 +72,11 @@ class ProfileServiceImplTest {
 		profileService.update(profile);
 		profile = profileService.get(id);
 		assertEquals("Deniz", profile.getFirstName());
-		System.out.println("-----------------TEST UPDATE TERMINE-----------------");
 	}
 	
 	@SuppressWarnings("serial")
 	@Test
 	void testUpdateNonExistant() {
-		System.out.println("-----------------DEBUT TEST UPDATE NON EXISTANT-----------------");
 		Profile i = new Profile() {
 			@Override
 			public Long getId() {
@@ -92,53 +86,117 @@ class ProfileServiceImplTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			profileService.update(i);
 		});
-		System.out.println("-----------------TEST UPDATE NON EXISTANT TERMINE-----------------");
 	}
 
 	@Test
 	void testGet() {
-		System.out.println("-----------------DEBUT TEST GET-----------------");
 		profileService.create(getRandomProfile());
 		Profile profile = profileService.getAll().get(0);
 		assertNotNull(profile);
 		Long id = profile.getId();
 		Profile getProfile = profileService.get(id);
 		assertEquals(profile.getFirstName(), getProfile.getFirstName());     
-		System.out.println("-----------------TEST GET TERMINE-----------------");
 	}
 
 	@Test
 	void testGetNonExistant() {
-		System.out.println("-----------------DEBUT TEST GET NON EXISTANT-----------------");
-		List<Profile> profiles = profileService.getAll();
-		System.out.println("testGetNonExistant:" + profiles.size());
-
 		assertNull(profileService.get(Long.MAX_VALUE));
-		System.out.println("-----------------TEST GET NON EXISTANT TERMINE-----------------");
 	}
 
 	@Test
 	void testCreate() {
-		System.out.println("-----------------DEBUT TEST CREATION PROFILE-----------------");
 		Profile profile = getRandomProfile();
 		profileService.create(profile);
 		assertNotNull(profile.getId());
-		System.out.println("-----------------TEST CREATION PROFILE TERMINE-----------------");
 	}
 
 
 	@Test
 	void testCreateDuplicate() {
-		System.out.println("-----------------DEBUT TEST CREATION DUPLICAT-----------------");
 		Profile profile = getRandomProfile();
 		profileService.create(profile);
 		assertThrows(IllegalArgumentException.class, () -> {
 			profileService.create(profile);
 		});
-		System.out.println("-----------------TEST CREATION DUPLICAT TERMINE-----------------");
 	}
 	
-
+	@Test
+	void testAddIngredientById() {
+		Ingredient ing = new Ingredient();
+		ing.setIngredientId((long) 10);
+		ing.setQuantity(20);
+		Profile profile = getRandomProfile();
+		Set<Ingredient> oldListIng = profile.getFridgeContents();
+		Long idIng = ing.getIngredientId();
+		int quantity = ing.getQuantity();
+		profileService.create(profile);
+		Long idProfile = profile.getId();
+		oldListIng.add(ing);
+		profileService.addIngredient(idProfile, idIng, quantity);
+		Profile profileDB = profileService.get(idProfile);
+		Set<Ingredient> newListIng = profileDB.getFridgeContents();
+		assertEquals(newListIng,oldListIng);		
+	}
+	
+	@Test
+	void testAddFavouriteById() {
+		RecipeFav fav = new RecipeFav();
+		fav.setRecipeId((long) 20);
+		Profile profile = getRandomProfile();
+		Set<RecipeFav> oldListFav = profile.getFavouriteRecipes();
+		Long idFav = fav.getRecipeId();
+		profileService.create(profile);
+		Long idProfile = profile.getId();
+		oldListFav.add(fav);
+		profileService.addFavourite(idProfile, idFav);
+		Profile profileDB = profileService.get(idProfile);
+		Set<RecipeFav> newListFav = profileDB.getFavouriteRecipes();
+		assertEquals(newListFav,oldListFav);		
+	}
+	
+	@Test
+	void testRemoveProfile() {
+		Profile profile = getRandomProfile();
+		profileService.create(profile);
+		Long profileId = profile.getId();
+		profileService.removeProfile(profileId);
+		assertThrows(IllegalArgumentException.class, () -> {
+			profileService.removeProfile(profileId);
+		});
+	}
+	
+	@Test
+	void testRemoveIngredientById() {  
+		Profile profile = getRandomProfile();
+		Iterator<Ingredient> iterator = profile.getFridgeContents().iterator();
+		iterator.next().getIngredientId();
+		Long secondId = iterator.next().getIngredientId();
+		profileService.create(profile);
+		Long idProfile = profile.getId();
+		Profile profileDB = profileService.get(idProfile);
+		Set<Ingredient> newListIng = profile.getFridgeContents();
+		Long idIng = newListIng.iterator().next().getIngredientId();
+		profileService.removeIngredient(idProfile, idIng);
+		Long newFirstId = profileDB.getFridgeContents().iterator().next().getIngredientId();
+		assertEquals(newFirstId,secondId);		
+	}
+	
+	@Test
+	void testRemoveFavouriteById() {  
+		Profile profile = getRandomProfile();
+		Iterator<RecipeFav> iterator = profile.getFavouriteRecipes().iterator();
+		iterator.next().getRecipeId();
+		Long secondId = iterator.next().getRecipeId();
+		profileService.create(profile);
+		Long idProfile = profile.getId();
+		Profile profileDB = profileService.get(idProfile);
+		Set<RecipeFav> newListFav = profile.getFavouriteRecipes();
+		Long idFav = newListFav.iterator().next().getRecipeId();
+		profileService.removeFavourite(idProfile, idFav);
+		Long newFirstId = profileDB.getFavouriteRecipes().iterator().next().getRecipeId();
+		assertEquals(newFirstId,secondId);		
+	}
+	
 	private Profile getRandomProfile() {
 		Profile p = new Profile();
 		Random rand = new Random();
@@ -185,6 +243,5 @@ class ProfileServiceImplTest {
 		p.setFavouriteRecipes(Favoris);
 		return p;	
 	}
-	
 	
 }
