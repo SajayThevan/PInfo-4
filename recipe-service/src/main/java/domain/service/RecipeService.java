@@ -19,6 +19,7 @@ public interface RecipeService {
 	public Recipe getRecipe(long id);
 	public Long count();
 	public ArrayList <Long> getRecipeWithIngredientID(ArrayList<Long> ing_id);
+	public ArrayList<Long> getTendancies();
 	//Return an ArrayList as follow:
 	//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
 	

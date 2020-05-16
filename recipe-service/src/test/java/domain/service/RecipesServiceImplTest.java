@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -15,6 +16,7 @@ import org.javatuples.Triplet;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -136,7 +138,40 @@ class RecipesServiceImplTest {
 	}
 	
 	
+	@Test
+	public void testGetTendcies() {
+		float maxMean = 0;
+		long maxMeanId = 0;
+		long maxMeanId2 = 0;
+		for (int i= 0;  i < 250; i ++) {
+			Recipe r = randomRecipe();
+			em.persist(r);
+			float recipeMean = 0;
+			for(Ratings g: r.getRatings()) {
+				recipeMean += g.getRate();
+			}
+			recipeMean = recipeMean / r.getRatings().size();
+			
+			if( maxMean <= recipeMean)
+			{
+				maxMeanId2 = maxMeanId;
+				maxMeanId = r.getId();
+				maxMean = recipeMean;
+				
+			}
+		}
+		ArrayList<Long> ids = recipesService.getTendancies();
+		assertEquals(ids.get(0),maxMeanId);
+		assertEquals(ids.get(1),maxMeanId2);
+	}
 	
+	
+	private long valueOf(long maxMean) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	public Recipe randomRecipe() {
 		Recipe r = new Recipe();
 		
