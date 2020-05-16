@@ -21,26 +21,20 @@ class ProfileConsumerTest {
 	
 	@Test
 	void testUpdateRegularProfile() {
-		System.out.println("-----------------DEBUT TEST CONSUMER UpdateRegularProfile-----------------");
 		consumer.updateProfile("452");
 		verify(producer).send(452l);
-		System.out.println("-----------------FIN TEST CONSUMER UpdateRegularProfile-----------------");
 	}
 	
 	@Test
 	void testUpdateAllProfile() {
-		System.out.println("-----------------DEBUT TEST CONSUMER testUpdateAllProfile-----------------");
 		consumer.updateProfile("all");
 		verify(producer, times(1)).sendAllProfiles();
-		System.out.println("-----------------FIN TEST CONSUMER testUpdateAllProfile-----------------");
 	}
 	
 	@Test
 	void testUpdateUnexpectedMessage() {
-		System.out.println("-----------------DEBUT TEST CONSUMER testUpdateUnexpectedMessage-----------------");
 		assertThrows(IllegalArgumentException.class,
 				() -> consumer.updateProfile("XXX"));
-		System.out.println("-----------------FIN TEST CONSUMER testUpdateUnexpectedMessage-----------------");
 	}
 
 }

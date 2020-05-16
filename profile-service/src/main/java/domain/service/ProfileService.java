@@ -11,9 +11,9 @@ public interface ProfileService {
 	Long count();
 	void removeProfile(long id);
 	void addIngredient(long challengeId, long ingredientId, int quantity);
-	void removeIngredient(long profileId, long ingredientId, int quantity);
 	void addFavourite(long id, long recipeId);
 	void removeFavourite(long id, long recipeId);
+	void removeIngredient(long profileId, long ingredientId);
 
 
 	

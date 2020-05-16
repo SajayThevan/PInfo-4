@@ -21,7 +21,6 @@ class CORSFilterTest {
 	@Test
 	void testFilter() throws IOException {
 
-		// create the objects to be mocked
 		ContainerRequestContext requestContext = mock(ContainerRequestContext.class);
 		ContainerResponseContext responseContext = mock(ContainerResponseContext.class);
 

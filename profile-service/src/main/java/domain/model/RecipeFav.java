@@ -12,11 +12,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude= {"id"})
 @ToString
 
 @Entity
-@Table(name ="RecipeFav")  //RecipeFav
+@Table(name ="RecipeFav")  
 public class RecipeFav implements Serializable  {
 
 	private static final long serialVersionUID = 4370273419623542742L;
@@ -26,5 +26,5 @@ public class RecipeFav implements Serializable  {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECIPEFAV_SEQ")
 	private Long id;
 	
-	private Long recipeId;  //Recipe
+	private Long recipeId;  
 }
