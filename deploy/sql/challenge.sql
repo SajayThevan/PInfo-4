@@ -1,8 +1,8 @@
 CREATE USER chlg WITH PASSWORD 'chlg';
 
-drop table Recipe if exists;
-drop table Ingredient if exists;
-drop table Challenge if exists cascade;
+drop table if exists Recipe;
+drop table if exists Ingredient;
+drop table if exists Challenge cascade;
 drop sequence if exists INGREDIENT_SEQ;
 drop sequence if exists RECIPE_SEQ;
 drop sequence if exists CHALLENGE_SEQ;

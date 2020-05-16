@@ -1,11 +1,11 @@
 CREATE USER rcp WITH PASSWORD 'rcp';
 
-drop table Category if exists;
-drop table Comments if exists;
-drop table Ingredients if exists;
-drop table Ratings if exists;
-drop table Steps if exists;
-drop table Recipe if exists;
+drop table if exists Category;
+drop table if exists Comments;
+drop table if exists Ingredients;
+drop table if exists Ratings;
+drop table if exists Steps;
+drop table if exists Recipe;
 drop sequence if exists RECIPE_SEQ;
 drop sequence if exists CATEGORY_SEQ;
 drop sequence if exists COMMENTS_SEQ;

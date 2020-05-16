@@ -1,6 +1,6 @@
 CREATE USER ingd WITH PASSWORD 'ingd';
 
-drop table Ingredient if exists;
+drop table if exists Ingredient;
 drop sequence if exists INGREDIENT_SEQ;
 create sequence INGREDIENT_SEQ start with 1 increment by 1;
 create table Ingredient (
