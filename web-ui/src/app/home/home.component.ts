@@ -8,7 +8,7 @@ import { TestService } from '../services/test.service';
 })
 export class HomeComponent implements OnInit {
 
-  name:any= [];
+  name:String = "";
   
 
   constructor(private testserive:TestService) {
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   
   ngOnInit(): void {
     this.testserive.getInfo().subscribe( (data) => {
-      this.name = data;
+      this.name = data[0]["name"];
     });
 
      

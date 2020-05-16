@@ -69,6 +69,7 @@ public class ProfileServiceImpl implements ProfileService {
 		Set <RecipeFav> oldFavourites = p.getFavouriteRecipes();
 		oldFavourites.add(fav);
 		p.setFavouriteRecipes(oldFavourites);
+		System.out.println("ADDDDDD"+p.getFavouriteRecipes());
 		em.merge(p);
 	}
 	

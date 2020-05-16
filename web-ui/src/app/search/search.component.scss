@@ -6,6 +6,7 @@
 
 .line {
     padding-top: 10px;
+    margin-bottom: 30px;
     border-bottom: 1px gainsboro solid;
 }
 
@@ -15,7 +16,7 @@
 
 .pos {
     position: relative;
-    left: 40%;
+    left: 10%;
     padding-top: 10px;
 }
 
@@ -24,4 +25,8 @@
     width: 90px;
     border-radius: 5px;
     background-size: contain;
+}
+
+.searchbar{
+    width: 800px;
 }

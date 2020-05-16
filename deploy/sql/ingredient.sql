@@ -4,7 +4,7 @@ drop table Ingredient if exists;
 drop sequence if exists INGREDIENT_SEQ;
 create sequence INGREDIENT_SEQ start with 1 increment by 1;
 create table Ingredient (
-        id bigint not null,
+    id bigint not null,
 		name varchar(255),
 		kcal double precision not null,
 		fat double precision not null,
