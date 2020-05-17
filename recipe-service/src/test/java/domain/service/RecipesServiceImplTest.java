@@ -198,8 +198,6 @@ class RecipesServiceImplTest {
 	        String todaysdate = dateFormat.format(Todaydate);
 	        String PartTD[] = todaysdate.split("/");
 	        if (Integer.parseInt(PartTD[0]) == month && Integer.parseInt(PartTD[2]) ==year) {
-	        	System.out.println("----------------------------------------------------------------");
-	        	System.out.println(todaysdate);
 	        	counter += 1;
 	        }
 		}

@@ -3,7 +3,7 @@ drop table Comments if exists;
 drop table Ingredients if exists;
 drop table Ratings if exists;
 drop table Steps if exists;
-drop table Recipe if exists cascade;
+drop table Recipe if exists;
 drop sequence if exists RECIPE_SEQ;
 drop sequence if exists CATEGORY_SEQ;
 drop sequence if exists COMMENTS_SEQ;
@@ -61,31 +61,31 @@ create table Steps (
     primary key (id)
 );
 
-alter table Category
-    add constraint FK3id5k3clok8i99x858e0au3oc
-    foreign key (Recipe_ID)
+alter table Category 
+    add constraint FK3id5k3clok8i99x858e0au3oc 
+    foreign key (Recipe_ID) 
     references Recipe;
 
-alter table Comments
-    add constraint FKitod1h0fmt0dfg3399h3hl3vx
-    foreign key (Recipe_ID)
+alter table Comments 
+    add constraint FKitod1h0fmt0dfg3399h3hl3vx 
+    foreign key (Recipe_ID) 
     references Recipe;
 
-alter table Ingredients
-    add constraint FKpx948xuk56dhbwrt0owopr8au
-    foreign key (Recipe_ID)
+alter table Ingredients 
+    add constraint FKpx948xuk56dhbwrt0owopr8au 
+    foreign key (Recipe_ID) 
     references Recipe;
 
-alter table Ratings
-    add constraint FK8bdfwavk430j695y0v6f1nwc2
-    foreign key (Recipe_ID)
+alter table Ratings 
+    add constraint FK8bdfwavk430j695y0v6f1nwc2 
+    foreign key (Recipe_ID) 
     references Recipe;
 
-alter table Steps
-    add constraint FK1f9l28viiu893aug0bi3d4ji6
-    foreign key (Recipe_id)
+alter table Steps 
+    add constraint FK1f9l28viiu893aug0bi3d4ji6 
+    foreign key (Recipe_id) 
     references Recipe;
-
+    
 INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (RECIPE_SEQ.nextval, 1,'21/02/2020', 3, 'pizza', 1);
 INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (2, 1,'21/02/2020', 3, 'pizza', 1);
 
@@ -105,3 +105,4 @@ INSERT INTO Ratings(id, rate, Recipe_ID) values (INGREDIENTS_SEQ.nextval, 4,2);
 
 INSERT INTO Steps (id, steps, Recipe_id) values (STEPS_SEQ.nextval,'mettre dans le four',RECIPE_SEQ.currval);
 INSERT INTO Steps (id, steps, Recipe_id) values (STEPS_SEQ.nextval,'mettre dans le four',2);
+
