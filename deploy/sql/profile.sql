@@ -2,7 +2,7 @@ CREATE USER prf WITH PASSWORD 'prf';
 CREATE ROLE common_role;
 GRANT common_role TO prf, postgres;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO common_role;
-SET ROLE common_role;
+SET ROLE prf;
 
 drop table if exists Ingredient;
 drop table if exists RecipeFav;
