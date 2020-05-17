@@ -13,8 +13,6 @@ then
   helm upgrade $RELEASE hung-repo/fridgehub
 else
   echo "$RELEASE doesn't exist"
-  # Docker images
-  docker rmi -f pinfo4/profile-service pinfo4/ingredient-service pinfo4/recipe-service pinfo4/challenge-service pinfo4/web-ui
   # Config Maps
   cd ~/fridgehub-deploy
   rm ./ingredient.sql
@@ -36,7 +34,8 @@ else
   microk8s kubectl create configmap recipe-scripts  --from-file ./recipe.sql
   microk8s kubectl delete configmap challenge-scripts
   microk8s kubectl create configmap challenge-scripts  --from-file ./challenge.sql
-  microk8s kubectl create secret generic keycloak-realm-secret --from-file= ./realms.json
+  microk8s kubectl delete secret keycloak-realm-secret
+  microk8s kubectl create secret generic keycloak-realm-secret --from-file=./realms.json
 
   helm install $RELEASE hung-repo/fridgehub
 fi

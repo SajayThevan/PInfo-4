@@ -41,12 +41,9 @@ public class RecipetRestServiceIT {
 		when().get("/getRecipe/2").then().body(containsString("Mauvais"));
 		when().get("/getRecipe/2").then().body(containsString("Bon"));
 	}
-	
 	@Test
 	public void getTendanciesTest() {
-				
 		when().get("/tendancies").then().body(containsString("2")); 
-;
 	}
 	
 	

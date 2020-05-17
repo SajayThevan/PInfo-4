@@ -1,4 +1,5 @@
 CREATE USER prf WITH PASSWORD 'prf';
+SET ROLE prf;
 
 drop table if exists Ingredient;
 drop table if exists RecipeFav;
@@ -10,21 +11,21 @@ create sequence INGREDIENT_SEQ start with 1 increment by 50;
 create sequence RECIPEFAV_SEQ start with 1 increment by 50;
 create sequence PROFILE_SEQ start with 1 increment by 50;
 create table Ingredient (
-		id bigint not null,
-        ingredientId bigint,
-        quantity integer not null,
-        Profile_id bigint,
-        primary key (id)
-    );
+    id bigint not null,
+    ingredientId bigint,
+    quantity integer not null,
+    Profile_id bigint,
+    primary key (id)
+);
 create table Profile (
-        id bigint not null,
-        email varchar(255),
-        firstName varchar(255),
-        lastName varchar(255),
-        pseudo varchar(255),
-        score integer not null,
-        primary key (id)
-    );
+    id bigint not null,
+    email varchar(255),
+    firstName varchar(255),
+    lastName varchar(255),
+    pseudo varchar(255),
+    score integer not null,
+    primary key (id)
+);
 
 create table RecipeFav (
     id bigint not null,
@@ -32,10 +33,6 @@ create table RecipeFav (
     Profile_id bigint,
     primary key (id)
 );
-
-GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to prf;
-GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to prf;
-TRUNCATE TABLE PROFILE;
 
 alter table Ingredient
         add constraint FK9ko8yb2rcb3tvgo925gwwpg0o
@@ -47,6 +44,6 @@ alter table RecipeFav
         foreign key (Profile_id)
         references Profile;
 
-INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
-INSERT INTO RecipeFav (recipeId, id) values (14, RECIPEFAV_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, quantity, id) values (4, 50, INGREDIENT_SEQ.nextval);
+INSERT INTO Profile    (ID, email, firstName, lastName, pseudo, score) values (nextval('PROFILE_SEQ'), 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
+INSERT INTO RecipeFav  (recipeId, id, Profile_id)                      values (14, nextval('RECIPEFAV_SEQ'), currval('PROFILE_SEQ'));
+INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id)        values (4, 50, nextval('INGREDIENT_SEQ'), currval('PROFILE_SEQ'));

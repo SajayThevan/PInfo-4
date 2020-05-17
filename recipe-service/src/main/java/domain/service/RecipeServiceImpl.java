@@ -3,7 +3,10 @@ package domain.service;
 
 import java.lang.reflect.Array;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
@@ -189,6 +192,91 @@ public class RecipeServiceImpl implements RecipeService {
 		for(Pair<Long, Float> el: tmpPair) {
 			tr.add(el.getValue0());
 		}		
+		return tr;
+	}
+	
+	public ArrayList<Long> getRecipeOfTheMonth(){
+		ArrayList <Long> tr = new ArrayList<Long>();
+		int numberOfTendancies = 20;
+		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
+		List<Recipe> re = query.getResultList();
+		ArrayList<Recipe> rl = new ArrayList<Recipe>();
+		for (Recipe r: re) {
+			String date = r.getDate();
+			String Part[] = date.split("/");
+			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	        Calendar cal = Calendar.getInstance();
+	        Date Todaydate = cal.getTime();
+	        String todaysdate = dateFormat.format(Todaydate);
+	        String PartTD[] = todaysdate.split("/");
+
+			if (Integer.parseInt(Part[1]) ==  Integer.parseInt(PartTD[0]) &&  Integer.parseInt(Part[2]) ==  Integer.parseInt(PartTD[2])) {
+				System.out.println("La");
+				rl.add(r);
+			}	
+		}
+		if (rl.size() > 0) {
+			ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<Pair<Long,Float>>(); //Array actualise de pair <id,mean>
+			Recipe r1 = rl.get(0);
+			float mean1 = 0;
+			for(Ratings g: r1.getRatings()) {
+				mean1 += g.getRate();
+			}
+			mean1 = mean1 / r1.getRatings().size();
+			Pair<Long, Float> pairOfTheRecipe1 = new Pair<Long, Float>(r1.getId(),mean1);
+			tmpPair.add(pairOfTheRecipe1);
+			System.out.println("Before");
+			System.out.println(tmpPair);
+			for(int u = 1; u < rl.size(); u++)
+			{
+				//On a déjà mis la première recette:
+				Recipe r = rl.get(u);
+				float recipeMean = 0;
+				for(Ratings g: r.getRatings()) {
+					recipeMean += g.getRate();
+				}
+				boolean recipeAdded = false;
+				recipeMean = recipeMean / r.getRatings().size();
+				ArrayList<Pair<Long,Float>> tmp = new ArrayList<Pair<Long,Float>>();
+				int i = 0;
+				boolean flag = true;
+				while (flag) {
+					Pair<Long, Float> p;
+					p = tmpPair.get(i);
+					if (recipeMean < p.getValue1()){
+						tmp.add(tmpPair.get(i));
+					}else {
+						Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
+						tmp.add(pairOfTheRecipe);
+						recipeAdded = true;
+						flag = false;
+						//i += 1;
+					}
+					i += 1;
+					if (i == tmpPair.size()){
+						flag = false;
+					}
+				}
+			if (recipeAdded) {
+					for (int k = i; k < Math.min((tmpPair.size() + 1),numberOfTendancies) ; k++ ) {
+						tmp.add(tmpPair.get(k-1)); //On ajoute les éléments en les décalant de 1 car on en a déjà rajouté 1
+					}
+				}
+				if (recipeAdded == false && tmp.size() < numberOfTendancies) {
+					Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
+					tmp.add(pairOfTheRecipe);
+				}
+				
+				tmpPair.removeAll(tmpPair);
+				for (Pair c: tmp){
+					tmpPair.add(c);
+				}
+				
+			}
+			for(Pair<Long, Float> el: tmpPair) {
+				tr.add(el.getValue0());
+			}
+		}
 		return tr;
 	}
 }
