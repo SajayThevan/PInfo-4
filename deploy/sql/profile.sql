@@ -33,6 +33,10 @@ create table RecipeFav (
     primary key (id)
 );
 
+ALTER TABLE Ingredient OWNER TO prf;
+ALTER TABLE Profile OWNER TO prf;
+ALTER TABLE RecipeFav OWNER TO prf;
+
 GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to prf;
 GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to prf;
 TRUNCATE TABLE PROFILE;
@@ -46,6 +50,8 @@ alter table RecipeFav
         add constraint FKhg5gulvbqrg71i0f99s389th5
         foreign key (Profile_id)
         references Profile;
+
+
 
 INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
 INSERT INTO RecipeFav (recipeId, id) values (14, RECIPEFAV_SEQ.nextval);
