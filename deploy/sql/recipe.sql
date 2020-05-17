@@ -88,3 +88,10 @@ alter table Steps
     add constraint FK1f9l28viiu893aug0bi3d4ji6
     foreign key (Recipe_id)
     references Recipe;
+
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (nextval('RECIPE_SEQ'), 1,'21/02/2020', 3, 'pizza', 1);
+INSERT INTO Category(id, category, Recipe_ID) values (nextval('CATEGORY_SEQ'),1, currval('RECIPE_SEQ');
+INSERT INTO Comments(id, comment, Recipe_ID) values (nextval('COMMENTS_SEQ'),'Mauvais',currval('RECIPE_SEQ');
+INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id) values (nextval('INGREDIENTS_SEQ'), 4,2,currval('RECIPE_SEQ'));
+INSERT INTO Ratings(id, rate, Recipe_ID) values (nextval('RATINGS_SEQ'), 4, currval('RECIPE_SEQ'));
+INSERT INTO Steps (id, steps, Recipe_id) values (nextval('STEPS_SEQ'),'mettre dans le four',currval('RECIPE_SEQ'));
