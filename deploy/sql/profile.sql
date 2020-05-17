@@ -44,6 +44,6 @@ alter table RecipeFav
         foreign key (Profile_id)
         references Profile;
 
-INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( nextval('PROFILE_SEQ'), 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
-INSERT INTO RecipeFav (recipeId, id, Profile_id) values (14, nextval('RECIPEFAV_SEQ'), currval('PROFILE_SEQ'));
-INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id) values (4, 50, nextval('INGREDIENT_SEQ'), currval('PROFILE_SEQ'));
+INSERT INTO Profile    (ID, email, firstName, lastName, pseudo, score) values (nextval('PROFILE_SEQ'), 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
+INSERT INTO RecipeFav  (recipeId, id, Profile_id)                      values (14, nextval('RECIPEFAV_SEQ'), currval('PROFILE_SEQ'));
+INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id)        values (4, 50, nextval('INGREDIENT_SEQ'), currval('PROFILE_SEQ'));
