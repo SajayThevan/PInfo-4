@@ -2,6 +2,7 @@ CREATE USER prf WITH PASSWORD 'prf';
 CREATE ROLE common_role;
 GRANT common_role TO prf;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO common_role;
+SET ROLE common_role;
 
 drop table if exists Ingredient;
 drop table if exists RecipeFav;
@@ -35,10 +36,6 @@ create table RecipeFav (
     Profile_id bigint,
     primary key (id)
 );
-
-ALTER TABLE Ingredient OWNER TO prf;
-ALTER TABLE Profile OWNER TO prf;
-ALTER TABLE RecipeFav OWNER TO prf;
 
 alter table Ingredient
         add constraint FK9ko8yb2rcb3tvgo925gwwpg0o

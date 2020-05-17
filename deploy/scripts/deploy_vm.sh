@@ -13,8 +13,6 @@ then
   helm upgrade $RELEASE hung-repo/fridgehub
 else
   echo "$RELEASE doesn't exist"
-  # Docker images
-  docker rmi -f pinfo4/profile-service pinfo4/ingredient-service pinfo4/recipe-service pinfo4/challenge-service pinfo4/web-ui
   # Config Maps
   cd ~/fridgehub-deploy
   rm ./ingredient.sql
