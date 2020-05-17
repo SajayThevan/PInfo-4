@@ -106,6 +106,14 @@ public class RecipeRestService {
 	}
 	
 	@GET
+	@Path("/recipeOfTheMonth")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "return the 20 best recipes")
+	public ArrayList<Long> getRecipeOfTheMonth(){
+		return rs.getRecipeOfTheMonth();
+	}
+	
+	@GET
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of instrument")
