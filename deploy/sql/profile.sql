@@ -1,4 +1,4 @@
-CREATE USER prf WITH PASSWORD 'prf';
+CREATE USER prf SUPERUSER WITH PASSWORD 'prf';
 
 drop table if exists Ingredient;
 drop table if exists RecipeFav;
