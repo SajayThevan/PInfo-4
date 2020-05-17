@@ -1,7 +1,4 @@
 CREATE USER rcp WITH PASSWORD 'rcp';
-CREATE ROLE common_role;
-GRANT common_role TO rcp;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO common_role;
 
 drop table if exists Category;
 drop table if exists Comments;
@@ -65,6 +62,9 @@ create table Steps (
     Recipe_id bigint,
     primary key (id)
 );
+GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE, ALTER ON ALL TABLES IN SCHEMA public to rcp;
+GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to rcp;
+TRUNCATE TABLE INGREDIENT;
 
 alter table Category
     add constraint FK3id5k3clok8i99x858e0au3oc

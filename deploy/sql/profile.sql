@@ -1,7 +1,4 @@
 CREATE USER prf WITH PASSWORD 'prf';
-CREATE ROLE common_role;
-GRANT common_role TO prf;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO common_role;
 
 drop table if exists Ingredient;
 drop table if exists RecipeFav;
@@ -28,6 +25,9 @@ create table Profile (
     score integer not null,
     primary key (id)
 );
+GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE, ALTER ON ALL TABLES IN SCHEMA public to prf;
+GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to prf;
+TRUNCATE TABLE INGREDIENT;
 
 create table RecipeFav (
     id bigint not null,
