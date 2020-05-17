@@ -13,7 +13,7 @@ create sequence INGREDIENT_SEQ start with 1 increment by 50;
 create sequence RECIPEFAV_SEQ start with 1 increment by 50;
 create sequence PROFILE_SEQ start with 1 increment by 50;
 create table Ingredient (
-		id bigint not null,
+    id bigint not null,
     ingredientId bigint,
     quantity integer not null,
     Profile_id bigint,
@@ -40,7 +40,6 @@ ALTER TABLE Ingredient OWNER TO prf;
 ALTER TABLE Profile OWNER TO prf;
 ALTER TABLE RecipeFav OWNER TO prf;
 
-
 alter table Ingredient
         add constraint FK9ko8yb2rcb3tvgo925gwwpg0o
         foreign key (Profile_id)
@@ -50,8 +49,6 @@ alter table RecipeFav
         add constraint FKhg5gulvbqrg71i0f99s389th5
         foreign key (Profile_id)
         references Profile;
-
-
 
 INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( PROFILE_SEQ.nextval, 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
 INSERT INTO RecipeFav (recipeId, id) values (14, RECIPEFAV_SEQ.nextval);

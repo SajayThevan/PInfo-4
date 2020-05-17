@@ -16,9 +16,6 @@ create table Ingredient (
 		protein double precision not null,
 		salt double precision not null
 );
-GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA public to ingd;
-GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to ingd;
-TRUNCATE TABLE INGREDIENT;
 
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( nextval('INGREDIENT_SEQ'), 'chocolat', 2, 5, 3, 2, 1);
 INSERT INTO Ingredient (id, name, kcal, fat, cholesterol, protein, salt) values ( nextval('INGREDIENT_SEQ'), 'almond', 3, 2, 1, 3, 2);
