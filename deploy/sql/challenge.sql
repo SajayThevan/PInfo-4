@@ -43,6 +43,6 @@ alter table Recipe
     foreign key (CHALLENGE_ID)
     references Challenge;
 
-INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', Challenge_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,INGREDIENT_SEQ.nextval);
-INSERT INTO Recipe (recipeId, id) values (14, RECIPE_SEQ.nextval);
+INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', nextval('Challenge_SEQ'));
+INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,nextval('INGREDIENT_SEQ'));
+INSERT INTO Recipe (recipeId, id) values (14, nextval('RECIPE_SEQ'));
