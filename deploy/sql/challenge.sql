@@ -1,4 +1,5 @@
 CREATE USER chlg WITH PASSWORD 'chlg';
+SET ROLE chlg;
 
 drop table if exists Recipe;
 drop table if exists Ingredient;
@@ -31,10 +32,6 @@ create table Recipe (
     CHALLENGE_ID bigint,
     primary key (id)
 );
-
-GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE, ALTER ON ALL TABLES IN SCHEMA public to chlg;
-GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to chlg;
-TRUNCATE TABLE INGREDIENT;
 
 alter table Ingredient
     add constraint FKaisyn8fyyxdnhm6knmgbt335i
