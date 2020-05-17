@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -166,9 +170,41 @@ class RecipesServiceImplTest {
 	}
 	
 	
-	private long valueOf(long maxMean) {
-		// TODO Auto-generated method stub
-		return 0;
+	@Test
+	public void testGetRecipeOfTheMont() {
+		int counter = 1;
+		//Be sure there is at least one recipe
+		Recipe rand = randomRecipe();
+		DateFormat dateFormat1 = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar cal1 = Calendar.getInstance();
+        Date Todaydate1 = cal1.getTime();
+        String todaysdate1 = dateFormat1.format(Todaydate1);
+        String PartTD1[] = todaysdate1.split("/");
+        String dabla = PartTD1[1]+"/"+PartTD1[0]+"/"+PartTD1[2];
+        rand.setDate(dabla);
+        em.persist(rand);
+        
+		for (int i= 0; i< 250; i++) {
+			Recipe r = randomRecipe();
+			int month = new Random().nextInt(12)+1;
+			int year = new Random().nextInt(10)+2018;
+			String date = "01/"+Integer.toString(month)+"/"+Integer.toString(year);
+			r.setDate(date);
+			em.persist(r);
+			
+			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	        Calendar cal = Calendar.getInstance();
+	        Date Todaydate = cal.getTime();
+	        String todaysdate = dateFormat.format(Todaydate);
+	        String PartTD[] = todaysdate.split("/");
+	        if (Integer.parseInt(PartTD[0]) == month && Integer.parseInt(PartTD[2]) ==year) {
+	        	System.out.println("----------------------------------------------------------------");
+	        	System.out.println(todaysdate);
+	        	counter += 1;
+	        }
+		}
+		ArrayList<Long> ret = recipesService.getRecipeOfTheMonth();
+		assertEquals(counter,ret.size());
 	}
 
 
@@ -209,7 +245,7 @@ class RecipesServiceImplTest {
 		
 
 		r.setAuthorID((long) new Random().nextInt(9999 + 1)+1);  //Set the profilID between 1 et 10000
-		r.setDate("Demain");
+		r.setDate("21/04/2010");
 		r.setDifficulty(new Random().nextInt(10 + 1)+1); // Set the difficulty between 1 et 10
 		r.setName("Pizza");
 		r.setTime(2);
