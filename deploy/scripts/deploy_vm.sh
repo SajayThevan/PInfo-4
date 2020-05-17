@@ -34,7 +34,8 @@ else
   microk8s kubectl create configmap recipe-scripts  --from-file ./recipe.sql
   microk8s kubectl delete configmap challenge-scripts
   microk8s kubectl create configmap challenge-scripts  --from-file ./challenge.sql
-  microk8s kubectl create secret generic realm-secret --from-file=./realms.json
+  microk8s kubectl delete secret challenge-scripts
+  microk8s kubectl create secret generic keycloak-realm-secret --from-file=./realms.json
 
   helm install $RELEASE hung-repo/fridgehub
 fi
