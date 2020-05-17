@@ -11,20 +11,20 @@ create sequence RECIPEFAV_SEQ start with 1 increment by 50;
 create sequence PROFILE_SEQ start with 1 increment by 50;
 create table Ingredient (
 		id bigint not null,
-        ingredientId bigint,
-        quantity integer not null,
-        Profile_id bigint,
-        primary key (id)
-    );
+    ingredientId bigint,
+    quantity integer not null,
+    Profile_id bigint,
+    primary key (id)
+);
 create table Profile (
-        id bigint not null,
-        email varchar(255),
-        firstName varchar(255),
-        lastName varchar(255),
-        pseudo varchar(255),
-        score integer not null,
-        primary key (id)
-    );
+    id bigint not null,
+    email varchar(255),
+    firstName varchar(255),
+    lastName varchar(255),
+    pseudo varchar(255),
+    score integer not null,
+    primary key (id)
+);
 
 create table RecipeFav (
     id bigint not null,
