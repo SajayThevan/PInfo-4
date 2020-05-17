@@ -44,5 +44,5 @@ alter table Recipe
     references Challenge;
 
 INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', nextval('Challenge_SEQ'));
-INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,nextval('INGREDIENT_SEQ'));
-INSERT INTO Recipe (recipeId, id) values (14, nextval('RECIPE_SEQ'));
+INSERT INTO Ingredient (ingredientId, quantity, id, CHALLENGE_ID) values (4,20,nextval('INGREDIENT_SEQ'), currval('CHALLENGE_SEQ'));
+INSERT INTO Recipe (recipeId, id, CHALLENGE_ID) values (14, nextval('RECIPE_SEQ'), currval('CHALLENGE_SEQ'));
