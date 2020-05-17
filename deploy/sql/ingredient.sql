@@ -1,4 +1,8 @@
 CREATE USER ingd WITH PASSWORD 'ingd';
+CREATE ROLE common_role;
+GRANT common_role TO ingd;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO common_role;
+
 
 drop table if exists Ingredient;
 drop sequence if exists INGREDIENT_SEQ;

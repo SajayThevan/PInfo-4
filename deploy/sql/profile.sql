@@ -1,4 +1,7 @@
 CREATE USER prf WITH PASSWORD 'prf';
+CREATE ROLE common_role;
+GRANT common_role TO prf;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO common_role;
 
 drop table if exists Ingredient;
 drop table if exists RecipeFav;
@@ -37,9 +40,9 @@ ALTER TABLE Ingredient OWNER TO prf;
 ALTER TABLE Profile OWNER TO prf;
 ALTER TABLE RecipeFav OWNER TO prf;
 
-GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to prf;
-GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to prf;
-TRUNCATE TABLE PROFILE;
+-- GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to prf;
+-- GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to prf;
+-- TRUNCATE TABLE PROFILE;
 
 alter table Ingredient
         add constraint FK9ko8yb2rcb3tvgo925gwwpg0o
