@@ -21,7 +21,7 @@ public class ChallengeProducer {
 	private ChallengeService challengeService;
 
 	public void sendAllChallenges() {
-		log.info("Send the current state of ALL instruments to the topic");
+		log.info("Send the current state of ALL challenge to the topic");
 		for (Challenge challenge : challengeService.getAll()) {
 			producer.send("challenges", challenge);	 				
 		}

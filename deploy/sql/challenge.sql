@@ -1,8 +1,9 @@
 CREATE USER chlg WITH PASSWORD 'chlg';
+SET ROLE chlg;
 
-drop table Recipe if exists;
-drop table Ingredient if exists;
-drop table Challenge if exists cascade;
+drop table if exists Recipe;
+drop table if exists Ingredient;
+drop table if exists Challenge cascade;
 drop sequence if exists INGREDIENT_SEQ;
 drop sequence if exists RECIPE_SEQ;
 drop sequence if exists CHALLENGE_SEQ;
@@ -32,10 +33,6 @@ create table Recipe (
     primary key (id)
 );
 
-GRANT SELECT, INSERT, UPDATE, DELETE, ALTER, TRUNCATE ON ALL TABLES IN SCHEMA public to chlg;
-GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public to chlg;
-TRUNCATE TABLE CHALLENGE;
-
 alter table Ingredient
     add constraint FKaisyn8fyyxdnhm6knmgbt335i
     foreign key (CHALLENGE_ID)
@@ -46,6 +43,6 @@ alter table Recipe
     foreign key (CHALLENGE_ID)
     references Challenge;
 
-INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', Challenge_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,INGREDIENT_SEQ.nextval);
-INSERT INTO Recipe (recipeId, id) values (14, RECIPE_SEQ.nextval);
+INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', nextval('Challenge_SEQ'));
+INSERT INTO Ingredient (ingredientId, quantity, id, CHALLENGE_ID) values (4,20,nextval('INGREDIENT_SEQ'), currval('CHALLENGE_SEQ'));
+INSERT INTO Recipe (recipeId, id, CHALLENGE_ID) values (14, nextval('RECIPE_SEQ'), currval('CHALLENGE_SEQ'));

@@ -1,10 +1,9 @@
 package domain.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 
-import org.javatuples.Pair; 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,7 +46,7 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 		em.merge(profile);
 	}
-	
+
 	@Override
 	public void addIngredient(long id, long ingredientId, int quantity) {
 		Profile p = get(id);
@@ -58,9 +57,8 @@ public class ProfileServiceImpl implements ProfileService {
 		oldIngredients.add(ing);
 		p.setFridgeContents(oldIngredients);
 		em.merge(p);
-		
 	}
-	
+
 	@Override
 	public void addFavourite(long id, long recipeId) {
 		Profile p = get(id);
@@ -69,7 +67,6 @@ public class ProfileServiceImpl implements ProfileService {
 		Set <RecipeFav> oldFavourites = p.getFavouriteRecipes();
 		oldFavourites.add(fav);
 		p.setFavouriteRecipes(oldFavourites);
-		System.out.println("ADDDDDD"+p.getFavouriteRecipes());
 		em.merge(p);
 	}
 	
@@ -101,13 +98,12 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override
-	public void removeIngredient(long id,long ingredientId,int quantity) {
+	public void removeIngredient(long id,long ingredientId) {
 		Profile p = get(id);
 		Set <Ingredient> oldIngredients = p.getFridgeContents();
 		Ingredient ing = new Ingredient();
 		ing.setIngredientId(ingredientId);
-		ing.setQuantity(quantity);
-		oldIngredients.remove(ing); // Doute id primaire nessaisaire?
+		oldIngredients.remove(ing);
 		p.setFridgeContents(oldIngredients);
 		em.merge(p);
 	}
@@ -118,21 +114,9 @@ public class ProfileServiceImpl implements ProfileService {
 		Set <RecipeFav> oldFavourites = p.getFavouriteRecipes();
 		RecipeFav fav = new RecipeFav();
 		fav.setRecipeId(recipeId);
-		oldFavourites.remove(fav); // Doute id primaire nessaisaire?
+		oldFavourites.remove(fav);
 		p.setFavouriteRecipes(oldFavourites);
 		em.merge(p);
-		
-		
 	}
-	
-//	@Override
-//	public ArrayList<Pair> getIngredients(long id){
-//		Profile p = get(id);
-//		ArrayList<Pair> ingredients = new ArrayList();
-//		Set <Ingredient> ingredientSet = p.getFridgeContents();
-//		
-//		
-//	}
-	
 	
 }

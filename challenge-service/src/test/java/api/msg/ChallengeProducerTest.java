@@ -38,41 +38,33 @@ class ChallengeProducerTest {
 
 	@Test
 	void testSendAllChallenges() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendAllChallenges-----------------");
 		List<Challenge> challenges = getRandomChallengeCollection();
 		when(challengeService.getAll()).thenReturn(challenges);
 		producer.sendAllChallenges();
 		verify(kafkaProducer, times(challenges.size())).send(eq("challenges"), any(Challenge.class));
-		System.out.println("-----------------FIN TEST PRODUCER SendAllChallenges-----------------");
 	}
 
 	@Test
 	void testSendChallenge() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendChallenge-----------------");
 		Challenge challenge = getRandomChallenge();
 		producer.send(challenge);
 		verify(kafkaProducer, times(1)).send("challenges", challenge);
-		System.out.println("-----------------FIN TEST PRODUCER SendChallenge-----------------");
 	}
 
 	@Test
 	void testSendLong() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendLong-----------------");
 		Challenge challenge = getRandomChallenge();
 		when(challengeService.get(challenge.getId())).thenReturn(challenge);
 		producer.send(challenge.getId());
 		verify(kafkaProducer, times(1)).send("challenges", challenge);
-		System.out.println("-----------------FIN TEST PRODUCER SendLong-----------------");
 	}
 
 	@Test
 	void testSendLongNull() {
-		System.out.println("-----------------DEBUT TEST PRODUCER SendLongNull-----------------");
 		Challenge challenge = getRandomChallenge();
 		when(challengeService.get(challenge.getId())).thenReturn(null);
 		producer.send(challenge.getId());
 		verify(kafkaProducer, times(0)).send("challenges", challenge);
-		System.out.println("-----------------FIN TEST PRODUCER SendLongNull-----------------");
 	}
 
 	private List<Challenge> getRandomChallengeCollection() {
@@ -83,7 +75,6 @@ class ChallengeProducerTest {
 		}
 		return challenges;
 	}
-
 
 	private Challenge getRandomChallenge() {
 		Challenge c = new Challenge();
