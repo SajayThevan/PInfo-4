@@ -21,15 +21,15 @@ export class SearchComponent implements OnInit {
 
   constructor(private ingredientService : IngredientService) { }
 
-  Ingredients:any = [];
+  items:any = [];
 
   ngOnInit() {
-    //this.ingredientService.getAllIngredientsResearch().subscribe( (data) => {
-    //  this.Ingredients = data;
-    //});
+    this.ingredientService.getAllIngredientsResearch().subscribe( (data) => {
+      this.items = data;
+    });
   }
 
-  items = [
+  items1 = [
     {id: 1, name: 'Chocolate'},
     {id: 2, name: 'Butter'},
     {id: 3, name: 'Milk'},
