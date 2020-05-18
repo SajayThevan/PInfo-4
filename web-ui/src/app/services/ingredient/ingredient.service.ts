@@ -19,7 +19,7 @@ export class IngredientService {
 
   // pour la recherche
   getAllIngredientsResearch() {
-    return this.http.get("https://pinfo4.unige.ch/ingredient/research");
+    return this.http.get("https://pinfo4.unige.ch/api/v1/ingredient/research");
   }
 
   // synthaxe : /computeCalories?id=1&id=2&id=4
