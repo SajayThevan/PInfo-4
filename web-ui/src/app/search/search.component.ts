@@ -2,7 +2,6 @@ import { Component, OnInit,} from '@angular/core';
 import { FormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IngredientService } from '../services/ingredient/ingredient.service';
-import {ingredient} from './interface';
 import { element } from 'protractor';
 
 
