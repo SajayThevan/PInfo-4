@@ -53,6 +53,5 @@ public class Ingredient {
 	
 	@NotNull
 	private double salt;
-
 	
 }

@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import domain.model.Ingredient;
+import domain.model.IngredientDTO;
 
 public interface IngredientService {
 	
 	List<Ingredient> getAll();
-	List<Object> getAllResearch();
+	List<IngredientDTO> getAllResearch();
 	Ingredient get(Long ingredientId);
 	void create(Ingredient ingredient);
 	//int computeCalories(Array<int IngredientID>);  
@@ -19,7 +20,7 @@ public interface IngredientService {
 	//int computeCalories(int[] IngredientID);
 	// ------
 	//Array<(int ingredientId, String name)> getPossibleIngredients(String enter)
-	List<Object> getPossibleIngredients(String possibleIngredient);
+	List<Object> getPossibleIngredients(String possibleIngredient); // UNUSED
 	// OR
 	// Object[] getPossibleIngredients(String enter);
 	// https://docs.oracle.com/javase/specs/jls/se7/html/jls-10.html
