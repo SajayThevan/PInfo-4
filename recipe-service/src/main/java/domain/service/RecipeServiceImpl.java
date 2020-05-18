@@ -1,8 +1,5 @@
 package domain.service;
 
-
-import java.lang.reflect.Array;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,27 +8,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
-
 import org.javatuples.Pair;
 import org.javatuples.Triplet; 
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
-import domain.model.CategoryEnum;
-import domain.model.Comments;
 import domain.model.Ingredients;
 import domain.model.Recipe;
 import domain.model.Ratings;
-import lombok.Data;
+
 
 @ApplicationScoped
 public class RecipeServiceImpl implements RecipeService {
@@ -141,8 +129,6 @@ public class RecipeServiceImpl implements RecipeService {
 		mean1 = mean1 / r1.getRatings().size();
 		Pair<Long, Float> pairOfTheRecipe1 = new Pair<Long, Float>(r1.getId(),mean1);
 		tmpPair.add(pairOfTheRecipe1);
-		System.out.println("Before");
-		System.out.println(tmpPair);
 		for(int u = 1; u < rl.size(); u++)
 		{
 			//On a déjà mis la première recette:
@@ -183,7 +169,7 @@ public class RecipeServiceImpl implements RecipeService {
 				tmp.add(pairOfTheRecipe);
 			}
 			
-			tmpPair.removeAll(tmpPair);
+			tmpPair.clear();
 			for (Pair c: tmp){
 				tmpPair.add(c);
 			}
@@ -211,7 +197,6 @@ public class RecipeServiceImpl implements RecipeService {
 	        String PartTD[] = todaysdate.split("/");
 
 			if (Integer.parseInt(Part[1]) ==  Integer.parseInt(PartTD[0]) &&  Integer.parseInt(Part[2]) ==  Integer.parseInt(PartTD[2])) {
-				System.out.println("La");
 				rl.add(r);
 			}	
 		}
@@ -225,8 +210,6 @@ public class RecipeServiceImpl implements RecipeService {
 			mean1 = mean1 / r1.getRatings().size();
 			Pair<Long, Float> pairOfTheRecipe1 = new Pair<Long, Float>(r1.getId(),mean1);
 			tmpPair.add(pairOfTheRecipe1);
-			System.out.println("Before");
-			System.out.println(tmpPair);
 			for(int u = 1; u < rl.size(); u++)
 			{
 				//On a déjà mis la première recette:
@@ -267,7 +250,7 @@ public class RecipeServiceImpl implements RecipeService {
 					tmp.add(pairOfTheRecipe);
 				}
 				
-				tmpPair.removeAll(tmpPair);
+				tmpPair.clear();
 				for (Pair c: tmp){
 					tmpPair.add(c);
 				}
