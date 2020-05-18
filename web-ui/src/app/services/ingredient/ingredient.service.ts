@@ -21,8 +21,7 @@ export class IngredientService {
 
   // pour la recherche
   getAllIngredientsResearch() {
-    var ingredients : Observable<ingredient[]>;
-    return this.http.get<ingredient[]>("https://pinfo4.unige.ch/api/v1/ingredient/research");
+    return this.http.get("https://pinfo4.unige.ch/api/v1/ingredient/research");
   }
 
   // synthaxe : /computeCalories?id=1&id=2&id=4
