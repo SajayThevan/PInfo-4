@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { stringify } from 'querystring';
-import {ingredient} from './interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class IngredientService {
     return this.http.get("https://jsonplaceholder.typicode.com/users");
   }
 
-  // recupere ingredient pour affichages des recettes 
+  // recupere ingredient pour affichages des recettes
   getIngredient(id) {
     return this.http.get("https://pinfo4.unige.ch/ingredient/"+stringify(id));
   }
