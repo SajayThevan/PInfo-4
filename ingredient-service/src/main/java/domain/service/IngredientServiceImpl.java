@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import domain.model.Ingredient;
+import domain.model.IngredientDTO;
 
 @ApplicationScoped
 public class IngredientServiceImpl implements IngredientService {
@@ -39,20 +40,19 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 	
 	@Override
-	public List<Object> getAllResearch() {
+	public List<IngredientDTO> getAllResearch() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
 		criteria.from(Ingredient.class);
 		List<Ingredient> allIngredients = em.createQuery(criteria).getResultList();
-		List<Object> allIngredientsToSend = new ArrayList<>(); 
+		List<IngredientDTO> allIngredientsToSend = new ArrayList<>(); 
 		for(Ingredient i : allIngredients) {
-			List<Object> pair = new ArrayList<>(); 
-			pair.add(i.getId());
-			pair.add(i.getName());
+			IngredientDTO pair = new IngredientDTO(i.getId(), i.getName());
 			allIngredientsToSend.add(pair);
 		}
 		return allIngredientsToSend;
 	}
+
 
 	@Override
 	public Ingredient get(Long id) {

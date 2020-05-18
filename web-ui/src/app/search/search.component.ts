@@ -1,7 +1,10 @@
 import { Component, OnInit,} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IngredientService } from '../services/ingredient/ingredient.service';
+import {ingredient} from './interface';
+import { element } from 'protractor';
+
 
 @Component({
   selector: 'app-search',
@@ -19,27 +22,28 @@ import { IngredientService } from '../services/ingredient/ingredient.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private ingredientService : IngredientService) { }
-
-  Ingredients:any = [];
-
-  ngOnInit() {
-    //this.ingredientService.getAllIngredientsResearch().subscribe( (data) => {
-    //  this.Ingredients = data;
-    //});
+  constructor(private ingredientService : IngredientService) {
   }
 
-  items = [
-    {id: 1, name: 'Chocolate'},
-    {id: 2, name: 'Butter'},
-    {id: 3, name: 'Milk'},
-    {id: 4, name: 'Flour'},
-    {id: 5, name: 'Vanilla'}
+  private Ingredients : ingredient[];
+  private in:any[];
+
+  ngOnInit() {
+   this.ingredientService.getAllIngredientsResearch().subscribe(
+     (data : ingredient[]) => {this.Ingredients = data}
+   );
+  }
+
+  // INGREDIENT TO THIS FORMAT
+  item = [
+    {id : 1,name:'sasa'},
+    {id : 2,name:'sdsa'}
   ];
 
   selected = [];
 
   Show() {
+    console.log(this.Ingredients);
     console.log(this.selected);
   }
     

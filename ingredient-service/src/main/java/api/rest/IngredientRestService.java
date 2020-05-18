@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import api.msg.IngredientProducer;
 import domain.model.Ingredient;
+import domain.model.IngredientDTO;
 import domain.service.IngredientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,7 +53,7 @@ public class IngredientRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the ingredients as pair name-id",
     notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
-	public  List<Object> getAllResearch() {
+	public  List<IngredientDTO> getAllResearch() {
 		System.out.println("------------------ici test getAllResearch ----------------");
 		System.out.println(ingredientService.getAllResearch());
 		return ingredientService.getAllResearch();
