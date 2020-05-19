@@ -10,15 +10,15 @@ import io.restassured.RestAssured;
 
 
 public class ProfileRestServiceIT {
-	
-	@PersistenceContext(unitName = "ProfilePU") 
+
+	@PersistenceContext(unitName = "ProfilePU")
 	private EntityManager em;
-	
-	
-	
+
+
+
 	@BeforeAll
 	public static void setup() {
-		RestAssured.baseURI = "http://localhost:28080/profile";
+		RestAssured.baseURI = "http://localhost:28080/profiles";
 		RestAssured.port = 8080;
 
 	}
@@ -32,20 +32,20 @@ public class ProfileRestServiceIT {
 	public void testGet() {
 		when().get("/2").then().body(containsString("malkah"));
 	}
-	
+
 	@Test
 	public void testCount() {
 		when().get("/count").then().body(containsString("6"));
 	}
-	
+
 	@Test
 	public void testGetIngredient() {
-		when().get("/ingredients/2").then().body(containsString("4"));
+		when().get("/2/ingredients").then().body(containsString("4"));
 	}
-	
+
 	@Test
-	public void testgetFavourite() {
-		when().get("/favourites/2").then().body(containsString("14"));
+	public void testGetFavourite() {
+		when().get("/2/favourites").then().body(containsString("14"));
 	}
-	
+
 }

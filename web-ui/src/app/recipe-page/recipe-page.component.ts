@@ -56,12 +56,12 @@ export class RecipePageComponent implements OnInit {
     });
 
     let url : String= "";
-    // synthaxe : /computeCalories?id=1&id=2&id=4
+    // synthaxe : /calories?id=1&id=2&id=4
     // Ingredient ID --> Ingredient Name
     for (var val of this.Ingredients) {
       this.ingredientService.getIngredient(val).subscribe( (data) => {
         this.Ingredients_name.push(data["name"]);
-      }); 
+      });
       // Url for Compute Calories
       url = url + "id="+stringify(val)+"&"
     }
@@ -74,8 +74,8 @@ export class RecipePageComponent implements OnInit {
 
   }
 
-  
-  
+
+
   // TEST
   info = ['Cake','Sajay',9,7];
 
@@ -111,7 +111,7 @@ export class RecipePageComponent implements OnInit {
   ];
 
   addRating () {
-    
+
   }
 
   addComment () {

@@ -23,7 +23,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /ingredient/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /ingredients/$2
   name: {{ include "fridgehub.fullname" . }}.ingress-api-ingredient
   namespace: {{ .Release.Namespace }}
   labels:
@@ -33,7 +33,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api/v1/ingredient(/|$)(.*)
+      - path: /api/v1/ingredients(/|$)(.*)
         backend:
           serviceName: {{ include "fridgehub.fullname" . }}-ingredient-service
           servicePort: 28080
@@ -42,7 +42,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /profile/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /profiles/$2
   name: {{ include "fridgehub.fullname" . }}.ingress-api-profile
   namespace: {{ .Release.Namespace }}
   labels:
@@ -52,7 +52,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api/v1/profile(/|$)(.*)
+      - path: /api/v1/profiles(/|$)(.*)
         backend:
           serviceName: {{ include "fridgehub.fullname" . }}-profile-service
           servicePort: 28080
@@ -61,7 +61,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /recipe/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /recipes/$2
   name: {{ include "fridgehub.fullname" . }}.ingress-api-recipe
   namespace: {{ .Release.Namespace }}
   labels:
@@ -71,7 +71,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api/v1/recipe(/|$)(.*)
+      - path: /api/v1/recipes(/|$)(.*)
         backend:
           serviceName: {{ include "fridgehub.fullname" . }}-recipe-service
           servicePort: 28080
@@ -80,7 +80,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /challenge/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /challenges/$2
   name: {{ include "fridgehub.fullname" . }}.ingress-api-challenge
   namespace: {{ .Release.Namespace }}
   labels:
@@ -90,7 +90,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api/v1/challenge(/|$)(.*)
+      - path: /api/v1/challenges(/|$)(.*)
         backend:
           serviceName: {{ include "fridgehub.fullname" . }}-challenge-service
           servicePort: 28080

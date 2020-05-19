@@ -25,19 +25,19 @@ import io.swagger.annotations.Authorization;
 
 
 @ApplicationScoped
-@Path("/ingredient")
-@Api(value = "ingredient", authorizations = {
+@Path("/ingredients")
+@Api(value = "ingredients", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
 public class IngredientRestService {
 
 	@Inject
 	private IngredientService ingredientService;
-	
+
 	@Inject
 	private IngredientProducer ingredientProducer;
-	
-	
+
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the ingredients",
@@ -47,18 +47,18 @@ public class IngredientRestService {
 		System.out.println(ingredientService.getAll());
 		return ingredientService.getAll();
 	}
-	
+
 	@GET
-	@Path("/research")
+	@Path("/names")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the ingredients as pair name-id",
     notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
-	public  List<IngredientDTO> getAllResearch() {
+	public  List<IngredientDTO> getAllNames() {
 		System.out.println("------------------ici test getAllResearch ----------------");
-		System.out.println(ingredientService.getAllResearch());
-		return ingredientService.getAllResearch();
+		System.out.println(ingredientService.getAllNames());
+		return ingredientService.getAllNames();
 	}
-	
+
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -69,7 +69,28 @@ public class IngredientRestService {
 		System.out.println("corresponding ingredient : " + ingredientService.get(IngredientId));
 		return ingredientService.get(IngredientId);
 	}
-	
+
+	@GET
+	@Path("/calories")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
+	public double computeCalories(@QueryParam("id") List<Long> IngredientIdList) {
+		System.out.println("------------------ici test calories");
+		System.out.println("------------------ici list id wanted " + IngredientIdList + "----------------");
+		System.out.println("------------------ici test total calories " + ingredientService.computeCalories(IngredientIdList) + "----------------");
+		return ingredientService.computeCalories(IngredientIdList);
+	}
+
+	@GET
+	@Path("/count")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the count of ingredients")
+		public Long count() {
+		System.out.println("------------------ici test count" + ingredientService.count() + "----------------");
+		return ingredientService.count();
+	}
+
+// TODO: DELETE EVERYTHING BELOW------------------------------------------------
 	/*
 	@GET
 	@Path("/computeCalories/{id1}/{id2}")
@@ -80,13 +101,13 @@ public class IngredientRestService {
 	//public int computeCalories(@PathParam("id") Long IngredientId) {
 	public int computeCalories(@PathParam("id1") Long IngredientIDList1, @PathParam("id2") Long IngredientIDList2) {
 		System.out.println("------------------ici test calories");
-		List<Long> IngredientIDList = new ArrayList<>(); 
+		List<Long> IngredientIDList = new ArrayList<>();
 		IngredientIDList.add(IngredientIDList1);
 		IngredientIDList.add(IngredientIDList2);
-		
+
 		//IngredientIDList2.add(Long.valueOf(2));
 		//IngredientIDList2.add(Long.valueOf(3));
-		
+
 		//IngredientIDList2.add(IngredientId);
 
 		System.out.println("------------------ici test calories " + IngredientIDList + "----------------");
@@ -94,18 +115,8 @@ public class IngredientRestService {
 		return ingredientService.computeCalories(IngredientIDList);
 	}
 	*/
-	
-	@GET
-	@Path("/computeCalories")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
-	public double computeCalories(@QueryParam("id") List<Long> IngredientIdList) {
-		System.out.println("------------------ici test calories");
-		System.out.println("------------------ici list id wanted " + IngredientIdList + "----------------");
-		System.out.println("------------------ici test total calories " + ingredientService.computeCalories(IngredientIdList) + "----------------");
-		return ingredientService.computeCalories(IngredientIdList);
-	}
-	
+
+	// UNUSED
 	@GET
 	@Path("/possibleIngredients")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -116,16 +127,7 @@ public class IngredientRestService {
 		System.out.println("------------------ answer" + ingredientService.getPossibleIngredients(ingredientWanted) + "----------------");
 		return ingredientService.getPossibleIngredients(ingredientWanted);
 	}
-	
-	@GET
-	@Path("/count")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a the count of ingredients")
-    public Long count() {
-		System.out.println("------------------ici test count" + ingredientService.count() + "----------------");
-		return ingredientService.count();
-	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new ingredient",
@@ -134,7 +136,7 @@ public class IngredientRestService {
 		ingredientService.create(ingredient);
 		ingredientProducer.send(ingredient);
 	}
-	
+
 	@POST
 	@Path("propagateAllIngredients")
 	@Produces(MediaType.APPLICATION_JSON)

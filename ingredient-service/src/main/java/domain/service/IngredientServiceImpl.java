@@ -40,7 +40,7 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 	
 	@Override
-	public List<IngredientDTO> getAllResearch() {
+	public List<IngredientDTO> getAllNames() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
 		criteria.from(Ingredient.class);

@@ -60,13 +60,13 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /profile/count
+              path: /profiles/count
               port: http
             initialDelaySeconds: 60
             periodSeconds: 20
           readinessProbe:
             httpGet:
-              path: /profile/count
+              path: /profiles/count
               port: http
             initialDelaySeconds: 60
             periodSeconds: 20

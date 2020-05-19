@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import java.util.List;
@@ -28,8 +29,8 @@ import io.swagger.annotations.Authorization;
 
 
 @ApplicationScoped
-@Path("/challenge")
-@Api(value = "challenge", authorizations = {
+@Path("/challenges")
+@Api(value = "challenges", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
 public class ChallengeRestService {
@@ -38,11 +39,11 @@ public class ChallengeRestService {
 	private ChallengeService challengeService;
 	@Inject
 	private ChallengeProducer challengeProducer;
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the challenges")
-   
+
 	public List<Challenge> getAll() {
 		return challengeService.getAll();
 	}
@@ -54,7 +55,8 @@ public class ChallengeRestService {
     public Long count() {
 		return challengeService.count();
 	}
-	
+
+	// Challenge
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,49 +64,17 @@ public class ChallengeRestService {
 	public Challenge get(@PathParam("id") Long challengeId) {
 		return challengeService.get(challengeId);
 	}
-	
-	//Tested
-	@GET
-	@Path("/ingredients/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "get the set of ingredientsId of a challenge")
-	public Set<Ingredient> getIngredients(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getIngredients();
-	}
 
-	@GET
-	@Path("/solutions/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "get the set of recideId of a challenge")
-	public Set<Recipe> getSolutions(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getSolutions();
-	}
-
-	@GET
-	@Path("/name/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc challenge name")
-	public String getName(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getName();
-	}
-
-	@GET
-	@Path("/author/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc challenge name")
-	public Long getAuthor(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getAuthorID();
-	}
-
-	@POST
-	@Path("/add/{id}/{solution}")
-	@ApiOperation(value ="Update recipeId list")
-	public void addSolution(@PathParam("id") long challengeId, @PathParam("solution") long recipeId) {
-		challengeService.addSolution(challengeId, recipeId);	
+	@DELETE
+	@Path("{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value= "Remove a Challenge")
+	public void removeChallengeById(@PathParam("id") long id) {
+		challengeService.removeChallenge(id);
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Update a given challenge")
 	public void update(Challenge challenge) {
 		challengeService.update(challenge);
@@ -112,26 +82,54 @@ public class ChallengeRestService {
 	}
 
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new challenge")
 	public void create(Challenge challenge) {
 		challengeService.create(challenge);
 		challengeProducer.send(challenge);
 	}
 
-	@POST
-	@Path("propagateAllChallenges")
+	// Ingredients
+	@GET
+	@Path("{id}/ingredients")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Propagate all challenges to the bus to sync up downstream services")
-	public void propagateAllChallenges() {
-		challengeProducer.sendAllChallenges();
+	@ApiOperation(value = "get the set of ingredientsId of a challenge")
+	public Set<Ingredient> getIngredients(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getIngredients();
 	}
 
-	@DELETE
-	@Path("/delete/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value= "Remove a Challenge")
-	public void removeChallengeById(@PathParam("id") long id) {
-		challengeService.removeChallenge(id);
+	// Challenge Attributes
+	@GET
+	@Path("{id}/name")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a specifc challenge name")
+	public String getName(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getName();
 	}
+
+	@GET
+	@Path("{id}/author")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a specifc challenge name")
+	public Long getAuthor(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getAuthorID();
+	}
+
+	// Solutions
+	@GET
+	@Path("{id}/solutions")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the set of recideId of a challenge")
+	public Set<Recipe> getSolutions(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getSolutions();
+	}
+
+	@POST
+	@Path("{id}/solutions")
+	@ApiOperation(value ="Update recipeId list")
+	public void addSolution(@PathParam("id") long challengeId, @QueryParam("solution") long recipeId) {
+		challengeService.addSolution(challengeId, recipeId);
+	}
+
+
 }

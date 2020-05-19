@@ -1,0 +1,16 @@
+{
+    "environment": "local",
+    "production": "false",
+    "ingredientService": {
+      "url": "https://localhost:10080"
+    },
+    "profileService": {
+      "url": "https://localhost:11080"
+    },
+    "recipeService": {
+      "url": "https://localhost:12080"
+    },
+    "challengeService": {
+      "url": "https://localhost:13080"
+    }
+}
