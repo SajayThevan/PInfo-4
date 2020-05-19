@@ -269,7 +269,7 @@ public class RecipeServiceImpl implements RecipeService {
 					tr.add(el.getValue0());
 				}
 			}
-		}
+		
 		return tr;
 	}
 }
