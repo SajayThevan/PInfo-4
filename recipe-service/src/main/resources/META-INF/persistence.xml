@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="RecipePU"
 		transaction-type="JTA">
-		<jta-data-source>java:jboss/datasources/recipeids</jta-data-source>
+		<jta-data-source>java:jboss/datasources/recipeds</jta-data-source>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
@@ -13,8 +13,8 @@
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.id.new_generator_mappings" value="true" />
-			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8"/>	
-			<property name="hibernate.event.merge.entity_copy_observer" value="allow"/> 
+			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8"/>
+			<property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
 			<property name="javax.persistence.sql-load-script-source" value="META-INF/recipe_test_data.sql"/>
 		</properties>
 	</persistence-unit>
