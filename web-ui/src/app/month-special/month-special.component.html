@@ -23,8 +23,18 @@
     </li>
   </ul>
 
-  <div class="pos">
-    <h1 class="font-weight-lighter">Ici, Les Recettes du mois</h1>
-  </div>
+  <div class="row">
+    <div class="col" *ngFor = "let month of Month"> 
+      <div class="tab">
+        <div class="recepe_image row"></div>
+        <div class="recepe_name">
+            {{month.recipename}}
+        </div>
+        <div class="button_pos">
+            <a class="text-muted space" href="/recipe/{{month.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+        </div>
+    </div>
+    </div>
+</div>
 
 </div>
