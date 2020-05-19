@@ -62,14 +62,14 @@ spec:
             httpGet:
               path: /recipe/count
               port: http
-            initialDelaySeconds: 60
-            periodSeconds: 20
+            initialDelaySeconds: 320
+            periodSeconds: 60
           readinessProbe:
             httpGet:
               path: /recipe/count
               port: http
-            initialDelaySeconds: 60
-            periodSeconds: 20
+            initialDelaySeconds: 320
+            periodSeconds: 60
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
