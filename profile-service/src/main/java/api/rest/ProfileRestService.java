@@ -52,7 +52,7 @@ public class ProfileRestService {
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of profile")
-    public Long count() {
+  public Long count() {
 		return profileService.count();
 	}
 
