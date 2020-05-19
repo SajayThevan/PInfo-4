@@ -26,8 +26,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
 @ApplicationScoped
-@Path("/recipe")
-@Api(value = "recipe", authorizations = {
+@Path("/recipes")
+@Api(value = "recipes", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
 public class RecipeRestService {

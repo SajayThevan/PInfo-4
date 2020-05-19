@@ -15,38 +15,38 @@ public class RecipetRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {
-		RestAssured.baseURI = "http://localhost:28080/Recipe";
+		RestAssured.baseURI = "http://localhost:28080/recipes";
 		RestAssured.port = 8080;
 	}
-	
+
 	RecipeService rs;
-	
+
 	@Test
 	public void testCount() {
-		
+
 		when().get("/count").then().body(containsString("2"));
 
 	}
-	
+
 	@Test
 	public void recipesProfil() {
 		when().get("/recipesProfil/1").then().body(containsString("pizza"));
 	}
-	
+
 	@Test
 	public void getRecipiesRestTest() {
-				
-		when().get("/getRecipe/2").then().body(containsString("pizza")); 
-		when().get("/getRecipe/2").then().body(containsString("91")); 
+
+		when().get("/getRecipe/2").then().body(containsString("pizza"));
+		when().get("/getRecipe/2").then().body(containsString("91"));
 		when().get("/getRecipe/2").then().body(containsString("Mauvais"));
 		when().get("/getRecipe/2").then().body(containsString("Bon"));
 	}
 	@Test
 	public void getTendanciesTest() {
-		when().get("/tendancies").then().body(containsString("2")); 
+		when().get("/tendancies").then().body(containsString("2"));
 	}
-	
-	
-	
+
+
+
 
 }
