@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
 import org.javatuples.Pair;
-import org.javatuples.Triplet; 
+import org.javatuples.Triplet;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,11 +23,11 @@ import domain.model.Ratings;
 
 @ApplicationScoped
 public class RecipeServiceImpl implements RecipeService {
-	
+
 	@PersistenceContext(unitName = "RecipePU")
 	private EntityManager em;
-	
-	
+
+
 	public RecipeServiceImpl() {
 	}
 
@@ -35,15 +35,16 @@ public class RecipeServiceImpl implements RecipeService {
 		this();
 		this.em = em;
 	}
-	
-	
+
+	@Override
 	public void addRecipe(Recipe r) {
 		if (r.getId() != null) {
 			throw new IllegalArgumentException("Recipe already exists : " + r.getId());
 		}
 		em.persist(r);
 	}
-	
+
+	@Override
 	public void addRating(long id,int rate) {
 		Recipe r = em.find(Recipe.class, id);
 		Ratings rating = new Ratings();
@@ -51,6 +52,7 @@ public class RecipeServiceImpl implements RecipeService {
 		em.merge(r);
 	}
 
+	@Override
 	public ArrayList<Triplet> getRecipesForProfil(long id){
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r WHERE r.authorID = :authorID", Recipe.class);
 		query.setParameter("authorID", id);
@@ -63,39 +65,43 @@ public class RecipeServiceImpl implements RecipeService {
         }
         return listToReturn;
 	}
-	
+
+	@Override
 	public List getRecipiesIdForProfiles(long id){
 		TypedQuery<Long> query = em.createQuery("SELECT r.id FROM Recipe r WHERE r.authorID = :authorID",Long.class);
 		query.setParameter("authorID", id);
 		List ids = query.getResultList();
 		return ids;
 	}
-	
+
+	@Override
 	public void addComment(String comment, long id) {
 		Recipe r = em.find(Recipe.class, id);
 		r.addComent(comment);
 		em.merge(r);
 	}
-	
+
+	@Override
 	public void removeRecipe(long id) {
 		Recipe r = em.find(Recipe.class, id);
 		em.remove(r);
 	}
-	
 
+	@Override
 	public Recipe getRecipe(long id) {
 		Recipe r = em.find(Recipe.class, id);
 		return r;
 	}
-	
-		
+
+	@Override
 	public Long count() {
 		CriteriaBuilder qb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
 		cq.select(qb.count(cq.from(Recipe.class)));
 		return em.createQuery(cq).getSingleResult();
 	}
-	
+
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList <Long> getRecipeWithIngredientID(ArrayList<Long> ing_id){
 		ArrayList <Long> tr = new ArrayList<Long>();
@@ -111,10 +117,10 @@ public class RecipeServiceImpl implements RecipeService {
 				tr.add(r.getId());
 			}
 		}
-
 	return tr;
 	}
-	
+
+	@Override
 	public ArrayList<Long> getTendancies(){
 		ArrayList <Long> tr = new ArrayList<Long>();
 		int numberOfTendancies = 20;
@@ -168,19 +174,20 @@ public class RecipeServiceImpl implements RecipeService {
 				Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
 				tmp.add(pairOfTheRecipe);
 			}
-			
+
 			tmpPair.clear();
 			for (Pair c: tmp){
 				tmpPair.add(c);
 			}
-			
+
 		}
 		for(Pair<Long, Float> el: tmpPair) {
 			tr.add(el.getValue0());
-		}		
+		}
 		return tr;
 	}
-	
+
+	@Override
 	public ArrayList<Long> getRecipeOfTheMonth(){
 		ArrayList <Long> tr = new ArrayList<Long>();
 		int numberOfTendancies = 20;
@@ -198,7 +205,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 			if (Integer.parseInt(Part[1]) ==  Integer.parseInt(PartTD[0]) &&  Integer.parseInt(Part[2]) ==  Integer.parseInt(PartTD[2])) {
 				rl.add(r);
-			}	
+			}
 		}
 		if (rl.size() > 0) {
 			ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<Pair<Long,Float>>(); //Array actualise de pair <id,mean>
@@ -249,12 +256,12 @@ public class RecipeServiceImpl implements RecipeService {
 					Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
 					tmp.add(pairOfTheRecipe);
 				}
-				
+
 				tmpPair.clear();
 				for (Pair c: tmp){
 					tmpPair.add(c);
 				}
-				
+
 			}
 			for(Pair<Long, Float> el: tmpPair) {
 				tr.add(el.getValue0());
