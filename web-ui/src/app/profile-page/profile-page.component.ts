@@ -37,11 +37,13 @@ export class ProfilePageComponent implements OnInit {
   favoris = [
     {
       name : 'Cake',
-      auteur : 'Sajay'
+      auteur : 'Sajay',
+      link : '/recipe/12'
     },
     {
       name:'MilkShake',
-      auteur:'Luke'
+      auteur:'Luke',
+      link : '/recipe/12'
     }
   ]
 
