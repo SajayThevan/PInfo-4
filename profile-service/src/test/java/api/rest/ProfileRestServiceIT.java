@@ -11,16 +11,10 @@ import io.restassured.RestAssured;
 
 public class ProfileRestServiceIT {
 
-	@PersistenceContext(unitName = "ProfilePU")
-	private EntityManager em;
-
-
-
 	@BeforeAll
 	public static void setup() {
 		RestAssured.baseURI = "http://localhost:28080/profiles";
 		RestAssured.port = 8080;
-
 	}
 
 	@Test
