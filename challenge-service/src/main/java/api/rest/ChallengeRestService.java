@@ -29,8 +29,8 @@ import io.swagger.annotations.Authorization;
 
 
 @ApplicationScoped
-@Path("/challenge")
-@Api(value = "challenge", authorizations = {
+@Path("/challenges")
+@Api(value = "challenges", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
 public class ChallengeRestService {

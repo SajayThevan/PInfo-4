@@ -12,7 +12,7 @@ public class ChallengeRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {
-		RestAssured.baseURI = "http://localhost:28080/challenge";
+		RestAssured.baseURI = "http://localhost:28080/challenges";
 		RestAssured.port = 8080;
 	}
 
