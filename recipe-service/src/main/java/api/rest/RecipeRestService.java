@@ -20,7 +20,7 @@ import org.javatuples.Triplet;
 
 
 import domain.model.Recipe;
-
+import domain.model.RecipeDTO;
 import domain.service.RecipeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -67,7 +67,7 @@ public class RecipeRestService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
 	@ApiOperation(value = "Get recipes which you need the ingredients passed in paramaters")
-	public ArrayList<Long> getRecipesWithIngIds(@QueryParam("id") ArrayList<Long> IngredientIdList){
+	public ArrayList<RecipeDTO> getRecipesWithIngIds(@QueryParam("id") ArrayList<Long> IngredientIdList){
 		return rs.getRecipeWithIngredientID(IngredientIdList);
 	}
 
@@ -77,7 +77,7 @@ public class RecipeRestService {
 	@Path("/profiles/{profileID}") // TODO: Not the best uri??
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value ="Get Recipes for profil ID")
-	public ArrayList<Triplet> getRecipesForProfilRest(@PathParam("profileID") long id) {
+	public ArrayList<RecipeDTO> getRecipesForProfilRest(@PathParam("profileID") long id) {
 		return rs.getRecipesForProfil(id);
 	}
 
@@ -85,7 +85,7 @@ public class RecipeRestService {
 	@Path("/trends")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "return the 20 best recipes")
-	public ArrayList<Long> getTendanciess(){
+	public ArrayList<RecipeDTO> getTendanciess(){
 		return rs.getTendancies();
 	}
 
@@ -93,7 +93,7 @@ public class RecipeRestService {
 	@Path("/recipe-of-the-month")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "return the best recipe this month")
-	public ArrayList<Long> getRecipeOfTheMonth(){
+	public ArrayList<RecipeDTO> getRecipeOfTheMonth(){
 		return rs.getRecipeOfTheMonth();
 	}
 

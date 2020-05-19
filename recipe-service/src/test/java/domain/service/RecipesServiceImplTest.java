@@ -34,6 +34,7 @@ import domain.model.Ingredients;
 import domain.model.Comments;
 import domain.model.Category;
 import domain.model.Recipe;
+import domain.model.RecipeDTO;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 @ExtendWith(JpaUnit.class)
@@ -47,7 +48,6 @@ class RecipesServiceImplTest {
 	@InjectMocks
 	private RecipeServiceImpl recipesService;
 	
-	@SuppressWarnings("rawtypes")
 	@Test
 	void testAddRecipe() {
 		Recipe r1 = randomRecipe();
@@ -74,23 +74,21 @@ class RecipesServiceImplTest {
 	}
 	
 	
-	@SuppressWarnings("rawtypes")
 	@Test
 	void testGetRecipesForProfil() {
 		Recipe r1 = randomRecipe();
 		em.persist(r1);
 		long profilID = r1.getAuthorID();
-		ArrayList<Triplet> recipes = recipesService.getRecipesForProfil(profilID);
+		ArrayList<RecipeDTO> recipes = recipesService.getRecipesForProfil(profilID);
 		assertEquals(recipes.size(),1);
-		assertEquals(recipes.get(0).getValue(0),r1.getId());
-		assertEquals(recipes.get(0).getValue(1),r1.getName());
-		Set<Ingredients> ing = (Set<Ingredients>) recipes.get(0).getValue(2);
+		assertEquals(recipes.get(0).getId(),r1.getId());
+		assertEquals(recipes.get(0).getName(),r1.getName());
+		ArrayList<Long >ing =  recipes.get(0).getIng();
 		assertEquals(ing.size(),r1.getIngredients().size());
 
 	}
 	
 	
-	@SuppressWarnings("rawtypes")
 	@Test
 	void testGetRecipiesIDForProfiles() {
 		Recipe r = randomRecipe();
@@ -134,9 +132,9 @@ class RecipesServiceImplTest {
 		Recipe r = randomRecipe();
 		em.persist(r);
 		ArrayList<Long> ing_id = new ArrayList<Long>();
-		ArrayList<Long> res = recipesService.getRecipeWithIngredientID(ing_id);
+		ArrayList<RecipeDTO> res = recipesService.getRecipeWithIngredientID(ing_id);
 		assertEquals(res.size(),1);
-		long recipeID = res.get(0);
+		long recipeID = res.get(0).getId();
 		Recipe RecRes = recipesService.getRecipe(recipeID);
 		assertEquals(r.getName(),RecRes.getName());
 	}
@@ -164,9 +162,9 @@ class RecipesServiceImplTest {
 				
 			}
 		}
-		ArrayList<Long> ids = recipesService.getTendancies();
-		assertEquals(ids.get(0),maxMeanId);
-		assertEquals(ids.get(1),maxMeanId2);
+		ArrayList<RecipeDTO> ids = recipesService.getTendancies();
+		assertEquals(ids.get(0).getId(),maxMeanId);
+		assertEquals(ids.get(1).getId(),maxMeanId2);
 	}
 	
 	
@@ -201,7 +199,7 @@ class RecipesServiceImplTest {
 	        	counter += 1;
 	        }
 		}
-		ArrayList<Long> ret = recipesService.getRecipeOfTheMonth();
+		ArrayList<RecipeDTO> ret = recipesService.getRecipeOfTheMonth();
 		assertEquals(counter,ret.size());
 	}
 

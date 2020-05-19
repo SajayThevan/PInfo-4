@@ -15,6 +15,7 @@ import org.aerogear.kafka.cdi.annotation.KafkaConfig;
 
 import lombok.extern.java.Log;
 import domain.model.Recipe;
+import domain.model.RecipeDTO;
 import domain.service.RecipeService;
 
 @ApplicationScoped
@@ -31,9 +32,9 @@ public class RecipeConsumer {
 	@Consumer(topics = "profilDelete", groupId = "pinfo-microservices")
 	public int deleteRecipe(final long message) {
 		log.info("Consumer got following message : " + message); //Suppose message = author ID
-		List<Object> ids = rs.getRecipiesIdForProfiles(message);
+		List<RecipeDTO> ids = rs.getRecipiesIdForProfiles(message);
 		for (int i=0; i < ids.size(); i++) {
-			long recipeID = (long) ids.get(i);
+			long recipeID = ids.get(i).getId();
 			rs.removeRecipe(recipeID);
 		}
 		return 1;
