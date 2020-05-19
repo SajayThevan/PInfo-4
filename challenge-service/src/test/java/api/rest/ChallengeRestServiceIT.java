@@ -25,30 +25,30 @@ public class ChallengeRestServiceIT {
 	public void testGet() {
 		when().get("/1").then().body(containsString("CREPESAMERE"));
 	}
-	
+
 	@Test
 	public void testCount() {
 		when().get("/count").then().body(containsString("3"));
 	}
-	
+
 	@Test
 	public void testGetIngredient() {
-		when().get("/ingredients/2").then().body(containsString("20"));
+		when().get("2/ingredients").then().body(containsString("20"));
 	}
-	
+
 	@Test
 	public void testGetSolution() {
-		when().get("/solutions/2").then().body(containsString("14"));
+		when().get("2/solutions").then().body(containsString("14"));
 	}
-	
+
 	@Test
 	public void testGetName() {
-		when().get("/name/2").then().body(containsString("CREPESAMERE"));
+		when().get("2/name").then().body(containsString("CREPESAMERE"));
 	}
-	
+
 	@Test
 	public void testGetAuthor() {
-		when().get("/author/2").then().body(containsString("14"));
+		when().get("2/author").then().body(containsString("14"));
 	}
 
 }

@@ -38,11 +38,11 @@ public class ChallengeRestService {
 	private ChallengeService challengeService;
 	@Inject
 	private ChallengeProducer challengeProducer;
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the challenges")
-   
+
 	public List<Challenge> getAll() {
 		return challengeService.getAll();
 	}
@@ -54,7 +54,8 @@ public class ChallengeRestService {
     public Long count() {
 		return challengeService.count();
 	}
-	
+
+	// Challenge
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,45 +63,13 @@ public class ChallengeRestService {
 	public Challenge get(@PathParam("id") Long challengeId) {
 		return challengeService.get(challengeId);
 	}
-	
-	//Tested
-	@GET
-	@Path("/ingredients/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "get the set of ingredientsId of a challenge")
-	public Set<Ingredient> getIngredients(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getIngredients();
-	}
 
-	@GET
-	@Path("/solutions/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "get the set of recideId of a challenge")
-	public Set<Recipe> getSolutions(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getSolutions();
-	}
-
-	@GET
-	@Path("/name/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc challenge name")
-	public String getName(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getName();
-	}
-
-	@GET
-	@Path("/author/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc challenge name")
-	public Long getAuthor(@PathParam("id") Long challengeId) {
-		return challengeService.get(challengeId).getAuthorID();
-	}
-
-	@POST
-	@Path("/add/{id}/{solution}")
-	@ApiOperation(value ="Update recipeId list")
-	public void addSolution(@PathParam("id") long challengeId, @PathParam("solution") long recipeId) {
-		challengeService.addSolution(challengeId, recipeId);	
+	@DELETE
+	@Path("{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value= "Remove a Challenge")
+	public void removeChallengeById(@PathParam("id") long id) {
+		challengeService.removeChallenge(id);
 	}
 
 	@PUT
@@ -119,19 +88,53 @@ public class ChallengeRestService {
 		challengeProducer.send(challenge);
 	}
 
+	// Ingredients
+	@GET
+	@Path("{id}/ingredients")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the set of ingredientsId of a challenge")
+	public Set<Ingredient> getIngredients(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getIngredients();
+	}
+
+	// Challenge Attributes
+	@GET
+	@Path("{id}/name")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a specifc challenge name")
+	public String getName(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getName();
+	}
+
+	@GET
+	@Path("{id}/author")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a specifc challenge name")
+	public Long getAuthor(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getAuthorID();
+	}
+
+	// Solutions
+	@GET
+	@Path("{id}/solutions")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the set of recideId of a challenge")
+	public Set<Recipe> getSolutions(@PathParam("id") Long challengeId) {
+		return challengeService.get(challengeId).getSolutions();
+	}
+
+	@POST
+	@Path("{id}/solutions")
+	@ApiOperation(value ="Update recipeId list")
+	public void addSolution(@PathParam("id") long challengeId, @QueryParam("solution") long recipeId) {
+		challengeService.addSolution(challengeId, recipeId);
+	}
+
 	@POST
 	@Path("propagateAllChallenges")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Propagate all challenges to the bus to sync up downstream services")
 	public void propagateAllChallenges() {
 		challengeProducer.sendAllChallenges();
-	}
-
-	@DELETE
-	@Path("/delete/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value= "Remove a Challenge")
-	public void removeChallengeById(@PathParam("id") long id) {
-		challengeService.removeChallenge(id);
 	}
 }
