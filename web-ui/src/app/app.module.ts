@@ -26,10 +26,16 @@ import { FormsModule } from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select'
 
 import { AppInitService } from './app.init';
+import { KeycloakService } from './services/keycloak/keycloak.service';
+import { KeycloakInterceptorService } from './services/keycloak/keycloak.interceptor.service';
 declare var window: any;
 
-export function init_app(appLoadService: AppInitService) {
-  return () => appLoadService.init();
+export function init_config(appLoadService: AppInitService, keycloak: KeycloakService) {
+  return () =>  appLoadService.init().then( () => {
+     console.info(window.config);
+     keycloak.init();
+    },
+   );
 }
 
 @NgModule({

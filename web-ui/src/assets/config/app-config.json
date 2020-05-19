@@ -1,6 +1,14 @@
 {
     "environment": "local",
     "production": "false",
+    "keycloak": {
+        "url": "https://pinfo4.unige.ch/auth",
+        "realm": "apigw",
+        "clientId": "web-sso",
+        "checkLoginIframe": "true",
+        "onLoad": "login-required",
+        "responseMode": "fragment"
+    }
     "ingredientService": {
       "url": "https://pinfo4.unige.ch/api/v1/ingredients"
     },

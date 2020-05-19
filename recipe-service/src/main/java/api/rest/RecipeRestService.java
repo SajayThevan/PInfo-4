@@ -119,7 +119,7 @@ public class RecipeRestService {
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of instrument")
-    public Long count() {
+  public Long count() {
 		return rs.count();
 	}
 
