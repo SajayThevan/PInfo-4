@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import java.util.List;
@@ -130,11 +131,5 @@ public class ChallengeRestService {
 		challengeService.addSolution(challengeId, recipeId);
 	}
 
-	@POST
-	@Path("propagateAllChallenges")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Propagate all challenges to the bus to sync up downstream services")
-	public void propagateAllChallenges() {
-		challengeProducer.sendAllChallenges();
-	}
+
 }
