@@ -29,8 +29,8 @@ import io.swagger.annotations.Authorization;
 
 
 @ApplicationScoped
-@Path("/profile")
-@Api(value = "profile", authorizations = {
+@Path("/profiles")
+@Api(value = "profiles", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
 public class ProfileRestService {

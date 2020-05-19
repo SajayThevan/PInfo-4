@@ -18,7 +18,7 @@ public class ProfileRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {
-		RestAssured.baseURI = "http://localhost:28080/profile";
+		RestAssured.baseURI = "http://localhost:28080/profiles";
 		RestAssured.port = 8080;
 
 	}

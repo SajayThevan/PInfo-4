@@ -60,13 +60,13 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /ingredient/count
+              path: /ingredients/count
               port: http
             initialDelaySeconds: 60
             periodSeconds: 20
           readinessProbe:
             httpGet:
-              path: /ingredient/count
+              path: /ingredients/count
               port: http
             initialDelaySeconds: 60
             periodSeconds: 20

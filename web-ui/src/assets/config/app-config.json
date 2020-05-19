@@ -2,15 +2,15 @@
     "environment": "local",
     "production": "false",
     "ingredientService": {
-      "url": "https://pinfo4.unige.ch/api/v1/ingredient"
+      "url": "https://pinfo4.unige.ch/api/v1/ingredients"
     },
     "profileService": {
-      "url": "https://pinfo4.unige.ch/api/v1/profile"
+      "url": "https://pinfo4.unige.ch/api/v1/profiles"
     },
     "recipeService": {
-      "url": "https://pinfo4.unige.ch/api/v1/recipe"
+      "url": "https://pinfo4.unige.ch/api/v1/recipes"
     },
     "challengeService": {
-      "url": "https://pinfo4.unige.ch/api/v1/challenge"
+      "url": "https://pinfo4.unige.ch/api/v1/challenges"
     }
 }
