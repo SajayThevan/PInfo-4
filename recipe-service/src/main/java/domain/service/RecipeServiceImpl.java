@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import domain.model.Ingredients;
 import domain.model.Recipe;
+import domain.model.RecipeDTO;
 import domain.model.Ratings;
 
 
@@ -53,25 +54,30 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public ArrayList<Triplet> getRecipesForProfil(long id){
+	public ArrayList<RecipeDTO> getRecipesForProfil(long id){
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r WHERE r.authorID = :authorID", Recipe.class);
 		query.setParameter("authorID", id);
 		List<Recipe> tmp = query.getResultList();
-		ArrayList<Triplet> listToReturn = new ArrayList();
+		ArrayList<RecipeDTO> listToReturn = new ArrayList();
         Iterator it = tmp.iterator();
         while (it.hasNext()) {
         	Recipe r = (Recipe) it.next();
-        	listToReturn.add(new Triplet(r.getId(),r.getName(),r.getIngredients()));
+        	listToReturn.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
         }
         return listToReturn;
 	}
 
 	@Override
-	public List getRecipiesIdForProfiles(long id){
+	public ArrayList<RecipeDTO> getRecipiesIdForProfiles(long id){
 		TypedQuery<Long> query = em.createQuery("SELECT r.id FROM Recipe r WHERE r.authorID = :authorID",Long.class);
 		query.setParameter("authorID", id);
-		List ids = query.getResultList();
-		return ids;
+		List<Long> ids = query.getResultList();
+		ArrayList<RecipeDTO> tr = new ArrayList<RecipeDTO>();
+		for (Long idTmp: ids) {
+			Recipe r = em.find(Recipe.class, idTmp);
+			tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
+		}
+		return tr;
 	}
 
 	@Override
@@ -102,27 +108,26 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ArrayList <Long> getRecipeWithIngredientID(ArrayList<Long> ing_id){
-		ArrayList <Long> tr = new ArrayList<Long>();
+	public ArrayList<RecipeDTO> getRecipeWithIngredientID(ArrayList<Long> ing_id){
+		ArrayList <RecipeDTO> tr = new ArrayList<RecipeDTO>();
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
 		List<Recipe> rl = query.getResultList();
 		for(Recipe r: rl ) {
 			Set<Ingredients> ing = r.getIngredients();
-			ArrayList containedIngId = new ArrayList();
+			ArrayList<Long> containedIngId = new ArrayList<Long>();
 			for(Ingredients i: ing) {
 				containedIngId.add(i.getId());
 			}
-			if(containedIngId.containsAll(ing_id)) {
-				tr.add(r.getId());
+			if(containedIngId.containsAll(ing_id)){
+				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
 			}
 		}
 	return tr;
 	}
 
 	@Override
-	public ArrayList<Long> getTendancies(){
-		ArrayList <Long> tr = new ArrayList<Long>();
+	public ArrayList<RecipeDTO> getTendancies(){
+		ArrayList <RecipeDTO> tr = new ArrayList<RecipeDTO>();
 		int numberOfTendancies = 20;
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
 		List<Recipe> rl = query.getResultList();
@@ -183,15 +188,17 @@ public class RecipeServiceImpl implements RecipeService {
 	
 			}
 			for(Pair<Long, Float> el: tmpPair) {
-				tr.add(el.getValue0());
+				long id = el.getValue0();
+				Recipe r = em.find(Recipe.class, id);
+				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
 			}
 		}
 		return tr;
 	}
 	
 		@Override
-		public ArrayList<Long> getRecipeOfTheMonth(){
-			ArrayList <Long> tr = new ArrayList<Long>();
+		public ArrayList<RecipeDTO> getRecipeOfTheMonth(){
+			ArrayList <RecipeDTO> tr = new ArrayList<RecipeDTO>();
 			int numberOfTendancies = 20;
 			TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
 			List<Recipe> re = query.getResultList();
@@ -266,8 +273,10 @@ public class RecipeServiceImpl implements RecipeService {
 	
 				}
 				for(Pair<Long, Float> el: tmpPair) {
-					tr.add(el.getValue0());
+					Recipe rd = em.find(Recipe.class,  el.getValue0());
+					tr.add(new RecipeDTO(rd.getId(),rd.getName(),rd.getIngredients(),rd.getAuthorID(),rd.getRatings()));
 				}
+				
 			}
 		
 		return tr;
