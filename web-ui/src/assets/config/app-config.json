@@ -1,0 +1,16 @@
+{
+    "environment": "local",
+    "production": "false",
+    "ingredientService": {
+      "url": "https://pinfo4.unige.ch/api/v1/ingredient"
+    },
+    "profileService": {
+      "url": "https://pinfo4.unige.ch/api/v1/profile"
+    },
+    "recipeService": {
+      "url": "https://pinfo4.unige.ch/api/v1/recipe"
+    },
+    "challengeService": {
+      "url": "https://pinfo4.unige.ch/api/v1/challenge"
+    }
+}

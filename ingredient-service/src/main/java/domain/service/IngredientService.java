@@ -10,7 +10,7 @@ import domain.model.IngredientDTO;
 public interface IngredientService {
 	
 	List<Ingredient> getAll();
-	List<IngredientDTO> getAllResearch();
+	List<IngredientDTO> getAllNames();
 	Ingredient get(Long ingredientId);
 	void create(Ingredient ingredient);
 	//int computeCalories(Array<int IngredientID>);  

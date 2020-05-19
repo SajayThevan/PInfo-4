@@ -26,16 +26,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
 @ApplicationScoped
-@Path("/Recipe")
-@Api(value = "Recipe", authorizations = {
+@Path("/recipe")
+@Api(value = "recipe", authorizations = {
 	      @Authorization(value="sampleoauth", scopes = {})
 	    })
 public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
-	
-	
+
+
 	@POST
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -43,14 +43,14 @@ public class RecipeRestService {
 	public void createRecipe(Recipe r) {
 		rs.addRecipe(r);
 	}
-	
+
 	@PUT
 	@Path("/rate/{recipeId}/{rate}")
 	@ApiOperation(value ="Update recipe ratings")
 	public void addRates(@PathParam("recipeId") long id, @PathParam("rate")int rate) {
 		rs.addRating(id,rate);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@GET
 	@Path("/recipesProfil/{id}")
@@ -66,11 +66,11 @@ public class RecipeRestService {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@ApiOperation(value = "Add a comment")
 	public void addCommentRest(@PathParam("id") long id, String comment) {
-		
+
 		rs.addComment(comment,id);
 	}
-	
-	
+
+
 	@DELETE
 	@Path("/rm/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -78,7 +78,7 @@ public class RecipeRestService {
 	public void removeRecipeRest(@PathParam("id") long id) {
 		rs.removeRecipe(id);
 	}
-	
+
 	@GET
 	@Path("/getRecipe/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -87,7 +87,7 @@ public class RecipeRestService {
 		Recipe a = rs.getRecipe(id);
 		return a;
 	}
-	
+
 	@GET
 	@Path("/recipesWithIngIds")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -96,7 +96,7 @@ public class RecipeRestService {
 	public ArrayList<Long> getRecipesWithIngIds(ArrayList<Long> ing_id){
 		return rs.getRecipeWithIngredientID(ing_id);
 	}
-	
+
 	@GET
 	@Path("/tendancies")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -104,7 +104,7 @@ public class RecipeRestService {
 	public ArrayList<Long> getTendanciess(){
 		return rs.getTendancies();
 	}
-	
+
 	@GET
 	@Path("/recipeOfTheMonth")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -112,7 +112,7 @@ public class RecipeRestService {
 	public ArrayList<Long> getRecipeOfTheMonth(){
 		return rs.getRecipeOfTheMonth();
 	}
-	
+
 	@GET
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -120,8 +120,8 @@ public class RecipeRestService {
     public Long count() {
 		return rs.count();
 	}
-	
-	
-	
+
+
+
 
 }
