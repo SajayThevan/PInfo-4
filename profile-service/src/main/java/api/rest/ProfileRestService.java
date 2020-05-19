@@ -82,7 +82,7 @@ public class ProfileRestService {
 	}
 
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new profile")
 	public void create(Profile profile) {
 		profileService.create(profile);

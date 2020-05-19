@@ -23,30 +23,23 @@ public class RecipetRestServiceIT {
 
 	@Test
 	public void testCount() {
-
 		when().get("/count").then().body(containsString("2"));
-
 	}
 
 	@Test
 	public void recipesProfil() {
-		when().get("/recipesProfil/1").then().body(containsString("pizza"));
+		when().get("/profiles/1").then().body(containsString("pizza"));
 	}
 
 	@Test
 	public void getRecipiesRestTest() {
-
-		when().get("/getRecipe/2").then().body(containsString("pizza"));
-		when().get("/getRecipe/2").then().body(containsString("91"));
-		when().get("/getRecipe/2").then().body(containsString("Mauvais"));
-		when().get("/getRecipe/2").then().body(containsString("Bon"));
+		when().get("/2").then().body(containsString("pizza"));
+		when().get("/2").then().body(containsString("91"));
+		when().get("/2").then().body(containsString("Mauvais"));
+		when().get("/2").then().body(containsString("Bon"));
 	}
 	@Test
 	public void getTendanciesTest() {
-		when().get("/tendancies").then().body(containsString("2"));
+		when().get("/trends").then().body(containsString("2"));
 	}
-
-
-
-
 }

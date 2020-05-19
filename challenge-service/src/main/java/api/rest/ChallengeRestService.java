@@ -74,7 +74,7 @@ public class ChallengeRestService {
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Update a given challenge")
 	public void update(Challenge challenge) {
 		challengeService.update(challenge);
@@ -82,7 +82,7 @@ public class ChallengeRestService {
 	}
 
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new challenge")
 	public void create(Challenge challenge) {
 		challengeService.create(challenge);
