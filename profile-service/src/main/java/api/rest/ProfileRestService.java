@@ -138,12 +138,4 @@ public class ProfileRestService {
 	}
 
 
-	// TODO: Delete??
-	@POST
-	@Path("propagateAllProfiles")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Propagate all profiles to the bus to sync up downstream services")
-	public void propagateAllProfiles() {
-		profileProducer.sendAllProfiles();
-	}
 }
