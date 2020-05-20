@@ -112,6 +112,112 @@ class IngredientsServiceImplTest {
 	}
 	
 	@Test
+	void testComputeFat() {
+		System.out.println("--- testcomputeFat : ---");
+		ingredientsService.create(getRandomIngredient());
+		ingredientsService.create(getRandomIngredient1());
+		Ingredient ingredient1 = ingredientsService.getAll().get(0);
+		assertNotNull(ingredient1);
+		Ingredient ingredient2 = ingredientsService.getAll().get(1);
+		assertNotNull(ingredient2);
+		
+		System.out.println("test fat, show ingredients : ");
+		System.out.println(ingredient1);
+		System.out.println(ingredient2);
+		
+		double getFatTotal = ingredient1.getFat() + ingredient2.getFat();
+		List<Long> listID = new ArrayList<>();
+		listID.add(ingredient1.getId());
+		listID.add(ingredient2.getId());
+		
+		System.out.println(listID);
+		System.out.println(getFatTotal);
+		
+		double testComputeFat = ingredientsService.computeFat(listID);
+		//assertEquals(getKcalTotal, 11)
+		//assertEquals(testComputeCalories, 11);
+		assertEquals(getFatTotal, testComputeFat); 
+	}
+	
+	@Test
+	void testComputeCholesterol() {
+		System.out.println("--- testcomputeCholesterol : ---");
+		ingredientsService.create(getRandomIngredient());
+		ingredientsService.create(getRandomIngredient1());
+		Ingredient ingredient1 = ingredientsService.getAll().get(0);
+		assertNotNull(ingredient1);
+		Ingredient ingredient2 = ingredientsService.getAll().get(1);
+		assertNotNull(ingredient2);
+		
+		System.out.println("test cholesterol, show ingredients : ");
+		System.out.println(ingredient1);
+		System.out.println(ingredient2);
+		
+		double getCholesterolTotal = ingredient1.getCholesterol() + ingredient2.getCholesterol();
+		List<Long> listID = new ArrayList<>();
+		listID.add(ingredient1.getId());
+		listID.add(ingredient2.getId());
+		
+		System.out.println(listID);
+		System.out.println(getCholesterolTotal);
+		
+		double testComputeCholesterol = ingredientsService.computeCholesterol(listID);
+		assertEquals(getCholesterolTotal, testComputeCholesterol); 
+	}
+	
+	@Test
+	void testComputeProteins() {
+		System.out.println("--- testcomputeProteins : ---");
+		ingredientsService.create(getRandomIngredient());
+		ingredientsService.create(getRandomIngredient1());
+		Ingredient ingredient1 = ingredientsService.getAll().get(0);
+		assertNotNull(ingredient1);
+		Ingredient ingredient2 = ingredientsService.getAll().get(1);
+		assertNotNull(ingredient2);
+		
+		System.out.println("test proteins, show ingredients : ");
+		System.out.println(ingredient1);
+		System.out.println(ingredient2);
+		
+		double getProteinsTotal = ingredient1.getProtein() + ingredient2.getProtein();
+		List<Long> listID = new ArrayList<>();
+		listID.add(ingredient1.getId());
+		listID.add(ingredient2.getId());
+		
+		System.out.println(listID);
+		System.out.println(getProteinsTotal);
+		
+		double testComputeProteins = ingredientsService.computeProteins(listID);
+		assertEquals(getProteinsTotal, testComputeProteins); 
+	}
+	
+	@Test
+	void testSalt() {
+		System.out.println("--- testcomputeSalt : ---");
+		ingredientsService.create(getRandomIngredient());
+		ingredientsService.create(getRandomIngredient1());
+		Ingredient ingredient1 = ingredientsService.getAll().get(0);
+		assertNotNull(ingredient1);
+		Ingredient ingredient2 = ingredientsService.getAll().get(1);
+		assertNotNull(ingredient2);
+		
+		System.out.println("test salt, show ingredients : ");
+		System.out.println(ingredient1);
+		System.out.println(ingredient2);
+		
+		double getSaltTotal = ingredient1.getSalt() + ingredient2.getSalt();
+		List<Long> listID = new ArrayList<>();
+		listID.add(ingredient1.getId());
+		listID.add(ingredient2.getId());
+		
+		System.out.println(listID);
+		System.out.println(getSaltTotal);
+		
+		double testComputeSalt = ingredientsService.computeSalt(listID);
+		assertEquals(getSaltTotal, testComputeSalt); 
+	}
+	
+	@Test
 	void testGetPossibleIngredients() {
 		System.out.println("--- testGetPossibleIngredients : ---");
 		ingredientsService.create(getRandomIngredient1());

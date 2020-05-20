@@ -16,6 +16,10 @@ public interface IngredientService {
 	//int computeCalories(Array<int IngredientID>);  
 	// use instead : https://www.w3schools.com/java/java_arrays.asp
 	double computeCalories(List<Long> IngredientID);
+	double computeFat(List<Long> IngredientID);
+	double computeCholesterol(List<Long> IngredientID);
+	double computeProteins(List<Long> IngredientID);
+	double computeSalt(List<Long> IngredientID);
 	// OR :
 	//int computeCalories(int[] IngredientID);
 	// ------
