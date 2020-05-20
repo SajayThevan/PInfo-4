@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script is ran on the Virtual Machine at: smithlu7@129.194.69.131
+# This script is ran on the Virtual Machine at: smithlu7@129.194.69.131 (pinfo4.unige.ch)
 # It deploys the application 'Kernel' using 'helm install' or 'helm upgrade'
 
 RELEASE=fridge-hub
@@ -25,7 +25,6 @@ else
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/recipe.sql
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/challenge.sql
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/keycloak/realms.json
-  ls
   microk8s kubectl delete configmap ingredient-scripts
   microk8s kubectl create configmap ingredient-scripts  --from-file ./ingredient.sql
   microk8s kubectl delete configmap profile-scripts
