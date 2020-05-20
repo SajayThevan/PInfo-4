@@ -43,8 +43,6 @@ public class IngredientRestService {
 	@ApiOperation(value = "Get all the ingredients",
     notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
 	public List<Ingredient> getAll() {
-		System.out.println("------------------ici test getAll ----------------");
-		System.out.println(ingredientService.getAll());
 		return ingredientService.getAll();
 	}
 
@@ -54,8 +52,6 @@ public class IngredientRestService {
 	@ApiOperation(value = "Get all the ingredients as pair name-id",
     notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
 	public  List<IngredientDTO> getAllNames() {
-		System.out.println("------------------ici test getAllResearch ----------------");
-		System.out.println(ingredientService.getAllNames());
 		return ingredientService.getAllNames();
 	}
 
@@ -65,8 +61,6 @@ public class IngredientRestService {
 	@ApiOperation(value = "Get a specifc ingredient",
     notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
 	public Ingredient get(@PathParam("id") Long IngredientId) {
-		System.out.println("id : " + IngredientId);
-		System.out.println("corresponding ingredient : " + ingredientService.get(IngredientId));
 		return ingredientService.get(IngredientId);
 	}
 
@@ -75,10 +69,39 @@ public class IngredientRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
 	public double computeCalories(@QueryParam("id") List<Long> IngredientIdList) {
-		System.out.println("------------------ici test calories");
-		System.out.println("------------------ici list id wanted " + IngredientIdList + "----------------");
-		System.out.println("------------------ici test total calories " + ingredientService.computeCalories(IngredientIdList) + "----------------");
 		return ingredientService.computeCalories(IngredientIdList);
+	}
+	
+	@GET
+	@Path("/fat")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
+	public double computeFat(@QueryParam("id") List<Long> IngredientIdList) {
+		return ingredientService.computeFat(IngredientIdList);
+	}
+	
+	@GET
+	@Path("/cholesterol")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
+	public double computeCholesterol(@QueryParam("id") List<Long> IngredientIdList) {
+		return ingredientService.computeCholesterol(IngredientIdList);
+	}
+	
+	@GET
+	@Path("/proteins")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
+	public double computeProteins(@QueryParam("id") List<Long> IngredientIdList) {
+		return ingredientService.computeProteins(IngredientIdList);
+	}
+	
+	@GET
+	@Path("/salt")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
+	public double computeSalt(@QueryParam("id") List<Long> IngredientIdList) {
+		return ingredientService.computeSalt(IngredientIdList);
 	}
 
 	@GET
@@ -86,7 +109,6 @@ public class IngredientRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of ingredients")
 		public Long count() {
-		System.out.println("------------------ici test count" + ingredientService.count() + "----------------");
 		return ingredientService.count();
 	}
 
@@ -122,9 +144,6 @@ public class IngredientRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get the possible ingredients compared to a string")
     public List<Object> getPossibleIngredients(@QueryParam("ing") String ingredientWanted) {
-		System.out.println("------------------ici test possible ingredient ----------------");
-		System.out.println("------------------ ingredient search :  " + ingredientWanted + "----------------");
-		System.out.println("------------------ answer" + ingredientService.getPossibleIngredients(ingredientWanted) + "----------------");
 		return ingredientService.getPossibleIngredients(ingredientWanted);
 	}
 
