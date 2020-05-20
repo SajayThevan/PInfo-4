@@ -38,6 +38,26 @@ public class IngredientRestServiceIT {
 	public void testComputeCalories() {
 		when().get("/calories?id=1&id=2&id=4").then().body(containsString("9.1"));
 	}
+	
+	@Test
+	public void testComputeFat() {
+		when().get("/fat?id=1&id=2&id=4").then().body(containsString("9"));
+	}
+	
+	@Test
+	public void testComputeCholesterol() {
+		when().get("/cholesterol?id=1&id=2&id=4").then().body(containsString("6.7"));
+	}
+	
+	@Test
+	public void testComputeProteins() {
+		when().get("/proteins?id=1&id=2&id=4").then().body(containsString("9"));
+	}
+	
+	@Test
+	public void testComputeSalt() {
+		when().get("/salt?id=1&id=2&id=4").then().body(containsString("4"));
+	}
 
 	@Test
 	public void testCount() {
