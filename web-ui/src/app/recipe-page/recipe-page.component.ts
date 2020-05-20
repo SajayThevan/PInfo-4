@@ -62,7 +62,7 @@ export class RecipePageComponent implements OnInit {
       this.ingredientService.getIngredient(val).subscribe( (data) => {
         this.Ingredients_name.push(data["name"]);
       });
-      // Url for Compute Calories
+      // Url for Compute Calories/Fat/Cholesterol/Salt/Proteins
       url = url + "id="+stringify(val)+"&"
     }
 

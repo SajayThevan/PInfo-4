@@ -30,4 +30,24 @@ export class IngredientService {
     // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
     return this.http.get(environment.ingredientService.url + "/calories?"+stringify(idList));
   }
+
+  getComputeFat(idList) {
+    // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
+    return this.http.get(environment.ingredientService.url + "/fat?"+stringify(idList));
+  }
+
+  getComputeCholesterol(idList) {
+    // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
+    return this.http.get(environment.ingredientService.url + "/cholesterol?"+stringify(idList));
+  }
+
+  getComputeProteins(idList) {
+    // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
+    return this.http.get(environment.ingredientService.url + "/proteins?"+stringify(idList));
+  }
+
+  getComputeSalt(idList) {
+    // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
+    return this.http.get(environment.ingredientService.url + "/salt?"+stringify(idList));
+  }
 }
