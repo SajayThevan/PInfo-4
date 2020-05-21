@@ -68,6 +68,7 @@ export class ProfilePageComponent implements OnInit {
   
 
   ngOnInit(): void {
+    // this.keycloak.logout();
     this.keycloakAuth = this.keycloak.getKeycloakAuth();
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();

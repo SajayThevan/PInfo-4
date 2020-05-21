@@ -80,7 +80,23 @@ keycloak:
       - name: keycloak-realm-secret
         mountPath: "/realm/"
         readOnly: true
-    extraArgs: -Dkeycloak.import=/realm/realms.json
+  spec:
+    containers:
+    - name: keycloak
+      volumeMounts:
+       - name: login-page-volume
+         mountPath: /opt/jboss/keycloak/themes
+       - name: standalone-config
+         mountPath: /opt/jboss/keycloak/standalone/configuration/standalone.xml
+         subPath: standalone.xml
+    volumes:
+      - name: login-page-volume
+        persistentVolumeClaim:
+          claimName: loginpage-pv-claim # {{ include "fridgehub.fullname" }}-
+      - name: standalone-config
+        configMap:
+          name: standalone-config # {{ include "fridgehub.fullname" }}-
+  extraArgs: -Dkeycloak.import=/realm/realms.json
 
 imagePullSecrets: []
 nameOverride: ""
