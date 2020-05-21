@@ -51,6 +51,7 @@ class RecipeProducerTest {
 		ts.add(r.getAuthorID());
 		ts.add(r.getId());
 		verify(kafkaProducer, times(1)).send("Recipe added", ts);
+		
 	}
 
 

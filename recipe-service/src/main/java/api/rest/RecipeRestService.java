@@ -111,6 +111,7 @@ public class RecipeRestService {
 	@ApiOperation(value = "Add a comment")
 	public void addCommentRest(@PathParam("id") long id, String comment) {
 		rs.addComment(comment,id);
+		
 	}
 
 	// Count

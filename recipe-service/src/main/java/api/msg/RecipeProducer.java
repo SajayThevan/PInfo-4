@@ -20,10 +20,9 @@ public class RecipeProducer {
 
 	@Producer
 	private SimpleKafkaProducer<String, ArrayList> producer;
-	
+	 
 	@Inject
-	private RecipeService rs;
-
+	private RecipeService rs; 
 	public void sendRecipeAdded(Recipe r) {
 		log.info("Send that a recipe has been added");
 		ArrayList toSend = new ArrayList();
