@@ -74,10 +74,12 @@ class ProfileServiceImplTest {
 		assertEquals("Deniz", profile.getFirstName());
 	}
 	
-	@SuppressWarnings("serial")
+	
 	@Test
 	void testUpdateNonExistant() {
 		Profile i = new Profile() {
+			private static final long serialVersionUID = 2063738962122998814L;
+
 			@Override
 			public Long getId() {
 				return Long.MAX_VALUE;
