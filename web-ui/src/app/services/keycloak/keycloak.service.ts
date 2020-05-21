@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as Keycloak from 'keycloak';
+import * as Keycloak from 'keycloak-js';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
