@@ -42,4 +42,9 @@ export class RecipeService {
   getTendance(){
     var Request_url = environment.recipeService.url + "/best";
   }
+
+  getSearchResult(url){
+    var Request_url = environment.recipeService.url + url; // To complete
+    return this.http.get(Request_url)
+  }
 }
