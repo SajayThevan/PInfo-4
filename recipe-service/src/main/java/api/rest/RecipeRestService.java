@@ -72,7 +72,6 @@ public class RecipeRestService {
 	}
 
 	// Get recipes for profile
-	@SuppressWarnings("rawtypes")
 	@GET
 	@Path("/profiles/{profileID}") // TODO: Not the best uri??
 	@Produces(MediaType.APPLICATION_JSON)

@@ -35,7 +35,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class RecipeProducerTest {
 	
-	@SuppressWarnings("rawtypes")
 	@Mock
 	private SimpleKafkaProducer<String, ArrayList> kafkaProducer;
 	@Mock
