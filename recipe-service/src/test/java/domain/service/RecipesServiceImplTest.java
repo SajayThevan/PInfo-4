@@ -127,16 +127,24 @@ class RecipesServiceImplTest {
 		Recipe res = recipesService.getRecipe(r.getId());
 		assertEquals(r.getRatings().size(),res.getRatings().size());
 	}
+	
 	@Test
 	void testGetRecipeWithIngredientID() {
 		Recipe r = randomRecipe();
 		em.persist(r);
-		ArrayList<Long> ing_id = new ArrayList<Long>();
+		ArrayList<Long> ing_id = new ArrayList<Long>();		
+		Recipe r2 = randomRecipe();
+		em.persist(r2);
+		ing_id.clear();
+
+		for (Ingredients in: r2.getIngredients()) {
+			ing_id.add(in.getIngredientID());
+			break; //test with only 1 ingredients
+		}
 		ArrayList<RecipeDTO> res = recipesService.getRecipeWithIngredientID(ing_id);
 		assertEquals(res.size(),1);
-		long recipeID = res.get(0).getId();
-		Recipe RecRes = recipesService.getRecipe(recipeID);
-		assertEquals(r.getName(),RecRes.getName());
+		assertEquals(r2.getId(),res.get(0).getId());
+		
 	}
 	
 	
@@ -214,11 +222,11 @@ class RecipesServiceImplTest {
 		
 		Set<Ingredients> ing = new HashSet<Ingredients>();
 		Ingredients i1 = new Ingredients();
-		i1.setIngredientID((long) 2);
+		i1.setIngredientID((long) new Random().nextInt(100 + 1)+1);
 		i1.setQuantite(2);
 		
 		Ingredients i2 = new Ingredients(); 
-		i2.setIngredientID((long) 1);
+		i2.setIngredientID((long)new Random().nextInt(100 + 1)+1);
 		i2.setQuantite(1);
 		
 		ing.add(i1); 

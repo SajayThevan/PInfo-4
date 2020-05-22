@@ -73,6 +73,62 @@ public class IngredientServiceImpl implements IngredientService {
 		return totalCalories;
 	}
 	
+	@Override
+	public double computeFat(List<Long> IngredientID) {
+		double totalFat = 0;
+		for (Long id : IngredientID) {
+			// take the kcal : 
+			Ingredient ing = em.find(Ingredient.class, id);
+			if (ing == null) {
+				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+			}
+			totalFat += ing.getFat();
+		}
+		return totalFat;
+	}
+	
+	@Override
+	public double computeProteins(List<Long> IngredientID) {
+		double totalProteins = 0;
+		for (Long id : IngredientID) {
+			// take the kcal : 
+			Ingredient ing = em.find(Ingredient.class, id);
+			if (ing == null) {
+				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+			}
+			totalProteins += ing.getProtein();
+		}
+		return totalProteins;
+	}
+	
+	@Override
+	public double computeCholesterol(List<Long> IngredientID) {
+		double totalCholesterol = 0;
+		for (Long id : IngredientID) {
+			// take the kcal : 
+			Ingredient ing = em.find(Ingredient.class, id);
+			if (ing == null) {
+				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+			}
+			totalCholesterol += ing.getCholesterol();
+		}
+		return totalCholesterol;
+	}
+	
+	@Override
+	public double computeSalt(List<Long> IngredientID) {
+		double totalSalt = 0;
+		for (Long id : IngredientID) {
+			// take the kcal : 
+			Ingredient ing = em.find(Ingredient.class, id);
+			if (ing == null) {
+				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+			}
+			totalSalt += ing.getSalt();
+		}
+		return totalSalt;
+	}
+	
 	// return every ingredient containing possibleIngredient in their name 
 	// return : Array<(IngredientID, Name)>
 	@Override

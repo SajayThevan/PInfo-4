@@ -69,18 +69,93 @@ challenge-db:
   initdbScriptsConfigMap:
     challenge-scripts
 
+# keycloak:
+#   keycloak:
+#     password: asdfghjkl
+#     extraVolumes: |
+#       - name: keycloak-realm-secret
+#         secret:
+#           secretName: keycloak-realm-secret
+#     extraVolumeMounts: |
+#       - name: keycloak-realm-secret
+#         mountPath: "/realm/"
+#         readOnly: true
+#     extraArgs: -Dkeycloak.import=/realm/realms.json
+
+# keycloak:
+#   keycloak:
+#     password: asdfghjkl
+#     extraVolumeMounts: |
+#       - name: keycloak-realm-secret
+#         mountPath: "/realm/"
+#         readOnly: true
+#     extraVolumes: |
+#       - name: keycloak-realm-secret
+#         secret:
+#           secretName: keycloak-realm-secret
+#     extraArgs: -Dkeycloak.import=/realm/realms.json
+
 keycloak:
   keycloak:
     password: asdfghjkl
-    extraVolumes: |
-      - name: keycloak-realm-secret
-        secret:
-          secretName: keycloak-realm-secret
+    extraInitContainers: |
+      - name: theme-provider
+        image: pinfo4/login-theme:latest
+        imagePullPolicy: Always
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying theme..."
+            cp -R /login-page/* /theme
+        volumeMounts:
+          - name: theme
+            mountPath: /theme
     extraVolumeMounts: |
       - name: keycloak-realm-secret
         mountPath: "/realm/"
         readOnly: true
+      - name: theme
+        mountPath: /opt/jboss/keycloak/themes/login-page
+    extraVolumes: |
+      - name: keycloak-realm-secret
+        secret:
+          secretName: keycloak-realm-secret
+      - name: theme
+        emptyDir: {}
     extraArgs: -Dkeycloak.import=/realm/realms.json
+
+
+# keycloak:
+#   keycloak:
+#     password: asdfghjkl
+#     extraVolumes: |
+#       - name: keycloak-realm-secret
+#         secret:
+#           secretName: keycloak-realm-secret
+#       - name: standalone-config-vol
+#         configMap:
+#           name: standalone-config
+#     extraVolumeMounts: |
+#       - name: keycloak-realm-secret
+#         mountPath: "/realm/"
+#         readOnly: true
+#       - name: standalone-config-vol
+#         mountPath: "/opt/jboss/keycloak/standalone/configuration/standalone.xml"
+#         subPath: "standalone.xml"
+#     extraArgs: -Dkeycloak.import=/realm/realms.json
+
+  # spec:
+  #   containers:
+  #   - name: keycloak
+  #     volumeMounts:
+  #      # - name: login-page-volume
+  #      #   mountPath: /opt/jboss/keycloak/themes
+  #   volumes:
+  #     # - name: login-page-volume
+  #     #   persistentVolumeClaim:
+  #     #     claimName: loginpage-pv-claim # {{ include "fridgehub.fullname" }}-
 
 imagePullSecrets: []
 nameOverride: ""

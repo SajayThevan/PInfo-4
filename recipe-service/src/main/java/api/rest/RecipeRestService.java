@@ -72,7 +72,6 @@ public class RecipeRestService {
 	}
 
 	// Get recipes for profile
-	@SuppressWarnings("rawtypes")
 	@GET
 	@Path("/profiles/{profileID}") // TODO: Not the best uri??
 	@Produces(MediaType.APPLICATION_JSON)
@@ -112,6 +111,7 @@ public class RecipeRestService {
 	@ApiOperation(value = "Add a comment")
 	public void addCommentRest(@PathParam("id") long id, String comment) {
 		rs.addComment(comment,id);
+		
 	}
 
 	// Count

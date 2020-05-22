@@ -18,14 +18,11 @@ import lombok.extern.java.Log;
 @Log
 public class RecipeProducer {
 
-	@SuppressWarnings("rawtypes")
 	@Producer
 	private SimpleKafkaProducer<String, ArrayList> producer;
-	
+	 
 	@Inject
-	private RecipeService rs;
-
-	@SuppressWarnings("rawtypes")
+	private RecipeService rs; 
 	public void sendRecipeAdded(Recipe r) {
 		log.info("Send that a recipe has been added");
 		ArrayList toSend = new ArrayList();

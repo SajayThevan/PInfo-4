@@ -28,6 +28,12 @@ export class RecipePageComponent implements OnInit {
 
   Category = [];
   Calorie = 0;
+  Fat = 0;
+  Cholesterol = 0;
+  Proteins = 0;
+  Salt = 0;
+
+  
 
   Difficulty = 0;
   Time = 0;
@@ -62,7 +68,7 @@ export class RecipePageComponent implements OnInit {
       this.ingredientService.getIngredient(val).subscribe( (data) => {
         this.Ingredients_name.push(data["name"]);
       });
-      // Url for Compute Calories
+      // Url for Compute Calories/Fat/Cholesterol/Salt/Proteins
       url = url + "id="+stringify(val)+"&"
     }
 
@@ -70,6 +76,18 @@ export class RecipePageComponent implements OnInit {
     url = url.substring(0, url.length - 1);
     this.ingredientService.getComputeCalories(url).subscribe( (data) => {
       this.Calorie = data[0]; // ????
+    });
+    this.ingredientService.getComputeFat(url).subscribe( (data) => {
+      this.Fat = data[0]; // ????
+    });
+    this.ingredientService.getComputeCholesterol(url).subscribe( (data) => {
+      this.Cholesterol = data[0]; // ????
+    });
+    this.ingredientService.getComputeProteins(url).subscribe( (data) => {
+      this.Proteins = data[0]; // ????
+    });
+    this.ingredientService.getComputeSalt(url).subscribe( (data) => {
+      this.Salt = data[0]; // ????
     });
 
   }

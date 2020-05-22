@@ -1,6 +1,6 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule, routingComponent } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,12 +25,17 @@ import { FormsModule } from '@angular/forms';
 
 import {NgSelectModule} from '@ng-select/ng-select'
 
+import { APP_BASE_HREF } from '@angular/common';
+
 import { AppInitService } from './app.init';
+import { KeycloakService } from './services/keycloak/keycloak.service';
+import { KeycloakInterceptorService } from './services/keycloak/keycloak.interceptor.service';
 declare var window: any;
 
-export function init_config(appLoadService: AppInitService) {
+export function init_config(appLoadService: AppInitService, keycloak: KeycloakService) {
   return () =>  appLoadService.init().then( () => {
      console.info(window.config);
+     keycloak.init();
     },
    );
 }
@@ -68,9 +73,18 @@ export function init_config(appLoadService: AppInitService) {
     {
       provide: APP_INITIALIZER,
       useFactory: init_config,
-      deps: [AppInitService],
+      deps: [AppInitService, KeycloakService],
       multi: true
-    }],
+    },
+    KeycloakService,
+    { provide: APP_BASE_HREF, useValue: '/' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: KeycloakInterceptorService,
+      multi: true,
+    },
+    ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { $ } from 'protractor';
 import { summaryForJitFileName } from '@angular/compiler/src/aot/util';
 import { first } from 'rxjs/operators';
-import {ProfileService} from '../services/profile/profile.service'
+import { ProfileService } from '../services/profile/profile.service'
 import { RecipeService } from '../services/recipe/recipe.service';
+import { KeycloakService } from '../services/keycloak/keycloak.service';
+import { KeycloakInstance } from 'keycloak-js';
 
 @Component({
   selector: 'app-profile-page',
@@ -12,9 +14,9 @@ import { RecipeService } from '../services/recipe/recipe.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private profileservice:ProfileService,private recipeService:RecipeService) { }
+  public keycloakAuth: KeycloakInstance;
 
-  
+  constructor(private profileservice:ProfileService,private recipeService:RecipeService, public keycloak: KeycloakService) { }
 
   name = "Sajay"
   lastname = "Thevan"
@@ -66,6 +68,11 @@ export class ProfilePageComponent implements OnInit {
   
 
   ngOnInit(): void {
+    // this.keycloak.logout();
+    this.keycloakAuth = this.keycloak.getKeycloakAuth();
+    if (this.keycloak.isLoggedIn() === false) {
+        this.keycloak.login();
+    }
   }
 
 }

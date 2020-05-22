@@ -116,8 +116,12 @@ public class RecipeServiceImpl implements RecipeService {
 			Set<Ingredients> ing = r.getIngredients();
 			ArrayList<Long> containedIngId = new ArrayList<Long>();
 			for(Ingredients i: ing) {
-				containedIngId.add(i.getId());
+				containedIngId.add(i.getIngredientID());
 			}
+			System.out.println("-------------------------");
+			System.out.println(r.getId());
+			System.out.println(containedIngId);
+			System.out.println(ing_id);
 			if(containedIngId.containsAll(ing_id)){
 				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
 			}

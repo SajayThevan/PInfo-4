@@ -35,7 +35,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class RecipeProducerTest {
 	
-	@SuppressWarnings("rawtypes")
 	@Mock
 	private SimpleKafkaProducer<String, ArrayList> kafkaProducer;
 	@Mock
@@ -52,6 +51,7 @@ class RecipeProducerTest {
 		ts.add(r.getAuthorID());
 		ts.add(r.getId());
 		verify(kafkaProducer, times(1)).send("Recipe added", ts);
+		
 	}
 
 

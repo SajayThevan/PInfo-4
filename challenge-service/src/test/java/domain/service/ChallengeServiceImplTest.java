@@ -74,10 +74,12 @@ class ChallengeServiceImplTest {
 		assertEquals("Deniz", challenge.getName());
 	}
 	
-	@SuppressWarnings("serial")
+	
 	@Test
 	void testUpdateNonExistant() {
 		Challenge i = new Challenge() {
+			private static final long serialVersionUID = -8471786765248152721L;
+			
 			@Override
 			public Long getId() {
 				return Long.MAX_VALUE;
