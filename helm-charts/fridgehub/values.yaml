@@ -82,6 +82,18 @@ challenge-db:
 #         readOnly: true
 #     extraArgs: -Dkeycloak.import=/realm/realms.json
 
+# keycloak:
+#   keycloak:
+#     password: asdfghjkl
+#     extraVolumeMounts: |
+#       - name: keycloak-realm-secret
+#         mountPath: "/realm/"
+#         readOnly: true
+#     extraVolumes: |
+#       - name: keycloak-realm-secret
+#         secret:
+#           secretName: keycloak-realm-secret
+#     extraArgs: -Dkeycloak.import=/realm/realms.json
 
 keycloak:
   keycloak:
@@ -113,6 +125,7 @@ keycloak:
       - name: theme
         emptyDir: {}
     extraArgs: -Dkeycloak.import=/realm/realms.json
+
 
 # keycloak:
 #   keycloak:
