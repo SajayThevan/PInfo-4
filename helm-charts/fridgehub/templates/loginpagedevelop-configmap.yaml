@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: standalone-config
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "fridgehub.labels" . | nindent 4 }}
-data:
-  standalone.xml: {{ (.Files.Glob "config/standalone.xml") .| quote }}
