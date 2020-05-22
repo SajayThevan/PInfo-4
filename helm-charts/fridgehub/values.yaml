@@ -96,7 +96,7 @@ keycloak:
           - -c
           - |
             echo "Copying theme..."
-            cp -R /login-theme/* /theme
+            cp -R /login-page/* /theme
         volumeMounts:
           - name: theme
             mountPath: /theme
