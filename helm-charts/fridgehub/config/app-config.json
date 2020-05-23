@@ -1,6 +1,6 @@
 {
     "environment": "local",
-    "production": "false",
+    "production": "true",
     "keycloak": {
         "url": "https://pinfo4.unige.ch/auth",
         "realm": "apigw",
