@@ -12,9 +12,8 @@ metadata:
 spec:
   tls:
   - hosts:
-    - echo1.hjdo.net
-    - echo2.hjdo.net
-    secretName: echo-tls
+    - pinfo4.unige.ch
+    secretName: pinfo4-tls
   rules:
   - http:
       paths:
