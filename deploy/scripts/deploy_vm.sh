@@ -25,7 +25,6 @@ else
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/recipe.sql
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/sql/challenge.sql
   wget https://raw.githubusercontent.com/PInfo-2020/PInfo-4/master/deploy/keycloak/realms.json
-  wget -O - https://github.com/PInfo-2020/PInfo-4/archive/develop.tar.gz | tar -xz --strip=3 "PInfo-4-develop/deploy/keycloak/login_page/"
   microk8s kubectl delete configmap ingredient-scripts
   microk8s kubectl create configmap ingredient-scripts  --from-file ./ingredient.sql
   microk8s kubectl delete configmap profile-scripts
@@ -36,8 +35,6 @@ else
   microk8s kubectl create configmap challenge-scripts  --from-file ./challenge.sql
   microk8s kubectl delete secret keycloak-realm-secret
   microk8s kubectl create secret generic keycloak-realm-secret --from-file=./realms.json
-  microk8s kubectl delete pvc loginpage-pv-claim
-  microkis kubectl delete pv loginpage-pv
 
   # Certificate manager
   microk8s kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.12.0/cert-manager.yaml

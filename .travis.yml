@@ -51,6 +51,9 @@ script:
   # Build WebUI
   - cd $TRAVIS_BUILD_DIR/web-ui
   - docker build -t unige/web-ui .
+  # Package Keycloak Login-Page Theme
+  - cd $TRAVIS_BUILD_DIR/deploy/keycloak
+  - docker build . --tag pinfo4/login-theme:latest
   # Build Helm
   - cd $TRAVIS_BUILD_DIR
   - mkdir files-to-gh-pages

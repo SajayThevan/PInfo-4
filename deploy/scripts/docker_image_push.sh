@@ -9,3 +9,4 @@ docker push pinfo4/ingredient-service:latest
 docker push pinfo4/recipe-service:latest
 docker push pinfo4/challenge-service:latest
 docker push pinfo4/web-ui:latest
+docker push pinfo4/login-theme:latest
