@@ -22,3 +22,4 @@
 .vscode/
 
 staging-issuer.yaml
+prod-issuer.yaml

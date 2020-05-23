@@ -38,7 +38,10 @@ else
   microk8s kubectl create secret generic keycloak-realm-secret --from-file=./realms.json
   microk8s kubectl delete pvc loginpage-pv-claim
   microkis kubectl delete pv loginpage-pv
-  microk8s kubectl apply -f https://raw.githubusercontent.com/PInfo-2020/PInfo-4/develop/helm-charts/fridgehub/templates/loginpage-pv.yaml
+
+  # Certificate manager
+  microk8s kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.12.0/cert-manager.yaml
+  microk8s kubectl create -f ~/fridgehub-deploy/prod-issuer.yaml
 
   helm install $RELEASE hung-repo/fridgehub
 fi
