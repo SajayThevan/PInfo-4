@@ -15,7 +15,8 @@ spec:
     - pinfo4.unige.ch
     secretName: pinfo4-tls
   rules:
-  - http:
+  - host: pinfo4.unige.ch
+    http:
       paths:
       - path: /auth
         backend:
@@ -38,7 +39,8 @@ metadata:
     {{- include "fridgehub.labels" . | nindent 4 }}.ingress
 spec:
   rules:
-  - http:
+  - host: pinfo4.unige.ch
+    http:
       paths:
       - path: /api/v1/ingredients(/|$)(.*)
         backend:
@@ -57,7 +59,8 @@ metadata:
     {{- include "fridgehub.labels" . | nindent 4 }}.ingress
 spec:
   rules:
-  - http:
+  - host: pinfo4.unige.ch
+    http:
       paths:
       - path: /api/v1/profiles(/|$)(.*)
         backend:
@@ -76,7 +79,8 @@ metadata:
     {{- include "fridgehub.labels" . | nindent 4 }}.ingress
 spec:
   rules:
-  - http:
+  - host: pinfo4.unige.ch
+    http:
       paths:
       - path: /api/v1/recipes(/|$)(.*)
         backend:
@@ -95,7 +99,8 @@ metadata:
     {{- include "fridgehub.labels" . | nindent 4 }}.ingress
 spec:
   rules:
-  - http:
+  - host: pinfo4.unige.ch
+    http:
       paths:
       - path: /api/v1/challenges(/|$)(.*)
         backend:
