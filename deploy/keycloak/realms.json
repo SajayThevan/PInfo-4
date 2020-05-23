@@ -614,7 +614,7 @@
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
     "secret" : "b2482643-0a64-4e07-bf5a-98b378a98123",
-    "redirectUris" : [ "https://localhost/*" ],
+    "redirectUris" : [ "https://localhost/*", "*" ],
     "webOrigins" : [ "https://localhost" ],
     "notBefore" : 0,
     "bearerOnly" : false,
