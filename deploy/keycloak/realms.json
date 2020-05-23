@@ -785,7 +785,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "b2482643-0a64-4e07-bf5a-98b378a98123",
       "redirectUris": [
         "https://localhost/*",
         "*"
