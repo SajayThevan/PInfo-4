@@ -82,11 +82,13 @@ export class ProfilePageComponent implements OnInit {
   public fridge : any;
 
   ngOnInit(): void {
-    this.keycloakAuth = this.keycloak.getKeycloakAuth();
+    console.log('Profile');
+    // this.keycloakAuth = this.keycloak.getKeycloakAuth();
+    // this.keycloak.logout();
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();
     } else {
-      console.log('Here');
+      console.log('Logged in');
       this.profile$ = this.profileService.getProfile(1);
 
       // // Contact API to obtain profile details
@@ -96,9 +98,11 @@ export class ProfilePageComponent implements OnInit {
       //     console.log("Profile", data);
       //     this.hasLoaded = Fuck
       //     // Separate and call other services to get data
-
       // });
     }
   }
 
+  logout() {
+    this.keycloak.logout();
+  }
 }
