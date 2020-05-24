@@ -29,6 +29,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AppInitService } from './app.init';
 import { KeycloakService } from './services/keycloak/keycloak.service';
 import { KeycloakInterceptorService } from './services/keycloak/keycloak.interceptor.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 declare var window: any;
 
 export function init_config(appLoadService: AppInitService, keycloak: KeycloakService) {
@@ -51,6 +52,7 @@ export function init_config(appLoadService: AppInitService, keycloak: KeycloakSe
     SubscribeComponent,
     RecipePageComponent,
     AddRecipeComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
