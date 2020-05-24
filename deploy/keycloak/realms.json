@@ -619,7 +619,11 @@
       "https://pinfo4.unige.ch/*",
       "*"
     ],
-    "webOrigins" : [ "https://localhost" ],
+    "webOrigins" : [
+      "https://localhost/*",
+      "https://pinfo4.unige.ch/*",
+      "*"
+    ],
     "notBefore" : 0,
     "bearerOnly" : false,
     "consentRequired" : false,
