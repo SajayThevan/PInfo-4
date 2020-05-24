@@ -32,9 +32,9 @@ import { KeycloakInterceptorService } from './services/keycloak/keycloak.interce
 declare var window: any;
 
 export function init_config(appLoadService: AppInitService, keycloak: KeycloakService) {
-  return () =>  appLoadService.init().then( () => {
+  return () =>  appLoadService.init().then( async () => {
      console.info(window.config);
-     keycloak.init();
+     await keycloak.init();
     },
    );
 }
