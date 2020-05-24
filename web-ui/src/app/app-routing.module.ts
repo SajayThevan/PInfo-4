@@ -4,13 +4,13 @@ import { TendancesComponent } from './tendances/tendances.component';
 import { HomeComponent } from './home/home.component';
 import { MonthSpecialComponent } from './month-special/month-special.component';
 import { ChallengesComponent } from './challenges/challenges.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { Browser } from 'protractor';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -19,12 +19,12 @@ const routes: Routes = [
   { path: 'tendances', component : TendancesComponent},
   { path: 'month', component : MonthSpecialComponent},
   { path: 'challenge', component : ChallengesComponent},
-  { path: 'login_page', component : LoginPageComponent},
   { path: 'profile', component : ProfilePageComponent},
   { path: 'search', component:SearchComponent},
   { path: 'subscribe',component:SubscribeComponent},
   { path: 'recipe/:id', component:RecipePageComponent},
-  { path: 'add_recipe', component:AddRecipeComponent}
+  { path: 'add_recipe', component:AddRecipeComponent},
+  { path: '**', component:NotFoundComponent}
 ];
 
 @NgModule({
@@ -36,7 +36,6 @@ export const routingComponent = [HomeComponent,
   TendancesComponent,
   MonthSpecialComponent,
   ChallengesComponent,
-  LoginPageComponent,
   ProfilePageComponent,
   SearchComponent,
   SubscribeComponent,

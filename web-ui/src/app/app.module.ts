@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { MonthSpecialComponent } from './month-special/month-special.component';
 import { ChallengesComponent } from './challenges/challenges.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
@@ -30,12 +29,13 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AppInitService } from './app.init';
 import { KeycloakService } from './services/keycloak/keycloak.service';
 import { KeycloakInterceptorService } from './services/keycloak/keycloak.interceptor.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 declare var window: any;
 
 export function init_config(appLoadService: AppInitService, keycloak: KeycloakService) {
-  return () =>  appLoadService.init().then( () => {
+  return () =>  appLoadService.init().then( async () => {
      console.info(window.config);
-     keycloak.init();
+     await keycloak.init();
     },
    );
 }
@@ -47,12 +47,12 @@ export function init_config(appLoadService: AppInitService, keycloak: KeycloakSe
     HomeComponent,
     MonthSpecialComponent,
     ChallengesComponent,
-    LoginPageComponent,
     ProfilePageComponent,
     SearchComponent,
     SubscribeComponent,
     RecipePageComponent,
     AddRecipeComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

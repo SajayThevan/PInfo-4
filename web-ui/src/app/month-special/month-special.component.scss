@@ -27,20 +27,20 @@
     margin-top: 20px;
 }
 
-.recepe_image{
+.recipe_image{
     margin-top: 10px;
     margin-left: 10px;
     height: 80px;
     width: 80px;
     border : 1px black solid;
     border-radius: 20px;
-    background-image: url(../../assets/recep_logo.jpg);
+    background-image: url(../../assets/recipe_logo.jpg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.recepe_name {
+.recipe_name {
     position: relative;
     top: 20px;
     left: 50px;

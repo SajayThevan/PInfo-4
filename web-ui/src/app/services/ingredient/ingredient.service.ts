@@ -16,7 +16,7 @@ export class IngredientService {
 
   // recupere ingredient pour affichages des recettes
   getIngredient(id) {
-    return this.http.get(environment.ingredientService.url + stringify(id));
+    return this.http.get(environment.ingredientService.url + "/" + stringify(id));
   }
 
   // pour la recherche
