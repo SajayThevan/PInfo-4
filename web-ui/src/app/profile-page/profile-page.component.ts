@@ -6,6 +6,7 @@ import { ProfileService } from '../services/profile/profile.service'
 import { RecipeService } from '../services/recipe/recipe.service';
 import { KeycloakService } from '../services/keycloak/keycloak.service';
 import { KeycloakInstance } from 'keycloak-js';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-page',
@@ -16,65 +17,88 @@ export class ProfilePageComponent implements OnInit {
 
   public keycloakAuth: KeycloakInstance;
 
-  constructor(private profileservice:ProfileService,private recipeService:RecipeService, public keycloak: KeycloakService) { }
+  constructor(private profileService:ProfileService,private recipeService:RecipeService, public keycloak: KeycloakService) { }
 
-  name = "Sajay"
-  lastname = "Thevan"
-  points = 100
+  // name = "Sajay"
+  // lastname = "Thevan"
+  // points = 100
+  //
+  // profile = {
+  //   name : "Sajay",
+  //   lastname : "Thevan",
+  //   points : 100
+  // }
+  //
+  // recettes = [
+  //   {
+  //     name:'Cake',
+  //     auteur:'Sajay',
+  //     link : '/recipe/12'
+  //   }
+  // ]
+  //
+  // favoris = [
+  //   {
+  //     name : 'Cake',
+  //     auteur : 'Sajay',
+  //     link : '/recipe/12'
+  //   },
+  //   {
+  //     name:'MilkShake',
+  //     auteur:'Luke',
+  //     link : '/recipe/12'
+  //   }
+  // ]
+  //
+  // frigo = [
+  //   {
+  //     name : 'Chocolat',
+  //     quantity : '500 gr'
+  //   },
+  //   {
+  //     name : 'Lait',
+  //     quantity : '750 ml'
+  //   },
+  //   {
+  //     name : 'Beurre',
+  //     quantity : '200 gr'
+  //   }
+  // ]
+  //
+  // profile1:any= [];
 
-  profile = {
-    name : "Sajay",
-    lastname : "Thevan",
-    points : 100 
-  }
-
-  recettes = [ 
+  // public hasLoaded: Observable<any>;
+  profile$: Observable<any>;
+  public userAttributes: any;
+  // public recipes : any;
+  recipes = [
     {
       name:'Cake',
       auteur:'Sajay',
       link : '/recipe/12'
     }
   ]
-
-  favoris = [
-    {
-      name : 'Cake',
-      auteur : 'Sajay',
-      link : '/recipe/12'
-    },
-    {
-      name:'MilkShake',
-      auteur:'Luke',
-      link : '/recipe/12'
-    }
-  ]
-
-  frigo = [
-    {
-      name : 'Chocolat',
-      quantity : '500 gr'
-    },
-    {
-      name : 'Lait',
-      quantity : '750 ml'
-    },
-    {
-      name : 'Beurre',
-      quantity : '200 gr'
-    }
-  ]
-
-  profile1:any= []; 
-  
+  public favourites : any;
+  public fridge : any;
 
   ngOnInit(): void {
-    // this.keycloak.logout();
     this.keycloakAuth = this.keycloak.getKeycloakAuth();
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();
+    } else {
+      console.log('Here');
+      this.profile$ = this.profileService.getProfile(1);
+
+      // // Contact API to obtain profile details
+      // this.profileService.getProfile(1).subscribe(
+      //   (data : Response) => {
+      //     this.profile = data;
+      //     console.log("Profile", data);
+      //     this.hasLoaded = Fuck
+      //     // Separate and call other services to get data
+
+      // });
     }
   }
 
 }
-
-

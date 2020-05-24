@@ -4,7 +4,6 @@ import { TendancesComponent } from './tendances/tendances.component';
 import { HomeComponent } from './home/home.component';
 import { MonthSpecialComponent } from './month-special/month-special.component';
 import { ChallengesComponent } from './challenges/challenges.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
@@ -19,7 +18,6 @@ const routes: Routes = [
   { path: 'tendances', component : TendancesComponent},
   { path: 'month', component : MonthSpecialComponent},
   { path: 'challenge', component : ChallengesComponent},
-  { path: 'login_page', component : LoginPageComponent},
   { path: 'profile', component : ProfilePageComponent},
   { path: 'search', component:SearchComponent},
   { path: 'subscribe',component:SubscribeComponent},
@@ -36,7 +34,6 @@ export const routingComponent = [HomeComponent,
   TendancesComponent,
   MonthSpecialComponent,
   ChallengesComponent,
-  LoginPageComponent,
   ProfilePageComponent,
   SearchComponent,
   SubscribeComponent,

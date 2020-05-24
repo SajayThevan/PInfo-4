@@ -7,7 +7,7 @@
       <a class="text-muted" href="search" aria-label="Search">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
       </a>
-      <a class="text-muted" href="/login_page"><mat-icon aria-hidden="false" class="logopad">person</mat-icon></a>
+      <a class="text-muted" href="/profile"><mat-icon aria-hidden="false" class="logopad">person</mat-icon></a>
     </div>
   </div>
 
@@ -28,8 +28,8 @@
     <div class="row">
         <div class="col" *ngFor = "let tendances of Tendances"> 
           <div class="tab">
-            <div class="recepe_image row"></div>
-            <div class="recepe_name">
+            <div class="recipe_image row"></div>
+            <div class="recipe_name">
                 {{tendances.recipename}}
             </div>
             <div class="button_pos">

@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { MonthSpecialComponent } from './month-special/month-special.component';
 import { ChallengesComponent } from './challenges/challenges.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
@@ -47,7 +46,6 @@ export function init_config(appLoadService: AppInitService, keycloak: KeycloakSe
     HomeComponent,
     MonthSpecialComponent,
     ChallengesComponent,
-    LoginPageComponent,
     ProfilePageComponent,
     SearchComponent,
     SubscribeComponent,

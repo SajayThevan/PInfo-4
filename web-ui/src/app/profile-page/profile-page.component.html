@@ -1,3 +1,4 @@
+
 <div class="container">
 
     <div class="row flex-nowrap justify-content-between align-items-center">
@@ -15,22 +16,21 @@
 
 <div class="coverimageHolder"></div>
 
-<div class="useroption">
+<div class="useroption" *ngIf="(profile$ | async) as profile">
     <div class="container">
         <div class="row">
             <div class="col-md-1">
                 <div class="profilepic"></div>
             </div>
             <div class="col-md-1">
-                <div class="font-weight-lighter">{{profile.name}}</div>
+                <div class="font-weight-lighter">{{profile.firstName}}</div>
             </div>
             <div class="col-md-1">
-                <div class="font-weight-lighter">{{profile.lastname}}</div>
+                <div class="font-weight-lighter">{{profile.lastName}}</div>
             </div>
             <div class="col-md-1">
-                <div class="font-weight-lighter">{{profile.points}}</div>
+                <div class="font-weight-lighter">{{profile.score}}</div>
             </div>
-            
         </div>
     </div>
 </div>
@@ -39,8 +39,7 @@
     <div class="row">
       <div class="col">
         <div class="card">
-            <div class="card-body"> 
-                
+            <div class="card-body">
                 <div class="row">
                      <div class="col">Mes Recettes</div>
                      <div class="col-2">
@@ -48,14 +47,14 @@
                     </div>
                 </div>
                 <hr>
-                <div class="pad1" *ngFor="let recep of recettes">
+                <div class="pad1" *ngFor="let recipe of recipes">
                     <div class="tab">
-                        <div class="recepe_image row"></div>
-                        <div class="recepe_name">
-                            {{recep.name}}
+                        <div class="recipe_image row"></div>
+                        <div class="recipe_name">
+                            {{recipe.name}}
                         </div>
                         <div class="button_pos">
-                            <a class="text-muted space" href={{recep.link}}><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                            <a class="text-muted space" href={{recipe.link}}><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
                         </div>
                     </div>
                 </div>
@@ -64,30 +63,30 @@
       </div>
       <div class="col">
         <div class="card">
-            <div class="card-body"> 
+            <div class="card-body">
                 Favoris
                 <hr>
-                <div class="pad1" *ngFor="let recep of favoris">
+                <div class="pad1" *ngFor="let recipe of favourites">
                     <div class="tab">
-                        <div class="recepe_image row"></div>
-                        <div class="recepe_name">
-                            {{recep.name}}
+                        <div class="recipe_image row"></div>
+                        <div class="recipe_name">
+                            {{recipe.ingredientId}}
                         </div>
                         <div class="button_pos">
-                            <a class="text-muted space" href={{recep.link}}><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                            <a class="text-muted space" href="/recipe/{{recipe.ingredientId}}"><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
                         </div>
                     </div>
-                </div>     
+                </div>
             </div>
         </div>
       </div>
       <div class="col">
         <div class="card">
-            <div class="card-body"> 
+            <div class="card-body">
                 Mon Frigo
                 <hr>
-                <div class="pad1" *ngFor="let ingre of frigo">
-                    {{ingre.name}} : {{ingre.quantity}}
+                <div class="pad1" *ngFor="let ing of fridge">
+                    {{ing.ingredientId}} : {{ing.quantity}}
                 </div>
             </div>
         </div>
@@ -109,33 +108,33 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control font-weight-lighter" id="name" value={{name}}>
+                          <input type="text" class="form-control font-weight-lighter" id="name" value={{profile.firstName}}>
                         </div>
                     </div>
-        
+
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Last Name</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control font-weight-lighter" value={{lastname}}>
+                          <input type="text" class="form-control font-weight-lighter" value={{profile.lastName}}>
                         </div>
                     </div>
 
                     <hr>
-        
+
                     <div class="form-group row">
                       <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                       <div class="col-sm-8">
                         <input type="password" class="form-control" id="inputPassword">
                       </div>
                     </div>
-        
+
                     <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Confirm</label>
                         <div class="col-sm-8">
                           <input type="password" class="form-control" id="confirmPassword">
                         </div>
                       </div>
-        
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -178,4 +177,3 @@
       </div>
 
   </div>
-
