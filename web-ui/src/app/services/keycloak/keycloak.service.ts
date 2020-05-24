@@ -21,6 +21,7 @@ export class KeycloakService {
         return new Promise((resolve, reject) => {
             keycloakAuth.init({ onLoad: 'check-sso', checkLoginIframe: false })
                 .success(() => {
+                    console.log('Finished init')
                     KeycloakService.auth.loggedIn = false;
                     KeycloakService.auth.authz = keycloakAuth;
                     resolve();
