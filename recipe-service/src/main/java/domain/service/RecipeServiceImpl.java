@@ -128,6 +128,24 @@ public class RecipeServiceImpl implements RecipeService {
 		}
 	return tr;
 	}
+	
+	@Override
+	public ArrayList<RecipeDTO> getRecipesListFromIds(ArrayList<Long> idList){
+		ArrayList<RecipeDTO> tr = new ArrayList<RecipeDTO>();
+		System.out.println(idList);
+		for (Long id: idList) {
+			try {
+				Recipe r = em.find(Recipe.class, id);
+				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
+			}
+			catch (Exception e) {
+				continue;
+			}
+		}
+		return tr;
+	}
+	
+	
 
 	@Override
 	public ArrayList<RecipeDTO> getTendancies(){
@@ -285,4 +303,6 @@ public class RecipeServiceImpl implements RecipeService {
 		
 		return tr;
 	}
+		
+
 }

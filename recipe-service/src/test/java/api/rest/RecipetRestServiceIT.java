@@ -42,4 +42,10 @@ public class RecipetRestServiceIT {
 	public void getTendanciesTest() {
 		when().get("/trends").then().body(containsString("2"));
 	}
+	
+	@Test
+	public void testgetRecipesWithIdList() {
+		when().get("/?id=2").then().body(containsString("2"));
+	}
+	
 }

@@ -76,9 +76,9 @@ public class RecipeRestService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
 	@ApiOperation(value = "Get recipes which you need the ingredients passed in paramaters")
-	public ArrayList<RecipeDTO> getRecipes(@QueryParam("id") ArrayList<Long> IngredientIdList){
+	public ArrayList<RecipeDTO> getRecipesWithIdList(@QueryParam("id") ArrayList<Long> idList){
 		// Return list of recipes from id's
-		return rs.getRecipeWithIngredientID(IngredientIdList);
+		return rs.getRecipesListFromIds(idList);
 	}
 
 	// Get recipes for profile
