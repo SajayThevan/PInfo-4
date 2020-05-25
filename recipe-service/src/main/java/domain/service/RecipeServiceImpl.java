@@ -54,7 +54,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public ArrayList<RecipeDTO> getRecipesForProfil(long id){
+	public ArrayList<RecipeDTO> getRecipesForProfil(String id){
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r WHERE r.authorID = :authorID", Recipe.class);
 		query.setParameter("authorID", id);
 		List<Recipe> tmp = query.getResultList();
@@ -68,7 +68,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public ArrayList<RecipeDTO> getRecipiesIdForProfiles(long id){
+	public ArrayList<RecipeDTO> getRecipiesIdForProfiles(String id){
 		TypedQuery<Long> query = em.createQuery("SELECT r.id FROM Recipe r WHERE r.authorID = :authorID",Long.class);
 		query.setParameter("authorID", id);
 		List<Long> ids = query.getResultList();

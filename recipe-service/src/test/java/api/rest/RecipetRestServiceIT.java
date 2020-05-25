@@ -28,7 +28,7 @@ public class RecipetRestServiceIT {
 
 	@Test
 	public void recipesProfil() {
-		when().get("/profiles/1").then().body(containsString("pizza"));
+		when().get("/profiles/bfdkjshflkjsd").then().body(containsString("pizza"));
 	}
 
 	@Test
