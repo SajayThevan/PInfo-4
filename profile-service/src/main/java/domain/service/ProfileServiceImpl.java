@@ -116,4 +116,18 @@ public class ProfileServiceImpl implements ProfileService {
 		em.merge(p);
 	}
 	
+	@Override
+	public boolean checkProfile(Long profileId) {
+		Profile p = em.find(Profile.class, profileId);
+		if (p == null) {
+			return false;
+		}
+		else {
+			return true;
+		}
+		
+	
+		
+	}
+	
 }

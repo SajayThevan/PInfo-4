@@ -60,10 +60,19 @@ public class ProfileRestService {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc profile")
+	@ApiOperation(value = "Get a specific profile")
 	public Profile get(@PathParam("id") Long profileId) {
 		return profileService.get(profileId);
 	}
+	
+	@GET
+	@Path("/{id}/exists")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Know if a Profile exists")
+	public boolean checkProfileExists(@PathParam("id") Long profileId) {
+		return profileService.checkProfile(profileId);
+	}
+	
 
 	@DELETE
 	@Path("{id}")

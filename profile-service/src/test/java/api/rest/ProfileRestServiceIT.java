@@ -2,8 +2,6 @@ package api.rest;
 
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.containsString;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
@@ -40,6 +38,11 @@ public class ProfileRestServiceIT {
 	@Test
 	public void testGetFavourite() {
 		when().get("/2/favourites").then().body(containsString("14"));
+	}
+	
+	@Test
+	public void testGetCheck() {
+		when().get("/2/exists").then().body(containsString("true"));
 	}
 
 }
