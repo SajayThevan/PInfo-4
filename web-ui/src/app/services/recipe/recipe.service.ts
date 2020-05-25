@@ -14,6 +14,16 @@ export class RecipeService {
     return this.http.get("https://jsonplaceholder.typicode.com/users");
   }
 
+  getRecipes(idList) {
+    // Convert idList to ?id=4&id=2&id=1
+    var queryList = "?";
+    idList.forEach(id => {
+      queryList = queryList + "id=" + id + "&";
+    });
+    queryList = queryList.substring(0, queryList.length - 1); // Remove last &
+    return this.http.get(environment.recipeService.url + "/" + queryList);
+  }
+
   addComment(id,comment){
     var Request_url = environment.recipeService.url + "/addComment/"+id;
     this.http.put(Request_url,comment);
