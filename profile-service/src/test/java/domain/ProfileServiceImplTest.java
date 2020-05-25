@@ -111,16 +111,6 @@ class ProfileServiceImplTest {
 		profileService.create(profile);
 		assertNotNull(profile.getId());
 	}
-
-
-	@Test
-	void testCreateDuplicate() {
-		Profile profile = getRandomProfile();
-		profileService.create(profile);
-		assertThrows(IllegalArgumentException.class, () -> {
-			profileService.create(profile);
-		});
-	}
 	
 	@Test
 	void testAddIngredientById() {
