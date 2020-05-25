@@ -45,6 +45,15 @@ public class IngredientRestService {
 	public List<Ingredient> getAll() {
 		return ingredientService.getAll();
 	}
+	
+	@GET
+	@Path("/selected")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get all the ingredients",
+    notes = "Ingredients are specialized and thus might contain more fields than the one of the base class.")
+	public List<IngredientDTO> getSelectedlIngredients(@QueryParam("id") List<Long> IngredientIdList) {
+		return ingredientService.getSelectedIngredients(IngredientIdList);
+	}
 
 	@GET
 	@Path("/names")

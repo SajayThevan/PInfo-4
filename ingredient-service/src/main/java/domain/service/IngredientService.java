@@ -11,6 +11,7 @@ public interface IngredientService {
 	
 	List<Ingredient> getAll();
 	List<IngredientDTO> getAllNames();
+	List<IngredientDTO> getSelectedIngredients(List<Long> IngredientID);
 	Ingredient get(Long ingredientId);
 	void create(Ingredient ingredient);
 	//int computeCalories(Array<int IngredientID>);  
