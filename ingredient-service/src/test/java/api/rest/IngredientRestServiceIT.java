@@ -27,6 +27,13 @@ public class IngredientRestServiceIT {
 		when().get("/names").then().body(containsString("amande"));
 		when().get("/names").then().body(containsString("3"));
 	}
+	
+	@Test
+	public void testGetSelectedIngredients() {
+		when().get("/selected?id=1&id=2&id=4").then().body(containsString("chocolat"));
+		when().get("/selected?id=1&id=2&id=4").then().body(containsString("2"));
+		when().get("/selected?id=1&id=2&id=4").then().body(containsString("pate"));
+	}
 
 
 	@Test

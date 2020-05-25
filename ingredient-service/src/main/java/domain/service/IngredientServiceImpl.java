@@ -58,6 +58,22 @@ public class IngredientServiceImpl implements IngredientService {
 	public Ingredient get(Long id) {
 		return em.find(Ingredient.class, id);
 	}
+	
+	@Override
+	public List<IngredientDTO> getSelectedIngredients(List<Long> IngredientID) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
+		criteria.from(Ingredient.class);
+		List<Ingredient> allIngredients = em.createQuery(criteria).getResultList();
+		List<IngredientDTO> allIngredientsToSend = new ArrayList<>(); 
+		for(Ingredient i : allIngredients) {
+			if (IngredientID.contains(i.getId())) {
+				IngredientDTO pair = new IngredientDTO(i.getId(), i.getName());
+				allIngredientsToSend.add(pair);
+			}
+		}
+		return allIngredientsToSend;
+	}
 
 	@Override
 	public double computeCalories(List<Long> IngredientID) {
