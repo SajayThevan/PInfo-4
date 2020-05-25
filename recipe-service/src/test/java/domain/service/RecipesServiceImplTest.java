@@ -210,6 +210,22 @@ class RecipesServiceImplTest {
 		ArrayList<RecipeDTO> ret = recipesService.getRecipeOfTheMonth();
 		assertEquals(counter,ret.size());
 	}
+	
+	@Test
+	public void testgetRecipesListFromIds() {
+		ArrayList<Long> ini = new ArrayList<Long> ();
+		for (int i = 0; i < 10; i++) {
+			Recipe r = randomRecipe();
+			em.persist(r);
+			if (i % 2 == 0) {
+				ini.add(r.getId());
+			}
+		}
+		ini.add((long)21);
+		ArrayList<RecipeDTO> ret = recipesService.getRecipesListFromIds(ini);
+		assertEquals(ret.size(),ini.size()-1);
+		
+	}
 
 
 	public Recipe randomRecipe() {

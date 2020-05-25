@@ -65,10 +65,20 @@ public class RecipeRestService {
 	// Get Recipes
 	// Get recipes from Ingredient ID's
 	@GET
+	@Path("/ingredients/")
 	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
 	@ApiOperation(value = "Get recipes which you need the ingredients passed in paramaters")
 	public ArrayList<RecipeDTO> getRecipesWithIngIds(@QueryParam("id") ArrayList<Long> IngredientIdList){
 		return rs.getRecipeWithIngredientID(IngredientIdList);
+	}
+
+	// Get list of recipes
+	@GET
+	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
+	@ApiOperation(value = "Get recipes which you need the ingredients passed in paramaters")
+	public ArrayList<RecipeDTO> getRecipesWithIdList(@QueryParam("id") ArrayList<Long> idList){
+		// Return list of recipes from id's
+		return rs.getRecipesListFromIds(idList);
 	}
 
 	// Get recipes for profile
@@ -111,7 +121,7 @@ public class RecipeRestService {
 	@ApiOperation(value = "Add a comment")
 	public void addCommentRest(@PathParam("id") long id, String comment) {
 		rs.addComment(comment,id);
-		
+
 	}
 
 	// Count

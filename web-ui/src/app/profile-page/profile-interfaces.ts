@@ -1,4 +1,4 @@
-interface Profile {
+export interface Profile {
     id: string;
     pseudo: string;
     email: string;
@@ -9,14 +9,18 @@ interface Profile {
     favouriteRecipes: Array<FavouriteRecipes>;
 }
 
-interface FridgeContents {
+export interface FridgeContents {
     id: string;
     ingredientId: string;
     quantity: string;
 }
 
-interface FavouriteRecipes {
+export interface FavouriteRecipes {
     id: string;
     recipeId: string;
 }
 
+export interface Recipe {
+    id: string;
+    recipeId: string;
+}

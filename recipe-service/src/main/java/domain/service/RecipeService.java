@@ -22,7 +22,6 @@ public interface RecipeService {
 	public ArrayList<RecipeDTO> getRecipeWithIngredientID(ArrayList<Long> ing_id);
 	public ArrayList<RecipeDTO> getTendancies();
 	public ArrayList<RecipeDTO> getRecipeOfTheMonth();
-	//Return an ArrayList as follow:
-	//<id,Name,authorId,Date,IngredientsID,Steps,Category,Difficulty,Time,Ratings,Comments>
+	public ArrayList<RecipeDTO> getRecipesListFromIds(ArrayList<Long> idList);
 	
 }

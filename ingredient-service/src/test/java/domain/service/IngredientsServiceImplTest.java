@@ -75,7 +75,27 @@ class IngredientsServiceImplTest {
 		ingredientsService.create(getRandomIngredient1());
 		ingredientsService.create(getRandomIngredient2());
 		ingredientsService.create(getRandomIngredient3());
-		assertEquals(size + 4, ingredientsService.getAllNames().size());
+		
+		assertEquals(size + 4, ingredientsService.getAll().size());
+	}
+	
+	@Test
+	void testGetSelectedIngredients() {
+		ingredientsService.create(getRandomIngredient()); // tests create at the same time 
+		ingredientsService.create(getRandomIngredient1());
+		ingredientsService.create(getRandomIngredient2());
+		ingredientsService.create(getRandomIngredient3());
+		
+		Ingredient ingredient1 = ingredientsService.getAll().get(0);
+		assertNotNull(ingredient1);
+		Ingredient ingredient2 = ingredientsService.getAll().get(1);
+		assertNotNull(ingredient2);
+		
+		List<Long> listID = new ArrayList<>();
+		listID.add(ingredient1.getId());
+		listID.add(ingredient2.getId());
+		
+		assertEquals(ingredientsService.getSelectedIngredients(listID).size(), 2);
 	}
 
 	@Test

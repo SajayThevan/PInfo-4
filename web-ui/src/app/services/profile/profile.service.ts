@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { stringify } from 'querystring';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Profile } from '../../profile-page/profile-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class ProfileService {
 
   constructor( private http:HttpClient) {}
 
-  // pour la recherche
   getProfile(token) {
-    return this.http.get(environment.profileService.url + "/" + stringify(token));
+    console.log(token);
+    return this.http.get<Object>(environment.profileService.url + "/" + token);
   }
 }
