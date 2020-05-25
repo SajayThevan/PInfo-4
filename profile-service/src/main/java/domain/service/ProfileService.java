@@ -14,6 +14,8 @@ public interface ProfileService {
 	void addFavourite(long id, long recipeId);
 	void removeFavourite(long id, long recipeId);
 	void removeIngredient(long profileId, long ingredientId);
+	boolean checkProfile(Long profileId);
+
 
 
 	

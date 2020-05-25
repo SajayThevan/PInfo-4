@@ -189,6 +189,17 @@ class ProfileServiceImplTest {
 		assertEquals(newFirstId,secondId);		
 	}
 	
+	@Test
+	void testCheckProfile() {  
+		Profile profile = getRandomProfile();
+		em.persist(profile);
+		assertEquals(true,profileService.checkProfile(profile.getId()));
+		assertEquals(false,profileService.checkProfile(profile.getId()+1));
+	}
+	
+	
+	
+	
 	private Profile getRandomProfile() {
 		Profile p = new Profile();
 		Random rand = new Random();
