@@ -36,7 +36,7 @@ public class Challenge implements Serializable {
 	private String name;
 	
 	@NotNull
-	private Long authorID;
+	private String authorID;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CHALLENGE_ID", nullable = true)

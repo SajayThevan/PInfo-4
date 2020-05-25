@@ -67,7 +67,7 @@ class ProfileServiceImplTest {
 		profileService.create(getRandomProfile());
 		Profile profile = profileService.getAll().get(0);
 		assertNotNull(profile);
-		Long id = profile.getId();
+		String id = profile.getId();
 		profile.setFirstName("Deniz");
 		profileService.update(profile);
 		profile = profileService.get(id);
@@ -78,11 +78,9 @@ class ProfileServiceImplTest {
 	@Test
 	void testUpdateNonExistant() {
 		Profile i = new Profile() {
-			private static final long serialVersionUID = 2063738962122998814L;
-
 			@Override
-			public Long getId() {
-				return Long.MAX_VALUE;
+			public String getId() {
+				return "abcasfsdgdlasfkasdmjdkfskg";
 			}
 		};
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -95,14 +93,14 @@ class ProfileServiceImplTest {
 		profileService.create(getRandomProfile());
 		Profile profile = profileService.getAll().get(0);
 		assertNotNull(profile);
-		Long id = profile.getId();
+		String id = profile.getId();
 		Profile getProfile = profileService.get(id);
 		assertEquals(profile.getFirstName(), getProfile.getFirstName());     
 	}
 
 	@Test
 	void testGetNonExistant() {
-		assertNull(profileService.get(Long.MAX_VALUE));
+		assertNull(profileService.get("asdasfdfadsfas"));
 	}
 
 	@Test
@@ -122,7 +120,7 @@ class ProfileServiceImplTest {
 		Long idIng = ing.getIngredientId();
 		int quantity = ing.getQuantity();
 		profileService.create(profile);
-		Long idProfile = profile.getId();
+		String idProfile = profile.getId();
 		oldListIng.add(ing);
 		profileService.addIngredient(idProfile, idIng, quantity);
 		Profile profileDB = profileService.get(idProfile);
@@ -138,7 +136,7 @@ class ProfileServiceImplTest {
 		Set<RecipeFav> oldListFav = profile.getFavouriteRecipes();
 		Long idFav = fav.getRecipeId();
 		profileService.create(profile);
-		Long idProfile = profile.getId();
+		String idProfile = profile.getId();
 		oldListFav.add(fav);
 		profileService.addFavourite(idProfile, idFav);
 		Profile profileDB = profileService.get(idProfile);
@@ -150,7 +148,7 @@ class ProfileServiceImplTest {
 	void testRemoveProfile() {
 		Profile profile = getRandomProfile();
 		profileService.create(profile);
-		Long profileId = profile.getId();
+		String profileId = profile.getId();
 		profileService.removeProfile(profileId);
 		assertThrows(IllegalArgumentException.class, () -> {
 			profileService.removeProfile(profileId);
@@ -164,7 +162,7 @@ class ProfileServiceImplTest {
 		iterator.next().getIngredientId();
 		Long secondId = iterator.next().getIngredientId();
 		profileService.create(profile);
-		Long idProfile = profile.getId();
+		String idProfile = profile.getId();
 		Profile profileDB = profileService.get(idProfile);
 		Set<Ingredient> newListIng = profile.getFridgeContents();
 		Long idIng = newListIng.iterator().next().getIngredientId();
@@ -180,7 +178,7 @@ class ProfileServiceImplTest {
 		iterator.next().getRecipeId();
 		Long secondId = iterator.next().getRecipeId();
 		profileService.create(profile);
-		Long idProfile = profile.getId();
+		String idProfile = profile.getId();
 		Profile profileDB = profileService.get(idProfile);
 		Set<RecipeFav> newListFav = profile.getFavouriteRecipes();
 		Long idFav = newListFav.iterator().next().getRecipeId();
@@ -236,7 +234,7 @@ class ProfileServiceImplTest {
 		Favoris.add(re2);
 		Favoris.add(re3);
 		
-        
+        p.setId(UUID.randomUUID().toString());
 		p.setPseudo(UUID.randomUUID().toString());
 		p.setEmail(UUID.randomUUID().toString());
 		p.setFirstName(UUID.randomUUID().toString());

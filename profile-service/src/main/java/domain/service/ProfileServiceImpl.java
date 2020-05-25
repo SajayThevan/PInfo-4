@@ -48,7 +48,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public void addIngredient(long id, long ingredientId, int quantity) {
+	public void addIngredient(String id, long ingredientId, int quantity) {
 		Profile p = get(id);
 		Ingredient ing = new Ingredient();
 		ing.setIngredientId(ingredientId);
@@ -60,7 +60,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public void addFavourite(long id, long recipeId) {
+	public void addFavourite(String id, long recipeId) {
 		Profile p = get(id);
 		RecipeFav fav = new RecipeFav();
 		fav.setRecipeId(recipeId);
@@ -71,7 +71,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override							
-	public Profile get(Long profileId) {
+	public Profile get(String profileId) {
 		return em.find(Profile.class, profileId);
 	}
 
@@ -89,13 +89,13 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override
-	public void removeProfile(long id) {
+	public void removeProfile(String id) {
 		Profile p = get(id);
 		em.remove(p);
 	}
 	
 	@Override
-	public void removeIngredient(long id,long ingredientId) {
+	public void removeIngredient(String id,long ingredientId) {
 		Profile p = get(id);
 		Set <Ingredient> oldIngredients = p.getFridgeContents();
 		Ingredient ing = new Ingredient();
@@ -106,7 +106,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override
-	public void removeFavourite(long id,long recipeId) {
+	public void removeFavourite(String id,long recipeId) {
 		Profile p = get(id);
 		Set <RecipeFav> oldFavourites = p.getFavouriteRecipes();
 		RecipeFav fav = new RecipeFav();
@@ -117,7 +117,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override
-	public boolean checkProfile(Long profileId) {
+	public boolean checkProfile(String profileId) {
 		Profile p = em.find(Profile.class, profileId);
 		if (p == null) {
 			return false;

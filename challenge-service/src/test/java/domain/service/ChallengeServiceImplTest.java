@@ -190,7 +190,7 @@ class ChallengeServiceImplTest {
 		Solutions.add(re3);
 		
 		c.setName(UUID.randomUUID().toString());
-		c.setAuthorID((long) rand.nextInt(100));
+		c.setAuthorID(UUID.randomUUID().toString());
 		c.setIngredients(Ingredients);
 		c.setSolutions(Solutions);
 
