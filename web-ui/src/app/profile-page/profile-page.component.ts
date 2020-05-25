@@ -18,18 +18,16 @@ export class ProfilePageComponent implements OnInit {
   constructor(private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService) { }
 
   public profile$: Observable<any>;
-  public userAttributes$: any;
-  public recipes$: any;
-  public favourites$: any;
-  public fridge$: any;
+  public recipes$: Observable<any>;
+  public favourites$: Observable<any>;
+  public fridge$: Observable<any>;
+  public fridge: any; // TODO: Not the cleanest way, would be nicer to directly affect the reponse of the observable rather than assign it to a new variable
 
   ngOnInit(): void {
     this.keycloakAuth = this.keycloak.getKeycloakAuth();
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();
     } else {
-      // TODO: Delete interfaces
-      // TODO: Secure backend
       // Get Profile
       this.profile$ = this.profileService.getProfile(1)
       this.profile$.subscribe(
@@ -41,10 +39,11 @@ export class ProfilePageComponent implements OnInit {
             });
             this.fridge$ = this.ingredientService.getIngredients(ingIDs);
             this.fridge$.subscribe(
-              (fridge : any) => {
-                console.log('Fridge', fridge);
-                // TODO: Link quantities
-                
+              (response : any) => {
+                this.fridge = response;
+                for (let i = 0; i < this.fridge.length; i++) {
+                  this.fridge[i].quantity = profile.fridgeContents[i].quantity;
+                };
             });
 
             var recipeIDs = [];
@@ -56,10 +55,10 @@ export class ProfilePageComponent implements OnInit {
 
       // Get my recipes
       this.recipes$ = this.recipeService.getRecipeforProfile(1);
-      this.recipes$.subscribe(
-        (recipe : Response) => {
-          console.log(recipe);
-      });
+      // this.recipes$.subscribe(
+      //   (recipe : Response) => {
+      //     // console.log(recipe);
+      // });
     }
   }
 
