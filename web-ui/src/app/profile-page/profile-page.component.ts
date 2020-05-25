@@ -19,86 +19,45 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(private profileService:ProfileService,private recipeService:RecipeService, public keycloak: KeycloakService) { }
 
-  // name = "Sajay"
-  // lastname = "Thevan"
-  // points = 100
-  //
-  // profile = {
-  //   name : "Sajay",
-  //   lastname : "Thevan",
-  //   points : 100
-  // }
-  //
-  // recettes = [
-  //   {
-  //     name:'Cake',
-  //     auteur:'Sajay',
-  //     link : '/recipe/12'
-  //   }
-  // ]
-  //
-  // favoris = [
-  //   {
-  //     name : 'Cake',
-  //     auteur : 'Sajay',
-  //     link : '/recipe/12'
-  //   },
-  //   {
-  //     name:'MilkShake',
-  //     auteur:'Luke',
-  //     link : '/recipe/12'
-  //   }
-  // ]
-  //
-  // frigo = [
-  //   {
-  //     name : 'Chocolat',
-  //     quantity : '500 gr'
-  //   },
-  //   {
-  //     name : 'Lait',
-  //     quantity : '750 ml'
-  //   },
-  //   {
-  //     name : 'Beurre',
-  //     quantity : '200 gr'
-  //   }
-  // ]
-  //
-  // profile1:any= [];
-
-  // public hasLoaded: Observable<any>;
-  profile$: Observable<any>;
-  public userAttributes: any;
-  // public recipes : any;
-  recipes = [
-    {
-      name:'Cake',
-      auteur:'Sajay',
-      link : '/recipe/12'
-    }
-  ]
-  public favourites : any;
-  public fridge : any;
+  public profile$: Observable<any>;
+  public userAttributes$: any;
+  public recipes$: any;
+  public favourites$: any;
+  public fridge$: any;
 
   ngOnInit(): void {
-    console.log('Profile');
-    // this.keycloakAuth = this.keycloak.getKeycloakAuth();
-    // this.keycloak.logout();
+    this.keycloakAuth = this.keycloak.getKeycloakAuth();
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();
     } else {
-      console.log('Logged in');
-      this.profile$ = this.profileService.getProfile(1);
 
-      // // Contact API to obtain profile details
-      // this.profileService.getProfile(1).subscribe(
-      //   (data : Response) => {
-      //     this.profile = data;
-      //     console.log("Profile", data);
-      //     this.hasLoaded = Fuck
-      //     // Separate and call other services to get data
-      // });
+      // TODO
+      // Decide method 1 or 2
+      // Decide intefaces or use any (any will only work with observables)
+
+      // METHOD 1: OBSERVABLES
+      this.profile$ = this.profileService.getProfile(1)
+      this.profile$.subscribe(
+          (profile : Response) => {
+            // this.hasLoaded = Promise.resolve(true);
+            // this
+
+            // TODO
+            // Call other services to get fridge contents & favourite recipes
+  
+            // TODO: Backend
+            // Ingredient Service: Function that accepts a list of ingredient id's and returns the minimum info for the ingredient (name, id)
+            // Recipe Service: Function that accepts a list of recipe id's and returns the minimum info for the recipe (name, etc...)
+  
+            //this.ingredientService.getIngredients()
+      });
+
+      // Get my recipes
+      this.recipes$ = this.recipeService.getRecipeforProfile(1);
+      this.recipes$.subscribe(
+        (recipe : Response) => {
+          console.log(recipe);
+      });
     }
   }
 

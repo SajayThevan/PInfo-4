@@ -15,27 +15,28 @@ export class RecipeService {
   }
 
   addComment(id,comment){
-    var Request_url = environment.recipeService.url + "/addComment/"+stringify(id);
+    var Request_url = environment.recipeService.url + "/addComment/"+id;
     this.http.put(Request_url,comment);
   }
 
   addRating (id,Rate){ // Check rate if 0<rate<10
-    var Request_url = environment.recipeService.url + "/rate/"+stringify(id)+"/"+stringify(Rate);
+    var Request_url = environment.recipeService.url + "/rate/"+id+"/"+Rate;
     this.http.put(Request_url,null);
   }
 
   createNewRecipe(json) {
-    var Request_url = environment.recipeService.url + "/create"
+    var Request_url = environment.recipeService.url + "/create";
     this.http.post(Request_url,json);
   }
 
   deleteRecipe(id) {
-    var Request_url = environment.recipeService.url + "/rm/"+stringify(id)
+    var Request_url = environment.recipeService.url + "/rm/"+id;
     this.http.delete(Request_url);
   }
 
-  getRecipeforProfile(Profile_id) {
-    var Request_url = environment.recipeService.url + "/recipesProfil/"+stringify(Profile_id)
+  getRecipeforProfile(profile_id) {
+    var Request_url = environment.recipeService.url + "/profiles/" + profile_id;
+    console.log(profile_id);
     return this.http.get(Request_url); // [ RecipeID,RecipeName,Ingredients ]
   }
 
