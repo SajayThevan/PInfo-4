@@ -23,10 +23,10 @@ public class ProfileConsumer {
 			producer.sendAllProfiles();
 		} else {
 			try {
-				Long profileId = Long.valueOf(message);  
+				String profileId = String.valueOf(message);  
 				producer.send(profileId);        
 			} catch(NumberFormatException e) {
-				throw new IllegalArgumentException("Message must be wither a numeric profile identifier or 'all'");
+				throw new IllegalArgumentException("Message must be a String profile identifier ");
 			}
 		}
 	}

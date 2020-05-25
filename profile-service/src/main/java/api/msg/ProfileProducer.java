@@ -33,7 +33,7 @@ public class ProfileProducer {
 	}
 
  			
-	public void send(Long profileId) {
+	public void send(String profileId) {
 		log.info("Send the state of an profile to the topic with id " + profileId);
 		Profile profile = profileService.get(profileId);      
 		if (profile != null) {								  

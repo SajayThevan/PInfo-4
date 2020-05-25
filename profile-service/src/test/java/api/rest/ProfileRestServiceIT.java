@@ -27,7 +27,7 @@ public class ProfileRestServiceIT {
 
 	@Test
 	public void testCount() {
-		when().get("/count").then().body(containsString("6"));
+		when().get("/count").then().body(containsString("1"));
 	}
 
 	@Test

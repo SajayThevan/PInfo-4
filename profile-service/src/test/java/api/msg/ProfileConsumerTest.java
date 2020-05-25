@@ -1,6 +1,5 @@
 package api.msg;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
@@ -22,7 +21,7 @@ class ProfileConsumerTest {
 	@Test
 	void testUpdateRegularProfile() {
 		consumer.updateProfile("452");
-		verify(producer).send(452l);
+		verify(producer).send("452");
 	}
 	
 	@Test
@@ -31,10 +30,6 @@ class ProfileConsumerTest {
 		verify(producer, times(1)).sendAllProfiles();
 	}
 	
-	@Test
-	void testUpdateUnexpectedMessage() {
-		assertThrows(IllegalArgumentException.class,
-				() -> consumer.updateProfile("XXX"));
-	}
+
 
 }

@@ -22,7 +22,7 @@ create sequence RECIPE_SEQ start with 1 increment by 1;
 
 create table Recipe (
     id bigint not null,
-    authorID bigint,
+    authorID varchar(255),
     date varchar(255),
     difficulty integer not null,
     name varchar(255),
@@ -91,7 +91,7 @@ alter table Steps
     foreign key (Recipe_id)
     references Recipe;
 
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (nextval('RECIPE_SEQ'), 1,'21/02/2020', 3, 'pizza', 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (nextval('RECIPE_SEQ'), '1','21/02/2020', 3, 'pizza', 1);
 INSERT INTO Category(id, category, Recipe_ID)                   values (nextval('CATEGORY_SEQ'), 1, currval('RECIPE_SEQ'));
 INSERT INTO Comments(id, comment, Recipe_ID)                    values (nextval('COMMENTS_SEQ'),'Mauvais',currval('RECIPE_SEQ'));
 INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id)  values (nextval('INGREDIENTS_SEQ'), 4, 2, currval('RECIPE_SEQ'));

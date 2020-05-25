@@ -61,7 +61,7 @@ public class ProfileRestService {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specific profile")
-	public Profile get(@PathParam("id") Long profileId) {
+	public Profile get(@PathParam("id") String profileId) {
 		return profileService.get(profileId);
 	}
 	
@@ -69,7 +69,7 @@ public class ProfileRestService {
 	@Path("/{id}/exists")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Know if a Profile exists")
-	public boolean checkProfileExists(@PathParam("id") Long profileId) {
+	public boolean checkProfileExists(@PathParam("id") String profileId) {
 		return profileService.checkProfile(profileId);
 	}
 	
@@ -78,7 +78,7 @@ public class ProfileRestService {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value= "Remove a Profile")
-	public void removeProfileById(@PathParam("id") long id) {
+	public void removeProfileById(@PathParam("id") String id) {
 		profileService.removeProfile(id);
 	}
 
@@ -104,21 +104,21 @@ public class ProfileRestService {
 	@Path("{id}/ingredients")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the fridge content of a profile")
-	public Set<Ingredient> getIngredient(@PathParam("id") Long profileId){
+	public Set<Ingredient> getIngredient(@PathParam("id") String profileId){
 		return profileService.get(profileId).getFridgeContents();
 	}
 
 	@POST
 	@Path("{id}/ingredients")
 	@ApiOperation(value ="add Ingredient")
-	public void addIngredientById(@PathParam("id") long profileId, @QueryParam("ingredient") long ingredientId, @QueryParam("quantity") int quantity) {
+	public void addIngredientById(@PathParam("id") String profileId, @QueryParam("ingredient") long ingredientId, @QueryParam("quantity") int quantity) {
 		profileService.addIngredient(profileId, ingredientId, quantity);
 	}
 
 	@DELETE
 	@Path("{id}/ingredients")
 	@ApiOperation(value ="Remove Ingredient from fridge")
-	public void removeIngredient(@PathParam("id") long profileId, @QueryParam("ingredient") long ingredientId) {
+	public void removeIngredient(@PathParam("id") String profileId, @QueryParam("ingredient") long ingredientId) {
 		profileService.removeIngredient(profileId,ingredientId);
 	}
 
@@ -128,21 +128,21 @@ public class ProfileRestService {
 	@Path("{id}/favourites")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the favourites  of a profile")
-	public Set<RecipeFav> getFavourite(@PathParam("id") Long profileId){
+	public Set<RecipeFav> getFavourite(@PathParam("id") String profileId){
 		return profileService.get(profileId).getFavouriteRecipes();
 	}
 
 	@POST
 	@Path("{id}/favourites")
 	@ApiOperation(value ="add favourite")
-	public void addFavouriteById(@PathParam("id") long profileId, @QueryParam("favourite") long favouriteId) {
+	public void addFavouriteById(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.addFavourite(profileId, favouriteId);
 	}
 
 	@DELETE
 	@Path("{id}/favourites")
 	@ApiOperation(value ="Remove Favourite from fridge")
-	public void removeFavourite(@PathParam("id") long profileId, @QueryParam("favourite") long favouriteId) {
+	public void removeFavourite(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
 	}
 
