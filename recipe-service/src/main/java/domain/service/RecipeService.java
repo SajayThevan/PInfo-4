@@ -13,8 +13,8 @@ import domain.model.RecipeDTO;
 public interface RecipeService {
 	public void addRecipe(Recipe r);
 	public void addRating(long id,int rate);
-	public ArrayList<RecipeDTO> getRecipesForProfil(long id);
-	public ArrayList<RecipeDTO> getRecipiesIdForProfiles(long id);
+	public ArrayList<RecipeDTO> getRecipesForProfil(String id);
+	public ArrayList<RecipeDTO> getRecipiesIdForProfiles(String id);
 	public void addComment(String comment, long id);
 	public void removeRecipe(long id);
 	public Recipe getRecipe(long id);
@@ -23,5 +23,6 @@ public interface RecipeService {
 	public ArrayList<RecipeDTO> getTendancies();
 	public ArrayList<RecipeDTO> getRecipeOfTheMonth();
 	public ArrayList<RecipeDTO> getRecipesListFromIds(ArrayList<Long> idList);
+
 	
 }

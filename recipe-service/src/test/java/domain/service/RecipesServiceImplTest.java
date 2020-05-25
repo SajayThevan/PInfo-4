@@ -78,7 +78,7 @@ class RecipesServiceImplTest {
 	void testGetRecipesForProfil() {
 		Recipe r1 = randomRecipe();
 		em.persist(r1);
-		long profilID = r1.getAuthorID();
+		String profilID = r1.getAuthorID();
 		ArrayList<RecipeDTO> recipes = recipesService.getRecipesForProfil(profilID);
 		assertEquals(recipes.size(),1);
 		assertEquals(recipes.get(0).getId(),r1.getId());
@@ -264,7 +264,7 @@ class RecipesServiceImplTest {
 		cat.add(cat1); cat.add(cat2);
 		
 
-		r.setAuthorID((long) new Random().nextInt(9999 + 1)+1);  //Set the profilID between 1 et 10000
+		r.setAuthorID(String.valueOf( new Random().nextInt(9999 + 1)+1));  //Set the profilID between 1 et 10000
 		r.setDate("21/04/2010");
 		r.setDifficulty(new Random().nextInt(10 + 1)+1); // Set the difficulty between 1 et 10
 		r.setName("Pizza");

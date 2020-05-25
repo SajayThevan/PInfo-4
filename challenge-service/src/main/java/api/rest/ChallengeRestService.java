@@ -110,8 +110,8 @@ public class ChallengeRestService {
 	@GET
 	@Path("{id}/author")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a specifc challenge name")
-	public Long getAuthor(@PathParam("id") Long challengeId) {
+	@ApiOperation(value = "Get a specifc Author Id")
+	public String getAuthor(@PathParam("id") Long challengeId) {
 		return challengeService.get(challengeId).getAuthorID();
 	}
 

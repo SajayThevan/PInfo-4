@@ -86,7 +86,7 @@ public class RecipeRestService {
 	@Path("/profiles/{profileID}") // TODO: Not the best uri??
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value ="Get Recipes for profil ID")
-	public ArrayList<RecipeDTO> getRecipesForProfilRest(@PathParam("profileID") long id) {
+	public ArrayList<RecipeDTO> getRecipesForProfilRest(@PathParam("profileID") String id) {
 		return rs.getRecipesForProfil(id);
 	}
 

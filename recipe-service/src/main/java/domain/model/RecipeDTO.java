@@ -10,7 +10,7 @@ public class RecipeDTO {
 	
 	
 	
-	public RecipeDTO(Long id2, String name2, Set<Ingredients> ingredients,long authorId2,Set<Ratings> rat) {
+	public RecipeDTO(Long id2, String name2, Set<Ingredients> ingredients,String authorId2,Set<Ratings> rat) {
 		this.id = id2;
 
 		this.ing = new ArrayList<Long>();
@@ -27,7 +27,7 @@ public class RecipeDTO {
 	private long id;
 	private ArrayList<Long> ing;
 	private String name;
-	private long authorId;
+	private String authorId;
 	private float mean;
 	
 }

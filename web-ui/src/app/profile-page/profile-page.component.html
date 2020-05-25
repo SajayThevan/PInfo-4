@@ -1,6 +1,4 @@
 
-  <script>console.log('Hi there')</script>
-  <script>printProfile()</script>
   <div class="container">
     <div class="row flex-nowrap justify-content-between align-items-center">
       <div class="center">
@@ -84,11 +82,12 @@
           </div>
           <div class="col">
             <div class="card">
-                <div class="card-body" *ngIf= "(fridge$ | async) as fridge; else loading">
+                <div class="card-body" *ngIf= "fridge$ | async; else loading">
+                  <script>console.log()</script>
                     Mon Frigo
                     <hr>
                     <div class="pad1" *ngFor="let ing of fridge">
-                        {{ing.ingredientId}} : {{ing.quantity}}
+                        {{ing.name}} : {{ing.quantity}}
                     </div>
                 </div>
             </div>

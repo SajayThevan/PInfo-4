@@ -16,7 +16,18 @@ export class IngredientService {
 
   // recupere ingredient pour affichages des recettes
   getIngredient(id) {
-    return this.http.get(environment.ingredientService.url + "/" + stringify(id));
+    return this.http.get(environment.ingredientService.url + "/" + id);
+  }
+
+  getIngredients(idList) {
+    // Convert idList to ?id=4&id=2&id=1
+    var queryList = "?";
+    idList.forEach(id => {
+      queryList = queryList + "id=" + id + "&";
+    });
+    queryList = queryList.substring(0, queryList.length - 1); // Remove last &
+    console.log(queryList);
+    return this.http.get(environment.ingredientService.url + "/selected" + queryList);
   }
 
   // pour la recherche
@@ -28,26 +39,26 @@ export class IngredientService {
   // on prendra les ids des ingredients de la recette a afficher
   getComputeCalories(idList) {
     // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
-    return this.http.get(environment.ingredientService.url + "/calories?"+stringify(idList));
+    return this.http.get(environment.ingredientService.url + "/calories?" + idList);
   }
 
   getComputeFat(idList) {
     // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
-    return this.http.get(environment.ingredientService.url + "/fat?"+stringify(idList));
+    return this.http.get(environment.ingredientService.url + "/fat?" + idList);
   }
 
   getComputeCholesterol(idList) {
     // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
-    return this.http.get(environment.ingredientService.url + "/cholesterol?"+stringify(idList));
+    return this.http.get(environment.ingredientService.url + "/cholesterol?" + idList);
   }
 
   getComputeProteins(idList) {
     // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
-    return this.http.get(environment.ingredientService.url + "/proteins?"+stringify(idList));
+    return this.http.get(environment.ingredientService.url + "/proteins?" + idList);
   }
 
   getComputeSalt(idList) {
     // TODO: DISCUSS COMPUTE CALORIES HOW THE FUNCTION GETS THE INGREDIENTS
-    return this.http.get(environment.ingredientService.url + "/salt?"+stringify(idList));
+    return this.http.get(environment.ingredientService.url + "/salt?" + idList);
   }
 }

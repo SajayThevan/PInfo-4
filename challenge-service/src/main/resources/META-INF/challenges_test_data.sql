@@ -10,7 +10,7 @@ create sequence RECIPE_SEQ start with 1 increment by 50;
 
 create table Challenge (
     id bigint not null,
-    authorID integer not null,
+    authorID varchar(255),
     name varchar(255),
     primary key (id)
 );
@@ -40,15 +40,15 @@ alter table Recipe
     foreign key (CHALLENGE_ID) 
     references Challenge;
     
-INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', Challenge_SEQ.nextval);
+INSERT INTO Challenge (authorID, name, id) values ('14', 'CREPESAMERE', Challenge_SEQ.nextval);
 INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,INGREDIENT_SEQ.nextval);
 INSERT INTO Recipe (recipeId, id) values (14, RECIPE_SEQ.nextval);
 
-INSERT INTO Challenge (authorID, name, id) values (14, 'CREPESAMERE', 2);
+INSERT INTO Challenge (authorID, name, id) values ('14', 'CREPESAMERE', 2);
 INSERT INTO Ingredient (ingredientId, quantity, id, CHALLENGE_ID) values (4,20,INGREDIENT_SEQ.nextval,2);
 INSERT INTO Recipe (recipeId, id, CHALLENGE_ID) values (14, RECIPE_SEQ.nextval,2);
 
-INSERT INTO Challenge (authorID, name, id) values (1, 'GateauAuCaca', Challenge_SEQ.nextval);
+INSERT INTO Challenge (authorID, name, id) values ('1', 'GateauAuCaca', Challenge_SEQ.nextval);
 INSERT INTO Ingredient (ingredientId, quantity, id) values (4,10,INGREDIENT_SEQ.nextval);
 INSERT INTO Recipe (recipeId, id) values (14, RECIPE_SEQ.nextval);
 

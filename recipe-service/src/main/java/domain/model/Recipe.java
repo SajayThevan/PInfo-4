@@ -47,7 +47,7 @@ public class Recipe implements Serializable{
 	private String name;
 	
 	@NotNull
-	private Long authorID; // ProfileID
+	private String authorID; // ProfileID
 	
 	@NotNull
 	//private Date date;

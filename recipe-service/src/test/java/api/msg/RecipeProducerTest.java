@@ -85,7 +85,7 @@ class RecipeProducerTest {
 		cat.add(cat1); cat.add(cat2);
 		
 
-		r.setAuthorID((long) new Random().nextInt(9999 + 1)+1); // Set the profilID between 1 et 10000
+		r.setAuthorID(String.valueOf( new Random().nextInt(9999 + 1)+1)); // Set the profilID between 1 et 10000
 		r.setDate("Demain");
 		r.setDifficulty(new Random().nextInt(10 + 1)+1); // Set the difficulty between 1 et 10
 		r.setName("Pizza");
