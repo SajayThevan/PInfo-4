@@ -77,9 +77,6 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public void create(Profile profile) {
-		if (profile.getId() != null) {
-			throw new IllegalArgumentException("Profile already exists : " + profile.getId());
-		}
 		em.persist(profile);
 	}
 	
