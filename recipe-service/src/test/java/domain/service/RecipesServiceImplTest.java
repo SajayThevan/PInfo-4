@@ -214,17 +214,24 @@ class RecipesServiceImplTest {
 	@Test
 	public void testgetRecipesListFromIds() {
 		ArrayList<Long> ini = new ArrayList<Long> ();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 15; i++) {
 			Recipe r = randomRecipe();
 			em.persist(r);
 			if (i % 2 == 0) {
 				ini.add(r.getId());
 			}
 		}
-		ini.add((long)21);
+		Long toAdd = (long) 21;
 		ArrayList<RecipeDTO> ret = recipesService.getRecipesListFromIds(ini);
-		assertEquals(ret.size(),ini.size()-1);
-		
+		if (ini.contains(toAdd)) {
+			assertEquals(ret.size(),ini.size());
+		}else {
+			ini.add((long)21);
+			
+			assertEquals(ret.size(),ini.size()-1);
+			
+		}
+	
 	}
 
 
