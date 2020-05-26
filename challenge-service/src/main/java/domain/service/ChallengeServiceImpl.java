@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 
 import domain.model.Challenge;
 import domain.model.Recipe;
@@ -28,6 +29,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 	
 	@Override
+	@Transactional
 	public void update(Challenge challenge) {
 		Challenge p = em.find(Challenge.class, challenge.getId());
 		if (p == null) {
@@ -37,6 +39,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 	
 	@Override
+	@Transactional
 	public void addSolution(long id, long recipeId) {
 		Challenge ch = get(id);
 		Recipe r = new Recipe();
@@ -52,6 +55,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
+	@Transactional
 	public void create(Challenge challenge) {
 		if (challenge.getId() != null) {
 			throw new IllegalArgumentException("Challenge already exists : " + challenge.getId());
@@ -68,6 +72,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 	
 	@Override
+	@Transactional
 	public void removeChallenge(long id) {
 		Challenge ch = get(id);
 		em.remove(ch);

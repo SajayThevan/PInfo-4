@@ -9,13 +9,14 @@ import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
 import org.javatuples.Pair;
-import org.javatuples.Triplet;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
+
 import domain.model.Ingredients;
 import domain.model.Recipe;
 import domain.model.RecipeDTO;
@@ -38,6 +39,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public void addRecipe(Recipe r) {
 		if (r.getId() != null) {
 			throw new IllegalArgumentException("Recipe already exists : " + r.getId());
@@ -46,6 +48,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public void addRating(long id,int rate) {
 		Recipe r = em.find(Recipe.class, id);
 		Ratings rating = new Ratings();
@@ -81,6 +84,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public void addComment(String comment, long id) {
 		Recipe r = em.find(Recipe.class, id);
 		r.addComent(comment);
@@ -88,6 +92,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public void removeRecipe(long id) {
 		Recipe r = em.find(Recipe.class, id);
 		em.remove(r);
@@ -118,10 +123,7 @@ public class RecipeServiceImpl implements RecipeService {
 			for(Ingredients i: ing) {
 				containedIngId.add(i.getIngredientID());
 			}
-			System.out.println("-------------------------");
-			System.out.println(r.getId());
-			System.out.println(containedIngId);
-			System.out.println(ing_id);
+
 			if(containedIngId.containsAll(ing_id)){
 				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
 			}

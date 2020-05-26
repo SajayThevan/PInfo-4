@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 
 import domain.model.Profile;
 import domain.model.RecipeFav;
@@ -39,6 +40,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override
+	@Transactional
 	public void update(Profile profile) {
 		Profile p = em.find(Profile.class, profile.getId());
 		if (p == null) {
@@ -48,6 +50,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
+	@Transactional
 	public void addIngredient(String id, long ingredientId, int quantity) {
 		Profile p = get(id);
 		Ingredient ing = new Ingredient();
@@ -60,6 +63,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
+	@Transactional
 	public void addFavourite(String id, long recipeId) {
 		Profile p = get(id);
 		RecipeFav fav = new RecipeFav();
@@ -76,6 +80,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
+	@Transactional
 	public void create(Profile profile) {
 		em.persist(profile);
 	}
@@ -89,12 +94,14 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override
+	@Transactional
 	public void removeProfile(String id) {
 		Profile p = get(id);
 		em.remove(p);
 	}
 	
 	@Override
+	@Transactional
 	public void removeIngredient(String id,long ingredientId) {
 		Profile p = get(id);
 		Set <Ingredient> oldIngredients = p.getFridgeContents();
@@ -106,6 +113,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	@Override
+	@Transactional
 	public void removeFavourite(String id,long recipeId) {
 		Profile p = get(id);
 		Set <RecipeFav> oldFavourites = p.getFavouriteRecipes();

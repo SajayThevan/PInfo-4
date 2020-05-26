@@ -13,7 +13,7 @@ create table Ingredient (
     id bigint not null,
     ingredientId bigint,
     quantity integer not null,
-    Profile_id bigint,
+    Profile_id varchar(255),
     primary key (id)
 );
 create table Profile (
@@ -29,7 +29,7 @@ create table Profile (
 create table RecipeFav (
     id bigint not null,
     recipeId bigint,
-    Profile_id bigint,
+    Profile_id varchar(255),
     primary key (id)
 );
 
