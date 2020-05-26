@@ -1,19 +1,27 @@
 package api.rest;
 
-
+//import javax.ws.rs.core.HttpHeaders;
+import com.auth0.jwt.JWT;
+//import com.auth0.jwt.exceptions.JWTDecodeException;
+//import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.*;
 
 import java.util.List;
 import java.util.Set;
@@ -28,6 +36,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
 
+
 @ApplicationScoped
 @Path("/profiles")
 @Api(value = "profiles", authorizations = {
@@ -35,6 +44,8 @@ import io.swagger.annotations.Authorization;
 	    })
 public class ProfileRestService {
 
+	
+	
 	@Inject
 	private ProfileService profileService;
 	@Inject
@@ -61,8 +72,14 @@ public class ProfileRestService {
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specific profile")
-	public Profile get(@PathParam("id") String profileId) {
+	public Profile get(@PathParam("id") String profileId, @HeaderParam("Authorization") String auth) {
+		
+		if (!verifyUserId(profileId,auth)){
+			throw new WebApplicationException("Unauthorized profile ID", Response.status(Status.UNAUTHORIZED).build());
+		}
+		
 		return profileService.get(profileId);
+
 	}
 	
 	@GET
@@ -145,7 +162,17 @@ public class ProfileRestService {
 	public void removeFavourite(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
 	}
-
-
+	
+	public boolean verifyUserId(@PathParam("id") String profileId ,String auth) {
+		//TODO: Verify token
+		String acessToken = auth.substring(7); // Remove 'Bearer '
+		DecodedJWT jwt = JWT.decode(acessToken);
+		String userId = jwt.getId();
+		if (userId == profileId) {
+			return true;
+		}
+		return false;
+		
+	}
 
 }
