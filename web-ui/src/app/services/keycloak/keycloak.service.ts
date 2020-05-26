@@ -71,6 +71,12 @@ export class KeycloakService {
         } else return 'guest';
     }
 
+    getID(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.sub;
+        } else return 'guest';
+    }
+
     getKeycloakAuth() {
         return KeycloakService.auth.authz;
     }
