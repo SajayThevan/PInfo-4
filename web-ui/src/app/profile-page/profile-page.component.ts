@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { ProfileService } from '../services/profile/profile.service'
 import { RecipeService } from '../services/recipe/recipe.service';
 import { IngredientService } from '../services/ingredient/ingredient.service';
@@ -28,54 +28,40 @@ export class ProfilePageComponent implements OnInit {
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();
     } else {
-      this.createProfile();
-      // TODO Update profile
-        // Check if profile has been updated through keycloak and sync with backend
-      
-      // this.profileService.profileExists(this.keycloak.getID()).subscribe(
-      //   (profileExists : any) => {
-      //     console.log(profileExists);
-      //     if (!profileExists) {
-      //       this.createProfile();
-      //     }
-      //     this.getProfileDetails();
-      // });
+      console.log(this.keycloak.getToken());
+      this.profileService.profileExists(this.keycloak.getID()).subscribe(
+        (profileExists : any) => {
+          console.log(profileExists);
+          if (!profileExists) {
+            this.createProfile().subscribe(
+              (reponse: any) => {
+                this.getProfileDetails()
+            });
+          } else {
+            this.getProfileDetails();
+          }
+      });
     }
   }
 
   createProfile() {
-    // TODO: DENIZ
-      // Remove first/last name & email from profile model
-
-    // let id = this.keycloak.getID();
-    let id = 2;
-    let pseudo = this.keycloak.getUsername();
-    let score = 0;
-    let favouriteRecipes = [];
-    let fridgeContents = [];
-
     let profile: any = {};
-    profile.id = id;
-    profile.pseudo = pseudo;
-    profile.email = 'fuck@gmail.com';
-    profile.firstName = 'Deniz';
-    profile.lastName = 'Sungurtekin';
-    profile.score = score;
-    profile.fridgeContents = fridgeContents;
-    profile.favouriteRecipes = favouriteRecipes;
-
-    console.log(profile);
-
-    this.profileService.createProfile(profile);
+    profile.id = this.keycloak.getID();
+    profile.pseudo = this.keycloak.getUsername();
+    profile.email = this.keycloak.getEmail();
+    profile.firstName = this.keycloak.getFirstName();
+    profile.lastName = this.keycloak.getLastName();
+    profile.score = 0;
+    profile.fridgeContents = [];
+    profile.favouriteRecipes = [];
+    return this.profileService.createProfile(profile);
   }
 
   getProfileDetails() {
     // Get Profile
-    this.profile$ = this.profileService.getProfile(1)
+    this.profile$ = this.profileService.getProfile(this.keycloak.getID())
     this.profile$.subscribe(
-        (profile : any) => {
-          // profile.firstName = this.keycloak.getFullName;
-          
+        (profile : any) => {          
           // Get Fridge Contents
           var ingIDs = [];
           profile.fridgeContents.forEach(element => {
@@ -97,7 +83,7 @@ export class ProfilePageComponent implements OnInit {
           this.favourites$ = this.recipeService.getRecipes(recipeIDs);
     });
     // Get my recipes
-    this.recipes$ = this.recipeService.getRecipeforProfile(1);
+    this.recipes$ = this.recipeService.getRecipeforProfile(this.keycloak.getID());
   }
 
   logout() {
