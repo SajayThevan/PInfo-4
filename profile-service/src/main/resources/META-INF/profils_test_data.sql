@@ -49,6 +49,6 @@ INSERT INTO RecipeFav (recipeId, id, Profile_id) values (14, RECIPEFAV_SEQ.nextv
 INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id) values (4, 50, INGREDIENT_SEQ.nextval,'2');
 
 
-INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( 'b16c6934-fe0f-45e5-ae5c-ee2d6277365e', 'mathias@gmail.com', 'Mathias', 'Tonini', 'mathi', 99);
-INSERT INTO RecipeFav (recipeId, id, Profile_id) values (15, RECIPEFAV_SEQ.nextval,'b16c6934-fe0f-45e5-ae5c-ee2d6277365e');
-INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id) values (5, 50, INGREDIENT_SEQ.nextval,'b16c6934-fe0f-45e5-ae5c-ee2d6277365e');
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( '30181a13-2157-4cb4-8298-e71dbfda4f01', 'mathias@gmail.com', 'Mathias', 'Tonini', 'mathi', 99);
+INSERT INTO RecipeFav (recipeId, id, Profile_id) values (15, RECIPEFAV_SEQ.nextval,'30181a13-2157-4cb4-8298-e71dbfda4f01');
+INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id) values (5, 50, INGREDIENT_SEQ.nextval,'30181a13-2157-4cb4-8298-e71dbfda4f01');

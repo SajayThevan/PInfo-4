@@ -1,11 +1,8 @@
 package api.rest;
 
-//import javax.ws.rs.core.HttpHeaders;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-//import com.auth0.jwt.exceptions.JWTDecodeException;
-//import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
@@ -25,7 +22,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.*;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPublicKey;
@@ -46,6 +50,7 @@ import io.swagger.annotations.Authorization;
 
 
 
+
 @ApplicationScoped
 @Path("/profiles")
 @Api(value = "profiles", authorizations = {
@@ -53,12 +58,12 @@ import io.swagger.annotations.Authorization;
 	    })
 public class ProfileRestService {
 
-
-
 	@Inject
 	private ProfileService profileService;
 	@Inject
 	private ProfileProducer profileProducer;
+	
+	private String publicKeyString;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -171,55 +176,69 @@ public class ProfileRestService {
 
 	public boolean authenticate(String profileId ,String auth) {
 		String token = auth.substring(7); // substring to remove 'Bearer '
-		
+				
 		// TODO: Write tests for this function, not working and would be best to test with
-		
 		// TODO: Can we assign this key to an attribute of the class and reuse it across calls?????
 		// TODO: Get the key instance dynamically
+		
 		// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
-//		String publicKeyString = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDaj2mWokUVRg1dwgOjIQZGiLCFkVWhHxeAO5TJxPIuvoAxNnkYEBvY/6QCDCn1m2EcLcRKoZuyTeiP5l/XRMHIfp3K8mI0w6tzMk/eDsFIrOl7eE2anV52/O2WoVr6j5X1eOZAzsCvROzou/u3eMa+D15FkHgPwwRP4A0Mj1cemQIDAQAB";
-//		KeyFactory kf = null;
-//		try {
-//			kf = KeyFactory.getInstance("RSA");
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
-//        RSAPublicKey pubKey = null;
-//		try {
-//			pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
-//		} catch (InvalidKeySpecException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		DecodedJWT jwt = null;
-//		try {
-//		    Algorithm algorithm = Algorithm.RSA256(pubKey, null);
-//		    JWTVerifier verifier = JWT.require(algorithm)
-//		        .withIssuer("auth0")
-//		    .build(); //Reusable verifier instance
-//		    jwt = verifier.verify(token);
-//		} catch (JWTVerificationException exception){
-//		    //Invalid signature/claims
-//			return false;
-//		}
-		
-		
-		DecodedJWT jwt = JWT.decode(token);
-		
-		System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		System.out.println(jwt);
-		System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		if (publicKeyString == null) {
 
+		    try {
+				String url = "https://pinfo4.unige.ch/auth/realms/apigw";
+				HttpClient client = HttpClients.createDefault();
+				HttpGet request = new HttpGet(url);
+			    HttpResponse response = client.execute(request);
+			    String json = EntityUtils.toString(response.getEntity());
+			    JSONObject realm = new JSONObject(json);
+			    publicKeyString = realm.getString("public_key");
+		    }
+	
+		    catch (IOException e ) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		    	
+		    }  
+	    }
+	   
+	    
+	    
+		
+		//String publicKeyString = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDaj2mWokUVRg1dwgOjIQZGiLCFkVWhHxeAO5TJxPIuvoAxNnkYEBvY/6QCDCn1m2EcLcRKoZuyTeiP5l/XRMHIfp3K8mI0w6tzMk/eDsFIrOl7eE2anV52/O2WoVr6j5X1eOZAzsCvROzou/u3eMa+D15FkHgPwwRP4A0Mj1cemQIDAQAB";
+		KeyFactory kf = null;
+		try {
+			kf = KeyFactory.getInstance("RSA");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
+        RSAPublicKey pubKey = null;
+		try {
+			pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
+			
+		} catch (InvalidKeySpecException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DecodedJWT jwt = JWT.decode(token);
+		try {
+		    Algorithm algorithm = Algorithm.RSA256(pubKey,null);
+		    JWTVerifier verifier = JWT.require(algorithm)
+		        .withIssuer("https://pinfo4.unige.ch/auth/realms/apigw")
+		        .build(); //Reusable verifier instance
+		    verifier.verify(token);
+		} catch (JWTVerificationException exception){
+		    //Invalid signature/claims
+			return false;
+		}
 		String userId = jwt.getSubject();
-		System.out.println(userId);
-		System.out.println(profileId);
-		if (userId == profileId) {
+		
+		if (userId.contentEquals(profileId) ) {
 			return true;
 		}
-		return false;
+		return false;	
 	}
 
 }
