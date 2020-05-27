@@ -13,11 +13,11 @@ export class ProfileService {
     return this.http.get<any>(environment.profileService.url + "/" + id + "/exists");
   }
 
-  getProfile(token) {
-    return this.http.get<any>(environment.profileService.url + "/" + token);
+  getProfile(id) {
+    return this.http.get<any>(environment.profileService.url + "/" + id);
   }
 
-  createProfile(profile): void {
+  createProfile(profile) {
     let httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Accept': 'application/json'
@@ -25,6 +25,6 @@ export class ProfileService {
     let options = {
       headers: httpHeaders
     };
-    this.http.post(environment.profileService.url, JSON.stringify(profile), options);
+    return this.http.post(environment.profileService.url, JSON.stringify(profile), options);
   }
 }

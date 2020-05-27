@@ -2,9 +2,12 @@ package api.rest;
 
 //import javax.ws.rs.core.HttpHeaders;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 //import com.auth0.jwt.exceptions.JWTDecodeException;
 //import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,6 +26,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.*;
 
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -44,8 +53,8 @@ import io.swagger.annotations.Authorization;
 	    })
 public class ProfileRestService {
 
-	
-	
+
+
 	@Inject
 	private ProfileService profileService;
 	@Inject
@@ -63,7 +72,7 @@ public class ProfileRestService {
 	@Path("/count")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a the count of profile")
-  public Long count() {
+	public Long count() {
 		return profileService.count();
 	}
 
@@ -73,15 +82,12 @@ public class ProfileRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specific profile")
 	public Profile get(@PathParam("id") String profileId, @HeaderParam("Authorization") String auth) {
-		
-		if (!verifyUserId(profileId,auth)){
-			throw new WebApplicationException("Unauthorized profile ID", Response.status(Status.UNAUTHORIZED).build());
+		if (!authenticate(profileId,auth)){
+			throw new WebApplicationException("Unauthorized", Response.status(Status.UNAUTHORIZED).build());
 		}
-		
 		return profileService.get(profileId);
-
 	}
-	
+
 	@GET
 	@Path("/{id}/exists")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -89,7 +95,7 @@ public class ProfileRestService {
 	public boolean checkProfileExists(@PathParam("id") String profileId) {
 		return profileService.checkProfile(profileId);
 	}
-	
+
 
 	@DELETE
 	@Path("{id}")
@@ -162,17 +168,58 @@ public class ProfileRestService {
 	public void removeFavourite(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
 	}
-	
-	public boolean verifyUserId(@PathParam("id") String profileId ,String auth) {
-		//TODO: Verify token
-		String acessToken = auth.substring(7); // Remove 'Bearer '
-		DecodedJWT jwt = JWT.decode(acessToken);
-		String userId = jwt.getId();
+
+	public boolean authenticate(String profileId ,String auth) {
+		String token = auth.substring(7); // substring to remove 'Bearer '
+		
+		// TODO: Write tests for this function, not working and would be best to test with
+		
+		// TODO: Can we assign this key to an attribute of the class and reuse it across calls?????
+		// TODO: Get the key instance dynamically
+		// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
+//		String publicKeyString = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDaj2mWokUVRg1dwgOjIQZGiLCFkVWhHxeAO5TJxPIuvoAxNnkYEBvY/6QCDCn1m2EcLcRKoZuyTeiP5l/XRMHIfp3K8mI0w6tzMk/eDsFIrOl7eE2anV52/O2WoVr6j5X1eOZAzsCvROzou/u3eMa+D15FkHgPwwRP4A0Mj1cemQIDAQAB";
+//		KeyFactory kf = null;
+//		try {
+//			kf = KeyFactory.getInstance("RSA");
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
+//        RSAPublicKey pubKey = null;
+//		try {
+//			pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
+//		} catch (InvalidKeySpecException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		DecodedJWT jwt = null;
+//		try {
+//		    Algorithm algorithm = Algorithm.RSA256(pubKey, null);
+//		    JWTVerifier verifier = JWT.require(algorithm)
+//		        .withIssuer("auth0")
+//		    .build(); //Reusable verifier instance
+//		    jwt = verifier.verify(token);
+//		} catch (JWTVerificationException exception){
+//		    //Invalid signature/claims
+//			return false;
+//		}
+		
+		
+		DecodedJWT jwt = JWT.decode(token);
+		
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println(jwt);
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+		String userId = jwt.getSubject();
+		System.out.println(userId);
+		System.out.println(profileId);
 		if (userId == profileId) {
 			return true;
 		}
 		return false;
-		
 	}
 
 }

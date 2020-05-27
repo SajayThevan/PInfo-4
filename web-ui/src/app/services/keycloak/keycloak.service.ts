@@ -59,9 +59,10 @@ export class KeycloakService {
     isLoggedIn(): boolean {
         return KeycloakService.auth.authz.authenticated;
     }
-    getFullName(): string {
+
+    getID(): string {
         if (this.isLoggedIn()) {
-            return KeycloakService.auth.authz.tokenParsed.name;
+            return KeycloakService.auth.authz.tokenParsed.sub;
         } else return 'guest';
     }
 
@@ -71,15 +72,34 @@ export class KeycloakService {
         } else return 'guest';
     }
 
-    getID(): string {
+    getEmail(): string {
         if (this.isLoggedIn()) {
-            return KeycloakService.auth.authz.tokenParsed.sub;
+            return KeycloakService.auth.authz.tokenParsed.email;
+        } else return 'guest';
+    }
+
+    getFullName(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.name;
+        } else return 'guest';
+    }
+
+    getFirstName(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.family_name;
+        } else return 'guest';
+    }
+
+    getLastName(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.given_name;
         } else return 'guest';
     }
 
     getKeycloakAuth() {
         return KeycloakService.auth.authz;
     }
+
     logout(): void {
         KeycloakService.auth.authz.logout({ redirectUri: document.baseURI }).success(() => {
             KeycloakService.auth.loggedIn = false;
