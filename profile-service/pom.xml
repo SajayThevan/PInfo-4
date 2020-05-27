@@ -21,21 +21,23 @@
 
 
 	<dependencies>
-	
-	
+
+
+		<dependency>
+	    <groupId>commons-codec</groupId>
+	    <artifactId>commons-codec</artifactId>
+	    <version>1.9</version>
+		</dependency>
  		<dependency>
     		<groupId>org.apache.httpcomponents</groupId>
     		<artifactId>httpclient</artifactId>
     		<version>4.5.12</version>
 		</dependency>
- 		
- 	
  		<dependency>
     		<groupId>org.json</groupId>
     		<artifactId>json</artifactId>
-    		<version>20200518</version>					
+    		<version>20200518</version>
 		</dependency>
- 		
  		<dependency>
     			<groupId>com.auth0</groupId>
     			<artifactId>java-jwt</artifactId>
@@ -142,7 +144,7 @@
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.jdbc.driver.version}</version>
 		</dependency>
-		
+
 		<dependency>
            <groupId>org.slf4j</groupId>
            <artifactId>slf4j-api</artifactId>
@@ -160,7 +162,7 @@
 	        <version>1.2</version>
 	        <scope>compile</scope>
     	</dependency>
-		
+
 	</dependencies>
 	<build>
 
@@ -278,7 +280,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 						<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>sql-maven-plugin</artifactId>
