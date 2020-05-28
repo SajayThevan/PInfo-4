@@ -52,6 +52,13 @@ public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
+	
+	@GET
+	@Path("testVolume")
+	@ApiOperation(value = "test volume")
+	public void RecipeTestVolume() {
+		rs.RecipeTestVolume();
+	}
 
 	// Challenges
 	@GET

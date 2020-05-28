@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
 
 public class ChallengeRestServiceIT {
-
+/*
 	@BeforeAll
 	public static void setup() {
 		RestAssured.baseURI = "http://localhost:28080/challenges";
@@ -50,5 +50,5 @@ public class ChallengeRestServiceIT {
 	public void testGetAuthor() {
 		when().get("2/author").then().body(containsString("14"));
 	}
-
+*/
 }

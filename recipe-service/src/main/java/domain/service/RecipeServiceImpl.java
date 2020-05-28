@@ -16,6 +16,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 
 import domain.model.Ingredients;
 import domain.model.Recipe;
@@ -36,6 +38,20 @@ public class RecipeServiceImpl implements RecipeService {
 	public RecipeServiceImpl(EntityManager em) {
 		this();
 		this.em = em;
+	}
+	
+	public void RecipeTestVolume() {
+		try {
+			File myObj = new File("/mnt/data/images/filename.txt");
+			if (myObj.createNewFile()) {
+		        System.out.println("File created: " + myObj.getName());
+		      } else {
+		        System.out.println("File already exists.");
+		      }
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
 	}
 
 	@Override
