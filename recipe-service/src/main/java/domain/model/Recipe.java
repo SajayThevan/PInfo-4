@@ -50,12 +50,11 @@ public class Recipe implements Serializable{
 	private String authorID; // ProfileID
 	
 	@NotNull
-	//private Date date;
 	private String date;
 	
-	@NotNull
+	private byte[] image;
 	
-	
+	@NotNull	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Recipe_ID", nullable = true)
 	private Set<Ingredients> ingredients;

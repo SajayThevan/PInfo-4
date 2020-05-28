@@ -22,16 +22,15 @@ export class ProfilePageComponent implements OnInit {
   public favourites$: Observable<any>;
   public fridge$: Observable<any>;
   public fridge: any; // TODO: Not the cleanest way, would be nicer to directly affect the reponse of the observable rather than assign it to a new variable
+                      // Done like this as quantities are added to fridge and not sure how to add elements to the observable response
 
   ngOnInit(): void {
     this.keycloakAuth = this.keycloak.getKeycloakAuth();
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();
     } else {
-      console.log(this.keycloak.getToken());
       this.profileService.profileExists(this.keycloak.getID()).subscribe(
         (profileExists : any) => {
-          console.log(profileExists);
           if (!profileExists) {
             this.createProfile().subscribe(
               (reponse: any) => {

@@ -46,7 +46,6 @@ export class RecipeService {
 
   getRecipeforProfile(profile_id) {
     var Request_url = environment.recipeService.url + "/profiles/" + profile_id;
-    console.log(profile_id);
     return this.http.get(Request_url); // [ RecipeID,RecipeName,Ingredients ]
   }
 

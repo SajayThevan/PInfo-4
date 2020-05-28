@@ -34,7 +34,6 @@ export class SearchComponent implements OnInit {
    this.ingredientService.getAllIngredientsResearch().subscribe(
      (data : Response) => {
        this.Ingredients = data;
-       console.log("Ingredients", data);
       });
   }
 
@@ -43,16 +42,13 @@ export class SearchComponent implements OnInit {
   public Result : Object;
 
   getResult() {
-    console.log(this.selected);
     this.selected.forEach(element => {
       this.url = this.url+"?id="+element.id+"&"
     });
     this.url = this.url.substring(0, this.url.length - 1);
-    console.log(this.url);
     this.recipeService.getSearchResult(this.url).subscribe(
       (data : Response) => {
         this.Result = data;
-        console.log("Search Result", data);
        });
   }
 }

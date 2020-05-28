@@ -33,9 +33,12 @@ public class RecipeConsumer {
 	public int deleteRecipe(final String message) {
 		log.info("Consumer got following message : " + message); //Suppose message = author ID
 		List<RecipeDTO> ids = rs.getRecipiesIdForProfiles(message);
-		for (int i=0; i < ids.size(); i++) {
-			long recipeID = ids.get(i).getId();
-			rs.removeRecipe(recipeID);
+		for (RecipeDTO rd: ids) {
+			Recipe r = rs.getRecipe(rd.getId());
+			rs.removeRecipe(rd.getId());
+			r.setAuthorID("null");
+			rs.addRecipe(r);
+			
 		}
 		return 1;
 	}

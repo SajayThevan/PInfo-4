@@ -11,6 +11,7 @@ import domain.model.Recipe;
 import domain.model.RecipeDTO;
 
 public interface RecipeService {
+	public void RecipeTestVolume();
 	public void addRecipe(Recipe r);
 	public void addRating(long id,int rate);
 	public ArrayList<RecipeDTO> getRecipesForProfil(String id);
