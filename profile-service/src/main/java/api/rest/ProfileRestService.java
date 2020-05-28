@@ -65,10 +65,9 @@ public class ProfileRestService {
 	
 	private String publicKeyString;
 
-	@GET
+	@GET   //Remove for production
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the profiles")
-
 	public List<Profile> getAll() {
 		return profileService.getAll();
 	}
@@ -102,33 +101,33 @@ public class ProfileRestService {
 	}
 
 
-	@DELETE
+	@DELETE  //authenticate
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value= "Remove a Profile")
-	public void removeProfileById(@PathParam("id") String id) {
+	public void removeProfileById(@PathParam("id") String id) { //authenticate
+		
 		profileService.removeProfile(id);
+		profileProducer.sendProfileDeleted(id);
 	}
 
-	@PUT
+	@PUT  //authenticate
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Update a given profile")
 	public void update(Profile profile) {
 		profileService.update(profile);
-		profileProducer.send(profile);
 	}
 
-	@POST
+	@POST   //authenticate
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new profile")
 	public void create(Profile profile) {
 		profileService.create(profile);
-		profileProducer.send(profile);
 	}
 
 
 	// Ingredients
-	@GET
+	@GET   //authenticate
 	@Path("{id}/ingredients")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the fridge content of a profile")
@@ -136,13 +135,13 @@ public class ProfileRestService {
 		return profileService.get(profileId).getFridgeContents();
 	}
 
-	@POST
+	@POST  //authenticate
 	@Path("{id}/ingredients")
 	@ApiOperation(value ="add Ingredient")
 	public void addIngredientById(@PathParam("id") String profileId, @QueryParam("ingredient") long ingredientId, @QueryParam("quantity") int quantity) {
 		profileService.addIngredient(profileId, ingredientId, quantity);
 	}
-
+	 //authenticate
 	@DELETE
 	@Path("{id}/ingredients")
 	@ApiOperation(value ="Remove Ingredient from fridge")
@@ -150,7 +149,7 @@ public class ProfileRestService {
 		profileService.removeIngredient(profileId,ingredientId);
 	}
 
-
+	 //authenticate
 	// Favourites
 	@GET
 	@Path("{id}/favourites")
@@ -159,19 +158,20 @@ public class ProfileRestService {
 	public Set<RecipeFav> getFavourite(@PathParam("id") String profileId){
 		return profileService.get(profileId).getFavouriteRecipes();
 	}
-
+	 //authenticate
 	@POST
 	@Path("{id}/favourites")
 	@ApiOperation(value ="add favourite")
 	public void addFavouriteById(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.addFavourite(profileId, favouriteId);
 	}
-
+	 //authenticate
 	@DELETE
 	@Path("{id}/favourites")
 	@ApiOperation(value ="Remove Favourite from fridge")
 	public void removeFavourite(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
+		
 	}
 
 	public boolean authenticate(String profileId ,String auth) {
@@ -235,7 +235,7 @@ public class ProfileRestService {
 		}
 		String userId = jwt.getSubject();
 		
-		if (userId.contentEquals(profileId) ) {
+		if ((profileId == null) || (userId.contentEquals(profileId) )) {
 			return true;
 		}
 		return false;	

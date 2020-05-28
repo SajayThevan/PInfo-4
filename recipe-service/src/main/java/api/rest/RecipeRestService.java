@@ -1,7 +1,13 @@
 package api.rest;
 
+import java.io.IOException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
-
+import java.util.Base64;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -16,8 +22,19 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.javatuples.Triplet;
-
+//import org.apache.http.HttpResponse;
+//import org.apache.http.client.HttpClient;
+//import org.apache.http.client.methods.HttpGet;
+//import org.apache.http.impl.client.HttpClients;
+//import org.apache.http.util.EntityUtils;
+//import org.javatuples.Triplet;
+//import org.json.JSONObject;
+//
+//import com.auth0.jwt.JWT;
+//import com.auth0.jwt.algorithms.Algorithm;
+//import com.auth0.jwt.exceptions.JWTVerificationException;
+//import com.auth0.jwt.interfaces.DecodedJWT;
+//import com.auth0.jwt.interfaces.JWTVerifier;
 
 import domain.model.Recipe;
 import domain.model.RecipeDTO;
@@ -45,14 +62,14 @@ public class RecipeRestService {
 		Recipe a = rs.getRecipe(id);
 		return a;
 	}
-
+	 //authenticate check if user
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new Recipe",  notes = "Create a new Recip.")
 	public void createRecipe(Recipe r) {
 		rs.addRecipe(r);
 	}
-
+	 //authenticate
 	@DELETE
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -81,7 +98,8 @@ public class RecipeRestService {
 		return rs.getRecipesListFromIds(idList);
 	}
 
-	// Get recipes for profile
+	// Get recipes for profile 
+	//authenticate
 	@GET
 	@Path("/profiles/{profileID}") // TODO: Not the best uri??
 	@Produces(MediaType.APPLICATION_JSON)
@@ -89,7 +107,7 @@ public class RecipeRestService {
 	public ArrayList<RecipeDTO> getRecipesForProfilRest(@PathParam("profileID") String id) {
 		return rs.getRecipesForProfil(id);
 	}
-
+	
 	@GET
 	@Path("/trends")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -106,7 +124,7 @@ public class RecipeRestService {
 		return rs.getRecipeOfTheMonth();
 	}
 
-
+	 //authenticate
 	// Put attributes
 	@PUT
 	@Path("{id}/rate")
@@ -114,7 +132,7 @@ public class RecipeRestService {
 	public void addRates(@PathParam("id") long id, @QueryParam("rate")int rate) {
 		rs.addRating(id,rate);
 	}
-
+	 //authenticate
 	@PUT
 	@Path("{id}/comments")
 	@Consumes(MediaType.TEXT_PLAIN)
@@ -132,5 +150,72 @@ public class RecipeRestService {
   public Long count() {
 		return rs.count();
 	}
+	
+//	public boolean authenticate(String profileId ,String auth) {
+//		String token = auth.substring(7); // substring to remove 'Bearer '
+//				
+//		// TODO: Write tests for this function, not working and would be best to test with
+//		// TODO: Can we assign this key to an attribute of the class and reuse it across calls?????
+//		// TODO: Get the key instance dynamically
+//		
+//		// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
+//		if (publicKeyString == null) {
+//
+//		    try {
+//				String url = "https://pinfo4.unige.ch/auth/realms/apigw";
+//				HttpClient client = HttpClients.createDefault();
+//				HttpGet request = new HttpGet(url);
+//			    HttpResponse response = client.execute(request);
+//			    String json = EntityUtils.toString(response.getEntity());
+//			    JSONObject realm = new JSONObject(json);
+//			    publicKeyString = realm.getString("public_key");
+//		    }
+//	
+//		    catch (IOException e ) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//		    	
+//		    }  
+//	    }
+//	   
+//	    
+//	    
+//		
+//		//String publicKeyString = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDaj2mWokUVRg1dwgOjIQZGiLCFkVWhHxeAO5TJxPIuvoAxNnkYEBvY/6QCDCn1m2EcLcRKoZuyTeiP5l/XRMHIfp3K8mI0w6tzMk/eDsFIrOl7eE2anV52/O2WoVr6j5X1eOZAzsCvROzou/u3eMa+D15FkHgPwwRP4A0Mj1cemQIDAQAB";
+//		KeyFactory kf = null;
+//		try {
+//			kf = KeyFactory.getInstance("RSA");
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//        X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
+//        RSAPublicKey pubKey = null;
+//		try {
+//			pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
+//			
+//		} catch (InvalidKeySpecException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		DecodedJWT jwt = JWT.decode(token);
+//		try {
+//		    Algorithm algorithm = Algorithm.RSA256(pubKey,null);
+//		    JWTVerifier verifier = JWT.require(algorithm)
+//		        .withIssuer("https://pinfo4.unige.ch/auth/realms/apigw")
+//		        .build(); //Reusable verifier instance
+//		    verifier.verify(token);
+//		} catch (JWTVerificationException exception){
+//		    //Invalid signature/claims
+//			return false;
+//		}
+//		String userId = jwt.getSubject();
+//		
+//		if ((profileId == null) || (userId.contentEquals(profileId) )) {
+//			return true;
+//		}
+//		return false;	
+//	}
 
 }

@@ -18,17 +18,17 @@ class ProfileConsumerTest {
 	@InjectMocks
 	private ProfileConsumer consumer;
 	
-	@Test
-	void testUpdateRegularProfile() {
-		consumer.updateProfile("452");
-		verify(producer).send("452");
-	}
-	
-	@Test
-	void testUpdateAllProfile() {
-		consumer.updateProfile("all");
-		verify(producer, times(1)).sendAllProfiles();
-	}
+//	@Test
+//	void testUpdateRegularProfile() {
+//		consumer.updateProfile("452");
+//		verify(producer).send("452");
+//	}
+//	
+//	@Test
+//	void testUpdateAllProfile() {
+//		consumer.updateProfile("all");
+//		verify(producer, times(1)).sendAllProfiles();
+//	}
 	
 
 
