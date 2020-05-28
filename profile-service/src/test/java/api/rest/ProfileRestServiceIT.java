@@ -6,8 +6,6 @@ import static org.hamcrest.Matchers.containsString;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-
 
 public class ProfileRestServiceIT {
 

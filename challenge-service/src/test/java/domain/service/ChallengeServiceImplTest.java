@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +22,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domain.model.Challenge;
+import domain.model.ChallengeDTO;
 import domain.model.Ingredient;
 import domain.model.Recipe;
 import eu.drus.jpa.unit.api.JpaUnit;
@@ -98,6 +101,19 @@ class ChallengeServiceImplTest {
 		Long id = challenge.getId();
 		Challenge getChallenge = challengeService.get(id);
 		assertEquals(challenge.getName(), getChallenge.getName());     
+	}
+	
+	@Test
+	void testgetChallengesForProfil() {
+		Challenge ch1 = getRandomChallenge();
+		em.persist(ch1);
+		String profilID = ch1.getAuthorID();
+		ArrayList<ChallengeDTO> challenges = challengeService.getChallengesForProfil(profilID);
+		assertEquals(challenges.size(),1);
+		assertEquals(challenges.get(0).getId(),ch1.getId());
+		assertEquals(challenges.get(0).getName(),ch1.getName());
+		ArrayList<Long >ing =  challenges.get(0).getIngredients();
+		assertEquals(ing.size(),ch1.getIngredients().size());
 	}
 
 	@Test

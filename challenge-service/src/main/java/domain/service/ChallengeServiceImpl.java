@@ -1,16 +1,20 @@
 package domain.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 
 import domain.model.Challenge;
+import domain.model.ChallengeDTO;
 import domain.model.Recipe;
 
 
@@ -19,6 +23,21 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @PersistenceContext(unitName = "ChallengePU")
     private EntityManager em;
+    
+    @Override
+    public ArrayList<ChallengeDTO> getChallengesForProfil(String id) {
+    	TypedQuery<Challenge> query = em.createQuery("SELECT ch FROM Challenge ch WHERE ch.authorID = :authorID", Challenge.class);
+		query.setParameter("authorID", id);
+		List<Challenge> tmp = query.getResultList();
+		ArrayList<ChallengeDTO> listToReturn = new ArrayList<ChallengeDTO>();
+        Iterator<Challenge> it = tmp.iterator();
+        while (it.hasNext()) {
+        	Challenge ch = (Challenge) it.next();
+        	ChallengeDTO chDTO = new ChallengeDTO(ch.getId(),ch.getName(),ch.getAuthorID(),ch.getIngredients(),ch.getSolutions());
+        	listToReturn.add(chDTO);
+        }
+        return listToReturn;
+    }
     
     @Override				
 	public List<Challenge> getAll() {
