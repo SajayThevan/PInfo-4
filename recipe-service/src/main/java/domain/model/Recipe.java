@@ -52,7 +52,7 @@ public class Recipe implements Serializable{
 	@NotNull
 	private String date;
 	
-	private byte[] image;
+	//private byte[] image; fuck you LUKE !!!!!!!!!!!!!!
 	
 	@NotNull	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
