@@ -42,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	public void RecipeTestVolume() {
 		try {
-			File myObj = new File("/mnt/data/images/filename.txt");
+			File myObj = new File("~/mnt/data/images/filename.txt");
 			if (myObj.createNewFile()) {
 		        System.out.println("File created: " + myObj.getName());
 		      } else {
