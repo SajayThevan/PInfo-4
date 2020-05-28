@@ -49,8 +49,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
 
-
-
 @ApplicationScoped
 @Path("/profiles")
 @Api(value = "profiles", authorizations = {

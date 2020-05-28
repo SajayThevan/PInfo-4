@@ -1,8 +1,10 @@
 package domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import domain.model.Challenge;
+import domain.model.ChallengeDTO;
 
 
 public interface ChallengeService {
@@ -13,5 +15,6 @@ public interface ChallengeService {
 	Long count();
 	void addSolution(long id, long recipeId);
 	void removeChallenge(long id);
+	ArrayList<ChallengeDTO> getChallengesForProfil(String id);
 
 }
