@@ -26,7 +26,6 @@ export class IngredientService {
       queryList = queryList + "id=" + id + "&";
     });
     queryList = queryList.substring(0, queryList.length - 1); // Remove last &
-    console.log(queryList);
     return this.http.get(environment.ingredientService.url + "/selected" + queryList);
   }
 
