@@ -175,15 +175,13 @@ public class ProfileRestService {
 	}
 
 	public boolean authenticate(String profileId ,String auth) {
-		String token = auth.substring(7); // substring to remove 'Bearer '
+		String token = auth.substring(7); // remove 'Bearer ' from 'Bearer ${token}'
 				
-		// TODO: Write tests for this function, not working and would be best to test with
+		// TODO: Write tests for this function!!!
 		// TODO: Can we assign this key to an attribute of the class and reuse it across calls?????
-		// TODO: Get the key instance dynamically
 		
-		// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
+		// Obtain public key
 		if (publicKeyString == null) {
-
 		    try {
 				String url = "https://pinfo4.unige.ch/auth/realms/apigw";
 				HttpClient client = HttpClients.createDefault();
@@ -192,19 +190,14 @@ public class ProfileRestService {
 			    String json = EntityUtils.toString(response.getEntity());
 			    JSONObject realm = new JSONObject(json);
 			    publicKeyString = realm.getString("public_key");
-		    }
-	
-		    catch (IOException e ) {
+		    } catch (IOException e ) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-		    	
 		    }  
 	    }
 	   
-	    
-	    
-		
-		//String publicKeyString = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDaj2mWokUVRg1dwgOjIQZGiLCFkVWhHxeAO5TJxPIuvoAxNnkYEBvY/6QCDCn1m2EcLcRKoZuyTeiP5l/XRMHIfp3K8mI0w6tzMk/eDsFIrOl7eE2anV52/O2WoVr6j5X1eOZAzsCvROzou/u3eMa+D15FkHgPwwRP4A0Mj1cemQIDAQAB";
+		// Get public key from string
+			// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
 		KeyFactory kf = null;
 		try {
 			kf = KeyFactory.getInstance("RSA");
@@ -212,7 +205,6 @@ public class ProfileRestService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
         X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
         RSAPublicKey pubKey = null;
 		try {
@@ -222,6 +214,8 @@ public class ProfileRestService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// Verify Token
 		DecodedJWT jwt = JWT.decode(token);
 		try {
 		    Algorithm algorithm = Algorithm.RSA256(pubKey,null);
