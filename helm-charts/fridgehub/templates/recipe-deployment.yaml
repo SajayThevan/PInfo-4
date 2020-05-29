@@ -70,16 +70,12 @@ spec:
               port: http
             initialDelaySeconds: 60
             periodSeconds: 20
+          volumeMounts:
+            - name: images-storage
+              mountPath: "/tmp/images"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
             {{- with .Values.nodeSelector }}
-          volumeMounts:
-            - mountPath: "/tmp/images"
-              name: image-pv-storage
-      volumes:
-      - name: image-pv-storage
-        persistentVolumeClaim:
-          claimName: image-pv-claim
       nodeSelector:
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -91,3 +87,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
         {{- end }}
+      volumes:
+      - name: images-storage
+        persistentVolumeClaim:
+          claimName: image-pv-claim
