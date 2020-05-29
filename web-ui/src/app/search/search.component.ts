@@ -49,6 +49,7 @@ export class SearchComponent implements OnInit {
     this.recipeService.getSearchResult(this.url).subscribe(
       (data : Response) => {
         this.Result = data;
+        console.log("Recipes", this.Result);
        });
   }
 }
