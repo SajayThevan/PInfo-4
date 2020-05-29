@@ -1,41 +1,18 @@
 package api.rest;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.*;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -61,8 +38,6 @@ public class ProfileRestService {
 	@Inject
 	private ProfileProducer profileProducer;
 
-	private String publicKeyString;
-
 	@GET   //Remove for production
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get all the profiles")
@@ -77,16 +52,13 @@ public class ProfileRestService {
 	public Long count() {
 		return profileService.count();
 	}
-
+	//authenticate
 	// Profile
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a specific profile")
-	public Profile get(@PathParam("id") String profileId, @HeaderParam("Authorization") String auth) {
-		if (!authenticate(profileId,auth)){
-			throw new WebApplicationException("Unauthorized", Response.status(Status.UNAUTHORIZED).build());
-		}
+	public Profile get(@PathParam("id") String profileId) {
 		return profileService.get(profileId);
 	}
 
@@ -170,71 +142,6 @@ public class ProfileRestService {
 	public void removeFavourite(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
 
-	}
-
-
-	// TODO: Create servelete filter instead of manually calling the method
-		// Spring security
-
-	public boolean authenticate(String profileId ,String auth) {
-		String token = auth.substring(7); // remove 'Bearer ' from 'Bearer ${token}'
-
-		// TODO: Write tests for this function!!!
-		// TODO: Can we assign this key to an attribute of the class and reuse it across calls?????
-
-		// Obtain public key
-		if (publicKeyString == null) {
-		    try {
-				String url = "https://pinfo4.unige.ch/auth/realms/apigw";
-				HttpClient client = HttpClients.createDefault();
-				HttpGet request = new HttpGet(url);
-			    HttpResponse response = client.execute(request);
-			    String json = EntityUtils.toString(response.getEntity());
-			    JSONObject realm = new JSONObject(json);
-			    publicKeyString = realm.getString("public_key");
-		    } catch (IOException e ) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-		    }
-	    }
-
-		// Get public key from string
-			// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
-		KeyFactory kf = null;
-		try {
-			kf = KeyFactory.getInstance("RSA");
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
-        RSAPublicKey pubKey = null;
-		try {
-			pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
-
-		} catch (InvalidKeySpecException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// Verify Token
-		DecodedJWT jwt = JWT.decode(token);
-		try {
-		    Algorithm algorithm = Algorithm.RSA256(pubKey,null);
-		    JWTVerifier verifier = JWT.require(algorithm)
-		        .withIssuer("https://pinfo4.unige.ch/auth/realms/apigw")
-		        .build(); //Reusable verifier instance
-		    verifier.verify(token);
-		} catch (JWTVerificationException exception){
-		    //Invalid signature/claims
-			return false;
-		}
-		String userId = jwt.getSubject();
-
-		if ((profileId == null) || (userId.contentEquals(profileId) )) {
-			return true;
-		}
-		return false;
 	}
 
 }
