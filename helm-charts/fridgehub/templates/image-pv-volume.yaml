@@ -5,10 +5,10 @@ metadata:
   labels:
     type: local
 spec:
-  # storageClassName: manual
+  storageClassName: microk8s-hostpath
   capacity:
-    storage: 5Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/images/"
+    path: "/home/smithlu7/mnt/data/images"

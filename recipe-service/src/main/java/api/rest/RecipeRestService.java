@@ -52,7 +52,7 @@ public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
-	
+
 	@GET
 	@Path("testVolume")
 	@ApiOperation(value = "test volume")
@@ -105,7 +105,7 @@ public class RecipeRestService {
 		return rs.getRecipesListFromIds(idList);
 	}
 
-	// Get recipes for profile 
+	// Get recipes for profile
 	//authenticate
 	@GET
 	@Path("/profiles/{profileID}") // TODO: Not the best uri??
@@ -114,12 +114,12 @@ public class RecipeRestService {
 	public ArrayList<RecipeDTO> getRecipesForProfilRest(@PathParam("profileID") String id) {
 		return rs.getRecipesForProfil(id);
 	}
-	
+
 	@GET
 	@Path("/trends")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "return the 20 best recipes")
-	public ArrayList<RecipeDTO> getTendanciess(){
+	public ArrayList<RecipeDTO> getTendancies(){
 		return rs.getTendancies();
 	}
 
@@ -157,14 +157,14 @@ public class RecipeRestService {
   public Long count() {
 		return rs.count();
 	}
-	
+
 //	public boolean authenticate(String profileId ,String auth) {
 //		String token = auth.substring(7); // substring to remove 'Bearer '
-//				
+//
 //		// TODO: Write tests for this function, not working and would be best to test with
 //		// TODO: Can we assign this key to an attribute of the class and reuse it across calls?????
 //		// TODO: Get the key instance dynamically
-//		
+//
 //		// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
 //		if (publicKeyString == null) {
 //
@@ -177,17 +177,17 @@ public class RecipeRestService {
 //			    JSONObject realm = new JSONObject(json);
 //			    publicKeyString = realm.getString("public_key");
 //		    }
-//	
+//
 //		    catch (IOException e ) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
-//		    	
-//		    }  
+//
+//		    }
 //	    }
-//	   
-//	    
-//	    
-//		
+//
+//
+//
+//
 //		//String publicKeyString = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDaj2mWokUVRg1dwgOjIQZGiLCFkVWhHxeAO5TJxPIuvoAxNnkYEBvY/6QCDCn1m2EcLcRKoZuyTeiP5l/XRMHIfp3K8mI0w6tzMk/eDsFIrOl7eE2anV52/O2WoVr6j5X1eOZAzsCvROzou/u3eMa+D15FkHgPwwRP4A0Mj1cemQIDAQAB";
 //		KeyFactory kf = null;
 //		try {
@@ -196,12 +196,12 @@ public class RecipeRestService {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		
+//
 //        X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
 //        RSAPublicKey pubKey = null;
 //		try {
 //			pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
-//			
+//
 //		} catch (InvalidKeySpecException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -218,11 +218,11 @@ public class RecipeRestService {
 //			return false;
 //		}
 //		String userId = jwt.getSubject();
-//		
+//
 //		if ((profileId == null) || (userId.contentEquals(profileId) )) {
 //			return true;
 //		}
-//		return false;	
+//		return false;
 //	}
 
 }

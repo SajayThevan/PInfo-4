@@ -39,19 +39,31 @@ public class RecipeServiceImpl implements RecipeService {
 		this();
 		this.em = em;
 	}
-	
+
 	public void RecipeTestVolume() {
 		try {
+			// TODO: Change system out to logforj?... less resources
 			File myObj = new File("~/mnt/data/images/filename.txt");
 			if (myObj.createNewFile()) {
 		        System.out.println("File created: " + myObj.getName());
 		      } else {
 		        System.out.println("File already exists.");
 		      }
-	    } catch (IOException e) {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	    }
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+		try {
+			File myObj = new File("filename2.txt");
+			if (myObj.createNewFile()) {
+		        System.out.println("File created: " + myObj.getName());
+		      } else {
+		        System.out.println("File already exists.");
+		      }
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
 	}
 
 	@Override
@@ -146,7 +158,7 @@ public class RecipeServiceImpl implements RecipeService {
 		}
 	return tr;
 	}
-	
+
 	@Override
 	public ArrayList<RecipeDTO> getRecipesListFromIds(ArrayList<Long> idList){
 		ArrayList<RecipeDTO> tr = new ArrayList<RecipeDTO>();
@@ -162,8 +174,8 @@ public class RecipeServiceImpl implements RecipeService {
 		}
 		return tr;
 	}
-	
-	
+
+
 
 	@Override
 	public ArrayList<RecipeDTO> getTendancies(){
@@ -220,12 +232,12 @@ public class RecipeServiceImpl implements RecipeService {
 					Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
 					tmp.add(pairOfTheRecipe);
 				}
-	
+
 				tmpPair.clear();
 				for (Pair c: tmp){
 					tmpPair.add(c);
 				}
-	
+
 			}
 			for(Pair<Long, Float> el: tmpPair) {
 				long id = el.getValue0();
@@ -235,7 +247,7 @@ public class RecipeServiceImpl implements RecipeService {
 		}
 		return tr;
 	}
-	
+
 		@Override
 		public ArrayList<RecipeDTO> getRecipeOfTheMonth(){
 			ArrayList <RecipeDTO> tr = new ArrayList<RecipeDTO>();
@@ -251,7 +263,7 @@ public class RecipeServiceImpl implements RecipeService {
 		        Date Todaydate = cal.getTime();
 		        String todaysdate = dateFormat.format(Todaydate);
 		        String PartTD[] = todaysdate.split("/");
-	
+
 				if (Integer.parseInt(Part[1]) ==  Integer.parseInt(PartTD[0]) &&  Integer.parseInt(Part[2]) ==  Integer.parseInt(PartTD[2])) {
 					rl.add(r);
 				}
@@ -305,22 +317,22 @@ public class RecipeServiceImpl implements RecipeService {
 						Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
 						tmp.add(pairOfTheRecipe);
 					}
-	
+
 					tmpPair.clear();
 					for (Pair c: tmp){
 						tmpPair.add(c);
 					}
-	
+
 				}
 				for(Pair<Long, Float> el: tmpPair) {
 					Recipe rd = em.find(Recipe.class,  el.getValue0());
 					tr.add(new RecipeDTO(rd.getId(),rd.getName(),rd.getIngredients(),rd.getAuthorID(),rd.getRatings()));
 				}
-				
+
 			}
-		
+
 		return tr;
 	}
-		
+
 
 }

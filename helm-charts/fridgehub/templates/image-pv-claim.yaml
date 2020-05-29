@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: image-pv-claim
 spec:
-  # storageClassName: manual
+  storageClassName: microk8s-hostpath
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi

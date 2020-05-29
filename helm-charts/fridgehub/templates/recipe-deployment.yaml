@@ -73,13 +73,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
             {{- with .Values.nodeSelector }}
-        - name: image-pv-container
-          image: nginx
-          ports:
-            - containerPort: 80
-              name: "http-server"
           volumeMounts:
-            - mountPath: "/usr/share/nginx/html"
+            - mountPath: "/tmp/images"
               name: image-pv-storage
       volumes:
       - name: image-pv-storage
