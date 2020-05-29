@@ -43,27 +43,17 @@ public class RecipeServiceImpl implements RecipeService {
 	public void RecipeTestVolume() {
 		try {
 			// TODO: Change system out to logforj?... less resources
-			File myObj = new File("~/mnt/data/images/filename.txt");
+			File myObj = new File("/tmp/images/filename.txt");
 			if (myObj.createNewFile()) {
 		        System.out.println("File created: " + myObj.getName());
 		      } else {
 		        System.out.println("File already exists.");
 		      }
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-		try {
-			File myObj = new File("filename2.txt");
-			if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
-		      } else {
-		        System.out.println("File already exists.");
-		      }
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
+	
 	}
 
 	@Override

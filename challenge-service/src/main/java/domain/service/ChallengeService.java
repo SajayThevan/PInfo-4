@@ -16,5 +16,6 @@ public interface ChallengeService {
 	void addSolution(long id, long recipeId);
 	void removeChallenge(long id);
 	ArrayList<ChallengeDTO> getChallengesForProfil(String id);
+	ArrayList<ChallengeDTO> getChallengesFromIngredientsIds(ArrayList<Long> ingIds);
 
 }
