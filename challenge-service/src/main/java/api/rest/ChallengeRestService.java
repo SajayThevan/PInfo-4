@@ -34,12 +34,14 @@ import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
 
 import domain.model.Challenge;
+import domain.model.ChallengeDTO;
 import domain.model.Ingredient;
 import domain.model.Recipe;
 import domain.service.ChallengeService;
@@ -74,6 +76,16 @@ public class ChallengeRestService {
     public Long count() {
 		return challengeService.count();
 	}
+	
+	
+	@GET
+	@Path("/ingredients/")
+	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
+	@ApiOperation(value = "Get Challenges which you need the ingredients passed in paramaters")
+	public ArrayList<ChallengeDTO> getRecipesWithIngIds(@QueryParam("id") ArrayList<Long> IngredientIdList){
+		return challengeService.getChallengesFromIngredientsIds(IngredientIdList);
+	}
+	
 
 	// Challenge
 	@GET

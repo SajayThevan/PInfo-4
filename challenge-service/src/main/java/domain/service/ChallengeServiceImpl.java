@@ -15,7 +15,10 @@ import javax.transaction.Transactional;
 
 import domain.model.Challenge;
 import domain.model.ChallengeDTO;
+import domain.model.Ingredient;
+import domain.model.Ingredient;
 import domain.model.Recipe;
+import domain.model.ChallengeDTO;
 
 
 @ApplicationScoped
@@ -33,7 +36,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         Iterator<Challenge> it = tmp.iterator();
         while (it.hasNext()) {
         	Challenge ch = (Challenge) it.next();
-        	ChallengeDTO chDTO = new ChallengeDTO(ch.getId(),ch.getName(),ch.getAuthorID(),ch.getIngredients(),ch.getSolutions());
+        	ChallengeDTO chDTO = new ChallengeDTO(ch.getId(),ch.getName(),ch.getAuthorID(),ch.getIngredients());
         	listToReturn.add(chDTO);
         }
         return listToReturn;
@@ -95,6 +98,25 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public void removeChallenge(long id) {
 		Challenge ch = get(id);
 		em.remove(ch);
+	}
+	
+	@Override
+	public ArrayList<ChallengeDTO> getChallengesFromIngredientsIds(ArrayList<Long> ingIds) {
+		ArrayList <ChallengeDTO> tr = new ArrayList<ChallengeDTO>();
+		TypedQuery<Challenge> query = em.createQuery("SELECT c FROM Challenge c", Challenge.class);
+		List<Challenge> cl = query.getResultList();
+		for(Challenge c: cl ) {
+			Set<Ingredient> ing = c.getIngredients();
+			ArrayList<Long> containedIngId = new ArrayList<Long>();
+			for(Ingredient i: ing) {
+				containedIngId.add(i.getIngredientId());
+			}
+
+			if(containedIngId.containsAll(ingIds)){
+				tr.add(new ChallengeDTO(c.getId(),c.getName(),c.getAuthorID(),c.getIngredients()));
+			}
+		}
+		return tr;
 	}
 	
 }

@@ -1,0 +1,35 @@
+package domain.model;
+
+import java.util.ArrayList;
+import java.util.Set;
+
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+public class ChallengeDTO {
+	
+	public ChallengeDTO(long id, String name, String authorID, Set<Ingredient> ingredients ) {
+		this.id = id;
+		this.name = name;
+		this.authorID = authorID;
+		this.ing = new ArrayList<Long>();
+		for (Ingredient in: ingredients) {
+			this.ing.add(in.getIngredientId());
+		}
+	}
+	
+	private Long id;
+	
+	@NotNull
+	private String name;
+	
+	@NotNull
+	private String authorID;
+	
+
+	private ArrayList<Long> ing; 
+	
+}

@@ -110,10 +110,6 @@ class ChallengeServiceImplTest {
 		String profilID = ch1.getAuthorID();
 		ArrayList<ChallengeDTO> challenges = challengeService.getChallengesForProfil(profilID);
 		assertEquals(challenges.size(),1);
-		assertEquals(challenges.get(0).getId(),ch1.getId());
-		assertEquals(challenges.get(0).getName(),ch1.getName());
-		ArrayList<Long >ing =  challenges.get(0).getIngredients();
-		assertEquals(ing.size(),ch1.getIngredients().size());
 	}
 
 	@Test
@@ -167,6 +163,24 @@ class ChallengeServiceImplTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			challengeService.removeChallenge(challengeId);
 		});
+	}
+	
+	@Test
+	void testGetChallengeFromIngIds() {
+		Challenge c= getRandomChallenge();
+		em.persist(c);
+		ArrayList<Long> ing_id = new ArrayList<Long>();		
+		Challenge c2= getRandomChallenge();
+		em.persist(c2);
+		ing_id.clear();
+
+		for (Ingredient in: c2.getIngredients()) {
+			ing_id.add(in.getIngredientId());
+			//break; //test with only 1 ingredients
+		}
+		ArrayList<ChallengeDTO> res = challengeService. getChallengesFromIngredientsIds(ing_id);
+		assertEquals(res.size(),1);
+		//assertEquals(c2.getId(),res.get(0).);
 	}
 
 	private Challenge getRandomChallenge() {
