@@ -60,4 +60,4 @@ export class ProfileService {
     this.http.delete(Request_url);
   }
 
-  }
+}
