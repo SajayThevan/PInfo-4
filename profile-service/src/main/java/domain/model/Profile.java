@@ -40,6 +40,8 @@ public class Profile  {
 	@NotNull
 	private int score;
 	
+	private String image;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PROFILE_ID", nullable = true)
 	private Set<Ingredient> fridgeContents; // <(IngredientID, Quantity)> 

@@ -242,6 +242,7 @@ class ProfileServiceImplTest {
 		p.setScore(rand.nextInt(100));
 		p.setFridgeContents(Fridge);
 		p.setFavouriteRecipes(Favoris);
+		p.setImage("fdkhjks");
 		return p;
 	}
 	

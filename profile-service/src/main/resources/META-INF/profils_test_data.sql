@@ -21,6 +21,7 @@ create table Profile (
         lastName varchar(255),
         pseudo varchar(255),
         score integer not null,
+        image varchar(255),
         primary key (id)
     );
         
@@ -44,7 +45,7 @@ alter table RecipeFav
 
 
 
-INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score) values ( '2', 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99);
+INSERT INTO Profile (ID, email, firstName, lastName, pseudo, score, image) values ( '2', 'denizsungurtekin@gmail.com', 'deniz', 'gecer', 'malkah', 99, '/tmp/images/logo.png');
 INSERT INTO RecipeFav (recipeId, id, Profile_id) values (14, RECIPEFAV_SEQ.nextval,'2');
 INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id) values (4, 50, INGREDIENT_SEQ.nextval,'2');
 
