@@ -34,7 +34,6 @@ class ProfileServiceImplTest {
 	@InjectMocks
 	private ProfileServiceImpl profileService;
 
-
 	@Test
 	void testGetAll() {
 		List<Profile> profiles = profileService.getAll();
@@ -107,7 +106,7 @@ class ProfileServiceImplTest {
 	void testCreate() {
 		Profile profile = getRandomProfile();
 		profileService.create(profile); 
-		List res = em.createNativeQuery("SELECT id FROM Profile").getResultList();
+		List<?> res = em.createNativeQuery("SELECT id FROM Profile").getResultList();
 		assertEquals(res.size(),1);
 	}
 

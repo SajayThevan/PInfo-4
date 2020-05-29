@@ -38,7 +38,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
-import api.msg.ChallengeProducer;
+
 import domain.model.Challenge;
 import domain.model.Ingredient;
 import domain.model.Recipe;
@@ -57,8 +57,7 @@ public class ChallengeRestService {
 
 	@Inject
 	private ChallengeService challengeService;
-	@Inject
-	private ChallengeProducer challengeProducer;
+
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -98,7 +97,7 @@ public class ChallengeRestService {
 	@ApiOperation(value = "Update a given challenge")
 	public void update(Challenge challenge) {
 		challengeService.update(challenge);
-		challengeProducer.send(challenge);
+
 	}
 	 //authenticate
 	@POST
@@ -106,7 +105,6 @@ public class ChallengeRestService {
 	@ApiOperation(value = "Create a new challenge")
 	public void create(Challenge challenge) {
 		challengeService.create(challenge);
-		challengeProducer.send(challenge);
 	}
 	
 	// Ingredients

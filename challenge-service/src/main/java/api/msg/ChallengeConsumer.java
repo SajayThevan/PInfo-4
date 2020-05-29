@@ -1,9 +1,14 @@
 package api.msg;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.aerogear.kafka.cdi.annotation.Consumer;
 import org.aerogear.kafka.cdi.annotation.KafkaConfig;
+
+import domain.model.ChallengeDTO;
+import domain.service.ChallengeService;
 import lombok.extern.java.Log;
 
 
@@ -11,22 +16,18 @@ import lombok.extern.java.Log;
 @KafkaConfig(bootstrapServers = "#{thorntail.kafka-configuration.host}:#{thorntail.kafka-configuration.port}")
 @Log
 public class ChallengeConsumer {
-
+	
 	@Inject
-	private ChallengeProducer producer;
+	private ChallengeService challengeService;
 
-	@Consumer(topics = "challengesReq", groupId = "pinfo-microservices")
-	public void updateChallenge(final String message) {
+	@Consumer(topics = "profilDelete", groupId = "pinfo-microservices")
+	public void deleteChallenge(final String message) {
 		log.info("Consumer got following message : " + message);
-		if ("all".equals(message)) {
-			producer.sendAllChallenges();
-		} else {
-			try {
-				Long challengeId = Long.valueOf(message);  
-				producer.send(challengeId);        
-			} catch(NumberFormatException e) {
-				throw new IllegalArgumentException("Message must be wither a numeric challenge identifier or 'all'");
-			}
+		List<ChallengeDTO> ids = challengeService.getChallengesForProfil(message);
+		for (ChallengeDTO cDTO: ids) {
+			challengeService.removeChallenge(cDTO.getId());
+			//ch.setAuthorID("null");
 		}
+
 	}
 }
