@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 public class ChallengeDTO {

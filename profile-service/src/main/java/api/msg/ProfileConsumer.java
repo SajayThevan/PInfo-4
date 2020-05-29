@@ -15,7 +15,9 @@ public class ProfileConsumer {
 
 	@Inject
 	private ProfileProducer producer;
-
+	//TODO: score update
+	
+	//EXEMPLE
 //	@Consumer(topics = "profilsReq", groupId = "pinfo-microservices")
 //	public void updateProfile(final String message) {
 //		log.info("Consumer got following message : " + message);
