@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFor
 import {Input, ChangeDetectionStrategy } from '@angular/core';
 //import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {BehaviorSubject, Observable} from 'rxjs';
+import { IngredientService } from '../services/ingredient/ingredient.service';
 
 @Component({
   selector: 'app-challenges',
@@ -16,7 +17,7 @@ export class ChallengesComponent implements OnInit {
   public quantityForm:FormGroup;
   public quantity:FormControl;
 
-  constructor(private formBuilder:FormBuilder) { 
+  constructor(private formBuilder:FormBuilder, private ingredientService : IngredientService) { 
     this.quantity=new FormControl('',[Validators.required])
     this.quantityForm=formBuilder.group({
     quantity:this.quantity
@@ -24,9 +25,14 @@ export class ChallengesComponent implements OnInit {
   }
 
   Frigo = []
+  Ingredients : Object
   
   //@Input() Frigo: Observable<any>;
   ngOnInit(): void {
+    this.ingredientService.getAllIngredientsResearch().subscribe(
+      (data : Response) => {
+        this.Ingredients = data;
+       });
     this.Frigo = [
       {id:1,quantity : 10},
       {id:2,quantity : 20},
@@ -40,13 +46,6 @@ export class ChallengesComponent implements OnInit {
   // ------------- FRIDGE -------------------
 
   Ingredient_Name = ['Lait','Beurre','Choco','Vanille','Pasta','Sucre']
-
-  Ingredients = [
-    {id:7,name:'Ketchup'},
-    {id:8,name:'Soja'},
-    {id:9,name:'Pasta'},
-    {id:10,name:'Almond'}
-  ];
 
   selected = [];
 
