@@ -20,7 +20,7 @@ import { IngredientService } from './services/ingredient/ingredient.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RecipeService } from './services/recipe/recipe.service';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {NgSelectModule} from '@ng-select/ng-select'
 
@@ -61,7 +61,9 @@ export function init_config(appLoadService: AppInitService, keycloak: KeycloakSe
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     TestService,
