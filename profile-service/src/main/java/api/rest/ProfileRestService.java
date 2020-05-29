@@ -49,8 +49,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 
 
-
-
 @ApplicationScoped
 @Path("/profiles")
 @Api(value = "profiles", authorizations = {
@@ -62,7 +60,7 @@ public class ProfileRestService {
 	private ProfileService profileService;
 	@Inject
 	private ProfileProducer profileProducer;
-	
+
 	private String publicKeyString;
 
 	@GET   //Remove for production
@@ -106,7 +104,7 @@ public class ProfileRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value= "Remove a Profile")
 	public void removeProfileById(@PathParam("id") String id) { //authenticate
-		
+
 		profileService.removeProfile(id);
 		profileProducer.sendProfileDeleted(id);
 	}
@@ -171,15 +169,19 @@ public class ProfileRestService {
 	@ApiOperation(value ="Remove Favourite from fridge")
 	public void removeFavourite(@PathParam("id") String profileId, @QueryParam("favourite") long favouriteId) {
 		profileService.removeFavourite(profileId,favouriteId);
-		
+
 	}
+
+
+	// TODO: Create servelete filter instead of manually calling the method
+		// Spring security
 
 	public boolean authenticate(String profileId ,String auth) {
 		String token = auth.substring(7); // remove 'Bearer ' from 'Bearer ${token}'
-				
+
 		// TODO: Write tests for this function!!!
 		// TODO: Can we assign this key to an attribute of the class and reuse it across calls?????
-		
+
 		// Obtain public key
 		if (publicKeyString == null) {
 		    try {
@@ -193,9 +195,9 @@ public class ProfileRestService {
 		    } catch (IOException e ) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-		    }  
+		    }
 	    }
-	   
+
 		// Get public key from string
 			// c.f. https://gist.github.com/destan/b708d11bd4f403506d6d5bb5fe6a82c5
 		KeyFactory kf = null;
@@ -209,12 +211,12 @@ public class ProfileRestService {
         RSAPublicKey pubKey = null;
 		try {
 			pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
-			
+
 		} catch (InvalidKeySpecException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// Verify Token
 		DecodedJWT jwt = JWT.decode(token);
 		try {
@@ -228,11 +230,11 @@ public class ProfileRestService {
 			return false;
 		}
 		String userId = jwt.getSubject();
-		
+
 		if ((profileId == null) || (userId.contentEquals(profileId) )) {
 			return true;
 		}
-		return false;	
+		return false;
 	}
 
 }

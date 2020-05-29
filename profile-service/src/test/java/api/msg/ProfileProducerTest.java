@@ -1,14 +1,9 @@
 package api.msg;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
@@ -29,56 +24,23 @@ import domain.service.ProfileService;
 class ProfileProducerTest {
 
 	@Mock
-	private SimpleKafkaProducer<String, Profile> kafkaProducer;
+	private SimpleKafkaProducer<String, String> kafkaProducer;
 	@Mock
 	private ProfileService profileService;
 
 	@InjectMocks
 	private ProfileProducer producer;
 
-//	@Test
-//	void testSendAllProfiles() {
-//		List<Profile> profiles = getRandomProfileCollection();
-//		when(profileService.getAll()).thenReturn(profiles);
-//		producer.sendAllProfiles();
-//		verify(kafkaProducer, times(profiles.size())).send(eq("profiles"), any(Profile.class));
-//	}
-
-//	@Test
-//	void testSendProfile() {
-//		Profile profile = getRandomProfile();
-//		producer.send(profile);
-//		verify(kafkaProducer, times(1)).send("profiles", profile);
-//	}
-
-//	@Test
-//	void testSendLong() {
-//		Profile profile = getRandomProfile();
-//		when(profileService.get(profile.getId())).thenReturn(profile);
-//		producer.send(profile.getId());
-//		verify(kafkaProducer, times(1)).send("profiles", profile);
-//	}
-
-//	@Test
-//	void testSendLongNull() {
-//		Profile profile = getRandomProfile();
-//		when(profileService.get(profile.getId())).thenReturn(null);
-//		producer.send(profile.getId());
-//		verify(kafkaProducer, times(0)).send("profiles", profile);
-//	}
-
-	private List<Profile> getRandomProfileCollection() {
-		List<Profile> profiles = new ArrayList<>();
-		long numberOfProfile = Math.round((Math.random() * 1000));
-		for (int i = 0; i < numberOfProfile; i++) {
-			profiles.add(getRandomProfile());
-		}
-		return profiles;
+	@Test
+	void testSendProfileDeleted() {
+		Profile profile = getRandomProfile();
+		profile.setId("asdafs");
+		String profileId = profile.getId();
+		producer.sendProfileDeleted(profileId);
+		verify(kafkaProducer, times(1)).send("profilDelete", profileId);
+		
 	}
 	
-	// TODO: Test sendDeleteProfile
-
-
 	private Profile getRandomProfile() {
 		Profile p = new Profile();
 		Random rand = new Random();

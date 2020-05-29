@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +22,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domain.model.Challenge;
+import domain.model.ChallengeDTO;
 import domain.model.Ingredient;
 import domain.model.Recipe;
 import eu.drus.jpa.unit.api.JpaUnit;
@@ -99,6 +102,15 @@ class ChallengeServiceImplTest {
 		Challenge getChallenge = challengeService.get(id);
 		assertEquals(challenge.getName(), getChallenge.getName());     
 	}
+	
+	@Test
+	void testgetChallengesForProfil() {
+		Challenge ch1 = getRandomChallenge();
+		em.persist(ch1);
+		String profilID = ch1.getAuthorID();
+		ArrayList<ChallengeDTO> challenges = challengeService.getChallengesForProfil(profilID);
+		assertEquals(challenges.size(),1);
+	}
 
 	@Test
 	void testGetNonExistant() {
@@ -151,6 +163,24 @@ class ChallengeServiceImplTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			challengeService.removeChallenge(challengeId);
 		});
+	}
+	
+	@Test
+	void testGetChallengeFromIngIds() {
+		Challenge c= getRandomChallenge();
+		em.persist(c);
+		ArrayList<Long> ing_id = new ArrayList<Long>();		
+		Challenge c2= getRandomChallenge();
+		em.persist(c2);
+		ing_id.clear();
+
+		for (Ingredient in: c2.getIngredients()) {
+			ing_id.add(in.getIngredientId());
+			//break; //test with only 1 ingredients
+		}
+		ArrayList<ChallengeDTO> res = challengeService. getChallengesFromIngredientsIds(ing_id);
+		assertEquals(res.size(),1);
+		//assertEquals(c2.getId(),res.get(0).);
 	}
 
 	private Challenge getRandomChallenge() {

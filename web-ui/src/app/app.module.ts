@@ -35,7 +35,7 @@ declare var window: any;
 export function init_config(appLoadService: AppInitService, keycloak: KeycloakService) {
   return () =>  appLoadService.init().then( async () => {
     //  console.info(window.config);
-     await keycloak.init();
+     //await keycloak.init();
     },
    );
 }
