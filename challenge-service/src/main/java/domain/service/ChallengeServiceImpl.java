@@ -16,9 +16,8 @@ import javax.transaction.Transactional;
 import domain.model.Challenge;
 import domain.model.ChallengeDTO;
 import domain.model.Ingredient;
-import domain.model.Ingredient;
 import domain.model.Recipe;
-import domain.model.ChallengeDTO;
+
 
 
 @ApplicationScoped

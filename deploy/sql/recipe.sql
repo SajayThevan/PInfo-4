@@ -25,6 +25,7 @@ create table Recipe (
     authorID varchar(1024),
     date varchar(255),
     difficulty integer not null,
+    imagePath varchar(255),
     name varchar(255),
     time integer not null,
     primary key (id)
@@ -91,7 +92,7 @@ alter table Steps
     foreign key (Recipe_id)
     references Recipe;
 
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (nextval('RECIPE_SEQ'), 'abcdefghij','21/02/2020', 3, 'pizza', 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (nextval('RECIPE_SEQ'), 'abcdefghij','21/02/2020', 3, '/tmp/images/logo.png', 'pizza', 1);
 INSERT INTO Category(id, category, Recipe_ID)                   values (nextval('CATEGORY_SEQ'), 1, currval('RECIPE_SEQ'));
 INSERT INTO Comments(id, comment, Recipe_ID)                    values (nextval('COMMENTS_SEQ'),'Mauvais',currval('RECIPE_SEQ'));
 INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id)  values (nextval('INGREDIENTS_SEQ'), 4, 2, currval('RECIPE_SEQ'));

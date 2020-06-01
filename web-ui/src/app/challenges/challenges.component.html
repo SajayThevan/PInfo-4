@@ -87,7 +87,7 @@
               </div>
               <div class="col-3">
                 <form>
-                  <input type="text" class="form-control" id="inputPassword" value="{{Frigo[i].quantity}}">
+                  <input type="text" class="form-control" id="inputPassword" placeholder="{{Frigo[i].quantity}}">
                 </form>
               </div>
               <div class="col-3">
@@ -110,8 +110,8 @@
               </ng-select>
             </div>
             <div class="col-3">
-              <form>
-                <input type="text" class="form-control" id="inputPassword">
+              <form [formGroup]="quantityForm" >
+                <input type="text" class="form-control" id="inputIngredient" formControlName="quantity">
               </form>
             </div>
             <div class="col-3">

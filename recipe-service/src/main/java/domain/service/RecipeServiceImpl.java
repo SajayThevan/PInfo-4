@@ -83,7 +83,7 @@ public class RecipeServiceImpl implements RecipeService {
         Iterator it = tmp.iterator();
         while (it.hasNext()) {
         	Recipe r = (Recipe) it.next();
-        	listToReturn.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
+        	listToReturn.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
         }
         return listToReturn;
 	}
@@ -96,7 +96,7 @@ public class RecipeServiceImpl implements RecipeService {
 		ArrayList<RecipeDTO> tr = new ArrayList<RecipeDTO>();
 		for (Long idTmp: ids) {
 			Recipe r = em.find(Recipe.class, idTmp);
-			tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
+			tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(), r.getImagePath()));
 		}
 		return tr;
 	}
@@ -143,7 +143,7 @@ public class RecipeServiceImpl implements RecipeService {
 			}
 
 			if(containedIngId.containsAll(ing_id)){
-				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
+				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
 			}
 		}
 	return tr;
@@ -156,7 +156,7 @@ public class RecipeServiceImpl implements RecipeService {
 		for (Long id: idList) {
 			try {
 				Recipe r = em.find(Recipe.class, id);
-				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
+				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
 			}
 			catch (Exception e) {
 				continue;
@@ -232,7 +232,7 @@ public class RecipeServiceImpl implements RecipeService {
 			for(Pair<Long, Float> el: tmpPair) {
 				long id = el.getValue0();
 				Recipe r = em.find(Recipe.class, id);
-				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings()));
+				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
 			}
 		}
 		return tr;
@@ -316,7 +316,7 @@ public class RecipeServiceImpl implements RecipeService {
 				}
 				for(Pair<Long, Float> el: tmpPair) {
 					Recipe rd = em.find(Recipe.class,  el.getValue0());
-					tr.add(new RecipeDTO(rd.getId(),rd.getName(),rd.getIngredients(),rd.getAuthorID(),rd.getRatings()));
+					tr.add(new RecipeDTO(rd.getId(),rd.getName(),rd.getIngredients(),rd.getAuthorID(),rd.getRatings(),rd.getImagePath()));
 				}
 
 			}

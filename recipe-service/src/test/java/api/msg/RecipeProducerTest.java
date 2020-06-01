@@ -96,6 +96,7 @@ class RecipeProducerTest {
 		r.setCategory(cat);
 		r.setIngredients(ing);
 		r.setComments(commentaire);
+		r.setImagePath(String.valueOf( new Random().nextInt(9999 + 1)+1));
 		
 		return r;
 	}

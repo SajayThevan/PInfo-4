@@ -18,9 +18,10 @@ create sequence STEPS_SEQ start with 1 increment by 50;
 create sequence RECIPE_SEQ start with 1 increment by 1;
 create table Recipe (
     id bigint not null,
-    authorID varchar(1024),
+    authorID varchar(255),
     date varchar(255),
     difficulty integer not null,
+    imagePath varchar(255),
     name varchar(255),
     time integer not null,
     primary key (id)
@@ -86,8 +87,8 @@ alter table Steps
     foreign key (Recipe_id) 
     references Recipe;
     
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (RECIPE_SEQ.nextval, 'hjgfgkdhgkjf','21/02/2020', 3, 'pizza', 1);
-INSERT INTO Recipe (id, authorID, date, difficulty, name, time) values (2, 'bfdkjshflkjsd','21/02/2020', 3, 'pizza', 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (RECIPE_SEQ.nextval, 'hjgfgkdhgkjf','21/02/2020', 3,'/tmp/images/recipe1', 'pizza', 1);
+INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (2, 'bfdkjshflkjsd','21/02/2020', 3, '/tmp/images/recipe2', 'pizza', 1);
 
 INSERT INTO Category(id, category, Recipe_ID) values (CATEGORY_SEQ.nextval,1, RECIPE_SEQ.currval);
 

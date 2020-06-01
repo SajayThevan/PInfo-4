@@ -282,6 +282,7 @@ class RecipesServiceImplTest {
 		r.setCategory(cat);
 		r.setComments(commentaire);
 		r.setIngredients(ing);
+		r.setImagePath(String.valueOf( new Random().nextInt(9999 + 1)+1));
 		
 		return r;
 	}
