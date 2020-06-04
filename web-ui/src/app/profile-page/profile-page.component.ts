@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule } from "@angular/forms";
 import { Observable, from } from 'rxjs';
 import { ProfileService } from '../services/profile/profile.service'
 import { RecipeService } from '../services/recipe/recipe.service';
 import { IngredientService } from '../services/ingredient/ingredient.service';
 import { KeycloakService } from '../services/keycloak/keycloak.service';
 import { KeycloakInstance } from 'keycloak-js';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-profile-page',
@@ -14,8 +16,21 @@ import { KeycloakInstance } from 'keycloak-js';
 export class ProfilePageComponent implements OnInit {
 
   public keycloakAuth: KeycloakInstance;
+  public quantityForm:FormGroup;
+  public quantity:FormControl;
 
-  constructor(private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService) { }
+  constructor(private formBuilder:FormBuilder,private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService) {
+    this.quantity=new FormControl('',[Validators.required])
+    this.quantityForm=formBuilder.group({
+    quantity:this.quantity
+    })
+   }
+
+
+
+  fridgeInter = []
+  Ingredients : Object
+  Ingredient_Name = []
 
   public profile$: Observable<any>;
   public recipes$: Observable<any>;
@@ -24,7 +39,16 @@ export class ProfilePageComponent implements OnInit {
   public fridge: any; // TODO: Not the cleanest way, would be nicer to directly affect the reponse of the observable rather than assign it to a new variable
                       // Done like this as quantities are added to fridge and not sure how to add elements to the observable response
 
+
+
+
   ngOnInit(): void {
+
+    this.ingredientService.getAllIngredientsResearch().subscribe(
+      (data : Response) => {
+        this.Ingredients = data;
+       });
+
     this.keycloakAuth = this.keycloak.getKeycloakAuth();
     if (this.keycloak.isLoggedIn() === false) {
         this.keycloak.login();
@@ -41,6 +65,7 @@ export class ProfilePageComponent implements OnInit {
           }
       });
     }
+    this.fridgeInter = this.fridge
   }
 
   createProfile() {
@@ -91,4 +116,33 @@ export class ProfilePageComponent implements OnInit {
   logout() {
     this.keycloak.logout();
   }
+
+  selected = [];
+
+  Add(){
+    console.log("Added")
+    console.log(this.quantityForm.get('quantity').value)
+    this.fridgeInter.push({
+      name : this.selected[0].name,
+      id : this.selected[0].id,
+      quantity : +this.quantityForm.get('quantity').value
+    })
+    //this.Ingredient_Name.push(this.selected[0].name)
+    // addIngredientById(profileID,ingredientID, quantity) 
+    console.log(this.fridge)
+  }
+
+  Remove(id){
+    console.log("Removed")
+    this.fridgeInter.splice(id,1)
+    this.Ingredient_Name.splice(id,1)
+    // removeIngredient(profileID,ingredientID)
+    console.log(this.fridge)
+  }
+
+  saveFridge(){
+    // this.Frigo --> BACKEND
+    this.fridge = this.fridgeInter;
+  }
+
 }

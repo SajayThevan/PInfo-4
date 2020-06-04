@@ -62,7 +62,7 @@ export class ChallengesComponent implements OnInit {
   Add(){
     console.log("Added")
     console.log(this.quantityForm.get('quantity').value)
-    this.Frigo.push({
+    this.FrigoInter.push({
       id : this.selected[0].id,
       quantity : +this.quantityForm.get('quantity').value
     })
@@ -73,7 +73,7 @@ export class ChallengesComponent implements OnInit {
 
   Remove(id){
     console.log("Removed")
-    this.Frigo.splice(id,1)
+    this.FrigoInter.splice(id,1)
     this.Ingredient_Name.splice(id,1)
     // removeIngredient(profileID,ingredientID)
     console.log(this.Frigo)
