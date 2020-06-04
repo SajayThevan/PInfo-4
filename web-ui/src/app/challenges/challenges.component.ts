@@ -25,7 +25,9 @@ export class ChallengesComponent implements OnInit {
   }
 
   Frigo = []
+  FrigoInter = []
   Ingredients : Object
+  Ingredient_Name = []
   
   //@Input() Frigo: Observable<any>;
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class ChallengesComponent implements OnInit {
       (data : Response) => {
         this.Ingredients = data;
        });
+       // TODO : Appel au backend
     this.Frigo = [
       {id:1,quantity : 10},
       {id:2,quantity : 20},
@@ -41,11 +44,13 @@ export class ChallengesComponent implements OnInit {
       {id:5,quantity : 50},
       {id:6,quantity : 60}
     ];
-    //this.Frigo = new BehaviorSubject(this.Frigo);
+    this.FrigoInter = this.Frigo;
+    // TODO : ID --> NOM
+    this.Ingredient_Name = ['Lait','Beurre','Choco','Vanille','Pasta','Sucre']
   }
   // ------------- FRIDGE -------------------
 
-  Ingredient_Name = ['Lait','Beurre','Choco','Vanille','Pasta','Sucre']
+  
 
   selected = [];
 
@@ -73,6 +78,12 @@ export class ChallengesComponent implements OnInit {
     // removeIngredient(profileID,ingredientID)
     console.log(this.Frigo)
   }
+
+  saveFridge(){
+    // this.Frigo --> BACKEND
+    this.Frigo = this.FrigoInter;
+  }
+
 
   // ------------- END FRIDGE -------------------
 }
