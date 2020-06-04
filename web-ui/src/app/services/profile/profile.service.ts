@@ -29,7 +29,7 @@ export class ProfileService {
   }
 
   // for fridge : 
-  getIngredient(profileID,ingredientID) {
+  getIngredient(profileID) {
     var Request_url = environment.profileService.url + "/" + profileID + "/ingredients";
     return this.http.get(Request_url)
   }

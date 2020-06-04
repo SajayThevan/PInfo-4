@@ -54,7 +54,7 @@
               {{ingredient}}
             </div>
             <div class="col">
-              {{Frigo[i].quantity}}
+              {{FrigoInter[i].quantity}}
             </div>
           </div>
           <hr>
@@ -69,7 +69,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Your Fridge</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" (click)="ngOnInit()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -118,7 +118,7 @@
               <a type ="button" class="text-muted" (click)="Add()"><mat-icon aria-hidden="false" class="logopad1">add_circle_outline</mat-icon></a>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Save Fridge</button>
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="saveFridge()">Save Fridge</button>
         </div>
       </div>
     </div>

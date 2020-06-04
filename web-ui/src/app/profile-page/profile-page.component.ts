@@ -66,6 +66,7 @@ export class ProfilePageComponent implements OnInit {
           profile.fridgeContents.forEach(element => {
             ingIDs.push(element.ingredientId);
           });
+          console.log(ingIDs)
           this.fridge$ = this.ingredientService.getIngredients(ingIDs);
           this.fridge$.subscribe(
             (response : any) => {
@@ -74,12 +75,14 @@ export class ProfilePageComponent implements OnInit {
                 this.fridge[i].quantity = profile.fridgeContents[i].quantity;
               };
           });
+          console.log("*************")
+          console.log(this.fridge)
           // Get Favourite Recipes
-          var recipeIDs = [];
-          profile.favouriteRecipes.forEach(element => {
-            recipeIDs.push(element.recipeId);
-          });
-          this.favourites$ = this.recipeService.getRecipes(recipeIDs);
+          // var recipeIDs = [];
+          // profile.favouriteRecipes.forEach(element => {
+          //   recipeIDs.push(element.recipeId);
+          // });
+          // this.favourites$ = this.recipeService.getRecipes(recipeIDs);
     });
     // Get my recipes
     this.recipes$ = this.recipeService.getRecipeforProfile(this.keycloak.getID());
