@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { stringify } from 'querystring';
+import { RecipeService } from '../services/recipe/recipe.service';
+import { Observable, from } from 'rxjs';
+
 
 @Component({
   selector: 'app-tendances',
@@ -8,9 +11,17 @@ import { stringify } from 'querystring';
 })
 export class TendancesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private recipeService: RecipeService) { }
+
+  public recipesDTO$: Observable<any>;
+  public tendances: any;
 
   ngOnInit(): void {
+    this.recipesDTO$ = this.recipeService.getTrends();
+    this.recipesDTO$.subscribe(
+      (response : any) => {
+        this.tendances = response;
+    });
   }
 
   // Test set
