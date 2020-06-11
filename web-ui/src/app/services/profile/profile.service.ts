@@ -35,8 +35,15 @@ export class ProfileService {
   }
 
   addIngredientById(profileID,ingredientID, quantity) {
+    let httpHeaders = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = {
+      headers: httpHeaders
+    };
     var Request_url = environment.profileService.url + "/" + profileID + "/ingredients?ingredient=" + ingredientID + "&quantity=" + quantity;
-    this.http.post(Request_url,null);
+    this.http.post(Request_url,null,options);
   }
 
   removeIngredient(profileID,ingredientID) {

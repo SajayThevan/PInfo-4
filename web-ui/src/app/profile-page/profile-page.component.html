@@ -79,17 +79,47 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <!-- Fridge Start -->
+        <div class="font-weight-lighter card_1 overflow-auto">
           <div class="card">
-            <div class="card-body" *ngIf= "fridge$ | async; else loading">
-              Mon Frigo
+            <div class="card-body">
+              <div class="sticky-top">
+                <div class="row">
+                  <div class="col logopad1">
+                    Frigo
+                  </div>
+                  <div class="col">
+                    <a type="button" class="text-muted" data-toggle="modal" data-target="#FridgeModal"><mat-icon aria-hidden="false" class="logopad1">border_color</mat-icon></a>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div class="row">
+                <div class="col">
+                  Ingredient
+                </div>
+                <div class="col">
+                  Quantity
+                </div>
+              </div>
               <hr>
-              <div class="pad1" *ngFor="let ing of fridge">
-                {{ing.name}} : {{ing.quantity}}
+              <div>
+              <div *ngFor = "let ingredient of Ingredient_Name ;let i=index">
+                <div class="row">
+                  <div class="col">
+                    {{ingredient}}
+                  </div>
+                  <div class="col">
+                    {{fridgeInter[i].quantity}}
+                  </div>
+                </div>
+                <hr>
+              </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- Fride End -->
       </div>
       <div class="modal fade" id="SettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -139,6 +169,7 @@
           </div>
         </div>
       </div>
+
       <div class="modal fade" id="ConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -163,6 +194,67 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-outline-danger">Yes, Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fridge Model -->
+      <div class="modal fade font-weight-lighter" id="FridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Your Fridge</h5>
+              <button type="button" class="close" data-dismiss="modal" (click)="ngOnInit()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col">Ingredient</div>
+                <div class="col-3">Quantity</div>
+                <div class="col-3">Remove</div>
+              </div>
+              <hr>
+              <div *ngFor = "let ingredient of Ingredient_Name ;let i=index">
+                <div class="row">
+                  <div class="col">
+                    {{ingredient}}
+                  </div>
+                  <div class="col-3">
+                    <form>
+                      <input type="text" class="form-control" id="inputPassword" placeholder="{{fridge[i].quantity}}">
+                    </form>
+                  </div>
+                  <div class="col-3">
+                    <a type ="button" class="text-muted" (click)="Remove(i)"><mat-icon aria-hidden="false" class="logopad1">clear</mat-icon></a>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="row">
+                <div class="col">
+                  <ng-select [items]="Ingredients"
+                  bindLabel="name"
+                  placeholder="Search"
+                  appendTo="body"
+                  multiple="true"
+                  maxSelectedItems = 1
+                  [(ngModel)]="selected">
+                  </ng-select>
+                </div>
+                <div class="col-3">
+                  <form [formGroup]="quantityForm" >
+                    <input type="text" class="form-control" id="inputIngredient" formControlName="quantity">
+                  </form>
+                </div>
+                <div class="col-3">
+                  <a type ="button" class="text-muted" (click)="Add()"><mat-icon aria-hidden="false" class="logopad1">add_circle_outline</mat-icon></a>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="saveFridge()">Save Fridge</button>
             </div>
           </div>
         </div>

@@ -44,6 +44,7 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     this.ingredientService.getAllIngredientsResearch().subscribe(
       (data : Response) => {
         this.Ingredients = data;
@@ -84,6 +85,8 @@ export class ProfilePageComponent implements OnInit {
   getProfileDetails() {
     // Get Profile
     this.profile$ = this.profileService.getProfile(this.keycloak.getID())
+    this.profileService.addIngredientById(this.keycloak.getID(),1,2)
+    this.profile$ = this.profileService.getProfile(this.keycloak.getID())
     this.profile$.subscribe(
         (profile : any) => {          
           // Get Fridge Contents
@@ -100,8 +103,6 @@ export class ProfilePageComponent implements OnInit {
                 this.fridge[i].quantity = profile.fridgeContents[i].quantity;
               };
           });
-          console.log("*************")
-          console.log(this.fridge)
           // Get Favourite Recipes
           // var recipeIDs = [];
           // profile.favouriteRecipes.forEach(element => {
@@ -123,11 +124,10 @@ export class ProfilePageComponent implements OnInit {
     console.log("Added")
     console.log(this.quantityForm.get('quantity').value)
     this.fridgeInter.push({
-      name : this.selected[0].name,
       id : this.selected[0].id,
       quantity : +this.quantityForm.get('quantity').value
     })
-    //this.Ingredient_Name.push(this.selected[0].name)
+    this.Ingredient_Name.push(this.selected[0].name)
     // addIngredientById(profileID,ingredientID, quantity) 
     console.log(this.fridge)
   }
