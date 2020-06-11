@@ -21,14 +21,22 @@
         <div class="col-md-1">
           <div class="profilepic"></div>
         </div>
-        <div class="col-md-1">
-          <div class="font-weight-lighter">{{profile.firstName}}</div>
-        </div>
-        <div class="col-md-1">
-          <div class="font-weight-lighter">{{profile.lastName}}</div>
-        </div>
-        <div class="col-md-1">
-          <div class="font-weight-lighter">{{profile.score}}</div>
+        <div class="row">
+          <div class="col-1">
+            <mat-icon>perm_identity</mat-icon>
+          </div>
+          <div class="col">
+            <div class="font-weight-lighter">{{profile.firstName}}</div>
+          </div>
+          <div class="col">
+            <div class="font-weight-lighter">{{profile.lastName}}</div>
+          </div>
+          <div class="col-1">
+            <mat-icon>grade</mat-icon>
+          </div>
+          <div class="col">
+            <div class="font-weight-lighter">{{profile.score}}</div>
+          </div>
         </div>
       </ng-container>
     </div>
@@ -36,13 +44,14 @@
 </div>
 <div class="container pad font-weight-lighter">
   <div class="row">
-    <div class="col">
+    <!-- My recipes -->
+    <div class="col-sm-4">
       <div class="card">
         <div class="card-body" *ngIf= "(recipes$ | async) as recipes; else loading">
           <div class="row">
             <div class="col">Mes Recettes</div>
               <div class="col-2">
-                <a class="text-muted" href="/add_recipe" ><mat-icon>add_to_photos</mat-icon></a>
+                <a type="button" class="text-muted" data-toggle="modal" data-target="#AddRecipe_Modal" ><mat-icon>add_to_photos</mat-icon></a>
               </div>
             </div>
               <hr>
@@ -60,7 +69,8 @@
               </div>
             </div>
           </div>
-        <div class="col">
+          <!-- Favorites -->
+        <div class="col-sm-4">
           <div class="card">
             <div class="card-body" *ngIf= "(favourites$ | async) as favourites; else loading">
               Favoris
@@ -80,15 +90,15 @@
           </div>
         </div>
         <!-- Fridge Start -->
-        <div class="font-weight-lighter card_1 overflow-auto">
+        <div class="font-weight-lighter card_1 overflow-auto col-sm-4">
           <div class="card">
             <div class="card-body">
               <div class="sticky-top">
                 <div class="row">
                   <div class="col logopad1">
-                    Frigo
+                    Frigde
                   </div>
-                  <div class="col">
+                  <div class="col logopad2">
                     <a type="button" class="text-muted" data-toggle="modal" data-target="#FridgeModal"><mat-icon aria-hidden="false" class="logopad1">border_color</mat-icon></a>
                   </div>
                 </div>
@@ -98,7 +108,7 @@
                 <div class="col">
                   Ingredient
                 </div>
-                <div class="col">
+                <div class="col logopad2">
                   Quantity
                 </div>
               </div>
@@ -106,10 +116,10 @@
               <div>
               <div *ngFor = "let ingredient of Ingredient_Name ;let i=index">
                 <div class="row">
-                  <div class="col">
+                  <div class="col ">
                     {{ingredient}}
                   </div>
-                  <div class="col">
+                  <div class="col logopad2">
                     {{fridgeInter[i].quantity}}
                   </div>
                 </div>
@@ -121,6 +131,9 @@
         </div>
         <!-- Fride End -->
       </div>
+
+
+      <!-- Settings Modal -->
       <div class="modal fade" id="SettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -169,7 +182,7 @@
           </div>
         </div>
       </div>
-
+      <!-- Confirmation Modal -->
       <div class="modal fade" id="ConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -199,13 +212,13 @@
         </div>
       </div>
 
-      <!-- Fridge Model -->
-      <div class="modal fade font-weight-lighter" id="FridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <!-- Fridge Modal -->
+      <div class="modal fade font-weight-lighter pos" id="FridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Your Fridge</h5>
-              <button type="button" class="close" data-dismiss="modal" (click)="ngOnInit()" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" (click)="Notsave()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -251,10 +264,116 @@
                   </form>
                 </div>
                 <div class="col-3">
-                  <a type ="button" class="text-muted" (click)="Add()"><mat-icon aria-hidden="false" class="logopad1">add_circle_outline</mat-icon></a>
+                  <a type ="button" class="text-muted" (click)="Add()"><mat-icon aria-hidden="false" class="addbutton">add_circle_outline</mat-icon></a>
                 </div>
               </div>
               <button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="saveFridge()">Save Fridge</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AddRecipe Modal -->
+      <div class="modal fade" id="AddRecipe_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add your Recipe</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card sp">
+                <div class="card-body">
+                    <b>Informations</b>
+                    <hr>
+                    <form>
+                      <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Name</label>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="name">
+                          </div>
+                      </div>
+      
+                      <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Category</label>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="category">
+                          </div>
+                      </div>
+      
+                      <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Difficulty</label>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="difficulty">
+                          </div>
+                      </div>
+      
+                      <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Time</label>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="time">
+                          </div>
+                      </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="card sp">
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col"><b>Ingredients</b></div>
+                        <div class="row">
+                          <div class="col-sm-7">
+                            <ng-select [items]="Ingredients"
+                            bindLabel="name"
+                            placeholder="Search"
+                            appendTo="body"
+                            multiple="true"
+                            maxSelectedItems = 1
+                            [(ngModel)]="selected">
+                            </ng-select>
+                          </div>
+                          <div class="col">
+                            <form [formGroup]="quantityForm" >
+                              <input type="text" class="form-control" id="inputIngredient" formControlName="quantity">
+                            </form>
+                          </div>
+                          <div class="col">
+                            <a type ="button" class="text-muted"><mat-icon aria-hidden="false" class="addbuttonbis">add_circle_outline</mat-icon></a>
+                          </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                </div>
+              </div>
+
+              <div class="card sp">
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col"><b>Steps</b></div>
+                      <div class="col-sm-6">
+                        <form>
+                            <div class="form-group row">
+                              <input type="text" class="form-control form-control-sm font-weight-lighter" id="instruction">
+                            </div>
+                        </form>
+                      </div>
+                      <div class="col">
+                        <a type ="button" class="text-muted"><mat-icon aria-hidden="false" class="addbuttonbis1">add_circle_outline</mat-icon></a>
+                      </div>
+                      
+                    </div>
+                    
+                    <hr>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-success">Add</button>
             </div>
           </div>
         </div>
