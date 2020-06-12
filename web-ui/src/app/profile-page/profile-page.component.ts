@@ -30,7 +30,7 @@ export class ProfilePageComponent implements OnInit {
 
   fridgeInter = []
   Ingredients : Object
-  Ingredient_Name = []
+  Ingredient_Name = [];
 
   public profile$: Observable<any>;
   public recipes$: Observable<any>;
@@ -40,9 +40,10 @@ export class ProfilePageComponent implements OnInit {
                       // Done like this as quantities are added to fridge and not sure how to add elements to the observable response
 
 
-
+   
 
   ngOnInit(): void {
+
 
     this.ingredientService.getAllIngredientsResearch().subscribe(
       (data : Response) => {
@@ -65,7 +66,7 @@ export class ProfilePageComponent implements OnInit {
           }
       });
     }
-    this.fridgeInter = this.fridge
+    //this.fridgeInter = this.fridge
   }
 
   createProfile() {
@@ -84,6 +85,8 @@ export class ProfilePageComponent implements OnInit {
   getProfileDetails() {
     // Get Profile
     this.profile$ = this.profileService.getProfile(this.keycloak.getID())
+    this.profileService.addIngredientById(this.keycloak.getID(),1,2)
+    this.profile$ = this.profileService.getProfile(this.keycloak.getID())
     this.profile$.subscribe(
         (profile : any) => {          
           // Get Fridge Contents
@@ -91,7 +94,8 @@ export class ProfilePageComponent implements OnInit {
           profile.fridgeContents.forEach(element => {
             ingIDs.push(element.ingredientId);
           });
-          console.log(ingIDs)
+          // For each id : id --> Ingredient Name
+          //this.Ingredient_Name = this.ingredientService.getIngredients(ingIDs)
           this.fridge$ = this.ingredientService.getIngredients(ingIDs);
           this.fridge$.subscribe(
             (response : any) => {
@@ -100,17 +104,16 @@ export class ProfilePageComponent implements OnInit {
                 this.fridge[i].quantity = profile.fridgeContents[i].quantity;
               };
           });
-          console.log("*************")
-          console.log(this.fridge)
-          // Get Favourite Recipes
-          // var recipeIDs = [];
-          // profile.favouriteRecipes.forEach(element => {
-          //   recipeIDs.push(element.recipeId);
-          // });
-          // this.favourites$ = this.recipeService.getRecipes(recipeIDs);
+          //Get Favourite Recipes
+          var recipeIDs = [];
+          profile.favouriteRecipes.forEach(element => {
+            recipeIDs.push(element.recipeId);
+          });
+          this.favourites$ = this.recipeService.getRecipes(recipeIDs);
     });
     // Get my recipes
     this.recipes$ = this.recipeService.getRecipeforProfile(this.keycloak.getID());
+    this.fridgeInter = this.fridge;
   }
 
   logout() {
@@ -123,12 +126,10 @@ export class ProfilePageComponent implements OnInit {
     console.log("Added")
     console.log(this.quantityForm.get('quantity').value)
     this.fridgeInter.push({
-      name : this.selected[0].name,
       id : this.selected[0].id,
       quantity : +this.quantityForm.get('quantity').value
     })
-    //this.Ingredient_Name.push(this.selected[0].name)
-    // addIngredientById(profileID,ingredientID, quantity) 
+    this.Ingredient_Name.push(this.selected[0].name)
     console.log(this.fridge)
   }
 
@@ -143,6 +144,10 @@ export class ProfilePageComponent implements OnInit {
   saveFridge(){
     // this.Frigo --> BACKEND
     this.fridge = this.fridgeInter;
+  }
+
+  Notsave(){
+    this.getProfileDetails()
   }
 
 }

@@ -9,7 +9,6 @@ import { SearchComponent } from './search/search.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { Browser } from 'protractor';
-import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 
@@ -23,7 +22,6 @@ const routes: Routes = [
   { path: 'search', component:SearchComponent},
   { path: 'subscribe',component:SubscribeComponent},
   { path: 'recipe/:id', component:RecipePageComponent},
-  { path: 'add_recipe', component:AddRecipeComponent},
   { path: '**', component:NotFoundComponent}
 ];
 
