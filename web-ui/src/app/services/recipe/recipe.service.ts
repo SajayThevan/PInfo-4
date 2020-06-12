@@ -25,22 +25,22 @@ export class RecipeService {
   }
 
   addComment(id,comment){
-    var Request_url = environment.recipeService.url + "/addComment/"+id;
+    var Request_url = environment.recipeService.url +"/"+id+"/comments";
     this.http.put(Request_url,comment);
   }
 
-  addRating (id,Rate){ // Check rate if 0<rate<10
-    var Request_url = environment.recipeService.url + "/rate/"+id+"/"+Rate;
+  addRating (id,rate){ // Check rate if 0<rate<10
+    var Request_url = environment.recipeService.url +"/"+id+"/rate?rate="+rate;
     this.http.put(Request_url,null);
   }
 
   createNewRecipe(json) {
-    var Request_url = environment.recipeService.url + "/create";
+    var Request_url = environment.recipeService.url;
     this.http.post(Request_url,json);
   }
 
   deleteRecipe(id) {
-    var Request_url = environment.recipeService.url + "/rm/"+id;
+    var Request_url = environment.recipeService.url+id;
     this.http.delete(Request_url);
   }
 
@@ -49,12 +49,18 @@ export class RecipeService {
     return this.http.get(Request_url); // [ RecipeID,RecipeName,Ingredients ]
   }
 
-  getTendance(){
-    var Request_url = environment.recipeService.url + "/best";
+  getTrends(){
+    var Request_url = environment.recipeService.url + "/trends";
+    return this.http.get(Request_url)
+  }
+
+  getRecipeOfTheMonth(){
+    var Request_url = environment.recipeService.url + "/recipe-of-the-month";
+    return this.http.get(Request_url)
   }
 
   getSearchResult(url){
-    var Request_url = environment.recipeService.url + url; // To complete
+    var Request_url = environment.recipeService.url + "/ingredients" + url; // To complete
     return this.http.get(Request_url)
   }
 }

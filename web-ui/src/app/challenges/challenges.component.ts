@@ -4,6 +4,7 @@ import {Input, ChangeDetectionStrategy } from '@angular/core';
 //import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { IngredientService } from '../services/ingredient/ingredient.service';
+import { ChallengeService} from '../services/challenge/challenge.service';
 
 @Component({
   selector: 'app-challenges',
@@ -17,7 +18,7 @@ export class ChallengesComponent implements OnInit {
   public quantityForm:FormGroup;
   public quantity:FormControl;
 
-  constructor(private formBuilder:FormBuilder, private ingredientService : IngredientService) { 
+  constructor(private formBuilder:FormBuilder, private ingredientService : IngredientService, private challengeService : ChallengeService) { 
     this.quantity=new FormControl('',[Validators.required])
     this.quantityForm=formBuilder.group({
     quantity:this.quantity
@@ -25,14 +26,21 @@ export class ChallengesComponent implements OnInit {
   }
 
   Frigo = []
+  FrigoInter = []
   Ingredients : Object
+  Ingredient_Name = []
+
+  Challenges$ : Observable<any>;
+  Challenges = [];
   
   //@Input() Frigo: Observable<any>;
   ngOnInit(): void {
+    /*
     this.ingredientService.getAllIngredientsResearch().subscribe(
       (data : Response) => {
         this.Ingredients = data;
        });
+       // TODO : Appel au backend
     this.Frigo = [
       {id:1,quantity : 10},
       {id:2,quantity : 20},
@@ -41,11 +49,22 @@ export class ChallengesComponent implements OnInit {
       {id:5,quantity : 50},
       {id:6,quantity : 60}
     ];
-    //this.Frigo = new BehaviorSubject(this.Frigo);
+    this.FrigoInter = this.Frigo;
+    // TODO : ID --> NOM
+    this.Ingredient_Name = ['Lait','Beurre','Choco','Vanille','Pasta','Sucre']
+    */
+
+    this.Challenges$ = this.challengeService.getAll()
+    this.Challenges$.subscribe(
+      (response:any ) =>{
+        this.Challenges = response;
+        console.log(this.Challenges);
+      }
+    )
   }
   // ------------- FRIDGE -------------------
 
-  Ingredient_Name = ['Lait','Beurre','Choco','Vanille','Pasta','Sucre']
+  
 
   selected = [];
 
@@ -57,7 +76,7 @@ export class ChallengesComponent implements OnInit {
   Add(){
     console.log("Added")
     console.log(this.quantityForm.get('quantity').value)
-    this.Frigo.push({
+    this.FrigoInter.push({
       id : this.selected[0].id,
       quantity : +this.quantityForm.get('quantity').value
     })
@@ -68,11 +87,17 @@ export class ChallengesComponent implements OnInit {
 
   Remove(id){
     console.log("Removed")
-    this.Frigo.splice(id,1)
+    this.FrigoInter.splice(id,1)
     this.Ingredient_Name.splice(id,1)
     // removeIngredient(profileID,ingredientID)
     console.log(this.Frigo)
   }
+
+  saveFridge(){
+    // this.Frigo --> BACKEND
+    this.Frigo = this.FrigoInter;
+  }
+
 
   // ------------- END FRIDGE -------------------
 }

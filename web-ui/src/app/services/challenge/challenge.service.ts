@@ -13,7 +13,11 @@ export class ChallengeService {
     return this.http.get("https://jsonplaceholder.typicode.com/users");
   }
 
-  getChallence(id) {
+  getAll(){
+    return this.http.get<any>(environment.challengeService.url);
+  }
+
+  getChallenge(id) {
     return this.http.get<any>(environment.challengeService.url + "/" + id);
   }
 

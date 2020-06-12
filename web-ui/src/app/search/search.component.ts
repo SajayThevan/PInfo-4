@@ -38,10 +38,11 @@ export class SearchComponent implements OnInit {
   }
 
   selected = [];
-  url = "";
   public Result : Object;
+  url = "";
 
   getResult() {
+    this.url = "";
     this.selected.forEach(element => {
       this.url = this.url+"?id="+element.id+"&"
     });
@@ -49,7 +50,6 @@ export class SearchComponent implements OnInit {
     this.recipeService.getSearchResult(this.url).subscribe(
       (data : Response) => {
         this.Result = data;
-        console.log("Recipes", this.Result);
        });
   }
 }

@@ -19,7 +19,6 @@ import { ChallengeService } from './services/challenge/challenge.service';
 import { IngredientService } from './services/ingredient/ingredient.service';
 import { ProfileService } from './services/profile/profile.service';
 import { RecipeService } from './services/recipe/recipe.service';
-import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {NgSelectModule} from '@ng-select/ng-select'
@@ -51,8 +50,7 @@ export function init_config(appLoadService: AppInitService, keycloak: KeycloakSe
     SearchComponent,
     SubscribeComponent,
     RecipePageComponent,
-    AddRecipeComponent,
-    NotFoundComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
