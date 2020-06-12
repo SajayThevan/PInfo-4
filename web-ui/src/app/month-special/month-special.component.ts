@@ -22,6 +22,7 @@ export class MonthSpecialComponent implements OnInit {
     this.recipesDTO$.subscribe(
       (response : any) => {
         this.month = response;
+        console.log(this.month)
     });
   }
 

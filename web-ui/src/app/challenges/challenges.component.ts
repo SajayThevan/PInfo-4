@@ -4,6 +4,7 @@ import {Input, ChangeDetectionStrategy } from '@angular/core';
 //import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { IngredientService } from '../services/ingredient/ingredient.service';
+import { ChallengeService} from '../services/challenge/challenge.service';
 
 @Component({
   selector: 'app-challenges',
@@ -17,7 +18,7 @@ export class ChallengesComponent implements OnInit {
   public quantityForm:FormGroup;
   public quantity:FormControl;
 
-  constructor(private formBuilder:FormBuilder, private ingredientService : IngredientService) { 
+  constructor(private formBuilder:FormBuilder, private ingredientService : IngredientService, private challengeService : ChallengeService) { 
     this.quantity=new FormControl('',[Validators.required])
     this.quantityForm=formBuilder.group({
     quantity:this.quantity
@@ -28,9 +29,13 @@ export class ChallengesComponent implements OnInit {
   FrigoInter = []
   Ingredients : Object
   Ingredient_Name = []
+
+  Challenges$ : Observable<any>;
+  Challenges = [];
   
   //@Input() Frigo: Observable<any>;
   ngOnInit(): void {
+    /*
     this.ingredientService.getAllIngredientsResearch().subscribe(
       (data : Response) => {
         this.Ingredients = data;
@@ -47,6 +52,15 @@ export class ChallengesComponent implements OnInit {
     this.FrigoInter = this.Frigo;
     // TODO : ID --> NOM
     this.Ingredient_Name = ['Lait','Beurre','Choco','Vanille','Pasta','Sucre']
+    */
+
+    this.Challenges$ = this.challengeService.getAll()
+    this.Challenges$.subscribe(
+      (response:any ) =>{
+        this.Challenges = response;
+        console.log(this.Challenges);
+      }
+    )
   }
   // ------------- FRIDGE -------------------
 

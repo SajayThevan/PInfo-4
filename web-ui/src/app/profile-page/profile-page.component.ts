@@ -28,9 +28,13 @@ export class ProfilePageComponent implements OnInit {
 
 
 
-  fridgeInter = []
-  Ingredients : Object
-  Ingredient_Name = [];
+  public fridgeInter = [];
+  public Ingredients : Object;
+  public Ingredient_Name$ : Observable<any>;
+  public Ingredient_Name = [];
+  public IngredientNameInter = [];
+
+  public ret = 0;
 
   public profile$: Observable<any>;
   public recipes$: Observable<any>;
@@ -62,7 +66,8 @@ export class ProfilePageComponent implements OnInit {
                 this.getProfileDetails()
             });
           } else {
-            this.getProfileDetails();
+            this.ret = this.getProfileDetails();
+            console.log(this.fridgeInter)
           }
       });
     }
@@ -82,11 +87,11 @@ export class ProfilePageComponent implements OnInit {
     return this.profileService.createProfile(profile);
   }
 
-  getProfileDetails() {
+    getProfileDetails() {
     // Get Profile
-    this.profile$ = this.profileService.getProfile(this.keycloak.getID())
-    this.profileService.addIngredientById(this.keycloak.getID(),1,2)
-    this.profile$ = this.profileService.getProfile(this.keycloak.getID())
+    this.profile$ = this.profileService.getProfile(this.keycloak.getID());
+    this.profileService.addIngredientById(this.keycloak.getID(),1,2);
+    this.profile$ = this.profileService.getProfile(this.keycloak.getID());
     this.profile$.subscribe(
         (profile : any) => {          
           // Get Fridge Contents
@@ -95,7 +100,13 @@ export class ProfilePageComponent implements OnInit {
             ingIDs.push(element.ingredientId);
           });
           // For each id : id --> Ingredient Name
-          //this.Ingredient_Name = this.ingredientService.getIngredients(ingIDs)
+          this.Ingredient_Name$ = this.ingredientService.getIngredients(ingIDs)
+          this.Ingredient_Name$.subscribe(
+            (response : any) => {
+              this.Ingredient_Name = response;
+              this.IngredientNameInter = response;
+            }
+          )
           this.fridge$ = this.ingredientService.getIngredients(ingIDs);
           this.fridge$.subscribe(
             (response : any) => {
@@ -103,6 +114,12 @@ export class ProfilePageComponent implements OnInit {
               for (let i = 0; i < this.fridge.length; i++) {
                 this.fridge[i].quantity = profile.fridgeContents[i].quantity;
               };
+              //console.log(this.fridge)
+              //this.fridgeInter = this.fridge;
+              for (let i = 0; i < this.fridge.length; i++) {
+                this.fridgeInter[i] = this.fridge[i];
+              };
+              //console.log(this.fridgeInter)
           });
           //Get Favourite Recipes
           var recipeIDs = [];
@@ -113,7 +130,8 @@ export class ProfilePageComponent implements OnInit {
     });
     // Get my recipes
     this.recipes$ = this.recipeService.getRecipeforProfile(this.keycloak.getID());
-    this.fridgeInter = this.fridge;
+
+    return 1;
   }
 
   logout() {
@@ -124,19 +142,17 @@ export class ProfilePageComponent implements OnInit {
 
   Add(){
     console.log("Added")
-    console.log(this.quantityForm.get('quantity').value)
     this.fridgeInter.push({
       id : this.selected[0].id,
       quantity : +this.quantityForm.get('quantity').value
     })
-    this.Ingredient_Name.push(this.selected[0].name)
-    console.log(this.fridge)
+    this.IngredientNameInter.push(this.selected[0].name)
   }
 
   Remove(id){
     console.log("Removed")
     this.fridgeInter.splice(id,1)
-    this.Ingredient_Name.splice(id,1)
+    this.IngredientNameInter.splice(id,1)
     // removeIngredient(profileID,ingredientID)
     console.log(this.fridge)
   }
@@ -144,6 +160,12 @@ export class ProfilePageComponent implements OnInit {
   saveFridge(){
     // this.Frigo --> BACKEND
     this.fridge = this.fridgeInter;
+    this.Ingredient_Name = [];
+    for (let i = 0; i < this.IngredientNameInter.length; i++) {
+      this.Ingredient_Name[i] = this.IngredientNameInter[i];
+    };
+    console.log(this.fridgeInter)
+    console.log(this.fridge)
   }
 
   Notsave(){

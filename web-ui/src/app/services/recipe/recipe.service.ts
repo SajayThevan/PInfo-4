@@ -60,7 +60,7 @@ export class RecipeService {
   }
 
   getSearchResult(url){
-    var Request_url = environment.recipeService.url + url; // To complete
+    var Request_url = environment.recipeService.url + "/ingredients" + url; // To complete
     return this.http.get(Request_url)
   }
 }
