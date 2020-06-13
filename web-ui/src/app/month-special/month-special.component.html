@@ -23,18 +23,22 @@
     </li>
   </ul>
 
-  <div class="row">
-    <div class="col" *ngFor = "let recipe of month">
-      <div class="tab">
-        <div class="recipe_image row"></div>
-        <div class="recipe_name">
-            {{recipe.name}}
+  
+  <div>
+    <div class="row">
+        <div class="col" *ngFor="let tendance of month"> 
+          <div class="tab">
+            <div class="recipe_image row"></div>
+            <div class="recipe_name">
+              {{tendance.name}}
+            </div>
+            <div class="button_pos">
+                <a class="text-muted space" href="/recipe/{{tendance.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+            </div>
         </div>
-        <div class="button_pos">
-            <a class="text-muted space" href="/recipe/{{recipe.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
         </div>
-      </div>
     </div>
   </div>
+ 
 
 </div>
