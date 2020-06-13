@@ -43,7 +43,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public void RecipeTestVolume() {
 		try {
 			// TODO: Change system out to logforj?... less resources
-			File myObj = new File("/tmp/images/filename.txt");
+			File myObj = new File("/tmp/images/recipe/filename.txt");
 			if (myObj.createNewFile()) {
 		        System.out.println("File created: " + myObj.getName());
 		      } else {
