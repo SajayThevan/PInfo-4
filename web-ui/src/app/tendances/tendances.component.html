@@ -26,14 +26,14 @@
   
   <div>
     <div class="row">
-        <div class="col" *ngFor = "let tendances of Tendances"> 
+        <div class="col" *ngFor = "let tendance of tendances"> 
           <div class="tab">
             <div class="recipe_image row"></div>
             <div class="recipe_name">
-                {{tendances.recipename}}
+              {{tendance.name}}
             </div>
             <div class="button_pos">
-                <a class="text-muted space" href="/recipe/{{tendances.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                <a class="text-muted space" href="/recipe/{{tendance.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
             </div>
         </div>
         </div>
