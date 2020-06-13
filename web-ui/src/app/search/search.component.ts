@@ -30,19 +30,28 @@ export class SearchComponent implements OnInit {
 
   public Ingredients : Object;
 
+  showResults : boolean;
+  zeroResult : boolean;
+
   ngOnInit() {
    this.ingredientService.getAllIngredientsResearch().subscribe(
      (data : Response) => {
        this.Ingredients = data;
       });
+    this.showResults = false;
+    this.zeroResult = false;
   }
 
   selected = [];
-  public Result : Object;
+  Result : any;
   url = "";
 
+  
+
   getResult() {
-    this.url = "";
+    this.ngOnInit()
+    if (this.selected.length > 0) {
+      this.url = "";
     this.selected.forEach(element => {
       this.url = this.url+"?id="+element.id+"&"
     });
@@ -50,6 +59,17 @@ export class SearchComponent implements OnInit {
     this.recipeService.getSearchResult(this.url).subscribe(
       (data : Response) => {
         this.Result = data;
+        if (this.Result.length > 0) {
+          this.showResults = true;
+        } else {
+          this.zeroResult = true;
+        }
+        console.log(this.Result)
        });
-  }
+    } else {
+      console.log("Select Some ingredients")
+    }
+
+  } 
+    
 }

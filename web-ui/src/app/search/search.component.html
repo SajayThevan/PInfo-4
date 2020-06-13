@@ -16,7 +16,7 @@
   <div class="pos">
       <div class="row">
         <div class="col">
-          <div class="searchbar">
+          <div class="searchbar font-weight-lighter">
             <ng-select [items]="Ingredients"
                        bindLabel="name"
                        placeholder="Search"
@@ -30,6 +30,36 @@
           <button (click)="getResult()" class="btn btn-sm btn btn-outline-dark">Search</button>
         </div>
       </div>  
+  </div>
+
+  <div class="space"></div>
+  <hr>
+  
+
+  <div *ngIf="showResults">
+      <div class="header font-weight-lighter">
+        We have found the following recipes for you
+      </div>
+      <hr>
+      <div class="row">
+          <div class="col" *ngFor="let result of Result"> 
+            <div class="tab">
+              <div class="recipe_image row"></div>
+                <div class="recipe_name">
+                    {{result.name}}
+                </div>
+                <div class="button_pos">
+                    <a class="text-muted space1" href="/recipe/{{result.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                </div>
+            </div>
+          </div>
+       </div>
+  </div>
+
+  <div *ngIf="zeroResult">
+    <div class="font-weight-lighter">
+       <div class="image_no_result"></div>
+    </div>
   </div>
 
   
