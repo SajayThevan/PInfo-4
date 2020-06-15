@@ -8,44 +8,65 @@ import { KeycloakService } from '../services/keycloak/keycloak.service';
 import { KeycloakInstance } from 'keycloak-js';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { threadId } from 'worker_threads';
+import { element } from 'protractor';
+import { stringify } from 'querystring';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  styleUrls: ['./profile-page.component.scss'],
+  providers: [DatePipe]
 })
 export class ProfilePageComponent implements OnInit {
 
   public keycloakAuth: KeycloakInstance;
   public quantityForm:FormGroup;
+  public recipeForm: FormGroup;
   public quantity:FormControl;
 
-  constructor(private formBuilder:FormBuilder,private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService) {
-    this.quantity=new FormControl('',[Validators.required])
-    this.quantityForm=formBuilder.group({
-    quantity:this.quantity
-    })
-   }
+  public name:FormControl;
+  public cat: FormControl;
+  public difficulty: FormControl;
+  public time: FormControl;
+  public instruction: FormControl;
 
-
-  
   public fridgeInter = [];
   public Ingredients : Object;
-  public Ingredient_Name$ : Observable<any>;
-  public Ingredient_Name = [];
-  public IngredientNameInter = [];
+ 
+  selected = [];
 
   public ret = 0;
-
   public profile$: Observable<any>;
   public recipes$: Observable<any>;
   public favourites$: Observable<any>;
   public fridge$: Observable<any>;
-  public fridge: any; // TODO: Not the cleanest way, would be nicer to directly affect the reponse of the observable rather than assign it to a new variable
-                      // Done like this as quantities are added to fridge and not sure how to add elements to the observable response
-
-
+  public fridge: any; 
    
+
+  constructor(private formBuilder:FormBuilder,private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService,private datePipe: DatePipe) {
+    this.quantity=new FormControl('',[Validators.required])
+
+    this.quantityForm=formBuilder.group({
+    quantity:this.quantity
+    })
+  
+
+    //TODO: Verify quantity
+    this.name = new FormControl('',[Validators.required]);
+    this.cat = new FormControl('',[Validators.required]);
+    this.difficulty =  new FormControl('',[Validators.required]);
+    this.time = new FormControl('',[Validators.required]);
+    this.instruction = new FormControl('',[Validators.required]);
+
+    this.recipeForm=formBuilder.group({
+    name:this.name,
+    cat:this.cat,
+    difficulty:this.difficulty,
+    time:this.time,
+    instruction:this.instruction
+    })
+   }
 
   ngOnInit(): void {
 
@@ -68,11 +89,9 @@ export class ProfilePageComponent implements OnInit {
             });
           } else {
             this.ret = this.getProfileDetails();
-            //console.log(this.fridgeInter)
           }
       });
     }
-    //this.fridgeInter = this.fridge
   }
 
   createProfile() {
@@ -100,28 +119,23 @@ export class ProfilePageComponent implements OnInit {
           profile.fridgeContents.forEach(element => {
             ingIDs.push(element.ingredientId);
           });
-          // For each id : id --> Ingredient Name
-          this.Ingredient_Name$ = this.ingredientService.getIngredients(ingIDs)
-          this.Ingredient_Name$.subscribe(
-            (response : any) => {
-              this.Ingredient_Name = response;
-              this.IngredientNameInter = response;
-            }
-           
-          )
+        
           this.fridge$ = this.ingredientService.getIngredients(ingIDs);
           this.fridge$.subscribe(
             (response : any) => {
               this.fridge = response;
-              for (let i = 0; i < this.fridge.length; i++) {
-                this.fridge[i].quantity = profile.fridgeContents[i].quantity;
-              };
-              //console.log(this.fridge)
-              //this.fridgeInter = this.fridge;
+              this.fridge.forEach(ing =>{
+                profile.fridgeContents.forEach(element =>{
+                  if (ing.id == element.ingredientId){
+                    ing.quantity = element.quantity
+                  }
+                });
+              })
+
               for (let i = 0; i < this.fridge.length; i++) {
                 this.fridgeInter[i] = this.fridge[i];
               };
-              //console.log(this.fridgeInter)
+
           });
           //Get Favourite Recipes
           var recipeIDs = [];
@@ -140,7 +154,7 @@ export class ProfilePageComponent implements OnInit {
     this.keycloak.logout();
   }
 
-  selected = [];
+  
 
   Add(){
     this.fridgeInter.push({
@@ -148,29 +162,24 @@ export class ProfilePageComponent implements OnInit {
       name: this.selected[0].name,
       quantity : +this.quantityForm.get('quantity').value
     })
-    this.IngredientNameInter.push({
-      id:this.selected[0].id,
-      name: this.selected[0].name
-    })
-
+    
+  
   }
 
   Remove(id){
     this.fridgeInter.splice(id,1)
-    this.IngredientNameInter.splice(id,1)
+   
   }
 
   saveFridge(){
- 
-    console.log(this.fridgeInter)
-    this.fridge.forEach(element => {
 
+     this.fridge.forEach(element => {
       let ret = this.profileService.removeIngredient(this.keycloak.getID(),element.id)
     });
     this.fridgeInter.forEach(element=>{
-
       let ret = this.profileService.addIngredientById(this.keycloak.getID(),element.id,element.quantity)
     })
+
     this.ngOnInit()
 
   }
@@ -178,5 +187,26 @@ export class ProfilePageComponent implements OnInit {
   Notsave(){
     this.getProfileDetails()
   }
+
+
+  createRecipe() {
+    let Recipe: any = {};
+    Recipe.authorID = this.keycloak.getID();
+    Recipe.name = this.recipeForm.get('name').value
+    Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
+    Recipe.imagePath ="tmp/image/recipe/"+stringify(Recipe.authorID)+".jpg"
+    Recipe.ingredients = []
+    Recipe.steps = [];
+    Recipe.category = [];
+    Recipe.difficulty =this.recipeForm.get('diffuclty').value
+    Recipe.time = this.recipeForm.get('time').value
+    Recipe.ratings = [];
+    Recipe.comments = [];
+    console.log(Recipe)
+
+    
+   // return this.profileService.createProfile(profile);
+  }
+
 
 }

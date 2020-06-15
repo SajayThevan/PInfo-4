@@ -6,6 +6,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import { IngredientService } from '../services/ingredient/ingredient.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { ChallengeService} from '../services/challenge/challenge.service';
+import { KeycloakService } from '../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-challenges',
@@ -19,7 +20,7 @@ export class ChallengesComponent implements OnInit {
   public quantityForm:FormGroup;
   public quantity:FormControl;
 
-  constructor(private challengeService:ChallengeService, private ingredientService:IngredientService, private profileService:ProfileService) {}
+  constructor(private challengeService:ChallengeService, private ingredientService:IngredientService, private profileService:ProfileService, public keycloak: KeycloakService) {}
 
   Challenges$ : Observable<any>;
   Challenges : any ;
@@ -85,6 +86,8 @@ export class ChallengesComponent implements OnInit {
       }
     )
   }
+
+  
 
 
 }

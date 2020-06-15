@@ -114,13 +114,13 @@
               </div>
               <hr>
               <div>
-              <div *ngFor = "let ingredient of Ingredient_Name ;let i=index">
+              <div *ngFor = "let ing of fridge ;let i=index">
                 <div class="row">
                   <div class="col ">
-                    {{fridge[i].name}}
+                    {{ing.name}}
                   </div>
                   <div class="col logopad2">
-                    {{fridge[i].quantity}}
+                    {{ing.quantity}}
                   </div>
                 </div>
                 <hr>
@@ -229,14 +229,14 @@
                 <div class="col-3">Remove</div>
               </div>
               <hr>
-              <div *ngFor = "let ingredient of IngredientNameInter ;let i=index">
+              <div *ngFor = "let ing of fridgeInter ;let i=index">
                 <div class="row">
                   <div class="col">
-                    {{ingredient.name}}
+                    {{ing.name}}
                   </div>
                   <div class="col-3">
                     <form>
-                      <input type="text" class="form-control" id="inputPassword" placeholder="{{fridgeInter[i].quantity}}">
+                      <input type="text" class="form-control" id="inputPassword" placeholder="{{ing.quantity}}">
                     </form>
                   </div>
                   <div class="col-3">
@@ -292,28 +292,40 @@
                       <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Name</label>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="name">
+                            <form [formGroup]="recipeForm" >
+                              <input type="text" class="form-control" id="name" formControlName="name">
+                            </form>
+                            <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="name">-->
                           </div>
                       </div>
       
                       <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Category</label>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="category">
+                            <form [formGroup]="recipeForm" >
+                              <input type="text" class="form-control" id="cat" formControlName="cat">
+                            </form>
+                            <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="category">-->
                           </div>
                       </div>
       
                       <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Difficulty</label>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="difficulty">
+                            <form [formGroup]="recipeForm" >
+                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty">
+                            </form>
+                            <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="difficulty">-->
                           </div>
                       </div>
       
                       <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Time</label>
                           <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-sm font-weight-lighter" id="time">
+                            <form [formGroup]="recipeForm" >
+                              <input type="text" class="form-control" id="time" formControlName="time">
+                            </form>
+                            <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="time">-->
                           </div>
                       </div>
                   </form>
@@ -357,7 +369,10 @@
                       <div class="col-sm-6">
                         <form>
                             <div class="form-group row">
-                              <input type="text" class="form-control form-control-sm font-weight-lighter" id="instruction">
+                              <form [formGroup]="recipeForm">
+                                <input type="text" class="form-control" id="instruction" formControlName="instruction">
+                              </form>
+                              <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="instruction">-->
                             </div>
                         </form>
                       </div>
