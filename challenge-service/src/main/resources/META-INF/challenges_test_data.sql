@@ -9,24 +9,24 @@ create sequence CHALLENGE_SEQ start with 1 increment by 50;
 create sequence RECIPE_SEQ start with 1 increment by 50;
 
 create table Challenge (
-    id bigint not null,
+    id int8 not null,
     authorID varchar(255),
     name varchar(255),
     primary key (id)
 );
     
 create table Ingredient (
-    id bigint not null,
-    ingredientId bigint,
-    quantity integer not null,
-    CHALLENGE_ID bigint,
+    id int8 not null,
+    ingredientId int8,
+    quantity int4 not null,
+    CHALLENGE_ID int8,
     primary key (id)
 );
     
 create table Recipe (
-    id bigint not null,
-    recipeId bigint,
-    CHALLENGE_ID bigint,
+    id int8 not null,
+    recipeId int8,
+    CHALLENGE_ID int8,
     primary key (id)
 );
 
@@ -40,15 +40,15 @@ alter table Recipe
     foreign key (CHALLENGE_ID) 
     references Challenge;
     
-INSERT INTO Challenge (authorID, name, id) values ('14', 'CREPESAMERE', Challenge_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,INGREDIENT_SEQ.nextval);
-INSERT INTO Recipe (recipeId, id) values (14, RECIPE_SEQ.nextval);
+INSERT INTO Challenge (authorID, name, id) values ('14', 'CREPESAMERE', nextval('Challenge_SEQ'));
+INSERT INTO Ingredient (ingredientId, quantity, id) values (4,20,nextval('INGREDIENT_SEQ'));
+INSERT INTO Recipe (recipeId, id) values (14, nextval('RECIPE_SEQ'));
 
 INSERT INTO Challenge (authorID, name, id) values ('14', 'CREPESAMERE', 2);
-INSERT INTO Ingredient (ingredientId, quantity, id, CHALLENGE_ID) values (4,20,INGREDIENT_SEQ.nextval,2);
-INSERT INTO Recipe (recipeId, id, CHALLENGE_ID) values (14, RECIPE_SEQ.nextval,2);
+INSERT INTO Ingredient (ingredientId, quantity, id, CHALLENGE_ID) values (4,20,nextval('INGREDIENT_SEQ'),2);
+INSERT INTO Recipe (recipeId, id, CHALLENGE_ID) values (14, nextval('RECIPE_SEQ'),2);
 
-INSERT INTO Challenge (authorID, name, id) values ('1', 'GateauAuCaca', Challenge_SEQ.nextval);
-INSERT INTO Ingredient (ingredientId, quantity, id) values (4,10,INGREDIENT_SEQ.nextval);
-INSERT INTO Recipe (recipeId, id) values (14, RECIPE_SEQ.nextval);
+INSERT INTO Challenge (authorID, name, id) values ('1', 'GateauAuCaca', nextval('Challenge_SEQ'));
+INSERT INTO Ingredient (ingredientId, quantity, id) values (4,10,nextval('INGREDIENT_SEQ'));
+INSERT INTO Recipe (recipeId, id) values (14, nextval('RECIPE_SEQ'));
 

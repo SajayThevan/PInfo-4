@@ -31,3 +31,21 @@ dependencies:
   - name: kafka
     version: 7.2.9
     repository: https://charts.bitnami.com/bitnami
+
+
+# - name: postgresql
+#   version: 7.7.2
+#   repository: https://kubernetes-charts.storage.googleapis.com
+#   alias: ingredient-db
+# - name: postgresql
+#   version: 7.7.2
+#   repository: https://kubernetes-charts.storage.googleapis.com
+#   alias: recipe-db
+# - name: postgresql
+#   version: 7.7.2
+#   repository: https://kubernetes-charts.storage.googleapis.com
+#   alias: profile-db
+# - name: postgresql
+#   version: 7.7.2
+#   repository: https://kubernetes-charts.storage.googleapis.com
+#   alias: challenge-db

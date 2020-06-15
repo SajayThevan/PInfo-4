@@ -21,6 +21,10 @@ export class ChallengeService {
     return this.http.get<any>(environment.challengeService.url + "/" + id);
   }
 
+  getRecipesWithIngIds(ids) {
+    return this.http.get<any>(environment.challengeService.url + "/ingredients/" + ids);
+  }
+
   removeChallengebyID(id) {
     var Request_url = environment.challengeService.url + "/" + id;
     this.http.delete(Request_url);
