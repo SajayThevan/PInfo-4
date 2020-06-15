@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 
@@ -26,9 +26,31 @@ export class ChallengeService {
     this.http.delete(Request_url);
   }
 
-  // updateChallenge(id) PATH MISSING 
+  updateChallenge(Challenge){
+    let httpHeaders = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = {
+      headers: httpHeaders
+    };
+    return this.http.put(environment.challengeService.url, JSON.stringify(Challenge), options).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
+  } 
 
-  // createChallenge(challenge) PATH MISSING
+  createChallenge(Challenge) {
+    let httpHeaders = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = {
+      headers: httpHeaders
+    };
+    return this.http.post(environment.challengeService.url, JSON.stringify(Challenge), options).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
+  }
 
   getIngredient(challengeID) {
     var Request_url = environment.challengeService.url + "/" + challengeID + "/ingredients";
