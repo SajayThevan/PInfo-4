@@ -76,12 +76,12 @@ export class ChallengesComponent implements OnInit {
           });
           this.IngredientsNames.push(IngredientsChallenge)
         });
-        /*
+        
         console.log("author : ")
         console.log(this.AuthorNames)
         console.log("ingredients names : ")
         console.log(this.IngredientsNames)
-        */
+        
       }
     )
   }
