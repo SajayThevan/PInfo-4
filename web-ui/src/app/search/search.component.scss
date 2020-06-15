@@ -1,3 +1,4 @@
+
 .logopad {
     padding-top: 10px;
     padding-left: 35px;
@@ -88,4 +89,34 @@
 
 .space1{
     padding-left: 20px;
+}
+
+.challengepos{
+    margin-top: 40px;
+    font-size: large;
+    margin-left: 60px;
+}
+
+.recipe_image_modal{
+    left: -30%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    height: 50px;
+    width: 50px;
+    border: solid 1px gainsboro;
+    border-radius: 10px;
+    position: relative;
+    left : -55%;
+    background-image: url(../../assets/recipe_logo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+}
+
+.size{
+    position: relative;
+    width: 700px;
+    left: -20%;
+    top: 30%;
 }

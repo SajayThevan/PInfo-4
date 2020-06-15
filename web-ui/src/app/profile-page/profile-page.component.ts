@@ -7,6 +7,7 @@ import { IngredientService } from '../services/ingredient/ingredient.service';
 import { KeycloakService } from '../services/keycloak/keycloak.service';
 import { KeycloakInstance } from 'keycloak-js';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-profile-page',
@@ -27,7 +28,7 @@ export class ProfilePageComponent implements OnInit {
    }
 
 
-
+  
   public fridgeInter = [];
   public Ingredients : Object;
   public Ingredient_Name$ : Observable<any>;
@@ -67,7 +68,7 @@ export class ProfilePageComponent implements OnInit {
             });
           } else {
             this.ret = this.getProfileDetails();
-            console.log(this.fridgeInter)
+            //console.log(this.fridgeInter)
           }
       });
     }
@@ -106,6 +107,7 @@ export class ProfilePageComponent implements OnInit {
               this.Ingredient_Name = response;
               this.IngredientNameInter = response;
             }
+           
           )
           this.fridge$ = this.ingredientService.getIngredients(ingIDs);
           this.fridge$.subscribe(
@@ -141,31 +143,36 @@ export class ProfilePageComponent implements OnInit {
   selected = [];
 
   Add(){
-    console.log("Added")
     this.fridgeInter.push({
       id : this.selected[0].id,
+      name: this.selected[0].name,
       quantity : +this.quantityForm.get('quantity').value
     })
-    this.IngredientNameInter.push(this.selected[0].name)
+    this.IngredientNameInter.push({
+      id:this.selected[0].id,
+      name: this.selected[0].name
+    })
+
   }
 
   Remove(id){
-    console.log("Removed")
     this.fridgeInter.splice(id,1)
     this.IngredientNameInter.splice(id,1)
-    // removeIngredient(profileID,ingredientID)
-    console.log(this.fridge)
   }
 
   saveFridge(){
-    // this.Frigo --> BACKEND
-    this.fridge = this.fridgeInter;
-    this.Ingredient_Name = [];
-    for (let i = 0; i < this.IngredientNameInter.length; i++) {
-      this.Ingredient_Name[i] = this.IngredientNameInter[i];
-    };
+ 
     console.log(this.fridgeInter)
-    console.log(this.fridge)
+    this.fridge.forEach(element => {
+
+      let ret = this.profileService.removeIngredient(this.keycloak.getID(),element.id)
+    });
+    this.fridgeInter.forEach(element=>{
+
+      let ret = this.profileService.addIngredientById(this.keycloak.getID(),element.id,element.quantity)
+    })
+    this.ngOnInit()
+
   }
 
   Notsave(){

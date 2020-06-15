@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="row flex-nowrap justify-content-between align-items-center">
     <div class="center">
@@ -59,12 +60,81 @@
   <div *ngIf="zeroResult">
     <div class="font-weight-lighter">
        <div class="image_no_result"></div>
+
+       <div *ngIf="connected">
+
+        <div class="row">
+          <div class="col">
+            <div class="font-weight-lighter challengepos">
+              Do you want to create a challenge with your search ? 
+           </div>
+          </div>
+
+          <div class="col challengepos">
+            <a type="button" class="text-muted space1" data-toggle="modal" data-target="#AddChallengeModal"><mat-icon aria-hidden="false">add_box</mat-icon></a>
+          </div>
+        </div>
+
+       </div>
+
+       <div *ngIf="!connected">
+
+        <div class="row">
+          <div class="col">
+            <div class="font-weight-lighter challengepos">
+              You have to be connected to create challenge ! 
+           </div>
+          </div>
+
+          <div class="col challengepos">
+            <a type="button" class="text-muted space1" href="/profile"><mat-icon aria-hidden="false">person</mat-icon></a>
+          </div>
+        </div>
+       </div>
+       
+       
+    </div> 
+  </div>
+
+  <!-- Add Challenge Modal -->
+  <div class="modal fade" id="AddChallengeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content size">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create a Challenge</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="name">
+                </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                Ingredients
+              </div>
+              <div class="card-body">
+                <div *ngFor="let ingredient of selected">
+                  {{ingredient.name}}
+                </div>
+              </div>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <div class="recipe_image_modal"></div>
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-success">Create Challenge</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  
-  
-  
-  
-
+ 
 </div>
