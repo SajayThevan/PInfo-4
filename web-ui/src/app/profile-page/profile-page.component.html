@@ -117,10 +117,10 @@
               <div *ngFor = "let ingredient of Ingredient_Name ;let i=index">
                 <div class="row">
                   <div class="col ">
-                    {{ingredient}}
+                    {{fridge[i].name}}
                   </div>
                   <div class="col logopad2">
-                    {{fridgeInter[i].quantity}}
+                    {{fridge[i].quantity}}
                   </div>
                 </div>
                 <hr>
@@ -232,11 +232,11 @@
               <div *ngFor = "let ingredient of IngredientNameInter ;let i=index">
                 <div class="row">
                   <div class="col">
-                    {{ingredient}}
+                    {{ingredient.name}}
                   </div>
                   <div class="col-3">
                     <form>
-                      <input type="text" class="form-control" id="inputPassword" placeholder="{{fridge[i].quantity}}">
+                      <input type="text" class="form-control" id="inputPassword" placeholder="{{fridgeInter[i].quantity}}">
                     </form>
                   </div>
                   <div class="col-3">
