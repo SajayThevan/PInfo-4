@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Input} from '@angular/core';
-import { FormsModule, FormControl } from '@angular/forms';
+import { FormsModule, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IngredientService } from '../services/ingredient/ingredient.service';
 import { element } from 'protractor';
@@ -8,6 +8,7 @@ import { stringify } from 'querystring';
 import { RecipeService } from '../services/recipe/recipe.service';
 import { KeycloakService } from '../services/keycloak/keycloak.service';
 import { KeycloakInstance } from 'keycloak-js';
+import { ChallengeService } from '../services/challenge/challenge.service';
 
 
 @Component({
@@ -19,11 +20,22 @@ import { KeycloakInstance } from 'keycloak-js';
 export class SearchComponent implements OnInit {
 
   public keycloakAuth: KeycloakInstance;
+  public nameForm:FormGroup;
+  public name:FormControl;
+
 
   constructor(private ingredientService : IngredientService,
         private recipeService : RecipeService,
-        public keycloak: KeycloakService
-    ) {}
+        public keycloak: KeycloakService,
+        private formBuilder:FormBuilder,
+        private challengeService: ChallengeService
+    ) 
+    {
+    this.name=new FormControl('',[Validators.required])
+    this.nameForm=formBuilder.group({
+      name:this.name
+    })
+    }
 
   public Ingredients : Object;
 
@@ -79,5 +91,25 @@ export class SearchComponent implements OnInit {
     }
 
   } 
+  challengeName : string
+  createChallenge() {
+    let challenge: any = {};
+    challenge.name = this.nameForm.get('name').value
+    challenge.authorID = this.keycloak.getID();
+    challenge.ingredients =[]
+    this.selected.forEach(element =>{
+      //this.Ingredients.push(id: element.id, )
+      challenge.ingredients.push({
+        ingredientId: element.id,
+        quantity: 0
+      })
+
+    })
+    //challenge.ingredients = this.selected
+    challenge.solutions = []
+    console.log(challenge)
+    this.challengeService.createChallenge(challenge)
+  }
+
     
 }
