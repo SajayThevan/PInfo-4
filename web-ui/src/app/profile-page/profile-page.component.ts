@@ -27,8 +27,6 @@ export class ProfilePageComponent implements OnInit {
    }
 
 
-  parentMessage: string = "Parent Says Hello!!!!";
-
   
   public fridgeInter = [];
   public Ingredients : Object;
