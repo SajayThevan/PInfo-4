@@ -85,7 +85,7 @@ alter table Ratings
     references Recipe;
 
 alter table Steps
-    add constraint FK1f9l28viiu893aug0bi3d4ji6
+    add constraint FKomt7cohr7gjkpxgwnvio7767m
     foreign key (Recipe_id)
     references Recipe;
 
