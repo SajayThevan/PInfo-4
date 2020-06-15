@@ -3,6 +3,9 @@ import { RecipeService } from '../services/recipe/recipe.service';
 import {ActivatedRoute} from '@angular/router'
 import { IngredientService } from '../services/ingredient/ingredient.service';
 import { stringify } from 'querystring';
+import { ProfileService } from '../services/profile/profile.service';
+import { KeycloakService } from '../services/keycloak/keycloak.service';
+import { KeycloakInstance } from 'keycloak-js';
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
@@ -10,8 +13,10 @@ import { stringify } from 'querystring';
 })
 export class RecipePageComponent implements OnInit {
 
+  public keycloakAuth: KeycloakInstance;
+
   constructor(private recipeService : RecipeService, private route:ActivatedRoute,
-    private ingredientService : IngredientService) { }
+    private ingredientService : IngredientService, private profileService: ProfileService,public keycloak: KeycloakService) { }
 
   connected = true;
 
@@ -129,7 +134,13 @@ export class RecipePageComponent implements OnInit {
   ];
 
   addRating () {
-
+    let note = 5;
+    this.recipeService.addRating(this.Recipe_ID,note);
+  }
+  addFav(){
+    console.log(this.keycloak.getID())
+    console.log(this.Recipe_ID)
+    this.profileService.addFavouriteById(this.keycloak.getID(),this.Recipe_ID);
   }
 
   addComment () {

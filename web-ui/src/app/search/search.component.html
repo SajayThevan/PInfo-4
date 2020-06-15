@@ -109,9 +109,12 @@
         <div class="modal-body">
           <form>
             <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Name</label>
+                <label for="inputPassword" class="col-sm-2 col-form-label" >Name</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="name">
+                  <form [formGroup]="nameForm" >
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                  </form>
+                  <!--<input type="text" class="form-control" id="testName" >-->
                 </div>
             </div>
 
@@ -130,7 +133,7 @@
         <div class="modal-footer">
           <div class="recipe_image_modal"></div>
           <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-outline-success">Create Challenge</button>
+          <button type="button" (click)="createChallenge()" class="btn btn-outline-success">Create Challenge</button>
         </div>
       </div>
     </div>

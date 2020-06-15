@@ -27,7 +27,9 @@ export class ChallengeService {
 
   removeChallengebyID(id) {
     var Request_url = environment.challengeService.url + "/" + id;
-    this.http.delete(Request_url);
+    this.http.delete(Request_url).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
   updateChallenge(Challenge){
@@ -78,7 +80,9 @@ export class ChallengeService {
 
   addSolution(challengeID, recipeID) {
     var Request_url = environment.challengeService.url + "/" + challengeID + "/solutions?solution=" + recipeID;
-    return this.http.post(Request_url, null);
+    return this.http.post(Request_url, null).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
 }

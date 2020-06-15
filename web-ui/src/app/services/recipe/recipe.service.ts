@@ -11,7 +11,7 @@ export class RecipeService {
   constructor(private http:HttpClient) { }
 
   getRecipe(id) {
-    return this.http.get("https://jsonplaceholder.typicode.com/users");
+    return this.http.get(environment.recipeService.url +"/"+id);
   }
 
   getRecipes(idList) {
@@ -26,22 +26,30 @@ export class RecipeService {
 
   addComment(id,comment){
     var Request_url = environment.recipeService.url +"/"+id+"/comments";
-    this.http.put(Request_url,comment);
+    this.http.put(Request_url,comment).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
   addRating (id,rate){ // Check rate if 0<rate<10
     var Request_url = environment.recipeService.url +"/"+id+"/rate?rate="+rate;
-    this.http.put(Request_url,null);
+    this.http.put(Request_url,null).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
   createNewRecipe(json) {
     var Request_url = environment.recipeService.url;
-    this.http.post(Request_url,json);
+    this.http.post(Request_url,json).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
   deleteRecipe(id) {
     var Request_url = environment.recipeService.url+id;
-    this.http.delete(Request_url);
+    this.http.delete(Request_url).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
   getRecipeforProfile(profile_id) {
