@@ -27,7 +27,7 @@ export class ProfilePageComponent implements OnInit {
    }
 
 
-
+  
   public fridgeInter = [];
   public Ingredients : Object;
   public Ingredient_Name$ : Observable<any>;
