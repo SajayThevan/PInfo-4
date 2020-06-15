@@ -29,7 +29,7 @@ export class ProfileService {
     let options = {
       headers: httpHeaders
     };
-    return this.http.post(environment.profileService.url, JSON.stringify(profile), options);
+    return this.http.post(environment.profileService.url, JSON.stringify(profile), options)
   }
 
   // for fridge : 
@@ -76,12 +76,16 @@ export class ProfileService {
 
   addFavouriteById(profileID, favouriteID) {
     var Request_url = environment.profileService.url + "/" + profileID + "/favourites?favourite=" + favouriteID;
-    this.http.post(Request_url,null);
+    this.http.post(Request_url,null).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
   removeFavourite(profileID, favouriteID) {
     var Request_url = environment.profileService.url + "/" + profileID + "/favourites?favourite=" + favouriteID;
-    this.http.delete(Request_url);
+    this.http.delete(Request_url).subscribe({
+      error: error => console.error('There was an error!', error)
+    });
   }
 
 }
