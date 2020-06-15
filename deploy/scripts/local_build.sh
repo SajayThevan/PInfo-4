@@ -35,4 +35,4 @@ if [[ "$TOBUILD" == *"c"* ]]; then
 fi
 
 ssh smithlu7@129.194.69.131 'bash ~/manual-deploy/clean.sh'
-ssh smithlu7@129.194.69.131 'bash ~/manual-deploy/deploy_vm_develop.sh'
+ssh smithlu7@129.194.69.131 'bash ~/manual-deploy/deploy_vm.sh'
