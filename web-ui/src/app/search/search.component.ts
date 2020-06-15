@@ -63,6 +63,7 @@ export class SearchComponent implements OnInit {
           this.showResults = true;
         } else {
           this.zeroResult = true;
+          // TODO : REDIRIGER TO CHALLENGE CREATE
         }
         console.log(this.Result)
        });
