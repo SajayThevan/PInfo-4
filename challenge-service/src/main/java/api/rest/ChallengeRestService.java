@@ -137,7 +137,7 @@ public class ChallengeRestService {
 	 //authenticate check if we are a user
 	@POST
 	@Path("{id}/solutions")
-	@ApiOperation(value ="Update recipeId list")
+	@ApiOperation(value ="add recipeId ")
 	public void addSolution(@PathParam("id") long challengeId, @QueryParam("solution") long recipeId) {
 		challengeService.addSolution(challengeId, recipeId);
 	}

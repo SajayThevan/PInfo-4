@@ -122,12 +122,12 @@ public class RecipeRestService {
 	// Put attributes
 	@PUT
 	@Path("{id}/rate")
-	@ApiOperation(value ="Update recipe ratings")
+	@ApiOperation(value ="update recipe ratings")
 	public void addRates(@PathParam("id") long id, @QueryParam("rate")int rate) {
 		rs.addRating(id,rate);
 	}
 	 //authenticate
-	@PUT
+	@POST
 	@Path("{id}/comments")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@ApiOperation(value = "Add a comment")
