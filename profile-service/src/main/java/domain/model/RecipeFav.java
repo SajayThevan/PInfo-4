@@ -23,8 +23,9 @@ public class RecipeFav implements Serializable  {
 
 	@Id
 	@SequenceGenerator(name = "RECIPEFAV_SEQ", sequenceName = "RECIPEFAV_SEQ") 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECIPEFAV_SEQ")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "RECIPEFAV_SEQ")
 	private Long id;
 	
 	private Long recipeId;  
 }
+//@GeneratedValue(strategy = GenerationType.TABLE, generator = "RECIPEFAV_SEQ")

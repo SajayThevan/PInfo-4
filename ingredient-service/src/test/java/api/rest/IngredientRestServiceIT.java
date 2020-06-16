@@ -70,11 +70,4 @@ public class IngredientRestServiceIT {
 	public void testCount() {
 		when().get("/count").then().body(containsString("13"));
 	}
-
-	// TODO: DELETE
-	@Test
-	public void testGetPossibleIngredients() {
-		when().get("/possibleIngredients?ing=choco").then().body(containsString("chocolat"));
-	}
-
 }

@@ -33,7 +33,7 @@ public class Steps implements Serializable{
 	
 	@Id
 	@SequenceGenerator(name = "STEPS_SEQ", sequenceName = "STEPS_SEQ")  
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STEPS_SEQ")			
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "STEPS_SEQ")			
 	private Long id;
 		
 	private String steps;

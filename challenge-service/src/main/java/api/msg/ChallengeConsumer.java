@@ -26,7 +26,6 @@ public class ChallengeConsumer {
 		List<ChallengeDTO> ids = challengeService.getChallengesForProfil(message);
 		for (ChallengeDTO cDTO: ids) {
 			challengeService.removeChallenge(cDTO.getId());
-			//ch.setAuthorID("null");
 		}
 
 	}

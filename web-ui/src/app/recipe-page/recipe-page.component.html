@@ -18,30 +18,55 @@
     </div>
 
     <div class="name font-weight-lighter">
-        {{info[0]}} <!-- {{Author_name}} -->
+        {{Recipe_name}}
     </div>
     
     <div class="author font-weight-lighter">
-        by {{info[1]}} & {{Recipe_ID}}
+        by {{Author_id}}
     </div>
     
     <div class="note">
-      Note : {{info[2]}}/10
+      Note : {{mean}}/10
     </div>
 
     <div class="diff">
-      Difficulty : {{info[3]}}/10
+      Difficulty : {{Difficulty}}/10
     </div>
 
+    <div class="cat">
+      Category : <ng-container *ngFor="let category of Category; let i = index" >
+          {{category.category}}
+                 </ng-container>
+    </div>
+
+
     <div class="btn1" *ngIf="connected">
-      <a class="btn" title='Add to Favorites' (click)="addFav()"><mat-icon>folder_special</mat-icon></a>
+      <a type="button" (click)="addFav()" data-toggle="modal" data-target="#informationModal"><mat-icon>folder_special</mat-icon></a>
+    </div>
+
+    <div class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            This recipe has been succesfully added to your favourite list.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="btn2" *ngIf="connected">
-      <a class="btn" title="Note" ><mat-icon>create</mat-icon></a>
+      <a type="button" title="Note" ><mat-icon>create</mat-icon></a>
     </div>
-
-    <div class="spacer"></div>
+    
     <div class="line"></div>
     <div class="spacer"></div>
 
@@ -56,8 +81,8 @@
               </div>
             </div>
             <hr>
-              <div *ngFor="let ingredient of ingredients">
-                <div style="color :{{ingredient.disp}}">{{ingredient.name}}</div>
+              <div *ngFor="let ingredient of Ingredients_name">
+                <div>{{ingredient}}</div>
               </div>
           </div>
         </div>
@@ -68,7 +93,7 @@
             Steps
             <hr>
 
-            <div *ngFor="let step of steps">
+            <div *ngFor="let step of Steps">
               {{step}}
             </div>
 
@@ -85,8 +110,8 @@
     <div class="card-body">
       Comments
       <hr>
-      <div *ngFor="let comment of comments">
-        {{comment.name}} : {{comment.comment}}
+      <div *ngFor="let comment of Comments">
+        {{comment.comment}}
         <hr>
       </div>
 

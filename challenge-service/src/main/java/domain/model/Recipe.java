@@ -22,7 +22,7 @@ public class Recipe implements Serializable  {
 
 	@Id
 	@SequenceGenerator(name = "RECIPE_SEQ", sequenceName = "RECIPE_SEQ") 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECIPE_SEQ")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "RECIPE_SEQ")
 	private Long id;
 	
 	private Long recipeId; 

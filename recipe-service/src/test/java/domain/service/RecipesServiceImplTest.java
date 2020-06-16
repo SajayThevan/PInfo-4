@@ -1,8 +1,7 @@
 package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,6 +22,7 @@ import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -55,10 +55,21 @@ class RecipesServiceImplTest {
 		recipesService.addRecipe(r1);
 		recipesService.addRecipe(r2);
 		List res = em.createNativeQuery("select name from Recipe").getResultList();
-		assertEquals(res.size(),2);
+		assertEquals(2,res.size());
 		
 	}
-
+	
+	@Test
+	void testAddRecipeNull() {
+		assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+            	Recipe r = randomRecipe();
+            	r.setId((long) 1000);
+            	recipesService.addRecipe(r);
+            }
+        });
+	}
 	
 	@Test
 	void testAddRating() {
@@ -80,7 +91,7 @@ class RecipesServiceImplTest {
 		em.persist(r1);
 		String profilID = r1.getAuthorID();
 		ArrayList<RecipeDTO> recipes = recipesService.getRecipesForProfil(profilID);
-		assertEquals(recipes.size(),1);
+		assertEquals(1,recipes.size());
 		assertEquals(recipes.get(0).getId(),r1.getId());
 		assertEquals(recipes.get(0).getName(),r1.getName());
 		ArrayList<Long >ing =  recipes.get(0).getIng();
@@ -142,7 +153,7 @@ class RecipesServiceImplTest {
 			break; //test with only 1 ingredients
 		}
 		ArrayList<RecipeDTO> res = recipesService.getRecipeWithIngredientID(ing_id);
-		assertEquals(res.size(),1);
+		assertEquals(1,res.size());
 		assertEquals(r2.getId(),res.get(0).getId());
 		
 	}
@@ -232,6 +243,20 @@ class RecipesServiceImplTest {
 			
 		}
 	
+	}
+	
+	@Test
+	void testCount() {
+		Recipe r0 = randomRecipe();
+		recipesService.addRecipe(r0);
+		Recipe r1 = randomRecipe();
+		recipesService.addRecipe(r1);
+		Recipe r2 = randomRecipe();
+		recipesService.addRecipe(r2);
+		Recipe r3 = randomRecipe();
+		recipesService.addRecipe(r3);
+		Long count = recipesService.count();
+		assertEquals(4, count);
 	}
 
 
