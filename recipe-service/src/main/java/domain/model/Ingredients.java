@@ -34,7 +34,7 @@ public class Ingredients implements Serializable{/**
 	
 	@Id
 	@SequenceGenerator(name = "INGREDIENTS_SEQ", sequenceName = "INGREDIENTS_SEQ")  
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INGREDIENTS_SEQ")			
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "INGREDIENTS_SEQ")			
 	private Long id;
 	
 	private long IngredientID;

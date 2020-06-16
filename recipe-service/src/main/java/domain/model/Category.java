@@ -33,7 +33,7 @@ public class Category implements Serializable{
 
 	@Id
 	@SequenceGenerator(name = "CATEGORY_SEQ", sequenceName = "CATEGORY_SEQ")  
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_SEQ")			
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "CATEGORY_SEQ")			
 	private Long id;
 	
 	

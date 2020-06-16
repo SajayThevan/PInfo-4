@@ -29,7 +29,7 @@ public class Challenge implements Serializable {
 
 	@Id
 	@SequenceGenerator(name = "CHALLENGE_SEQ", sequenceName = "CHALLENGE_SEQ")  
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CHALLENGE_SEQ")			
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "CHALLENGE_SEQ")			
 	private Long id;
 	
 	@NotNull
