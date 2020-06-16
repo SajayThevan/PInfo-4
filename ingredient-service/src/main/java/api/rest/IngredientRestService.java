@@ -121,41 +121,6 @@ public class IngredientRestService {
 		return ingredientService.count();
 	}
 
-// TODO: DELETE EVERYTHING BELOW------------------------------------------------
-	/*
-	@GET
-	@Path("/computeCalories/{id1}/{id2}")
-	//@Path("/computeCalories")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get a the total of calories of a list of ingredients")
-	//public int computeCalories() {
-	//public int computeCalories(@PathParam("id") Long IngredientId) {
-	public int computeCalories(@PathParam("id1") Long IngredientIDList1, @PathParam("id2") Long IngredientIDList2) {
-		System.out.println("------------------ici test calories");
-		List<Long> IngredientIDList = new ArrayList<>();
-		IngredientIDList.add(IngredientIDList1);
-		IngredientIDList.add(IngredientIDList2);
-
-		//IngredientIDList2.add(Long.valueOf(2));
-		//IngredientIDList2.add(Long.valueOf(3));
-
-		//IngredientIDList2.add(IngredientId);
-
-		System.out.println("------------------ici test calories " + IngredientIDList + "----------------");
-		System.out.println("------------------ici test calories " + ingredientService.computeCalories(IngredientIDList) + "----------------");
-		return ingredientService.computeCalories(IngredientIDList);
-	}
-	*/
-
-	// UNUSED
-	@GET
-	@Path("/possibleIngredients")
-	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Get the possible ingredients compared to a string")
-    public List<Object> getPossibleIngredients(@QueryParam("ing") String ingredientWanted) {
-		return ingredientService.getPossibleIngredients(ingredientWanted);
-	}
-
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new ingredient",

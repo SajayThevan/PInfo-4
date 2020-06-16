@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.io.*; 
-import java.lang.*; 
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -76,9 +75,9 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 
 	@Override
-	public double computeCalories(List<Long> IngredientID) {
+	public double computeCalories(List<Long> ingredientID) {
 		double totalCalories = 0;
-		for (Long id : IngredientID) {
+		for (Long id : ingredientID) {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
@@ -90,9 +89,9 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 	
 	@Override
-	public double computeFat(List<Long> IngredientID) {
+	public double computeFat(List<Long> ingredientID) {
 		double totalFat = 0;
-		for (Long id : IngredientID) {
+		for (Long id : ingredientID) {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
@@ -104,9 +103,9 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 	
 	@Override
-	public double computeProteins(List<Long> IngredientID) {
+	public double computeProteins(List<Long> ingredientID) {
 		double totalProteins = 0;
-		for (Long id : IngredientID) {
+		for (Long id : ingredientID) {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
@@ -118,9 +117,9 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 	
 	@Override
-	public double computeCholesterol(List<Long> IngredientID) {
+	public double computeCholesterol(List<Long> ingredientID) {
 		double totalCholesterol = 0;
-		for (Long id : IngredientID) {
+		for (Long id : ingredientID) {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
@@ -132,10 +131,10 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 	
 	@Override
-	public double computeSalt(List<Long> IngredientID) {
+	public double computeSalt(List<Long> ingredientID) {
 		double totalSalt = 0;
-		for (Long id : IngredientID) {
-			// take the kcal : 
+		for (Long id : ingredientID) {
+			// take the salt : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
 				throw new IllegalArgumentException("Ingredient does not exist : " + id);
@@ -143,29 +142,6 @@ public class IngredientServiceImpl implements IngredientService {
 			totalSalt += ing.getSalt();
 		}
 		return totalSalt;
-	}
-	
-	// return every ingredient containing possibleIngredient in their name 
-	// return : Array<(IngredientID, Name)>
-	@Override
-	public List<Object> getPossibleIngredients(String possibleIngredient) {
-		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
-		criteria.from(Ingredient.class);
-		List<Ingredient> allIngredients = em.createQuery(criteria).getResultList();
-		List<Object> possibilities = new ArrayList<>(); 
-		
-		for(Ingredient i : allIngredients) {
-			String nameIngredient = i.getName();
-			if (nameIngredient.contains(possibleIngredient)) {
-				List<Object> elt = new ArrayList<>(); 
-				elt.add(i.getId());
-				elt.add(nameIngredient);
-				possibilities.add(elt);
-			}
-		}
-		
-		return possibilities;
 	}
 	
 	@Override
@@ -183,14 +159,4 @@ public class IngredientServiceImpl implements IngredientService {
 		cq.select(qb.count(cq.from(Ingredient.class)));
 		return em.createQuery(cq).getSingleResult();
 	}
-	
-	/*
-	@Override
-	public List<Instrument> getAll() {
-		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Instrument> criteria = builder.createQuery(Instrument.class);
-		criteria.from(Instrument.class);
-		return em.createQuery(criteria).getResultList();
-	}
-	*/
 }
