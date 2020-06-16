@@ -33,6 +33,37 @@
       </div>  
   </div>
 
+  <div *ngIf="!connected&&zeroResult">
+
+    <div class="row">
+      <div class="col">
+        <div class="font-weight-lighter challengepos">
+          You have to be connected to create challenge ! 
+       </div>
+      </div>
+
+      <div class="col challengepos">
+        <a type="button" class="text-muted space1" href="/profile"><mat-icon aria-hidden="false">person</mat-icon></a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="connected&&zeroResult">
+
+    <div class="row">
+      <div class="col">
+        <div class="font-weight-lighter challengepos">
+          Do you want to create a challenge with your search ? 
+       </div>
+      </div>
+
+      <div class="col challengepos">
+        <a type="button" class="text-muted space1" data-toggle="modal" data-target="#AddChallengeModal"><mat-icon aria-hidden="false">add_box</mat-icon></a>
+      </div>
+    </div>
+
+   </div>
+
   <div class="space"></div>
   <hr>
   
@@ -43,7 +74,7 @@
       </div>
       <hr>
       <div class="row">
-          <div class="col" *ngFor="let result of Result"> 
+          <div class="col-4" *ngFor="let result of Result"> 
             <div class="tab">
               <div class="recipe_image row"></div>
                 <div class="recipe_name">
@@ -60,39 +91,6 @@
   <div *ngIf="zeroResult">
     <div class="font-weight-lighter">
        <div class="image_no_result"></div>
-
-       <div *ngIf="connected">
-
-        <div class="row">
-          <div class="col">
-            <div class="font-weight-lighter challengepos">
-              Do you want to create a challenge with your search ? 
-           </div>
-          </div>
-
-          <div class="col challengepos">
-            <a type="button" class="text-muted space1" data-toggle="modal" data-target="#AddChallengeModal"><mat-icon aria-hidden="false">add_box</mat-icon></a>
-          </div>
-        </div>
-
-       </div>
-
-       <div *ngIf="!connected">
-
-        <div class="row">
-          <div class="col">
-            <div class="font-weight-lighter challengepos">
-              You have to be connected to create challenge ! 
-           </div>
-          </div>
-
-          <div class="col challengepos">
-            <a type="button" class="text-muted space1" href="/profile"><mat-icon aria-hidden="false">person</mat-icon></a>
-          </div>
-        </div>
-       </div>
-       
-       
     </div> 
   </div>
 

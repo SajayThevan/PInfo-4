@@ -18,7 +18,7 @@ export class RecipePageComponent implements OnInit {
   constructor(private recipeService : RecipeService, private route:ActivatedRoute,
     private ingredientService : IngredientService, private profileService: ProfileService,public keycloak: KeycloakService) { }
 
-  connected = true;
+  connected : boolean;
 
   Author_id = 0;
   Author_nom = "";
@@ -29,6 +29,7 @@ export class RecipePageComponent implements OnInit {
   Ingredients = [];
   Ingredients_name = [];
 
+  Steps_O = [];
   Steps = [];
 
   Category = [];
@@ -44,38 +45,71 @@ export class RecipePageComponent implements OnInit {
   Time = 0;
 
   Ratings = [];
+  mean = 0;
 
   Comments = [];
 
   new_comment = "";
 
+  public Recipe : Object;
+  public ingredient : any;
+
   ngOnInit(): void {
+
+    this.keycloakAuth = this.keycloak.getKeycloakAuth();
+    if (this.keycloak.isLoggedIn() === false) {
+        console.log("NotConnected")
+        this.connected = false;
+    } else {
+        console.log("Connected")
+        this.connected = true;
+    }
 
     this.Recipe_ID = +this.route.snapshot.paramMap.get('id');
 
-    this.recipeService.getRecipe(this.Recipe_ID).subscribe( (data) => {
+    this.recipeService.getRecipe(this.Recipe_ID).subscribe( (data : Response) => {
+      this.Recipe = data;
+      console.log(this.Recipe)
       this.Recipe_name = data["name"];
       this.Author_id = data["authorID"];
       this.Date = data["date"];
       this.Ingredients = data["ingredients"];
-      this.Steps = data["steps"];
+
+      console.log(this.Ingredients)
+
+      this.Ingredients.forEach(element => {
+        console.log(element.ingredientID)
+        this.ingredientService.getIngredient(element.ingredientID).subscribe (
+          (data : Response) => {
+            this.ingredient = data;
+            this.Ingredients_name.push(this.ingredient.name)
+          }
+        )
+      });
+
+      this.Steps_O = data["steps"];
+      this.Steps_O.forEach(element => {
+        this.Steps.push(element.steps)
+      });
+
+
       this.Category = data["category"];
       this.Difficulty = data["difficulty"];
       this.Time = data["time"];
       this.Ratings = data["ratings"]; // Take mean
-      this.Comments = data["comments"];
+      this.Ratings.forEach(element => {
+        this.mean = this.mean + element.rate
+      });
+      this.mean = this.mean/this.Ratings.length;
+      this.Comments = data["comments"]
     });
 
     let url : String= "";
     // synthaxe : /calories?id=1&id=2&id=4
     // Ingredient ID --> Ingredient Name
-    for (var val of this.Ingredients) {
-      this.ingredientService.getIngredient(val).subscribe( (data) => {
-        this.Ingredients_name.push(data["name"]);
-      });
-      // Url for Compute Calories/Fat/Cholesterol/Salt/Proteins
-      url = url + "id="+stringify(val)+"&"
-    }
+    
+
+    console.log(this.Ingredients_name)
 
     // Removing the last &
     url = url.substring(0, url.length - 1);
