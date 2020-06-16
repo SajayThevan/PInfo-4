@@ -161,11 +161,8 @@ public class RecipeRestService {
 	public String uploadImage(@FormParam("image") String image, @PathParam("id") String id) throws SQLException, FileNotFoundException
 	{
 		String result = "false";
-		FileOutputStream fos;
-		fos = new FileOutputStream("tmp/image/recipe/"+id+".jpg");
-		// decode Base64 String to image
-		try
-		{
+		try (FileOutputStream fos = new FileOutputStream("tmp/image/recipe/"+id+".jpg")){
+			// decode Base64 String to image
 			byte byteArray[] = Base64.getMimeDecoder().decode(image);
 			fos.write(byteArray);
 

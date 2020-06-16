@@ -95,7 +95,7 @@ class IngredientsServiceImplTest {
 		listID.add(ingredient1.getId());
 		listID.add(ingredient2.getId());
 		
-		assertEquals(ingredientsService.getSelectedIngredients(listID).size(), 2);
+		assertEquals(2,ingredientsService.getSelectedIngredients(listID).size());
 	}
 
 	@Test

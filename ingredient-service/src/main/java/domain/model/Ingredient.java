@@ -2,8 +2,6 @@ package domain.model;
 
 import javax.persistence.DiscriminatorColumn;
 
-//import javax.inject;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

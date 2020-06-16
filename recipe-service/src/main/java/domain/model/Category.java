@@ -38,33 +38,4 @@ public class Category implements Serializable{
 	
 	
 	private CategoryEnum category;
-	
-//	@ManyToOne
-//	@JoinColumn(name="Recipe_id",nullable = true)
-//	private Recipe recipecat;
-//
-//	@Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-// 
-//        if (!(o instanceof Category))
-//            return false;
-// 
-//        Category other = (Category) o;
-// 
-//        return id != null &&
-//               id.equals(other.getId());
-//    }
-// 
-//    @Override
-//    public int hashCode() {
-//        return 31;
-//    }
-//	
-//	
-//
-//    @Override
-//    public String toString() {
-//        return this.getClass().getSimpleName() + "-" + getId();
-//    }
 }

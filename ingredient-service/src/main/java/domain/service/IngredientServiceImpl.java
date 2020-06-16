@@ -183,14 +183,4 @@ public class IngredientServiceImpl implements IngredientService {
 		cq.select(qb.count(cq.from(Ingredient.class)));
 		return em.createQuery(cq).getSingleResult();
 	}
-	
-	/*
-	@Override
-	public List<Instrument> getAll() {
-		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Instrument> criteria = builder.createQuery(Instrument.class);
-		criteria.from(Instrument.class);
-		return em.createQuery(criteria).getResultList();
-	}
-	*/
 }

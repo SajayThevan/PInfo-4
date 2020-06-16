@@ -55,7 +55,7 @@ class RecipesServiceImplTest {
 		recipesService.addRecipe(r1);
 		recipesService.addRecipe(r2);
 		List res = em.createNativeQuery("select name from Recipe").getResultList();
-		assertEquals(res.size(),2);
+		assertEquals(2,res.size());
 		
 	}
 
@@ -80,7 +80,7 @@ class RecipesServiceImplTest {
 		em.persist(r1);
 		String profilID = r1.getAuthorID();
 		ArrayList<RecipeDTO> recipes = recipesService.getRecipesForProfil(profilID);
-		assertEquals(recipes.size(),1);
+		assertEquals(1,recipes.size());
 		assertEquals(recipes.get(0).getId(),r1.getId());
 		assertEquals(recipes.get(0).getName(),r1.getName());
 		ArrayList<Long >ing =  recipes.get(0).getIng();
@@ -142,7 +142,7 @@ class RecipesServiceImplTest {
 			break; //test with only 1 ingredients
 		}
 		ArrayList<RecipeDTO> res = recipesService.getRecipeWithIngredientID(ing_id);
-		assertEquals(res.size(),1);
+		assertEquals(1,res.size());
 		assertEquals(r2.getId(),res.get(0).getId());
 		
 	}

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
 import org.javatuples.Pair;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import domain.model.Ingredients;
 import domain.model.Recipe;
@@ -30,7 +33,8 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@PersistenceContext(unitName = "RecipePU")
 	private EntityManager em;
-
+	
+	private final static Logger LOGGER = Logger.getLogger(RecipeServiceImpl.class.getName());
 
 	public RecipeServiceImpl() {
 	}
@@ -42,15 +46,14 @@ public class RecipeServiceImpl implements RecipeService {
 
 	public void RecipeTestVolume() {
 		try {
-			// TODO: Change system out to logforj?... less resources
 			File myObj = new File("/tmp/images/recipe/filename.txt");
 			if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
+		        LOGGER.log(Level.INFO,"File created: " + myObj.getName());
 		      } else {
-		        System.out.println("File already exists.");
+		        LOGGER.log(Level.WARNING,"File already exists.");
 		      }
 	    } catch (IOException e) {
-	      System.out.println("An error occurred.");
+	      LOGGER.log(Level.SEVERE,"An error occurred.");
 	      e.printStackTrace();
 	    }
 	
@@ -79,8 +82,8 @@ public class RecipeServiceImpl implements RecipeService {
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r WHERE r.authorID = :authorID", Recipe.class);
 		query.setParameter("authorID", id);
 		List<Recipe> tmp = query.getResultList();
-		ArrayList<RecipeDTO> listToReturn = new ArrayList();
-        Iterator it = tmp.iterator();
+		ArrayList<RecipeDTO> listToReturn = new ArrayList<RecipeDTO>();
+        Iterator<Recipe> it = tmp.iterator();
         while (it.hasNext()) {
         	Recipe r = (Recipe) it.next();
         	listToReturn.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
@@ -152,7 +155,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public ArrayList<RecipeDTO> getRecipesListFromIds(ArrayList<Long> idList){
 		ArrayList<RecipeDTO> tr = new ArrayList<RecipeDTO>();
-		System.out.println(idList);
+		LOGGER.log(Level.INFO, "idList : "+idList);
 		for (Long id: idList) {
 			try {
 				Recipe r = em.find(Recipe.class, id);
@@ -185,7 +188,6 @@ public class RecipeServiceImpl implements RecipeService {
 			tmpPair.add(pairOfTheRecipe1);
 			for(int u = 1; u < rl.size(); u++)
 			{
-				//On a déjà mis la première recette:
 				Recipe r = rl.get(u);
 				float recipeMean = 0;
 				for(Ratings g: r.getRatings()) {
@@ -206,7 +208,6 @@ public class RecipeServiceImpl implements RecipeService {
 						tmp.add(pairOfTheRecipe);
 						recipeAdded = true;
 						flag = false;
-						//i += 1;
 					}
 					i += 1;
 					if (i == tmpPair.size()){
@@ -215,7 +216,7 @@ public class RecipeServiceImpl implements RecipeService {
 				}
 			if (recipeAdded) {
 					for (int k = i; k < Math.min((tmpPair.size() + 1),numberOfTendancies) ; k++ ) {
-						tmp.add(tmpPair.get(k-1)); //On ajoute les éléments en les décalant de 1 car on en a déjà rajouté 1
+						tmp.add(tmpPair.get(k-1));
 					}
 				}
 				if (recipeAdded == false && tmp.size() < numberOfTendancies) {
@@ -224,7 +225,7 @@ public class RecipeServiceImpl implements RecipeService {
 				}
 
 				tmpPair.clear();
-				for (Pair c: tmp){
+				for (Pair<Long, Float> c: tmp){
 					tmpPair.add(c);
 				}
 
@@ -291,7 +292,6 @@ public class RecipeServiceImpl implements RecipeService {
 							tmp.add(pairOfTheRecipe);
 							recipeAdded = true;
 							flag = false;
-							//i += 1;
 						}
 						i += 1;
 						if (i == tmpPair.size()){
@@ -309,7 +309,7 @@ public class RecipeServiceImpl implements RecipeService {
 					}
 
 					tmpPair.clear();
-					for (Pair c: tmp){
+					for (Pair<Long, Float> c: tmp){
 						tmpPair.add(c);
 					}
 
