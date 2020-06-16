@@ -19,13 +19,13 @@ import lombok.extern.java.Log;
 public class RecipeProducer {
 
 	@Producer
-	private SimpleKafkaProducer<String, ArrayList> producer;
+	private SimpleKafkaProducer<String, ArrayList<Object>> producer;
 	 
 	@Inject
 	private RecipeService rs; 
 	public void sendRecipeAdded(Recipe r) {
 		log.info("Send that a recipe has been added");
-		ArrayList toSend = new ArrayList();
+		ArrayList<Object> toSend = new ArrayList<Object>();
 		toSend.add(r.getAuthorID());
 		toSend.add(r.getId());
 		producer.send("Recipe added",toSend);

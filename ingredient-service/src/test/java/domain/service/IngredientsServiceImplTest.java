@@ -20,6 +20,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import org.junit.jupiter.api.function.Executable;
+
 import domain.model.Ingredient;
 import eu.drus.jpa.unit.api.JpaUnit;
 
@@ -41,6 +43,18 @@ class IngredientsServiceImplTest {
 		Ingredient ingredientTest = getRandomIngredient();
 		ingredientsService.create(ingredientTest);
 		assertNotNull(ingredientTest.getId());
+	}
+	
+	@Test
+	void testCreateNull() {
+		assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+            	Ingredient ingredientTest = getRandomIngredient();
+            	ingredientTest.setId((long) 1000);
+            	ingredientsService.create(ingredientTest);
+            }
+        });
 	}
 	
 	@Test
@@ -76,7 +90,7 @@ class IngredientsServiceImplTest {
 		ingredientsService.create(getRandomIngredient2());
 		ingredientsService.create(getRandomIngredient3());
 		
-		assertEquals(size + 4, ingredientsService.getAll().size());
+		assertEquals(size + 4, ingredientsService.getAllNames().size());
 	}
 	
 	@Test
@@ -95,7 +109,7 @@ class IngredientsServiceImplTest {
 		listID.add(ingredient1.getId());
 		listID.add(ingredient2.getId());
 		
-		assertEquals(ingredientsService.getSelectedIngredients(listID).size(), 2);
+		assertEquals(2,ingredientsService.getSelectedIngredients(listID).size());
 	}
 
 	@Test
@@ -119,6 +133,18 @@ class IngredientsServiceImplTest {
 	}
 	
 	@Test
+	void testComputeCaloriesNull() {
+		assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+            	List<Long> listID = new ArrayList<>();
+        		listID.add((long) 1000);
+                ingredientsService.computeCalories(listID);
+            }
+        });
+	}
+	
+	@Test
 	void testComputeFat() {
 		ingredientsService.create(getRandomIngredient());
 		ingredientsService.create(getRandomIngredient1());
@@ -134,9 +160,21 @@ class IngredientsServiceImplTest {
 		listID.add(ingredient2.getId());
 
 		double testComputeFat = ingredientsService.computeFat(listID);
-		//assertEquals(getKcalTotal, 11)
-		//assertEquals(testComputeCalories, 11);
+		//assertEquals(11,getKcalTotal)
+		//assertEquals(11,testComputeCalories);
 		assertEquals(getFatTotal, testComputeFat); 
+	}
+	
+	@Test
+	void testComputeFatNull() {
+		assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+            	List<Long> listID = new ArrayList<>();
+        		listID.add((long) 1000);
+                ingredientsService.computeFat(listID);
+            }
+        });
 	}
 	
 	@Test
@@ -158,6 +196,18 @@ class IngredientsServiceImplTest {
 	}
 	
 	@Test
+	void testComputeCholesterolNull() {
+		assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+            	List<Long> listID = new ArrayList<>();
+        		listID.add((long) 1000);
+                ingredientsService.computeCholesterol(listID);
+            }
+        });
+	}
+	
+	@Test
 	void testComputeProteins() {
 		ingredientsService.create(getRandomIngredient());
 		ingredientsService.create(getRandomIngredient1());
@@ -173,6 +223,18 @@ class IngredientsServiceImplTest {
 		
 		double testComputeProteins = ingredientsService.computeProteins(listID);
 		assertEquals(getProteinsTotal, testComputeProteins); 
+	}
+	
+	@Test
+	void testComputeProteinsNull() {
+		assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+            	List<Long> listID = new ArrayList<>();
+        		listID.add((long) 1000);
+                ingredientsService.computeProteins(listID);
+            }
+        });
 	}
 	
 	@Test
@@ -195,31 +257,15 @@ class IngredientsServiceImplTest {
 	}
 	
 	@Test
-	void testGetPossibleIngredients() {
-		System.out.println("--- testGetPossibleIngredients : ---");
-		ingredientsService.create(getRandomIngredient1());
-		ingredientsService.create(getRandomIngredient2());
-		ingredientsService.create(getRandomIngredient3());
-		Ingredient ingredient1 = ingredientsService.getAll().get(0);
-		assertNotNull(ingredient1);
-		Ingredient ingredient2 = ingredientsService.getAll().get(1);
-		assertNotNull(ingredient2);
-		Ingredient ingredient3 = ingredientsService.getAll().get(2);
-		assertNotNull(ingredient3);
-		
-		// possibilities working : 
-		List<Object> possibilities = new ArrayList<>(); 
-		List<Object> possibleIng1 = new ArrayList<>(); 
-		possibleIng1.add(ingredient1.getId());
-		possibleIng1.add(ingredient1.getName());
-		possibilities.add(possibleIng1);
-		List<Object> possibleIng2 = new ArrayList<>(); 
-		possibleIng2.add(ingredient2.getId());
-		possibleIng2.add(ingredient2.getName());
-		possibilities.add(possibleIng2);
-		
-		List<Object> possibleIngredients = ingredientsService.getPossibleIngredients("choco");
-		assertEquals(possibilities, possibleIngredients); 
+	void testComputeSaltNull() {
+		assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+            	List<Long> listID = new ArrayList<>();
+        		listID.add((long) 1000);
+                ingredientsService.computeSalt(listID);
+            }
+        });
 	}
 	
 	@Test
@@ -245,11 +291,8 @@ class IngredientsServiceImplTest {
 	
 	private Ingredient getRandomIngredient() {
 		Ingredient ing = new Ingredient();
-		//ing.setId((long) 10);
-		//ing.setName(UUID.randomUUID().toString());
 		ing.setName("ingredient test0");
 		ing.setKcal(8);
-		//ing.setFat((int) Math.round(Math.random()*1000));
 		ing.setFat(3);
 		ing.setCholesterol(4);
 		ing.setProtein(5);
@@ -261,11 +304,8 @@ class IngredientsServiceImplTest {
 	
 	private Ingredient getRandomIngredient1() {
 		Ingredient ing = new Ingredient();
-		//ing.setName(UUID.randomUUID().toString());
-		//ing.setId((long) 2);
 		ing.setName("chocolat au lait");
 		ing.setKcal(3.1);
-		//ing.setFat((int) Math.round(Math.random()*1000));
 		ing.setFat(3);
 		ing.setCholesterol(4);
 		ing.setProtein(5);
@@ -277,11 +317,8 @@ class IngredientsServiceImplTest {
 	
 	private Ingredient getRandomIngredient2() {
 		Ingredient ing = new Ingredient();
-		//ing.setName(UUID.randomUUID().toString());
 		ing.setName("chocolat");
-		//ing.setId((long) 3);
 		ing.setKcal(8);
-		//ing.setFat((int) Math.round(Math.random()*1000));
 		ing.setFat(3);
 		ing.setCholesterol(4);
 		ing.setProtein(5);
@@ -293,11 +330,8 @@ class IngredientsServiceImplTest {
 	
 	private Ingredient getRandomIngredient3() {
 		Ingredient ing = new Ingredient();
-		//ing.setName(UUID.randomUUID().toString());
 		ing.setName("nothing");
-		//ing.setId((long) 4);
 		ing.setKcal(8);
-		//ing.setFat((int) Math.round(Math.random()*1000));
 		ing.setFat(3);
 		ing.setCholesterol(4);
 		ing.setProtein(5);

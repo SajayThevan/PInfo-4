@@ -16,20 +16,4 @@ public class ProfileConsumer {
 	@Inject
 	private ProfileProducer producer;
 	//TODO: score update
-	
-	//EXEMPLE
-//	@Consumer(topics = "profilsReq", groupId = "pinfo-microservices")
-//	public void updateProfile(final String message) {
-//		log.info("Consumer got following message : " + message);
-//		if ("all".equals(message)) {
-//			producer.sendAllProfiles();
-//		} else {
-//			try {
-//				String profileId = String.valueOf(message);  
-//				producer.send(profileId);        
-//			} catch(NumberFormatException e) {
-//				throw new IllegalArgumentException("Message must be a String profile identifier ");
-//			}
-//		}
-//	}
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
 import org.javatuples.Pair;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import domain.model.Ingredients;
 import domain.model.Recipe;
@@ -30,7 +33,8 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@PersistenceContext(unitName = "RecipePU")
 	private EntityManager em;
-
+	
+	private final static Logger LOGGER = Logger.getLogger(RecipeServiceImpl.class.getName());
 
 	public RecipeServiceImpl() {
 	}
@@ -42,15 +46,14 @@ public class RecipeServiceImpl implements RecipeService {
 
 	public void RecipeTestVolume() {
 		try {
-			// TODO: Change system out to logforj?... less resources
 			File myObj = new File("/tmp/images/recipe/filename.txt");
 			if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
+		        LOGGER.log(Level.INFO,"File created: " + myObj.getName());
 		      } else {
-		        System.out.println("File already exists.");
+		        LOGGER.log(Level.WARNING,"File already exists.");
 		      }
 	    } catch (IOException e) {
-	      System.out.println("An error occurred.");
+	      LOGGER.log(Level.SEVERE,"An error occurred.");
 	      e.printStackTrace();
 	    }
 	
@@ -79,8 +82,8 @@ public class RecipeServiceImpl implements RecipeService {
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r WHERE r.authorID = :authorID", Recipe.class);
 		query.setParameter("authorID", id);
 		List<Recipe> tmp = query.getResultList();
-		ArrayList<RecipeDTO> listToReturn = new ArrayList();
-        Iterator it = tmp.iterator();
+		ArrayList<RecipeDTO> listToReturn = new ArrayList<>();
+        Iterator<Recipe> it = tmp.iterator();
         while (it.hasNext()) {
         	Recipe r = (Recipe) it.next();
         	listToReturn.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
@@ -93,7 +96,7 @@ public class RecipeServiceImpl implements RecipeService {
 		TypedQuery<Long> query = em.createQuery("SELECT r.id FROM Recipe r WHERE r.authorID = :authorID",Long.class);
 		query.setParameter("authorID", id);
 		List<Long> ids = query.getResultList();
-		ArrayList<RecipeDTO> tr = new ArrayList<RecipeDTO>();
+		ArrayList<RecipeDTO> tr = new ArrayList<>();
 		for (Long idTmp: ids) {
 			Recipe r = em.find(Recipe.class, idTmp);
 			tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(), r.getImagePath()));
@@ -132,12 +135,12 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public ArrayList<RecipeDTO> getRecipeWithIngredientID(ArrayList<Long> ing_id){
-		ArrayList <RecipeDTO> tr = new ArrayList<RecipeDTO>();
+		ArrayList <RecipeDTO> tr = new ArrayList<>();
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
 		List<Recipe> rl = query.getResultList();
 		for(Recipe r: rl ) {
 			Set<Ingredients> ing = r.getIngredients();
-			ArrayList<Long> containedIngId = new ArrayList<Long>();
+			ArrayList<Long> containedIngId = new ArrayList<>();
 			for(Ingredients i: ing) {
 				containedIngId.add(i.getIngredientID());
 			}
@@ -151,15 +154,15 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public ArrayList<RecipeDTO> getRecipesListFromIds(ArrayList<Long> idList){
-		ArrayList<RecipeDTO> tr = new ArrayList<RecipeDTO>();
-		System.out.println(idList);
+		ArrayList<RecipeDTO> tr = new ArrayList<>();
+		LOGGER.log(Level.INFO, "idList : "+idList);
 		for (Long id: idList) {
 			try {
 				Recipe r = em.find(Recipe.class, id);
 				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
 			}
 			catch (Exception e) {
-				continue;
+				LOGGER.log(Level.WARNING, "Recipe not existing with id : "+id);
 			}
 		}
 		return tr;
@@ -174,18 +177,17 @@ public class RecipeServiceImpl implements RecipeService {
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
 		List<Recipe> rl = query.getResultList();
 		if( rl.size() > 0) {
-			ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<Pair<Long,Float>>(); //Array actualise de pair <id,mean>
+			ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<>(); //Array actualise de pair <id,mean>
 			Recipe r1 = rl.get(0);
 			float mean1 = 0;
 			for(Ratings g: r1.getRatings()) {
 				mean1 += g.getRate();
 			}
 			mean1 = mean1 / r1.getRatings().size();
-			Pair<Long, Float> pairOfTheRecipe1 = new Pair<Long, Float>(r1.getId(),mean1);
+			Pair<Long, Float> pairOfTheRecipe1 = new Pair<>(r1.getId(),mean1);
 			tmpPair.add(pairOfTheRecipe1);
 			for(int u = 1; u < rl.size(); u++)
 			{
-				//On a déjà mis la première recette:
 				Recipe r = rl.get(u);
 				float recipeMean = 0;
 				for(Ratings g: r.getRatings()) {
@@ -193,7 +195,7 @@ public class RecipeServiceImpl implements RecipeService {
 				}
 				boolean recipeAdded = false;
 				recipeMean = recipeMean / r.getRatings().size();
-				ArrayList<Pair<Long,Float>> tmp = new ArrayList<Pair<Long,Float>>();
+				ArrayList<Pair<Long,Float>> tmp = new ArrayList<>();
 				int i = 0;
 				boolean flag = true;
 				while (flag) {
@@ -202,11 +204,10 @@ public class RecipeServiceImpl implements RecipeService {
 					if (recipeMean < p.getValue1()){
 						tmp.add(tmpPair.get(i));
 					}else {
-						Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
+						Pair<Long, Float> pairOfTheRecipe = new Pair<>(r.getId(),recipeMean);
 						tmp.add(pairOfTheRecipe);
 						recipeAdded = true;
 						flag = false;
-						//i += 1;
 					}
 					i += 1;
 					if (i == tmpPair.size()){
@@ -215,16 +216,16 @@ public class RecipeServiceImpl implements RecipeService {
 				}
 			if (recipeAdded) {
 					for (int k = i; k < Math.min((tmpPair.size() + 1),numberOfTendancies) ; k++ ) {
-						tmp.add(tmpPair.get(k-1)); //On ajoute les éléments en les décalant de 1 car on en a déjà rajouté 1
+						tmp.add(tmpPair.get(k-1));
 					}
 				}
 				if (recipeAdded == false && tmp.size() < numberOfTendancies) {
-					Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
+					Pair<Long, Float> pairOfTheRecipe = new Pair<>(r.getId(),recipeMean);
 					tmp.add(pairOfTheRecipe);
 				}
 
 				tmpPair.clear();
-				for (Pair c: tmp){
+				for (Pair<Long, Float> c: tmp){
 					tmpPair.add(c);
 				}
 
@@ -240,7 +241,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 		@Override
 		public ArrayList<RecipeDTO> getRecipeOfTheMonth(){
-			ArrayList <RecipeDTO> tr = new ArrayList<RecipeDTO>();
+			ArrayList <RecipeDTO> tr = new ArrayList<>();
 			int numberOfTendancies = 20;
 			TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
 			List<Recipe> re = query.getResultList();
@@ -259,14 +260,14 @@ public class RecipeServiceImpl implements RecipeService {
 				}
 			}
 			if (rl.size() > 0) {
-				ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<Pair<Long,Float>>(); //Array actualise de pair <id,mean>
+				ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<>(); //Array actualise de pair <id,mean>
 				Recipe r1 = rl.get(0);
 				float mean1 = 0;
 				for(Ratings g: r1.getRatings()) {
 					mean1 += g.getRate();
 				}
 				mean1 = mean1 / r1.getRatings().size();
-				Pair<Long, Float> pairOfTheRecipe1 = new Pair<Long, Float>(r1.getId(),mean1);
+				Pair<Long, Float> pairOfTheRecipe1 = new Pair<>(r1.getId(),mean1);
 				tmpPair.add(pairOfTheRecipe1);
 				for(int u = 1; u < rl.size(); u++)
 				{
@@ -278,7 +279,7 @@ public class RecipeServiceImpl implements RecipeService {
 					}
 					boolean recipeAdded = false;
 					recipeMean = recipeMean / r.getRatings().size();
-					ArrayList<Pair<Long,Float>> tmp = new ArrayList<Pair<Long,Float>>();
+					ArrayList<Pair<Long,Float>> tmp = new ArrayList<>();
 					int i = 0;
 					boolean flag = true;
 					while (flag) {
@@ -287,11 +288,10 @@ public class RecipeServiceImpl implements RecipeService {
 						if (recipeMean < p.getValue1()){
 							tmp.add(tmpPair.get(i));
 						}else {
-							Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
+							Pair<Long, Float> pairOfTheRecipe = new Pair<>(r.getId(),recipeMean);
 							tmp.add(pairOfTheRecipe);
 							recipeAdded = true;
 							flag = false;
-							//i += 1;
 						}
 						i += 1;
 						if (i == tmpPair.size()){
@@ -304,12 +304,12 @@ public class RecipeServiceImpl implements RecipeService {
 						}
 					}
 					if (recipeAdded == false && tmp.size() < numberOfTendancies) {
-						Pair<Long, Float> pairOfTheRecipe = new Pair<Long, Float>(r.getId(),recipeMean);
+						Pair<Long, Float> pairOfTheRecipe = new Pair<>(r.getId(),recipeMean);
 						tmp.add(pairOfTheRecipe);
 					}
 
 					tmpPair.clear();
-					for (Pair c: tmp){
+					for (Pair<Long, Float> c: tmp){
 						tmpPair.add(c);
 					}
 

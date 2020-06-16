@@ -43,34 +43,5 @@ public class Comments implements Serializable{
 	
 	
 	private String comment;
-//	
-//	@ManyToOne
-//	@JoinColumn(name="Recipe_id",nullable = true)
-//	private Recipe recipeComments;
-//	
-//	@Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-// 
-//        if (!(o instanceof Comments))
-//            return false;
-// 
-//        Comments other = (Comments) o;
-// 
-//        return id != null &&
-//               id.equals(other.getId());
-//    }
-// 
-//    @Override
-//    public int hashCode() {
-//        return 31;
-//    }
-//	
-//	
-//    @Override
-//    public String toString() {
-//        return this.getClass().getSimpleName() + "-" + getId();
-//    }
-	
 
 }

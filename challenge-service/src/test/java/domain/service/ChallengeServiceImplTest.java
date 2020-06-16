@@ -109,7 +109,7 @@ class ChallengeServiceImplTest {
 		em.persist(ch1);
 		String profilID = ch1.getAuthorID();
 		ArrayList<ChallengeDTO> challenges = challengeService.getChallengesForProfil(profilID);
-		assertEquals(challenges.size(),1);
+		assertEquals(1,challenges.size());
 	}
 
 	@Test
@@ -179,7 +179,7 @@ class ChallengeServiceImplTest {
 			//break; //test with only 1 ingredients
 		}
 		ArrayList<ChallengeDTO> res = challengeService. getChallengesFromIngredientsIds(ing_id);
-		assertEquals(res.size(),1);
+		assertEquals(1,res.size());
 		//assertEquals(c2.getId(),res.get(0).);
 	}
 

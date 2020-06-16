@@ -107,7 +107,7 @@ class ProfileServiceImplTest {
 		Profile profile = getRandomProfile();
 		profileService.create(profile); 
 		List<?> res = em.createNativeQuery("SELECT id FROM Profile").getResultList();
-		assertEquals(res.size(),1);
+		assertEquals(1,res.size());
 	}
 
 	@Test
