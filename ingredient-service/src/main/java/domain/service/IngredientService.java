@@ -19,6 +19,5 @@ public interface IngredientService {
 	double computeCholesterol(List<Long> IngredientID);
 	double computeProteins(List<Long> IngredientID);
 	double computeSalt(List<Long> IngredientID);
-	List<Object> getPossibleIngredients(String possibleIngredient); // UNUSED
 	Long count();
 }
