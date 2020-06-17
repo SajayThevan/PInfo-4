@@ -41,7 +41,7 @@ export class RecipeService {
     return 1
   }
 
-  createNewRecipe(json) {
+  createNewRecipe(recipe) {
     var Request_url = environment.recipeService.url;
 
     let httpHeaders = new HttpHeaders({
@@ -51,17 +51,15 @@ export class RecipeService {
     let options = {
       headers: httpHeaders
     };
-    this.http.post(Request_url, JSON.stringify(json), options).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
-    return 1
+   return this.http.post(Request_url, JSON.stringify(recipe), options);
   }
 
   deleteRecipe(id) {
-    var Request_url = environment.recipeService.url+id;
+    var Request_url = environment.recipeService.url+"/"+id;
     this.http.delete(Request_url).subscribe({
       error: error => console.error('There was an error!', error)
     });
+    return 1
   }
 
   getRecipeforProfile(profile_id) {
