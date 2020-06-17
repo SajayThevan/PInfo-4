@@ -44,7 +44,7 @@ public class RecipeServiceImpl implements RecipeService {
 		this.em = em;
 	}
 
-	public void RecipeTestVolume() {
+	public void recipeTestVolume() {
 		try {
 			File myObj = new File("/tmp/images/recipe/filename.txt");
 			if (myObj.createNewFile()) {
@@ -134,7 +134,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public ArrayList<RecipeDTO> getRecipeWithIngredientID(ArrayList<Long> ing_id){
+	public ArrayList<RecipeDTO> getRecipeWithIngredientID(List<Long> ing_id){
 		ArrayList <RecipeDTO> tr = new ArrayList<>();
 		TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
 		List<Recipe> rl = query.getResultList();
@@ -153,7 +153,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public ArrayList<RecipeDTO> getRecipesListFromIds(ArrayList<Long> idList){
+	public ArrayList<RecipeDTO> getRecipesListFromIds(List<Long> idList){
 		ArrayList<RecipeDTO> tr = new ArrayList<>();
 		LOGGER.log(Level.INFO, "idList : "+idList);
 		for (Long id: idList) {

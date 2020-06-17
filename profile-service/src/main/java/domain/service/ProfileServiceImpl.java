@@ -19,8 +19,8 @@ import domain.model.Ingredient;
 
 @ApplicationScoped
 public class ProfileServiceImpl implements ProfileService {
-	
-	@PersistenceContext(unitName = "ProfilePU") 
+
+	@PersistenceContext(unitName = "ProfilePU")
 	private EntityManager em;
 
 	public ProfileServiceImpl() {
@@ -30,15 +30,15 @@ public class ProfileServiceImpl implements ProfileService {
 		this();
 		this.em = em;
 	}
-	
-	@Override				
+
+	@Override
 	public List<Profile> getAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Profile> criteria = builder.createQuery(Profile.class);
 		criteria.from(Profile.class);
 		return em.createQuery(criteria).getResultList();
 	}
-	
+
 	@Override
 	@Transactional
 	public void update(Profile profile) {
@@ -73,8 +73,8 @@ public class ProfileServiceImpl implements ProfileService {
 		p.setFavouriteRecipes(oldFavourites);
 		em.merge(p);
 	}
-	
-	@Override							
+
+	@Override
 	public Profile get(String profileId) {
 		return em.find(Profile.class, profileId);
 	}
@@ -84,7 +84,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public void create(Profile profile) {
 		em.persist(profile);
 	}
-	
+
 	@Override
 	public Long count() {
 		CriteriaBuilder qb = em.getCriteriaBuilder();
@@ -92,14 +92,14 @@ public class ProfileServiceImpl implements ProfileService {
 		cq.select(qb.count(cq.from(Profile.class)));
 		return em.createQuery(cq).getSingleResult();
 	}
-	
+
 	@Override
 	@Transactional
 	public void removeProfile(String id) {
 		Profile p = get(id);
 		em.remove(p);
 	}
-	
+
 	@Override
 	@Transactional
 	public void removeIngredient(String id,long ingredientId) {
@@ -111,7 +111,7 @@ public class ProfileServiceImpl implements ProfileService {
 		p.setFridgeContents(oldIngredients);
 		em.merge(p);
 	}
-	
+
 	@Override
 	@Transactional
 	public void removeFavourite(String id,long recipeId) {
@@ -123,19 +123,11 @@ public class ProfileServiceImpl implements ProfileService {
 		p.setFavouriteRecipes(oldFavourites);
 		em.merge(p);
 	}
-	
+
 	@Override
 	public boolean checkProfile(String profileId) {
 		Profile p = em.find(Profile.class, profileId);
-		if (p == null) {
-			return false;
-		}
-		else {
-			return true;
-		}
-		
-	
-		
+		return (!(p==null));
 	}
-	
+
 }

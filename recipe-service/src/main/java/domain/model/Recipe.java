@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -24,18 +23,12 @@ import java.util.Set;
 // Lombok: Getter/Setter/ToString/Hashcode
 @Data
 @EqualsAndHashCode
-
-
 // DataBase
-
 @Entity
 @Table(name ="Recipe")
 public class Recipe implements Serializable{
 	
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5056698075957095958L;
 
 	@Id

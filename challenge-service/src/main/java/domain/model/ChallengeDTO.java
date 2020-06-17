@@ -9,26 +9,26 @@ import lombok.Data;
 
 @Data
 public class ChallengeDTO {
-	
+
 	public ChallengeDTO(long id, String name, String authorID, Set<Ingredient> ingredients ) {
 		this.id = id;
 		this.name = name;
 		this.authorID = authorID;
-		this.ing = new ArrayList<Long>();
+		this.ing = new ArrayList<>();
 		for (Ingredient in: ingredients) {
 			this.ing.add(in.getIngredientId());
 		}
 	}
-	
+
 	private Long id;
-	
+
 	@NotNull
 	private String name;
-	
+
 	@NotNull
 	private String authorID;
-	
 
-	private ArrayList<Long> ing; 
-	
+
+	private ArrayList<Long> ing;
+
 }
