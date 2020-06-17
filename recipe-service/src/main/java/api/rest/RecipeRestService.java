@@ -57,6 +57,7 @@ public class RecipeRestService {
 	 //authenticate check if user
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new Recipe",  notes = "Create a new Recip.")
 	public long createRecipe(Recipe r) {
 		return rs.addRecipe(r);
