@@ -272,7 +272,7 @@ export class ProfilePageComponent implements OnInit {
   categories_Selected = [];
 
 
-  addRecipe() {
+  async addRecipe() {
     let Recipe: any = {};
     Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
     Recipe.authorID = this.keycloak.getID();
@@ -287,10 +287,18 @@ export class ProfilePageComponent implements OnInit {
     Recipe.comments = [];
     console.log(Recipe)
 
-
     let ret = this.recipeService.createNewRecipe(Recipe)
-    window.location.reload();
+
+    await this.delay(500)
+    this.getProfileDetails();
    
+  }
+
+  async removeRecipe(recipeid){
+    console.log(recipeid)
+    let ret = this.recipeService.deleteRecipe(recipeid)
+    await this.delay(500)
+    this.getProfileDetails();
   }
 
   async removeFav(recipeid){

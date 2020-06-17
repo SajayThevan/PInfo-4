@@ -43,8 +43,8 @@ export class RecipeService {
 
   createNewRecipe(recipe) {
     var Request_url = environment.recipeService.url;
-    console.log(JSON.stringify(json))
     console.log(Request_url)
+    console.log(JSON.stringify(recipe))
 
     let httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',
@@ -53,7 +53,9 @@ export class RecipeService {
     let options = {
       headers: httpHeaders
     };
-   return this.http.post(Request_url, JSON.stringify(recipe), options);
+   return this.http.post(Request_url, JSON.stringify(recipe), options).subscribe({
+    error: error => console.error('There was an error!', error)
+  });
   }
 
   deleteRecipe(id) {

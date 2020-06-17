@@ -65,31 +65,31 @@ export class AddChallengeComponent implements OnInit {
   }
 
   addSolution(){
-    this.addRecipe().subscribe(
-      (response: any) => {
-        this.recipeId = response;
-        console.log("recipe id : ");
-        console.log(this.recipeId);
-        console.log("challenge id : ");
-        console.log(this.challengeId);
-        console.log("challenge before add solution : ");
-        this.challengeNewSolution$ = this.challengeService.getChallenge(this.challengeId);
-        this.challengeNewSolution$.subscribe(
-          (response : any) => {
-            this.challengeNewSolution = response;
-            console.log(this.challengeNewSolution);
-          }
-        )
-        let ret = this.challengeService.addSolution(this.challengeId,this.recipeId);
-        console.log("new challenge : ");
-        this.challengeNewSolution$ = this.challengeService.getChallenge(this.challengeId);
-        this.challengeNewSolution$.subscribe(
-          (response : any) => {
-            this.challengeNewSolution = response;
-            console.log(this.challengeNewSolution);
-          }
-        )
-      });
+    // this.addRecipe().subscribe(
+    //   (response: any) => {
+    //     this.recipeId = response;
+    //     console.log("recipe id : ");
+    //     console.log(this.recipeId);
+    //     console.log("challenge id : ");
+    //     console.log(this.challengeId);
+    //     console.log("challenge before add solution : ");
+    //     this.challengeNewSolution$ = this.challengeService.getChallenge(this.challengeId);
+    //     this.challengeNewSolution$.subscribe(
+    //       (response : any) => {
+    //         this.challengeNewSolution = response;
+    //         console.log(this.challengeNewSolution);
+    //       }
+    //     )
+    //     let ret = this.challengeService.addSolution(this.challengeId,this.recipeId);
+    //     console.log("new challenge : ");
+    //     this.challengeNewSolution$ = this.challengeService.getChallenge(this.challengeId);
+    //     this.challengeNewSolution$.subscribe(
+    //       (response : any) => {
+    //         this.challengeNewSolution = response;
+    //         console.log(this.challengeNewSolution);
+    //       }
+    //     )
+    //   });
   }
 
   deleteRecipe(){

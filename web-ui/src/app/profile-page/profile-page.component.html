@@ -64,7 +64,7 @@
                     </div>
                     <div class="button_pos">
                       <a type="button" class="text-muted space" href="/recipe/{{recipe.id}}"><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
-                      <a type="button" class="text-muted space" (click)="removeFav(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
+                      <a type="button" class="text-muted space" (click)="removeRecipe(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
                     </div>
                   </div>
                 </div>
@@ -418,7 +418,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-outline-success" (click)="addRecipe()">Add</button>
+              <button type="button" class="btn btn-outline-success" (click)="addRecipe()" data-dismiss="modal" >Add</button>
             </div>
           </div>
         </div>
