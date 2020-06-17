@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
 
-public class ProfileRestServiceIT {
+class ProfileRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {
@@ -15,33 +15,33 @@ public class ProfileRestServiceIT {
 	}
 
 	@Test
-	public void testGetAll() {
+	void testGetAll() {
 		when().get("/").then().body(containsString("deniz"));
 	}
 
 	@Test
-	public void testGet() {
+	void testGet() {
 		when().get("/2").then().body(containsString("malkah"));
-		
+
 	}
 
 	@Test
-	public void testCount() {
+	void testCount() {
 		when().get("/count").then().body(containsString("2"));
 	}
 
 	@Test
-	public void testGetIngredient() {
+	void testGetIngredient() {
 		when().get("/2/ingredients").then().body(containsString("4"));
 	}
 
 	@Test
-	public void testGetFavourite() {
+	void testGetFavourite() {
 		when().get("/2/favourites").then().body(containsString("14"));
 	}
-	
+
 	@Test
-	public void testGetCheck() {
+	void testGetCheck() {
 		when().get("/2/exists").then().body(containsString("true"));
 	}
 

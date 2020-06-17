@@ -43,7 +43,7 @@ export class KeycloakService {
         return new Promise<string>((resolve, reject) => {
              if (KeycloakService.auth.authz.token) {
                 KeycloakService.auth.authz
-                    .updateToken(5)
+                    .updateToken(10)
                     .success(() => {
                         resolve(<string>KeycloakService.auth.authz.token);
                     })
@@ -55,6 +55,11 @@ export class KeycloakService {
             }
         });
     }
+
+    async update(): Promise<any> {
+        KeycloakService.auth.authz.updateToken(5);
+    }
+
     isLoggedIn(): boolean {
         return KeycloakService.auth.authz.authenticated;
     }

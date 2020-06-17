@@ -18,15 +18,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import domain.model.Ingredient;
 import domain.model.Profile;
 import domain.model.RecipeFav;
-import domain.service.ProfileService;
 
 @ExtendWith(MockitoExtension.class)
 class ProfileProducerTest {
 
 	@Mock
 	private SimpleKafkaProducer<String, String> kafkaProducer;
-	@Mock
-	private ProfileService profileService;
 
 	@InjectMocks
 	private ProfileProducer producer;

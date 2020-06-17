@@ -9,20 +9,14 @@ import domain.model.Recipe;
 import domain.model.Steps;
 import domain.service.RecipeService;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.UUID;
+
 
 import org.aerogear.kafka.SimpleKafkaProducer;
 import org.junit.jupiter.api.Test;

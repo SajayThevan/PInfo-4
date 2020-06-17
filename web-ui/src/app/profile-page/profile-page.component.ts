@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule, SelectMultipleControlValueAccessor } from "@angular/forms";
 import { Observable, from } from 'rxjs';
 import { ProfileService } from '../services/profile/profile.service'
 import { RecipeService } from '../services/recipe/recipe.service';
@@ -8,7 +8,7 @@ import { KeycloakService } from '../services/keycloak/keycloak.service';
 import { KeycloakInstance } from 'keycloak-js';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { threadId } from 'worker_threads';
-import { element } from 'protractor';
+import { element, promise } from 'protractor';
 import { stringify } from 'querystring';
 import { DatePipe } from '@angular/common';
 
@@ -42,7 +42,7 @@ export class ProfilePageComponent implements OnInit {
   public favourites$: Observable<any>;
   public fridge$: Observable<any>;
   public fridge: any; 
-   
+  public id;
 
   constructor(private formBuilder:FormBuilder,private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService,private datePipe: DatePipe) {
     this.quantity=new FormControl('',[Validators.required])
@@ -70,7 +70,7 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    this.id = this.keycloak.getID();
     this.ingredientService.getAllIngredientsResearch().subscribe(
       (data : Response) => {
         this.Ingredients = data;
@@ -81,14 +81,14 @@ export class ProfilePageComponent implements OnInit {
         this.keycloak.login();
     } else {
       this.profileService.profileExists(this.keycloak.getID()).subscribe(
-        (profileExists : any) => {
+        async (profileExists : any) => {
           if (!profileExists) {
             this.createProfile().subscribe(
               (reponse: any) => {
                 this.getProfileDetails()
             });
           } else {
-            this.ret = this.getProfileDetails();
+            await this.getProfileDetails();
           }
       });
     }
@@ -107,10 +107,8 @@ export class ProfilePageComponent implements OnInit {
     return this.profileService.createProfile(profile);
   }
 
-    getProfileDetails() {
+  async getProfileDetails(): Promise<any> {
     // Get Profile
-    this.profile$ = this.profileService.getProfile(this.keycloak.getID());
-    this.profileService.addIngredientById(this.keycloak.getID(),1,2);
     this.profile$ = this.profileService.getProfile(this.keycloak.getID());
     this.profile$.subscribe(
         (profile : any) => {          
@@ -131,6 +129,8 @@ export class ProfilePageComponent implements OnInit {
                   }
                 });
               })
+              console.log("getProfildetails")
+              console.log(this.fridge)
 
               for (let i = 0; i < this.fridge.length; i++) {
                 this.fridgeInter[i] = this.fridge[i];
@@ -162,6 +162,7 @@ export class ProfilePageComponent implements OnInit {
       name: this.selected[0].name,
       quantity : +this.quantityForm.get('quantity').value
     })
+    console.log("ici",this.fridgeInter)
     
   
   }
@@ -171,21 +172,56 @@ export class ProfilePageComponent implements OnInit {
    
   }
 
-  saveFridge(){
-
-     this.fridge.forEach(element => {
-      let ret = this.profileService.removeIngredient(this.keycloak.getID(),element.id)
+  async saveFridge(){
+    console.log(this.fridge)
+    console.log("jdkdhfjkdf",this.fridgeInter)
+    var bar2 = new Promise((resolve, reject) => {
+      this.fridge.forEach((element1, index, array) => {
+        console.log("index remove: ",index)
+        let ret = this.profileService.removeIngredient(this.id,element1.id)
+        if (index === this.fridge.length -1) resolve();
+      });
     });
-    this.fridgeInter.forEach(element=>{
-      let ret = this.profileService.addIngredientById(this.keycloak.getID(),element.id,element.quantity)
-    })
+    
+    bar2.then(() => {
+      var bar = new Promise((resolve, reject) => {
+        console.log("Avant Add; ",this.fridgeInter)
+        console.log(this.fridgeInter.length-1)
+        this.fridgeInter.forEach((element, index2, array2)=>{
+          console.log("Add:",element)
+          console.log("index add: ",index2)
+          let ret = this.profileService.addIngredientById(this.id,element.id,element.quantity)
+          if (index2 === this.fridgeInter.length -1) resolve();
+        })
+        
+      });
+      bar.then(async () => {
+        //this.fridge=[]  
+        //this.fridgeInter=[]
+        console.log("La")
+        console.log("avant vidage")
+        console.log(this.fridge)
+        console.log(this.fridgeInter)
 
-    this.ngOnInit()
+        this.fridge=[]  
+        this.fridgeInter=[]
+        
+        console.log("après vidage")
+        console.log(this.fridge)
+        console.log(this.fridgeInter)
 
+        await this.getProfileDetails()
+        console.log("màj"),
+        console.log(this.fridge),
+        console.log(this.fridgeInter)
+        //window.location.reload();
+      });
+    });
+    
   }
 
-  Notsave(){
-    this.getProfileDetails()
+  async Notsave(){
+    await this.getProfileDetails()
   }
 
 
@@ -207,6 +243,8 @@ export class ProfilePageComponent implements OnInit {
     
    // return this.profileService.createProfile(profile);
   }
-
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+}
 
 }

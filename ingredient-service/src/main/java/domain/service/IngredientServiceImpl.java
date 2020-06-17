@@ -3,8 +3,6 @@ package domain.service;
 import java.util.List;
 import java.util.ArrayList;
 
-import java.io.*; 
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,14 +15,14 @@ import domain.model.IngredientDTO;
 @ApplicationScoped
 public class IngredientServiceImpl implements IngredientService {
 	
+	private static final String failureMessage = "Ingredient does not exist : ";
+	
 	@PersistenceContext(unitName = "IngredientPU")
 	private EntityManager em;
 
 	public IngredientServiceImpl() {
 	}
 	
-	// https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html
-
 	public IngredientServiceImpl(EntityManager em) {
 		this();
 		this.em = em;
@@ -59,14 +57,14 @@ public class IngredientServiceImpl implements IngredientService {
 	}
 	
 	@Override
-	public List<IngredientDTO> getSelectedIngredients(List<Long> IngredientID) {
+	public List<IngredientDTO> getSelectedIngredients(List<Long> ingredientID) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Ingredient> criteria = builder.createQuery(Ingredient.class);
 		criteria.from(Ingredient.class);
 		List<Ingredient> allIngredients = em.createQuery(criteria).getResultList();
 		List<IngredientDTO> allIngredientsToSend = new ArrayList<>(); 
 		for(Ingredient i : allIngredients) {
-			if (IngredientID.contains(i.getId())) {
+			if (ingredientID.contains(i.getId())) {
 				IngredientDTO pair = new IngredientDTO(i.getId(), i.getName());
 				allIngredientsToSend.add(pair);
 			}
@@ -81,7 +79,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+				throw new IllegalArgumentException(failureMessage + id);
 			}
 			totalCalories += ing.getKcal();
 		}
@@ -95,7 +93,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+				throw new IllegalArgumentException(failureMessage + id);
 			}
 			totalFat += ing.getFat();
 		}
@@ -109,7 +107,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+				throw new IllegalArgumentException(failureMessage + id);
 			}
 			totalProteins += ing.getProtein();
 		}
@@ -123,7 +121,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+				throw new IllegalArgumentException(failureMessage + id);
 			}
 			totalCholesterol += ing.getCholesterol();
 		}
@@ -137,7 +135,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the salt : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException("Ingredient does not exist : " + id);
+				throw new IllegalArgumentException(failureMessage + id);
 			}
 			totalSalt += ing.getSalt();
 		}
@@ -147,7 +145,7 @@ public class IngredientServiceImpl implements IngredientService {
 	@Override
 	public void create(Ingredient ingredient) {
 		if (ingredient.getId() != null) {
-			throw new IllegalArgumentException("Ingredient already exists : " + ingredient.getId());
+			throw new IllegalArgumentException(failureMessage + ingredient.getId());
 		}
 		em.persist(ingredient);
 	}
