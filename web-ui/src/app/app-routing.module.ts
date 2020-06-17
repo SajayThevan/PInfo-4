@@ -10,6 +10,7 @@ import { SubscribeComponent } from './subscribe/subscribe.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { Browser } from 'protractor';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'home',component : HomeComponent},
   { path: 'tendances', component : TendancesComponent},
   { path: 'month', component : MonthSpecialComponent},
+  { path: 'challenges/:id', component:AddChallengeComponent},
   { path: 'challenge', component : ChallengesComponent},
   { path: 'profile', component : ProfilePageComponent},
   { path: 'search', component:SearchComponent},
@@ -37,5 +39,6 @@ export const routingComponent = [HomeComponent,
   ProfilePageComponent,
   SearchComponent,
   SubscribeComponent,
-  RecipePageComponent
+  RecipePageComponent,
+  AddChallengeComponent
 ]

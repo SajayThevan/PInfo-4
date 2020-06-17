@@ -29,6 +29,7 @@ import { AppInitService } from './app.init';
 import { KeycloakService } from './services/keycloak/keycloak.service';
 import { KeycloakInterceptorService } from './services/keycloak/keycloak.interceptor.service';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AddChallengeComponent } from './add-challenge/add-challenge.component';
 declare var window: any;
 
 export function init_config(appLoadService: AppInitService, keycloak: KeycloakService) {
@@ -50,7 +51,8 @@ export function init_config(appLoadService: AppInitService, keycloak: KeycloakSe
     SearchComponent,
     SubscribeComponent,
     RecipePageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AddChallengeComponent
   ],
   imports: [
     BrowserModule,
