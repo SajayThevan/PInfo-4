@@ -42,6 +42,7 @@
     </div>
   </div>
 </div>
+
 <div class="container pad font-weight-lighter">
   <div class="row">
     <!-- My recipes -->
@@ -62,7 +63,8 @@
                       {{recipe.name}}
                     </div>
                     <div class="button_pos">
-                      <a class="text-muted space" href={{recipe.link}}><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                      <a type="button" class="text-muted space" href="/recipe/{{recipe.id}}"><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                      <a type="button" class="text-muted space" (click)="removeFav(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
                     </div>
                   </div>
                 </div>
@@ -82,10 +84,8 @@
                     {{recipe.name}}
                   </div>
                   <div class="button_pos">
-                    <a class="text-muted space" href="/recipe/{{recipe.id}}"><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
-                  </div>
-                  <div class="button_cancel">
-                    <a class="text-muted space" (click)="removeFav(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
+                    <a type="button" class="text-muted space" href="/recipe/{{recipe.id}}"><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                    <a type="button" class="text-muted space" (click)="removeFav(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
                   </div>
                 </div>
               </div>
