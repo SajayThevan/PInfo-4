@@ -25,30 +25,30 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @PersistenceContext(unitName = "ChallengePU")
     private EntityManager em;
-    
+
     @Override
     public ArrayList<ChallengeDTO> getChallengesForProfil(String id) {
     	TypedQuery<Challenge> query = em.createQuery("SELECT ch FROM Challenge ch WHERE ch.authorID = :authorID", Challenge.class);
 		query.setParameter("authorID", id);
 		List<Challenge> tmp = query.getResultList();
-		ArrayList<ChallengeDTO> listToReturn = new ArrayList<ChallengeDTO>();
+		ArrayList<ChallengeDTO> listToReturn = new ArrayList<>();
         Iterator<Challenge> it = tmp.iterator();
         while (it.hasNext()) {
-        	Challenge ch = (Challenge) it.next();
+        	Challenge ch = it.next();
         	ChallengeDTO chDTO = new ChallengeDTO(ch.getId(),ch.getName(),ch.getAuthorID(),ch.getIngredients());
         	listToReturn.add(chDTO);
         }
         return listToReturn;
     }
-    
-    @Override				
+
+    @Override
 	public List<Challenge> getAll() {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Challenge> criteria = builder.createQuery(Challenge.class);
 		criteria.from(Challenge.class);
 		return em.createQuery(criteria).getResultList();
 	}
-	
+
 	@Override
 	@Transactional
 	public void update(Challenge challenge) {
@@ -58,7 +58,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		}
 		em.merge(challenge);
 	}
-	
+
 	@Override
 	@Transactional
 	public void addSolution(long id, long recipeId) {
@@ -69,8 +69,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 		oldSolution.add(r);
 		em.merge(ch);
 	}
-	
-	@Override							
+
+	@Override
 	public Challenge get(Long challengeId) {
 		return em.find(Challenge.class, challengeId);
 	}
@@ -83,7 +83,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		}
 		em.persist(challenge);
 	}
-	
+
 	@Override
 	public Long count() {
 		CriteriaBuilder qb = em.getCriteriaBuilder();
@@ -91,22 +91,22 @@ public class ChallengeServiceImpl implements ChallengeService {
 		cq.select(qb.count(cq.from(Challenge.class)));
 		return em.createQuery(cq).getSingleResult();
 	}
-	
+
 	@Override
 	@Transactional
 	public void removeChallenge(long id) {
 		Challenge ch = get(id);
 		em.remove(ch);
 	}
-	
+
 	@Override
 	public ArrayList<ChallengeDTO> getChallengesFromIngredientsIds(ArrayList<Long> ingIds) {
-		ArrayList <ChallengeDTO> tr = new ArrayList<ChallengeDTO>();
+		ArrayList <ChallengeDTO> tr = new ArrayList<>();
 		TypedQuery<Challenge> query = em.createQuery("SELECT c FROM Challenge c", Challenge.class);
 		List<Challenge> cl = query.getResultList();
 		for(Challenge c: cl ) {
 			Set<Ingredient> ing = c.getIngredients();
-			ArrayList<Long> containedIngId = new ArrayList<Long>();
+			ArrayList<Long> containedIngId = new ArrayList<>();
 			for(Ingredient i: ing) {
 				containedIngId.add(i.getIngredientId());
 			}
@@ -117,5 +117,5 @@ public class ChallengeServiceImpl implements ChallengeService {
 		}
 		return tr;
 	}
-	
+
 }
