@@ -79,18 +79,22 @@ export class RecipePageComponent implements OnInit {
       console.log(this.Ingredients)
 
       this.Ingredients.forEach(element => {
-        console.log(element.ingredientID)
-        this.ingredientService.getIngredient(element.ingredientID).subscribe (
+        console.log("ICI",element)
+        console.log(element.ingredientId)
+        this.ingredientService.getIngredient(element.ingredientId).subscribe (
           (data : Response) => {
             this.ingredient = data;
+            console.log("La",this.ingredient)
             this.Ingredients_name.push(this.ingredient.name)
           }
         )
       });
+      console.log(this.Ingredients_name)
 
       this.Steps_O = data["steps"];
+      console.log("steps",this.Steps_O)
       this.Steps_O.forEach(element => {
-        this.Steps.push(element.steps)
+        this.Steps.push(element.step)
       });
 
 
