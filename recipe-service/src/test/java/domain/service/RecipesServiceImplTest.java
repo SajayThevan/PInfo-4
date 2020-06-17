@@ -1,3 +1,4 @@
+
 package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,8 +49,8 @@ class RecipesServiceImplTest {
 	void testAddRecipe() {
 		Recipe r1 = randomRecipe();
 		Recipe r2 = randomRecipe();
-		recipesService.addRecipe(r1);
-		recipesService.addRecipe(r2);
+		long a = recipesService.addRecipe(r1);
+		long b= recipesService.addRecipe(r2);
 		List res = em.createNativeQuery("select name from Recipe").getResultList();
 		assertEquals(2,res.size());
 		
@@ -309,3 +310,4 @@ class RecipesServiceImplTest {
 	}
 
 }
+

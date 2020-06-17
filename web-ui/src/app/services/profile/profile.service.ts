@@ -79,6 +79,7 @@ export class ProfileService {
     this.http.delete(Request_url).subscribe({
       error: error => console.error('There was an error!', error)
     });
+    return 1
   }
 
 }

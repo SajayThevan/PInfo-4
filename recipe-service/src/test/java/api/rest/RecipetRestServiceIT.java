@@ -12,7 +12,7 @@ import io.restassured.RestAssured;
 import domain.service.RecipeService;
 
 public class RecipetRestServiceIT {
-/*
+
 	@BeforeAll
 	public static void setup() {
 		RestAssured.baseURI = "http://localhost:28080/recipes";
@@ -47,5 +47,5 @@ public class RecipetRestServiceIT {
 	public void testgetRecipesWithIdList() {
 		when().get("/?id=2").then().body(containsString("2"));
 	}
-*/	
+	
 }

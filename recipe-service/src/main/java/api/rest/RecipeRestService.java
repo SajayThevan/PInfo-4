@@ -58,8 +58,8 @@ public class RecipeRestService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Create a new Recipe",  notes = "Create a new Recip.")
-	public void createRecipe(Recipe r) {
-		rs.addRecipe(r);
+	public long createRecipe(Recipe r) {
+		return rs.addRecipe(r);
 	}
 	 //authenticate
 	@DELETE
