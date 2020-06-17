@@ -201,7 +201,7 @@ export class ProfilePageComponent implements OnInit {
         //this.fridge=[]  
         //this.fridgeInter=[]
         console.log("ici 1 avant")
-        await this.delay(1000)
+        await this.delay(750)
         console.log("ici 1 apres")
         console.log("La")
         console.log("avant vidage")
@@ -221,7 +221,7 @@ export class ProfilePageComponent implements OnInit {
           var update = new Promise(async (resolve, reject) => {
             let ret = await this.getProfileDetails();
             console.log("ici 2 avant")
-            await this.delay(1000)
+            await this.delay(750)
             console.log("ici 2 apres")
             resolve();
           });
@@ -242,26 +242,35 @@ export class ProfilePageComponent implements OnInit {
   }
 
 
-  createRecipe() {
+  addRecipe() {
     let Recipe: any = {};
     Recipe.authorID = this.keycloak.getID();
-    Recipe.name = this.recipeForm.get('name').value
+    Recipe.name = (document.getElementById("name") as HTMLInputElement).value;
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
     Recipe.imagePath ="tmp/image/recipe/"+stringify(Recipe.authorID)+".jpg"
     Recipe.ingredients = []
     Recipe.steps = [];
     Recipe.category = [];
-    Recipe.difficulty =this.recipeForm.get('diffuclty').value
-    Recipe.time = this.recipeForm.get('time').value
+    Recipe.difficulty =(document.getElementById("difficulty") as HTMLInputElement).value;
+    Recipe.time = (document.getElementById("time") as HTMLInputElement).value;
     Recipe.ratings = [];
     Recipe.comments = [];
     console.log(Recipe)
-
-    
-   // return this.profileService.createProfile(profile);
+    //let ret = this.recipeService.createNewRecipe(Recipe)
+    window.location.reload();
+   
   }
+
+  async removeFav(recipeid){
+    console.log(recipeid)
+    let ret = this.profileService.removeFavourite(this.keycloak.getID(),recipeid)
+    await this.delay(500)
+    this.getProfileDetails();
+  }
+
+
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
-}
+  }
 
 }

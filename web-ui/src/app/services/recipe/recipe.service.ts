@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { stringify } from 'querystring';
 import { environment } from '../../../environments/environment';
 
@@ -25,10 +25,12 @@ export class RecipeService {
   }
 
   addComment(id,comment){
+  const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
     var Request_url = environment.recipeService.url +"/"+id+"/comments";
-    this.http.put(Request_url,comment).subscribe({
+    this.http.post(Request_url, comment, { headers, responseType: 'text'}).subscribe({
       error: error => console.error('There was an error!', error)
     });
+    return 1
   }
 
   addRating (id,rate){ // Check rate if 0<rate<10
@@ -36,13 +38,23 @@ export class RecipeService {
     this.http.put(Request_url,null).subscribe({
       error: error => console.error('There was an error!', error)
     });
+    return 1
   }
 
   createNewRecipe(json) {
     var Request_url = environment.recipeService.url;
-    this.http.post(Request_url,json).subscribe({
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = {
+      headers: httpHeaders
+    };
+    this.http.post(Request_url, JSON.stringify(json), options).subscribe({
       error: error => console.error('There was an error!', error)
     });
+    return 1
   }
 
   deleteRecipe(id) {
