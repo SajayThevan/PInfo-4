@@ -100,7 +100,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
-	public ArrayList<ChallengeDTO> getChallengesFromIngredientsIds(ArrayList<Long> ingIds) {
+	public ArrayList<ChallengeDTO> getChallengesFromIngredientsIds(List<Long> ingIds) {
 		ArrayList <ChallengeDTO> tr = new ArrayList<>();
 		TypedQuery<Challenge> query = em.createQuery("SELECT c FROM Challenge c", Challenge.class);
 		List<Challenge> cl = query.getResultList();
