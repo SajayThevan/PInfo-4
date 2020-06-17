@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeService } from '../services/recipe/recipe.service';
 import { KeycloakService } from '../services/keycloak/keycloak.service';
-import { KeycloakInstance } from 'keycloak-js';
-import { DatePipe } from '@angular/common';
-import { stringify } from 'querystring';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-challenge',
@@ -12,16 +7,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-challenge.component.scss']
 })
 export class AddChallengeComponent implements OnInit {
-  public keycloakAuth: KeycloakInstance;
 
-  constructor(private route:ActivatedRoute, private recipeService: RecipeService, public keycloak: KeycloakService,private datePipe: DatePipe) {
-  }
+  constructor() { }
 
-  ChallengeId = 0;
   ngOnInit(): void {
-    this.ChallengeId = +this.route.snapshot.paramMap.get('id'); 
   }
-
+  
   addSolution() {
     /*
     let Recipe: any = {};
@@ -56,5 +47,4 @@ export class AddChallengeComponent implements OnInit {
     console.log(ret)
     */
   }
-
 }

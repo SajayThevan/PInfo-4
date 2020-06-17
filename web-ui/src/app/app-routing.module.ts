@@ -40,5 +40,6 @@ export const routingComponent = [HomeComponent,
   SearchComponent,
   SubscribeComponent,
   RecipePageComponent,
-  AddChallengeComponent
+  AddChallengeComponent,
+  NotFoundComponent
 ]
