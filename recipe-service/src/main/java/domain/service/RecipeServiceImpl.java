@@ -61,11 +61,12 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	@Transactional
-	public void addRecipe(Recipe r) {
+	public long addRecipe(Recipe r) {
 		if (r.getId() != null) {
 			throw new IllegalArgumentException("Recipe already exists : " + r.getId());
 		}
 		em.persist(r);
+		return r.getId();
 	}
 
 	@Override
@@ -73,6 +74,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public void addRating(long id,int rate) {
 		Recipe r = em.find(Recipe.class, id);
 		Ratings rating = new Ratings();
+		rating.setRate(rate);
 		r.updateRating(rating);
 		em.merge(r);
 	}
