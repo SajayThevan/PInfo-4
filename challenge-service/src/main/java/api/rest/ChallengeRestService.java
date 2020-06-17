@@ -56,16 +56,16 @@ public class ChallengeRestService {
     public Long count() {
 		return challengeService.count();
 	}
-	
-	
+
+
 	@GET
 	@Path("/ingredients/")
 	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
 	@ApiOperation(value = "Get Challenges which you need the ingredients passed in paramaters")
-	public ArrayList<ChallengeDTO> getRecipesWithIngIds(@QueryParam("id") ArrayList<Long> IngredientIdList){
-		return challengeService.getChallengesFromIngredientsIds(IngredientIdList);
+	public List<ChallengeDTO> getRecipesWithIngIds(@QueryParam("id") List<Long> ingredientIdList){
+		return challengeService.getChallengesFromIngredientsIds(ingredientIdList);
 	}
-	
+
 
 	// Challenge
 	@GET
@@ -98,7 +98,7 @@ public class ChallengeRestService {
 	public void create(Challenge challenge) {
 		challengeService.create(challenge);
 	}
-	
+
 	// Ingredients
 	@GET
 	@Path("{id}/ingredients")
@@ -133,7 +133,7 @@ public class ChallengeRestService {
 	public Set<Recipe> getSolutions(@PathParam("id") Long challengeId) {
 		return challengeService.get(challengeId).getSolutions();
 	}
-	
+
 	 //authenticate check if we are a user
 	@POST
 	@Path("{id}/solutions")
