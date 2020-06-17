@@ -1,3 +1,4 @@
+
 package domain.service;
 
 import java.util.ArrayList;
@@ -20,5 +21,4 @@ public interface RecipeService {
 	public ArrayList<RecipeDTO> getTendancies();
 	public ArrayList<RecipeDTO> getRecipeOfTheMonth();
 	public ArrayList<RecipeDTO> getRecipesListFromIds(List<Long> idList);
-	
 }

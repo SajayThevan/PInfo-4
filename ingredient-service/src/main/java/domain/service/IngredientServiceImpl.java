@@ -15,7 +15,7 @@ import domain.model.IngredientDTO;
 @ApplicationScoped
 public class IngredientServiceImpl implements IngredientService {
 	
-	private static final String failureMessage = "Ingredient does not exist : ";
+	private static final String FAILURE_MESSAGE = "Ingredient does not exist : ";
 	
 	@PersistenceContext(unitName = "IngredientPU")
 	private EntityManager em;
@@ -79,7 +79,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException(failureMessage + id);
+				throw new IllegalArgumentException(FAILURE_MESSAGE + id);
 			}
 			totalCalories += ing.getKcal();
 		}
@@ -93,7 +93,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException(failureMessage + id);
+				throw new IllegalArgumentException(FAILURE_MESSAGE + id);
 			}
 			totalFat += ing.getFat();
 		}
@@ -107,7 +107,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException(failureMessage + id);
+				throw new IllegalArgumentException(FAILURE_MESSAGE + id);
 			}
 			totalProteins += ing.getProtein();
 		}
@@ -121,7 +121,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the kcal : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException(failureMessage + id);
+				throw new IllegalArgumentException(FAILURE_MESSAGE + id);
 			}
 			totalCholesterol += ing.getCholesterol();
 		}
@@ -135,7 +135,7 @@ public class IngredientServiceImpl implements IngredientService {
 			// take the salt : 
 			Ingredient ing = em.find(Ingredient.class, id);
 			if (ing == null) {
-				throw new IllegalArgumentException(failureMessage + id);
+				throw new IllegalArgumentException(FAILURE_MESSAGE + id);
 			}
 			totalSalt += ing.getSalt();
 		}
@@ -145,7 +145,7 @@ public class IngredientServiceImpl implements IngredientService {
 	@Override
 	public void create(Ingredient ingredient) {
 		if (ingredient.getId() != null) {
-			throw new IllegalArgumentException(failureMessage + ingredient.getId());
+			throw new IllegalArgumentException(FAILURE_MESSAGE + ingredient.getId());
 		}
 		em.persist(ingredient);
 	}

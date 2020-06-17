@@ -127,7 +127,7 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public boolean checkProfile(String profileId) {
 		Profile p = em.find(Profile.class, profileId);
-		return (!(p==null));
+		return (p!=null);
 	}
 
 }

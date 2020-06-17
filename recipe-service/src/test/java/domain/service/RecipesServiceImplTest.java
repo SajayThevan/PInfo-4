@@ -1,3 +1,4 @@
+
 package domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,17 +10,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import org.javatuples.Triplet; 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
@@ -53,7 +50,7 @@ class RecipesServiceImplTest {
 		Recipe r1 = randomRecipe();
 		Recipe r2 = randomRecipe();
 		long a = recipesService.addRecipe(r1);
-		long b = recipesService.addRecipe(r2);
+		long b= recipesService.addRecipe(r2);
 		List res = em.createNativeQuery("select name from Recipe").getResultList();
 		assertEquals(2,res.size());
 		
@@ -103,9 +100,9 @@ class RecipesServiceImplTest {
 	@Test
 	void testGetRecipiesIDForProfiles() {
 		Recipe r = randomRecipe();
-		List res = recipesService.getRecipiesIdForProfiles(r.getAuthorID()); // Get the inital number of element in DB
+		List<RecipeDTO> res = recipesService.getRecipiesIdForProfiles(r.getAuthorID()); // Get the inital number of element in DB
 		em.persist(r);
-		List a = recipesService.getRecipiesIdForProfiles(r.getAuthorID());
+		List<RecipeDTO>  a = recipesService.getRecipiesIdForProfiles(r.getAuthorID());
 		assertEquals(a.size(),res.size()+1);		
 	}
 	
@@ -149,7 +146,7 @@ class RecipesServiceImplTest {
 		ing_id.clear();
 
 		for (Ingredients in: r2.getIngredients()) {
-			ing_id.add(in.getIngredientID());
+			ing_id.add(in.getIngredientId());
 			break; //test with only 1 ingredients
 		}
 		ArrayList<RecipeDTO> res = recipesService.getRecipeWithIngredientID(ing_id);
@@ -188,7 +185,7 @@ class RecipesServiceImplTest {
 	
 	
 	@Test
-	public void testGetRecipeOfTheMont() {
+	void testGetRecipeOfTheMont() {
 		int counter = 1;
 		//Be sure there is at least one recipe
 		Recipe rand = randomRecipe();
@@ -214,7 +211,7 @@ class RecipesServiceImplTest {
 	        Date Todaydate = cal.getTime();
 	        String todaysdate = dateFormat.format(Todaydate);
 	        String PartTD[] = todaysdate.split("/");
-	        if (Integer.parseInt(PartTD[0]) == month && Integer.parseInt(PartTD[2]) ==year) {
+	        if (Integer.parseInt(PartTD[0]) == month && Integer.parseInt(PartTD[2]) == year) {
 	        	counter += 1;
 	        }
 		}
@@ -223,7 +220,7 @@ class RecipesServiceImplTest {
 	}
 	
 	@Test
-	public void testgetRecipesListFromIds() {
+	void testgetRecipesListFromIds() {
 		ArrayList<Long> ini = new ArrayList<Long> ();
 		for (int i = 0; i < 15; i++) {
 			Recipe r = randomRecipe();
@@ -270,19 +267,19 @@ class RecipesServiceImplTest {
 		
 		Set<Ingredients> ing = new HashSet<Ingredients>();
 		Ingredients i1 = new Ingredients();
-		i1.setIngredientID((long) new Random().nextInt(100 + 1)+1);
+		i1.setIngredientId((long) new Random().nextInt(100 + 1)+1);
 		i1.setQuantite(2);
 		
 		Ingredients i2 = new Ingredients(); 
-		i2.setIngredientID((long)new Random().nextInt(100 + 1)+1);
+		i2.setIngredientId((long)new Random().nextInt(100 + 1)+1);
 		i2.setQuantite(1);
 		
 		ing.add(i1); 
 		ing.add(i2);
 
 		Set<Steps> step = new HashSet<Steps>();
-		Steps s1 = new Steps(); s1.setSteps("Prechauffe le four");
-		Steps s2 = new Steps(); s2.setSteps("Mets dans le four");
+		Steps s1 = new Steps(); s1.setStep("Prechauffe le four");
+		Steps s2 = new Steps(); s2.setStep("Mets dans le four");
 		step.add(s1); step.add(s2);
 		
 		Set<Ratings> rate = new HashSet<Ratings>();
@@ -291,8 +288,8 @@ class RecipesServiceImplTest {
 		rate.add(r1);rate.add(r2);
 		
 		Set<Category> cat = new HashSet<Category>();
-		Category cat1 = new Category(); cat1.setCategory(CategoryEnum.Breakfast);
-		Category cat2 = new Category(); cat2.setCategory(CategoryEnum.Vegetarian);
+		Category cat1 = new Category(); cat1.setCategories(CategoryEnum.BREAKFAST);
+		Category cat2 = new Category(); cat2.setCategories(CategoryEnum.VEGETARIAN);
 		cat.add(cat1); cat.add(cat2);
 		
 
@@ -313,3 +310,4 @@ class RecipesServiceImplTest {
 	}
 
 }
+
