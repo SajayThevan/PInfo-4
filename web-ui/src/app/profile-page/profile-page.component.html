@@ -296,7 +296,7 @@
                           <label class="col-sm-2 col-form-label">Name</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="name" formControlName="name">
+                              <input type="text" class="form-control" id="nameRecipe" formControlName="nameRecipe">
                             </form>
                             <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="name">-->
                           </div>
@@ -305,9 +305,15 @@
                       <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Category</label>
                           <div class="col-sm-6">
-                            <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="cat" formControlName="cat">
-                            </form>
+                            <ng-select [items]="Categories"
+                            bindLabel="categories"
+                            placeholder="Choose category"
+                            appendTo="body"
+                            multiple="true"
+                            maxSelectedItems = 4
+                            [(ngModel)]="categories_Selected"
+                            [ngModelOptions]="{standalone: true}">
+                            </ng-select>
                             <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="category">-->
                           </div>
                       </div>
@@ -347,45 +353,66 @@
                             appendTo="body"
                             multiple="true"
                             maxSelectedItems = 1
-                            [(ngModel)]="selected">
+                            [(ngModel)]="selectedIngredients"
+                            >
                             </ng-select>
                           </div>
                           <div class="col">
                             <form [formGroup]="quantityForm" >
-                              <input type="text" class="form-control" id="inputIngredient" formControlName="quantity">
+                              <input type="text" class="form-control" id="quantity" formControlName="quantity">
                             </form>
                           </div>
                           <div class="col">
-                            <a type ="button" class="text-muted"><mat-icon aria-hidden="false" class="addbuttonbis">add_circle_outline</mat-icon></a>
+                            <a type ="button" class="text-muted"><mat-icon aria-hidden="false" class="addbuttonbis" (click)="addIngredient()">add_circle_outline</mat-icon></a>
                           </div>
                         </div>
                     </div>
                     
                     <hr>
+
+                    <div *ngFor = "let ingredient of ingredients_Recipe">
+                      {{ingredient.name}}
+                    </div>
+
+
                 </div>
               </div>
 
               <div class="card sp">
+
+                <div class="card-header">
+                  Steps
+                </div>
+
                 <div class="card-body">
-                    <div class="row">
-                      <div class="col"><b>Steps</b></div>
-                      <div class="col-sm-6">
-                        <form>
-                            <div class="form-group row">
-                              <form [formGroup]="recipeForm">
-                                <input type="text" class="form-control" id="instruction" formControlName="instruction">
-                              </form>
-                              <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="instruction">-->
-                            </div>
-                        </form>
-                      </div>
-                      <div class="col">
-                        <a type ="button" class="text-muted"><mat-icon aria-hidden="false" class="addbuttonbis1">add_circle_outline</mat-icon></a>
-                      </div>
-                      
-                    </div>
-                    
+
+                        <div class="row">
+                          <div class="col-8">
+
+                            <form>
+                              <div class="form-group">
+                              
+                                  <form [formGroup]="recipeForm" >
+                                    <input type="text" class="form-control" id="instruction" formControlName="instruction">
+                                  </form>
+                              
+                              </div>
+                            </form>
+
+                          </div>
+
+                          <div class="col-4">
+                            <a type ="button" class="text-muted"><mat-icon aria-hidden="false" class="addbuttonbis1" (click)="addSteps()">add_circle_outline</mat-icon></a>
+                          </div>
+
+                          
+                        </div>
+
                     <hr>
+
+                    <div *ngFor="let step of steps">
+                      {{step.step}}
+                    </div>
                 </div>
               </div>
             </div>

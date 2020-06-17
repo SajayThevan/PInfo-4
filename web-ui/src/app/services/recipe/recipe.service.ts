@@ -43,6 +43,8 @@ export class RecipeService {
 
   createNewRecipe(json) {
     var Request_url = environment.recipeService.url;
+    console.log(JSON.stringify(json))
+    console.log(Request_url)
 
     let httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',

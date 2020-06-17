@@ -30,6 +30,7 @@ export class ProfilePageComponent implements OnInit {
   public difficulty: FormControl;
   public time: FormControl;
   public instruction: FormControl;
+  public nameRecipe: FormControl;
 
   public fridgeInter = [];
   public Ingredients : Object;
@@ -43,6 +44,7 @@ export class ProfilePageComponent implements OnInit {
   public fridge$: Observable<any>;
   public fridge: any; 
   public id;
+ 
 
   constructor(private formBuilder:FormBuilder,private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService,private datePipe: DatePipe) {
     this.quantity=new FormControl('',[Validators.required])
@@ -53,6 +55,7 @@ export class ProfilePageComponent implements OnInit {
   
 
     //TODO: Verify quantity
+    
     this.name = new FormControl('',[Validators.required]);
     this.cat = new FormControl('',[Validators.required]);
     this.difficulty =  new FormControl('',[Validators.required]);
@@ -60,7 +63,7 @@ export class ProfilePageComponent implements OnInit {
     this.instruction = new FormControl('',[Validators.required]);
 
     this.recipeForm=formBuilder.group({
-    name:this.name,
+    nameRecipe:this.nameRecipe,
     cat:this.cat,
     difficulty:this.difficulty,
     time:this.time,
@@ -241,22 +244,51 @@ export class ProfilePageComponent implements OnInit {
     await this.getProfileDetails()
   }
 
+  selectedIngredients = [];
+  ingredients_Recipe = [];
+  ingredient_backend = [];
+  steps = [];
+
+  addIngredient(){
+     if(this.selectedIngredients.length > 0) {
+        this.ingredients_Recipe.push(this.selectedIngredients[0])
+        console.log(this.ingredients_Recipe)
+        let quantity = +(document.getElementById("quantity") as HTMLInputElement).value;
+        this.ingredient_backend.push({quantite:quantity ,ingredientId:this.selectedIngredients[0].id})
+        console.log(this.ingredient_backend)
+        this.selectedIngredients = [];
+     } 
+  }
+
+  addSteps(){
+    console.log("Step Added")
+    this.steps.push({step:(document.getElementById("instruction") as HTMLInputElement).value})
+    console.log(this.steps);
+
+  }
+
+  Categories = [{categories:"DINNER"},{categories:"DESERT"},{categories:"LUNCH"},{categories:"BREAKFAST"},{categories:"VEGETARIAN"}
+  ,{categories:"VEGAN"}]
+  categories_Selected = [];
+
 
   addRecipe() {
     let Recipe: any = {};
+    Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
     Recipe.authorID = this.keycloak.getID();
-    Recipe.name = (document.getElementById("name") as HTMLInputElement).value;
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-    Recipe.imagePath ="tmp/image/recipe/"+stringify(Recipe.authorID)+".jpg"
-    Recipe.ingredients = []
-    Recipe.steps = [];
-    Recipe.category = [];
-    Recipe.difficulty =(document.getElementById("difficulty") as HTMLInputElement).value;
-    Recipe.time = (document.getElementById("time") as HTMLInputElement).value;
+    Recipe.imagePath = "/tmp/images/logo.png";
+    Recipe.ingredients = this.ingredient_backend;
+    Recipe.steps = this.steps;
+    Recipe.category = this.categories_Selected;
+    Recipe.difficulty = +(document.getElementById("difficulty") as HTMLInputElement).value;
+    Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
     Recipe.ratings = [];
     Recipe.comments = [];
     console.log(Recipe)
-    //let ret = this.recipeService.createNewRecipe(Recipe)
+
+
+    let ret = this.recipeService.createNewRecipe(Recipe)
     window.location.reload();
    
   }
