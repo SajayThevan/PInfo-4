@@ -175,50 +175,67 @@ export class ProfilePageComponent implements OnInit {
   async saveFridge(){
     console.log(this.fridge)
     console.log("jdkdhfjkdf",this.fridgeInter)
-    var bar2 = new Promise((resolve, reject) => {
+    var remove = new Promise((resolve, reject) => {
+      if (this.fridge.length == 0){resolve();}
+
       this.fridge.forEach((element1, index, array) => {
         console.log("index remove: ",index)
         let ret = this.profileService.removeIngredient(this.id,element1.id)
-        if (index === this.fridge.length -1) resolve();
+        if (index === this.fridge.length -1){ resolve();}
       });
     });
     
-    bar2.then(() => {
-      var bar = new Promise((resolve, reject) => {
+    remove.then(() => {
+      var add = new Promise((resolve, reject) => {
         console.log("Avant Add; ",this.fridgeInter)
         console.log(this.fridgeInter.length-1)
         this.fridgeInter.forEach((element, index2, array2)=>{
           console.log("Add:",element)
           console.log("index add: ",index2)
           let ret = this.profileService.addIngredientById(this.id,element.id,element.quantity)
-          if (index2 === this.fridgeInter.length -1) resolve();
+          if (index2 === this.fridgeInter.length -1) {resolve();}
         })
         
       });
-      bar.then(async () => {
+      add.then(async () => {
         //this.fridge=[]  
         //this.fridgeInter=[]
+        console.log("ici 1 avant")
+        await this.delay(1000)
+        console.log("ici 1 apres")
         console.log("La")
         console.log("avant vidage")
         console.log(this.fridge)
         console.log(this.fridgeInter)
 
-        this.fridge=[]  
-        this.fridgeInter=[]
+        var clear = new Promise((resolve, reject) => {
+          this.fridge = []
+          this.fridgeInter = [];
+          resolve();
+        });
+        clear.then(async () => {
+          console.log("après vidage")
+          console.log(this.fridge)
+          console.log(this.fridgeInter)
+          //this.getProfileDetails()
+          var update = new Promise(async (resolve, reject) => {
+            let ret = await this.getProfileDetails();
+            console.log("ici 2 avant")
+            await this.delay(1000)
+            console.log("ici 2 apres")
+            resolve();
+          });
+          update.then(async () => {
+            
+            console.log("Hope")
+          });
+        });
         
-        console.log("après vidage")
-        console.log(this.fridge)
-        console.log(this.fridgeInter)
-
-        await this.getProfileDetails()
-        console.log("màj"),
-        console.log(this.fridge),
-        console.log(this.fridgeInter)
-        //window.location.reload();
       });
     });
     
   }
+ 
 
   async Notsave(){
     await this.getProfileDetails()
