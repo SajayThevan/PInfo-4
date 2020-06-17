@@ -74,3 +74,37 @@
 .textCap{
     text-transform: capitalize;
 }
+
+
+.tab {
+    height: 180px;
+    width: 310px;
+    border: 0.5px  gainsboro solid ;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.recipe_image{
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 80px;
+    width: 80px;
+    border : 1px black solid;
+    border-radius: 20px;
+    background-image: url(../../assets/recipe_logo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.recipe_name {
+    position: relative;
+    top: 20px;
+    left: 50px;
+}
+
+.button_pos{
+    position: relative;
+    left: 200px;
+}

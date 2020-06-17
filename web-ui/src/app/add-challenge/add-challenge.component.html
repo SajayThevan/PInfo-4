@@ -58,23 +58,26 @@
     <hr>
 
     <div class="ShowResult">
-        <!-- <div class="card-body" *ngIf= "(AllSolutions$ | async) as AllSolutions; else loading"> -->
             Solutions
             <hr>
-            <div class="pad1" *ngFor="let recipe of AllSolutions;let i=index">
-              <div class="tab">
-                <div class="recipe_image row"></div>
-                <div class="recipe_name">
-                  {{recipe.name}}
-                </div>
-                <div class="button_pos">
-                  <!-- <a type="button" class="text-muted space" href="/recipe/{{recipe.id}}"><mat-icon aria-hidden="false">view_comfy</mat-icon></a> -->
-                  <!-- <a type="button" class="text-muted space" (click)="removeFav(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a> -->
+            <div>
+                <div class="row">
+                    <div class="col-4" *ngFor="let recipe of SolutionsAll"> 
+                      <div class="tab">
+                        <div class="recipe_image row"></div>
+                        <div class="recipe_name">
+                          {{recipe.name}}
+                        </div>
+                        <div class="button_pos">
+                            <a class="text-muted space" href="/recipe/{{recipe.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                        </div>
+                    </div>
+                    </div>
                 </div>
               </div>
-            </div>
-        <!-- </div> -->
     </div>
+
+    <hr>
 
 
     <!-- AddRecipe Modal -->

@@ -104,10 +104,15 @@ export class AddChallengeComponent implements OnInit {
           )
 
           //Get Favourite Recipes
-          var recipe_sol_id = [];
-          this.Solutions_Id.forEach(element => {
-            recipe_sol_id.push(element.recipeId);
-          });
+
+          // EXAMPLE
+          var recipe_sol_id = [-17];
+
+          //TODO : take soluition id and assign to recipe_sol_id
+          // this.Solutions_Id.forEach(element => {
+          //   recipe_sol_id.push(element.recipeId);
+          // });
+          
           recipe_sol_id.forEach(element => {
              this.recipeService.getRecipe(element).subscribe(
                (data : Response) => {
@@ -115,7 +120,7 @@ export class AddChallengeComponent implements OnInit {
                }
              )
           });
-          console.log(this.SolutionsAll)
+          console.log("SolutionHERE",this.SolutionsAll)
         });
       }
     )
