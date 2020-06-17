@@ -1,14 +1,8 @@
 package api.msg;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.javatuples.Triplet; 
-
-
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import org.aerogear.kafka.cdi.annotation.Consumer;
 import org.aerogear.kafka.cdi.annotation.KafkaConfig;
@@ -23,11 +17,7 @@ import domain.service.RecipeService;
 @Log
 public class RecipeConsumer {
 
-	@Inject
-	private RecipeProducer producer;
-
 	private RecipeService rs;
-
 	
 	@Consumer(topics = "profilDelete", groupId = "pinfo-microservices")
 	public int deleteRecipe(final String message) {
@@ -38,7 +28,6 @@ public class RecipeConsumer {
 			rs.removeRecipe(rd.getId());
 			r.setAuthorID("null");
 			rs.addRecipe(r);
-			
 		}
 		return 1;
 	}

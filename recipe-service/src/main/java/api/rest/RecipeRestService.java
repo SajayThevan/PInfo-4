@@ -4,9 +4,8 @@ package api.rest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -43,8 +42,8 @@ public class RecipeRestService {
 	@GET
 	@Path("testVolume")
 	@ApiOperation(value = "test volume")
-	public void RecipeTestVolume() {
-		rs.RecipeTestVolume();
+	public void recipeTestVolume() {
+		rs.recipeTestVolume();
 	}
 
 	// Challenges
@@ -53,8 +52,7 @@ public class RecipeRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Get a full Recipe")
 	public Recipe getRecipeRest(@PathParam("id") long id) {
-		Recipe a = rs.getRecipe(id);
-		return a;
+		return rs.getRecipe(id);
 	}
 	 //authenticate check if user
 	@POST
@@ -79,15 +77,15 @@ public class RecipeRestService {
 	@Path("/ingredients/")
 	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
 	@ApiOperation(value = "Get recipes which you need the ingredients passed in paramaters")
-	public ArrayList<RecipeDTO> getRecipesWithIngIds(@QueryParam("id") ArrayList<Long> IngredientIdList){
-		return rs.getRecipeWithIngredientID(IngredientIdList);
+	public List<RecipeDTO> getRecipesWithIngIds(@QueryParam("id") List<Long> ingredientIdList){
+		return rs.getRecipeWithIngredientID(ingredientIdList);
 	}
 
 	// Get list of recipes
 	@GET
 	@Produces(MediaType.APPLICATION_JSON) // ?id=5&?id=6&id=5&?id=6&
 	@ApiOperation(value = "Get recipes which you need the ingredients passed in paramaters")
-	public ArrayList<RecipeDTO> getRecipesWithIdList(@QueryParam("id") ArrayList<Long> idList){
+	public List<RecipeDTO> getRecipesWithIdList(@QueryParam("id") List<Long> idList){
 		// Return list of recipes from id's
 		return rs.getRecipesListFromIds(idList);
 	}
@@ -95,10 +93,10 @@ public class RecipeRestService {
 	// Get recipes for profile
 	//authenticate
 	@GET
-	@Path("/profiles/{profileID}") // TODO: Not the best uri??
+	@Path("/profiles/{profileID}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value ="Get Recipes for profil ID")
-	public ArrayList<RecipeDTO> getRecipesForProfilRest(@PathParam("profileID") String id) {
+	public List<RecipeDTO> getRecipesForProfilRest(@PathParam("profileID") String id) {
 		return rs.getRecipesForProfil(id);
 	}
 
@@ -106,7 +104,7 @@ public class RecipeRestService {
 	@Path("/trends")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "return the 20 best recipes")
-	public ArrayList<RecipeDTO> getTendancies(){
+	public List<RecipeDTO> getTendancies(){
 		return rs.getTendancies();
 	}
 
@@ -114,7 +112,7 @@ public class RecipeRestService {
 	@Path("/recipe-of-the-month")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "return the best recipe this month")
-	public ArrayList<RecipeDTO> getRecipeOfTheMonth(){
+	public List<RecipeDTO> getRecipeOfTheMonth(){
 		return rs.getRecipeOfTheMonth();
 	}
 
@@ -148,7 +146,7 @@ public class RecipeRestService {
 	@GET
 	@Path("/image/{id}")
 	@Produces("image/jpg")
-	public Response getFile(@PathParam("id") String id) throws SQLException{
+	public Response getFile(@PathParam("id") String id) {
 		File file = new File("tmp/image/recipe/"+id+".jpg");
 		return Response.ok(file, "image/jpg").header("Inline", "filename=\"" + file.getName() + "\"")
 				.build();
@@ -158,16 +156,14 @@ public class RecipeRestService {
 	@Path("/image/{id}")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces("image/jpg")
-	public String uploadImage(@FormParam("image") String image, @PathParam("id") String id) throws SQLException, FileNotFoundException
+	public String uploadImage(@FormParam("image") String image, @PathParam("id") String id) throws FileNotFoundException
 	{
 		String result = "false";
 		try (FileOutputStream fos = new FileOutputStream("tmp/image/recipe/"+id+".jpg")){
 			// decode Base64 String to image
-			byte byteArray[] = Base64.getMimeDecoder().decode(image);
+			byte[] byteArray = Base64.getMimeDecoder().decode(image);
 			fos.write(byteArray);
-
 			result = "true";
-			fos.close();
 		}
 		catch (Exception e)
 		{
