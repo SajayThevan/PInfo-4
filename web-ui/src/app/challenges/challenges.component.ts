@@ -86,9 +86,5 @@ export class ChallengesComponent implements OnInit {
       }
     )
   }
-
-  
-
-
 }
 

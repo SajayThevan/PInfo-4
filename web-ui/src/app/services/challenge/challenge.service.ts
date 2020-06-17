@@ -80,9 +80,10 @@ export class ChallengeService {
 
   addSolution(challengeID, recipeID) {
     var Request_url = environment.challengeService.url + "/" + challengeID + "/solutions?solution=" + recipeID;
-    return this.http.post(Request_url, null).subscribe({
+    this.http.post(Request_url, null).subscribe({
       error: error => console.error('There was an error!', error)
     });
+    return 1
   }
 
 }
