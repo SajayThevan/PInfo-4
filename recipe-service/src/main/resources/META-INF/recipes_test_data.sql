@@ -30,7 +30,7 @@ create table Recipe (
 
 create table Category (
     id bigint not null,
-    category integer,
+    categories integer,
     Recipe_ID bigint,
     primary key (id)
 );
@@ -59,7 +59,7 @@ create table Ratings (
 
 create table Steps (
     id bigint not null,
-    steps varchar(255),
+    step varchar(255),
     Recipe_id bigint,
     primary key (id)
 );
@@ -93,7 +93,7 @@ alter table Steps
 INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (nextval('RECIPE_SEQ'), 'hjgfgkdhgkjf','21/02/2020', 3,'/tmp/images/recipe1', 'pizza', 1);
 INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (2, 'bfdkjshflkjsd','21/02/2020', 3, '/tmp/images/recipe2', 'pizza', 1);
 
-INSERT INTO Category(id, category, Recipe_ID) values (nextval('CATEGORY_SEQ'),1, currval('RECIPE_SEQ'));
+INSERT INTO Category(id, categories, Recipe_ID) values (nextval('CATEGORY_SEQ'),1, currval('RECIPE_SEQ'));
 
 
 INSERT INTO Comments(id, comment, Recipe_ID) values (nextval('COMMENTS_SEQ'),'Mauvais',currval('RECIPE_SEQ'));
@@ -107,5 +107,5 @@ INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id) values (91, 4,2,2
 INSERT INTO Ratings(id, rate, Recipe_ID) values (nextval('INGREDIENTS_SEQ'), 4, currval('RECIPE_SEQ'));
 INSERT INTO Ratings(id, rate, Recipe_ID) values (nextval('INGREDIENTS_SEQ'), 4,2);
 
-INSERT INTO Steps (id, steps, Recipe_id) values (nextval('STEPS_SEQ'),'mettre dans le four',currval('RECIPE_SEQ'));
-INSERT INTO Steps (id, steps, Recipe_id) values (nextval('STEPS_SEQ'),'mettre dans le four',2);
+INSERT INTO Steps (id, step, Recipe_id) values (nextval('STEPS_SEQ'),'mettre dans le four',currval('RECIPE_SEQ'));
+INSERT INTO Steps (id, step, Recipe_id) values (nextval('STEPS_SEQ'),'mettre dans le four',2);

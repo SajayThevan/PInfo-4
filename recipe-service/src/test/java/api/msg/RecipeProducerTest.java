@@ -29,6 +29,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class RecipeProducerTest {
 	
+ // Le Array Ici contient des strings et des longs -> paremetrisation impossible avec ce code sans modification.
 	@Mock
 	private SimpleKafkaProducer<String, ArrayList> kafkaProducer;
 	@Mock
@@ -36,6 +37,7 @@ class RecipeProducerTest {
 
 	@InjectMocks
 	private RecipeProducer producer;
+
 
 	@Test
 	void testSendRecipeAdded() {
@@ -64,8 +66,8 @@ class RecipeProducerTest {
 		ing.add(i1); ing.add(i2);
 
 		Set<Steps> step = new HashSet<Steps>();
-		Steps s1 = new Steps(); s1.setSteps("Prechauffe le four");
-		Steps s2 = new Steps(); s2.setSteps("Mets dans le four");
+		Steps s1 = new Steps(); s1.setStep("Prechauffe le four");
+		Steps s2 = new Steps(); s2.setStep("Mets dans le four");
 		step.add(s1); step.add(s2);
 		
 		Set<Ratings> rate = new HashSet<Ratings>();
@@ -74,8 +76,8 @@ class RecipeProducerTest {
 		rate.add(r1);rate.add(r2);
 		
 		Set<Category> cat = new HashSet<Category>();
-		Category cat1 = new Category(); cat1.setCategory(CategoryEnum.Breakfast);
-		Category cat2 = new Category(); cat2.setCategory(CategoryEnum.Vegetarian);
+		Category cat1 = new Category(); cat1.setCategories(CategoryEnum.BREAKFAST);
+		Category cat2 = new Category(); cat2.setCategories(CategoryEnum.VEGETARIAN);
 		cat.add(cat1); cat.add(cat2);
 		
 
