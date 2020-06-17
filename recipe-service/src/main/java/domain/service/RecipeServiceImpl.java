@@ -159,7 +159,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public ArrayList<RecipeDTO> getRecipesListFromIds(List<Long> idList){
 		ArrayList<RecipeDTO> tr = new ArrayList<>();
-		LOGGER.log(Level.INFO, "idList : "+idList);
+		LOGGER.log(Level.INFO, "idList ok ");
 		for (Long id: idList) {
 			try {
 				Recipe r = em.find(Recipe.class, id);
