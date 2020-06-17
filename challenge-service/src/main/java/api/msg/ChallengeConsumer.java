@@ -1,11 +1,13 @@
 package api.msg;
 
 import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+
+
 import org.aerogear.kafka.cdi.annotation.Consumer;
 import org.aerogear.kafka.cdi.annotation.KafkaConfig;
+
 
 import domain.model.ChallengeDTO;
 import domain.service.ChallengeService;
@@ -17,9 +19,10 @@ import lombok.extern.java.Log;
 @Log
 public class ChallengeConsumer {
 	
+	
 	@Inject
 	private ChallengeService challengeService;
-
+ 
 	@Consumer(topics = "profilDelete", groupId = "pinfo-microservices")
 	public void deleteChallenge(final String message) {
 		log.info("Consumer got following message : " + message);
