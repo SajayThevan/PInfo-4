@@ -43,17 +43,10 @@ export class ProfileService {
       'Content-Type' : 'application/json',
       'Accept': 'application/json'
     });
-
-
     let options = {
       headers: httpHeaders
     };
-    
-    /*console.log(profileID)
-    console.log(ingredientID)
-    console.log(quantity)*/
     var Request_url = environment.profileService.url + "/" + profileID + "/ingredients?ingredient=" + ingredientID + "&quantity=" + quantity;
-    //console.log(Request_url)
     this.http.post<any>(Request_url,null,options).subscribe({
       error: error => console.error('There was an error!', error)
     });
