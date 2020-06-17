@@ -27,6 +27,6 @@ public class Steps implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "STEPS_SEQ")			
 	private Long id;
 		
-	private String steps;
+	private String step;
 
 }

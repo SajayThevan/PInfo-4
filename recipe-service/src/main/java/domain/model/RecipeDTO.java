@@ -13,7 +13,7 @@ public class RecipeDTO {
 
 		this.ing = new ArrayList<>();
 		for (Ingredients in: ingredients) {
-			this.ing.add(in.getIngredientID());
+			this.ing.add(in.getIngredientId());
 		}
 		this.name = name2;
 		this.authorId = authorId2;
