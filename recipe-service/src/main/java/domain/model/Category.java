@@ -28,5 +28,5 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "CATEGORY_SEQ")			
 	private Long id;
 	
-	private CategoryEnum category;
+	private CategoryEnum categories;
 }

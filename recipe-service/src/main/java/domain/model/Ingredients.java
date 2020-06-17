@@ -31,7 +31,7 @@ public class Ingredients implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "INGREDIENTS_SEQ")			
 	private Long id;
 	
-	private long IngredientID;
+	private long IngredientId;
 	
 	private int quantite;
 }
