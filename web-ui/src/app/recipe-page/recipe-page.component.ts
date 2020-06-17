@@ -66,7 +66,8 @@ export class RecipePageComponent implements OnInit {
     }
 
     this.Recipe_ID = +this.route.snapshot.paramMap.get('id');
-
+    this.Ingredients_name = []
+    this.Steps = [];
     this.recipeService.getRecipe(this.Recipe_ID).subscribe( (data : Response) => {
       this.Recipe = data;
       console.log(this.Recipe)
@@ -131,7 +132,36 @@ export class RecipePageComponent implements OnInit {
 
   }
 
+  async addRating () {
+    let note = (document.getElementById("id") as HTMLInputElement).value;
+    let ret = this.recipeService.addRating(this.Recipe_ID,note);
+    await this.delay(750)
+    this.ngOnInit()
+  }
+  addFav(){
+    console.log(this.keycloak.getID())
+    console.log(this.Recipe_ID)
+    this.profileService.addFavouriteById(this.keycloak.getID(),this.Recipe_ID);
+  }
 
+  async addComment () {
+    console.log("ici")
+    this.new_comment = (document.getElementById("comment") as HTMLInputElement).value;
+    console.log(this.new_comment)
+    let ret = this.recipeService.addComment(this.Recipe_ID,this.new_comment)
+    await this.delay(750)
+    this.ngOnInit()
+  }
+
+  check() {
+    this.ingredients[0].disp = 'green';
+    this.ingredients[1].disp = 'red';
+    this.ingredients[2].disp = 'red';
+    this.ingredients[3].disp = 'red';
+  }
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+  }
 
   // TEST
   info = ['Cake','Sajay',9,7];
@@ -167,24 +197,5 @@ export class RecipePageComponent implements OnInit {
     }
   ];
 
-  addRating () {
-    let note = 5;
-    this.recipeService.addRating(this.Recipe_ID,note);
-  }
-  addFav(){
-    console.log(this.keycloak.getID())
-    console.log(this.Recipe_ID)
-    this.profileService.addFavouriteById(this.keycloak.getID(),this.Recipe_ID);
-  }
-
-  addComment () {
-    this.recipeService.addComment(this.Recipe_ID,this.new_comment)
-  }
-
-  check() {
-    this.ingredients[0].disp = 'green';
-    this.ingredients[1].disp = 'red';
-    this.ingredients[2].disp = 'red';
-    this.ingredients[3].disp = 'red';
-  }
+ 
 }
