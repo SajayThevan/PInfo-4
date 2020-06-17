@@ -1,0 +1,76 @@
+.logo {
+    height: 40px;
+    width: 90px;
+    border-radius: 5px;
+    background-size: contain;
+}
+
+.space{
+    padding-left: 20px;
+}
+
+.line {
+    padding-top: 20px;
+    border-bottom: 1px gainsboro solid;
+}
+
+.recipe_photo{
+    position: relative;
+    top: 10px;
+    left: 0%;
+    border-radius: 20px;
+    width: 500px;
+    height: 400px;
+    background-image: url(../../assets/recipe_image.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
+
+.cardsize{
+    width: 400px;
+    margin-top: 30px;
+}
+
+.font{
+    text-transform: capitalize;
+}
+
+.title{
+    margin-top: 30px;
+}
+
+.addrecipe{
+    margin-top: 30px;
+    position: relative;
+    left: 30%;
+}
+
+.modal-content{
+    width: 800px;
+    left :-30%
+}
+
+.sp{
+    margin-bottom: 20px;
+}
+
+.sp1{
+    margin-left: 100px;
+}
+
+.addbuttonbis {
+    margin-top: 7px;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.addbuttonbis1{
+    margin-top: 5px;
+    padding-left: 30px;
+    padding-right: 20px;
+}
+
+.textCap{
+    text-transform: capitalize;
+}
