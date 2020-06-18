@@ -1,17 +1,12 @@
 package api.rest;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.Base64;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -20,7 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
 
 import domain.model.Recipe;
 import domain.model.RecipeDTO;
@@ -38,13 +33,6 @@ public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
-//	Les images n'ont pas pu être faites
-//	@GET 
-//	@Path("testVolume")
-//	@ApiOperation(value = "test volume")
-//	public void recipeTestVolume() {
-//		rs.recipeTestVolume();
-//	}
 
 	// Challenges
 	@GET
@@ -144,34 +132,7 @@ public class RecipeRestService {
 		return rs.count();
 	}
 
-	@GET
-	@Path("/image/{id}")
-	@Produces("image/jpg")
-	public Response getFile(@PathParam("id") String id) {
-		File file = new File("tmp/image/recipe/"+id+".jpg");
-		return Response.ok(file, "image/jpg").header("Inline", "filename=\"" + file.getName() + "\"")
-				.build();
-	}
 
-	@POST
-	@Path("/image/{id}")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces("image/jpg")
-	public String uploadImage(@FormParam("image") String image, @PathParam("id") String id) throws FileNotFoundException
-	{
-		String result = "false";
-		try (FileOutputStream fos = new FileOutputStream("tmp/image/recipe/"+id+".jpg")){
-			// decode Base64 String to image
-			byte[] byteArray = Base64.getMimeDecoder().decode(image);
-			fos.write(byteArray);
-			result = "true";
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return result;
-	}
 
 
 

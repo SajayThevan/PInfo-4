@@ -18,8 +18,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
-//import java.io.File;
-//import java.io.IOException;
+
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -35,7 +34,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@PersistenceContext(unitName = "RecipePU")
 	private EntityManager em;
 	
-	private final Logger LOGGER = Logger.getLogger(RecipeServiceImpl.class.getName());
+	private final Logger Log = Logger.getLogger(RecipeServiceImpl.class.getName());
 	
 	String commande = "SELECT r FROM Recipe r";
 	
@@ -46,21 +45,6 @@ public class RecipeServiceImpl implements RecipeService {
 		this();
 		this.em = em;
 	}
-// Fonction pour les images enleves car manque de temps
-	/*public void recipeTestVolume() {
-		try {
-			File myObj = new File("/tmp/images/recipe/filename.txt");
-			if (myObj.createNewFile()) {
-		        LOGGER.log(Level.INFO,"File created: " + myObj.getName());
-		      } else {
-		        LOGGER.log(Level.WARNING,"File already exists.");
-		      }
-	    } catch (IOException e) {
-	      LOGGER.log(Level.SEVERE,"An error occurred.");
-	      e.printStackTrace();
-	    }
-	
-	}*/
 
 	@Override
 	@Transactional
@@ -159,7 +143,6 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public ArrayList<RecipeDTO> getRecipesListFromIds(List<Long> idList){
 		ArrayList<RecipeDTO> tr = new ArrayList<>();
-		LOGGER.log(Level.SEVERE, "idList ok {0}");
 		for (Long id: idList) {
 			try {
 				Recipe r = em.find(Recipe.class, id);
@@ -167,7 +150,7 @@ public class RecipeServiceImpl implements RecipeService {
 			}
 			catch (Exception e) {
 			
-				LOGGER.log(Level.WARNING, "Recipe not existing with id : {0} ", id);
+				Log.log(Level.WARNING, "Recipe not existing with id : {0} ", id);
 			}
 		}
 		return tr;
@@ -178,40 +161,40 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public ArrayList<RecipeDTO> getTendancies(){
 		ArrayList <RecipeDTO> tr = new ArrayList<>();
-		int numberOfTendancies = 20;
+		int tendancies = 20;
 		TypedQuery<Recipe> query = em.createQuery(commande, Recipe.class);
-		List<Recipe> rl = query.getResultList();
-		if( !rl.isEmpty() ) {
-			ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<>(); //Array actualise de pair <id,mean>
-			Recipe r1 = rl.get(0);
-			float mean1 = 0;
-			for(Ratings g: r1.getRatings()) {
-				mean1 += g.getRate();
+		List<Recipe> r2 = query.getResultList();
+		if( !r2.isEmpty() ) {
+			ArrayList<Pair<Long,Float>> tmpPair = new ArrayList<>(); 
+			Recipe recipe = r2.get(0);
+			float mean2 = 0;
+			for(Ratings g: recipe.getRatings()) {
+				mean2 += g.getRate();
 			}
-			mean1 = mean1 / r1.getRatings().size();
-			Pair<Long, Float> pairOfTheRecipe1 = new Pair<>(r1.getId(),mean1);
+			mean2 = mean2 / recipe.getRatings().size();
+			Pair<Long, Float> pairOfTheRecipe1 = new Pair<>(recipe.getId(),mean2);
 			tmpPair.add(pairOfTheRecipe1);
-			for(int u = 1; u < rl.size(); u++)
+			for(int u = 1; u < r2.size(); u++)
 			{
-				Recipe r = rl.get(u);
-				float recipeMean = 0;
+				Recipe r = r2.get(u);
+				float recipMean = 0;
 				for(Ratings g: r.getRatings()) {
-					recipeMean += g.getRate();
+					recipMean += g.getRate();
 				}
-				boolean recipeAdded = false;
-				recipeMean = recipeMean / r.getRatings().size();
+				boolean recipeAddBool = false;
+				recipMean = recipMean / r.getRatings().size();
 				ArrayList<Pair<Long,Float>> tmp = new ArrayList<>();
 				int i = 0;
 				boolean flag = true;
 				while (flag) {
 					Pair<Long, Float> p;
 					p = tmpPair.get(i);
-					if (recipeMean < p.getValue1()){
+					if (recipMean < p.getValue1()){
 						tmp.add(tmpPair.get(i));
 					}else {
-						Pair<Long, Float> pairOfTheRecipe = new Pair<>(r.getId(),recipeMean);
+						Pair<Long, Float> pairOfTheRecipe = new Pair<>(r.getId(),recipMean);
 						tmp.add(pairOfTheRecipe);
-						recipeAdded = true;
+						recipeAddBool = true;
 						flag = false;
 					}
 					i += 1;
@@ -219,14 +202,14 @@ public class RecipeServiceImpl implements RecipeService {
 						flag = false;
 					}
 				}
-			if (recipeAdded) {
-					for (int k = i; k < Math.min((tmpPair.size() + 1),numberOfTendancies) ; k++ ) {
+			if (recipeAddBool) {
+					for (int k = i; k < Math.min((tmpPair.size() + 1),tendancies) ; k++ ) {
 						tmp.add(tmpPair.get(k-1));
 					}
 				}
-				if ( !recipeAdded && tmp.size() < numberOfTendancies) {
-					Pair<Long, Float> pairOfTheRecipe = new Pair<>(r.getId(),recipeMean);
-					tmp.add(pairOfTheRecipe);
+				if ( !recipeAddBool && tmp.size() < tendancies) {
+					Pair<Long, Float> pairOfRecipe = new Pair<>(r.getId(),recipMean);
+					tmp.add(pairOfRecipe);
 				}
 
 				tmpPair.clear();
