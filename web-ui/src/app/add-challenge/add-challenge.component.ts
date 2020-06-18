@@ -5,7 +5,7 @@ import { RecipeService } from '../services/recipe/recipe.service';
 import { ChallengeService } from '../services/challenge/challenge.service';
 import { KeycloakInstance } from 'keycloak-js';
 import { stringify } from 'querystring';
-import { Observable, from } from 'rxjs';
+import { Observable, from, ObservedValueOf } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { IngredientService } from '../services/ingredient/ingredient.service';
 import { DatePipe } from '@angular/common';
@@ -39,6 +39,29 @@ export class AddChallengeComponent implements OnInit {
   public date : any;
   public challengeId : any;
 
+  public solution$: Observable<any>;
+  public solution: any;
+
+  public Challenge : Object;
+  public Name = "";
+  public Ingredients_name = [];
+  public Ingredients = [];
+  public Solutions_Id = [];
+
+  public AllSolutions : Object;
+
+  public Ingredients_1 : Object;
+  public ingredient : any;
+  public SolutionsAll = [];
+
+  public Categories = [{categories:"DINNER"},{categories:"DESERT"},{categories:"LUNCH"},{categories:"BREAKFAST"},{categories:"VEGETARIAN"},{categories:"VEGAN"}]
+  public categories_Selected = [];
+
+  public selectedIngredients = [];
+  public ingredients_Recipe = [];
+  public ingredient_backend = [];
+  public steps = [];
+
   constructor(private datePipe : DatePipe,private formBuilder:FormBuilder,private route:ActivatedRoute, private challengeService : ChallengeService, private recipeService : RecipeService, public keycloak: KeycloakService,
     private ingredientService:IngredientService){
 
@@ -62,17 +85,6 @@ export class AddChallengeComponent implements OnInit {
 
     }
 
-  public Challenge : Object;
-  Name = "";
-  Ingredients_name = [];
-  Ingredients = [];
-  Solutions_Id = [];
-
-  public AllSolutions : Object;
-
-  public Ingredients_1 : Object;
-  ingredient : any;
-  SolutionsAll = [];
 
   ngOnInit(): void {
 
@@ -85,17 +97,11 @@ export class AddChallengeComponent implements OnInit {
     this.challengeService.getChallenge(this.challengeId).subscribe(
       (data : Response) => {
         this.Challenge = data;
-        console.log(this.Challenge)
         this.Name = data["name"];
         this.Ingredients = data["ingredients"];
         this.Solutions_Id = data["solutions"];
-        console.log("Solutionsid",this.Solutions_Id)
-
-        console.log(this.Ingredients)
 
         this.Ingredients.forEach(element => {
-          console.log("ICI",element)
-          console.log(element.ingredientId)
           this.ingredientService.getIngredient(element.ingredientId).subscribe (
             (data : Response) => {
               this.ingredient = data;
@@ -104,56 +110,43 @@ export class AddChallengeComponent implements OnInit {
           )
 
           //Get Favourite Recipes
-
-          // EXAMPLE
-          var recipe_sol_id = [-17];
-
-          //TODO : take soluition id and assign to recipe_sol_id
-          // this.Solutions_Id.forEach(element => {
-          //   recipe_sol_id.push(element.recipeId);
-          // });
+          var recipe_sol_id = [];
+          
+          this.Solutions_Id.forEach(element => {
+             recipe_sol_id.push(element.recipeId);
+           });
           
           recipe_sol_id.forEach(element => {
              this.recipeService.getRecipe(element).subscribe(
                (data : Response) => {
-                 this.SolutionsAll.push(data);
+                 //TODO use kafka to remove solutions when recipe is deleted
+                 if (data != null){
+                  this.SolutionsAll.push(data);
+                 }
                }
              )
           });
-          console.log("SolutionHERE",this.SolutionsAll)
-        });
+        })
       }
     )
   }
 
-  selectedIngredients = [];
-  ingredients_Recipe = [];
-  ingredient_backend = [];
-  steps = [];
+  
 
   addIngredient(){
      if(this.selectedIngredients.length > 0) {
         this.ingredients_Recipe.push(this.selectedIngredients[0])
-        console.log(this.ingredients_Recipe)
         let quantity = +(document.getElementById("quantity") as HTMLInputElement).value;
         this.ingredient_backend.push({quantite:quantity ,ingredientId:this.selectedIngredients[0].id})
-        console.log(this.ingredient_backend)
         this.selectedIngredients = [];
      } 
   }
 
   addSteps(){
-    console.log("Step Added")
     this.steps.push({step:(document.getElementById("instruction") as HTMLInputElement).value})
-    console.log(this.steps);
-
   }
 
-  Categories = [{categories:"DINNER"},{categories:"DESERT"},{categories:"LUNCH"},{categories:"BREAKFAST"},{categories:"VEGETARIAN"}
-  ,{categories:"VEGAN"}]
-  categories_Selected = [];
-
-  async addRecipe() {
+  addRecipe(){
     let Recipe: any = {};
     Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
     Recipe.authorID = this.keycloak.getID();
@@ -166,43 +159,33 @@ export class AddChallengeComponent implements OnInit {
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
     Recipe.ratings = [];
     Recipe.comments = [];
-    console.log(Recipe)
+    var add = new Promise((resolve, reject) => {
+      let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
+        this.addSolution(data)
+        resolve();
+      });
+     
+    });
+    add.then(async () => {
+      return  1
+    });
 
-    //let ret = this.recipeService.createNewRecipe(Recipe)
-
-    //await this.delay(500)
-    //this.getProfileDetails();
-   
   }
 
-  addSolution(){
-    // this.addRecipe().subscribe(
-    //   (response: any) => {
-    //     this.recipeId = response;
-    //     console.log("recipe id : ");
-    //     console.log(this.recipeId);
-    //     console.log("challenge id : ");
-    //     console.log(this.challengeId);
-    //     console.log("challenge before add solution : ");
-    //     this.challengeNewSolution$ = this.challengeService.getChallenge(this.challengeId);
-    //     this.challengeNewSolution$.subscribe(
-    //       (response : any) => {
-    //         this.challengeNewSolution = response;
-    //         console.log(this.challengeNewSolution);
-    //       }
-    //     )
-    //     let ret = this.challengeService.addSolution(this.challengeId,this.recipeId);
-    //     console.log("new challenge : ");
-    //     this.challengeNewSolution$ = this.challengeService.getChallenge(this.challengeId);
-    //     this.challengeNewSolution$.subscribe(
-    //       (response : any) => {
-    //         this.challengeNewSolution = response;
-    //         console.log(this.challengeNewSolution);
-    //       }
-    //     )
-    //   });
-  }
-
+  addSolution(solId){
+    
+    var rm = new Promise((resolve, reject) => {
+        let ret = this.challengeService.addSolution(this.challengeId,solId);
+        resolve();
+      });
+      rm.then(async () => {
+        await this.delay(500)
+        window.location.href = '/challenges/'+this.challengeId
+      });
+     
+    };
+    
+     
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
   }

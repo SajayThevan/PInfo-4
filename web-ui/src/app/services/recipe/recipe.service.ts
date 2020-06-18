@@ -48,14 +48,13 @@ export class RecipeService {
 
     let httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+
     });
     let options = {
       headers: httpHeaders
     };
-   return this.http.post(Request_url, JSON.stringify(recipe), options).subscribe({
-    error: error => console.error('There was an error!', error)
-  });
+   return this.http.post(Request_url, JSON.stringify(recipe), options);
   }
 
   deleteRecipe(id) {

@@ -35,7 +35,7 @@ export class ProfilePageComponent implements OnInit {
   public fridgeInter = [];
   public Ingredients : Object;
  
-  selected = [];
+  public selected = [];
 
   public ret = 0;
   public profile$: Observable<any>;
@@ -45,6 +45,13 @@ export class ProfilePageComponent implements OnInit {
   public fridge: any; 
   public id;
  
+
+  //create recipe var
+  public selectedIngredients = [];
+  public ingredients_Recipe = [];
+  public ingredient_backend = [];
+  public steps = [];
+
 
   constructor(private formBuilder:FormBuilder,private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService,private datePipe: DatePipe) {
     this.quantity=new FormControl('',[Validators.required])
@@ -176,13 +183,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   async saveFridge(){
-    console.log(this.fridge)
-    console.log("jdkdhfjkdf",this.fridgeInter)
     var remove = new Promise((resolve, reject) => {
       if (this.fridge.length == 0){resolve();}
-
       this.fridge.forEach((element1, index, array) => {
-        console.log("index remove: ",index)
         let ret = this.profileService.removeIngredient(this.id,element1.id)
         if (index === this.fridge.length -1){ resolve();}
       });
@@ -190,42 +193,22 @@ export class ProfilePageComponent implements OnInit {
     
     remove.then(() => {
       var add = new Promise((resolve, reject) => {
-        console.log("Avant Add; ",this.fridgeInter)
-        console.log(this.fridgeInter.length-1)
         this.fridgeInter.forEach((element, index2, array2)=>{
-          console.log("Add:",element)
-          console.log("index add: ",index2)
           let ret = this.profileService.addIngredientById(this.id,element.id,element.quantity)
           if (index2 === this.fridgeInter.length -1) {resolve();}
         })
         
       });
       add.then(async () => {
-        //this.fridge=[]  
-        //this.fridgeInter=[]
-        console.log("ici 1 avant")
-        await this.delay(750)
-        console.log("ici 1 apres")
-        console.log("La")
-        console.log("avant vidage")
-        console.log(this.fridge)
-        console.log(this.fridgeInter)
-
         var clear = new Promise((resolve, reject) => {
           this.fridge = []
           this.fridgeInter = [];
           resolve();
         });
         clear.then(async () => {
-          console.log("après vidage")
-          console.log(this.fridge)
-          console.log(this.fridgeInter)
-          //this.getProfileDetails()
           var update = new Promise(async (resolve, reject) => {
             let ret = await this.getProfileDetails();
-            console.log("ici 2 avant")
             await this.delay(750)
-            console.log("ici 2 apres")
             resolve();
           });
           update.then(async () => {
@@ -244,27 +227,19 @@ export class ProfilePageComponent implements OnInit {
     await this.getProfileDetails()
   }
 
-  selectedIngredients = [];
-  ingredients_Recipe = [];
-  ingredient_backend = [];
-  steps = [];
+  
 
   addIngredient(){
      if(this.selectedIngredients.length > 0) {
         this.ingredients_Recipe.push(this.selectedIngredients[0])
-        console.log(this.ingredients_Recipe)
         let quantity = +(document.getElementById("quantity") as HTMLInputElement).value;
         this.ingredient_backend.push({quantite:quantity ,ingredientId:this.selectedIngredients[0].id})
-        console.log(this.ingredient_backend)
         this.selectedIngredients = [];
      } 
   }
 
   addSteps(){
-    console.log("Step Added")
     this.steps.push({step:(document.getElementById("instruction") as HTMLInputElement).value})
-    console.log(this.steps);
-
   }
 
   Categories = [{categories:"DINNER"},{categories:"DESERT"},{categories:"LUNCH"},{categories:"BREAKFAST"},{categories:"VEGETARIAN"}
@@ -275,7 +250,7 @@ export class ProfilePageComponent implements OnInit {
   async addRecipe() {
     let Recipe: any = {};
     Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
-    Recipe.authorID = this.keycloak.getID();
+    Recipe.authorID = this.id;
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
     Recipe.imagePath = "/tmp/images/logo.png";
     Recipe.ingredients = this.ingredient_backend;
@@ -286,11 +261,17 @@ export class ProfilePageComponent implements OnInit {
     Recipe.ratings = [];
     Recipe.comments = [];
     console.log(Recipe)
-
-    let ret = this.recipeService.createNewRecipe(Recipe)
-
-    await this.delay(500)
-    this.getProfileDetails();
+    var add = new Promise((resolve, reject) => {
+      let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
+        console.log(data)
+        resolve();
+      });
+     
+    });
+    add.then(async () => {
+      this.getProfileDetails();
+    });
+   
    
   }
 
