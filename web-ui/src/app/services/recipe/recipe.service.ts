@@ -27,10 +27,7 @@ export class RecipeService {
   addComment(id,comment){
   const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
     var Request_url = environment.recipeService.url +"/"+id+"/comments";
-    this.http.post(Request_url, comment, { headers, responseType: 'text'}).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
-    return 1
+    return this.http.post(Request_url, comment, { headers, responseType: 'text'})
   }
 
   addRating (id,rate){ // Check rate if 0<rate<10
@@ -59,10 +56,7 @@ export class RecipeService {
 
   deleteRecipe(id) {
     var Request_url = environment.recipeService.url+"/"+id;
-    this.http.delete(Request_url).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
-    return 1
+    return this.http.delete(Request_url)
   }
 
   getRecipeforProfile(profile_id) {

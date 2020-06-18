@@ -140,9 +140,6 @@ export class ProfilePageComponent implements OnInit {
                   }
                 });
               })
-              console.log("getProfildetails")
-              console.log(this.fridge)
-
               for (let i = 0; i < this.fridge.length; i++) {
                 this.fridgeInter[i] = this.fridge[i];
               };
@@ -154,10 +151,13 @@ export class ProfilePageComponent implements OnInit {
             recipeIDs.push(element.recipeId);
           });
           this.favourites$ = this.recipeService.getRecipes(recipeIDs);
+          this.favourites$.subscribe((response : any) => {
+            console.log(recipeIDs)
+            console.log(response)
+          });
     });
     // Get my recipes
     this.recipes$ = this.recipeService.getRecipeforProfile(this.keycloak.getID());
-
     return 1;
   }
 
@@ -165,68 +165,33 @@ export class ProfilePageComponent implements OnInit {
     this.keycloak.logout();
   }
 
-  
-
   Add(){
     this.fridgeInter.push({
       id : this.selected[0].id,
       name: this.selected[0].name,
-      quantity : +this.quantityForm.get('quantity').value
-    })
-    console.log("ici",this.fridgeInter)
-    
-  
+      quantity : this.quantityForm.get('quantity').value
+    })    
   }
 
   Remove(id){
     this.fridgeInter.splice(id,1)
-   
   }
 
   async saveFridge(){
-    
-    var remove = new Promise((resolve, reject) => {
-      //if (this.fridge.length == 0){resolve(); this.getProfileDetails();}
-      this.fridge.forEach(async (element1, index, array) => {
-        await this.profileService.removeIngredient(this.id,element1.id)
-        if (index === this.fridge.length -1){ 
-          resolve();
-        }
-      });
-      resolve();
-    });
-    
-    remove.then(async () => {
-      var add = new Promise((resolve, reject) => {
-        this.fridgeInter.forEach(async (element, index2, array2)=>{
-          if (index2 === this.fridgeInter.length-1) {
-            resolve();
-          }
-          await this.profileService.addIngredientById(this.id,element.id,element.quantity)
-        })
-        resolve();
-      });
-      add.then(async () => {
-        var clear = new Promise((resolve, reject) => {
-          this.fridge = []
-          this.fridgeInter = [];
-          resolve();
-        });
-        clear.then(async () => {
-          await this.getProfileDetails();
-        });
-        
-      });
-    });
-    
+    for (let element of this.fridge) {
+      await this.profileService.removeIngredient(this.id,element.id).toPromise()
+    }
+    for (let element of this.fridgeInter) {
+      await this.profileService.addIngredientById(this.id,element.id,element.quantity).toPromise()
+    }
+    this.fridge = []
+    this.fridgeInter = [];
+    this.getProfileDetails();
   }
  
-
   async Notsave(){
     await this.getProfileDetails()
   }
-
-  
 
   addIngredient(){
      if(this.selectedIngredients.length > 0) {
@@ -259,38 +224,24 @@ export class ProfilePageComponent implements OnInit {
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
     Recipe.ratings = [];
     Recipe.comments = [];
-    console.log(Recipe)
     var add = new Promise((resolve, reject) => {
       let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
-        console.log(data)
         resolve();
       });
-     
     });
     add.then(async () => {
       this.getProfileDetails();
     });
-   
-   
   }
 
   async removeRecipe(recipeid){
-    console.log(recipeid)
-    let ret = this.recipeService.deleteRecipe(recipeid)
-    await this.delay(500)
+    await this.recipeService.deleteRecipe(recipeid).toPromise()
     this.getProfileDetails();
   }
 
   async removeFav(recipeid){
-    console.log(recipeid)
-    let ret = this.profileService.removeFavourite(this.keycloak.getID(),recipeid)
-    await this.delay(500)
+    await this.profileService.removeFavourite(this.keycloak.getID(),recipeid).toPromise()
     this.getProfileDetails();
-  }
-
-
-  async delay(ms: number) {
-    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
   }
 
 }

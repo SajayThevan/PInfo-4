@@ -116,8 +116,10 @@
 
       <div class="row" *ngIf="connected" >
         <div class="col-sm-11 col">
-          <input type="text" class="form-control font-weight-lighter" id="comment" placeholder="Your comments ...">
-        </div>
+          <form [formGroup]="recipeForm" >
+            <input type="text" class="form-control font-weight-lighter" id="comment" formControlName="comment" placeholder="Your comments ...">
+          </form>
+          </div>
         <div class="col">
           <a class="btn" (click)="addComment()"><mat-icon>add_comment</mat-icon></a>
         </div>
