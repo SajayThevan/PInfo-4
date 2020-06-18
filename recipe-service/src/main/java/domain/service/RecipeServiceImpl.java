@@ -18,8 +18,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.IOException;
+//import java.io.File;
+//import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -35,7 +35,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@PersistenceContext(unitName = "RecipePU")
 	private EntityManager em;
 	
-	private final static Logger LOGGER = Logger.getLogger(RecipeServiceImpl.class.getName());
+	private final Logger LOGGER = Logger.getLogger(RecipeServiceImpl.class.getName());
 	
 	String commande = "SELECT r FROM Recipe r";
 	
@@ -46,8 +46,8 @@ public class RecipeServiceImpl implements RecipeService {
 		this();
 		this.em = em;
 	}
-
-	public void recipeTestVolume() {
+// Fonction pour les images enleves car manque de temps
+	/*public void recipeTestVolume() {
 		try {
 			File myObj = new File("/tmp/images/recipe/filename.txt");
 			if (myObj.createNewFile()) {
@@ -60,7 +60,7 @@ public class RecipeServiceImpl implements RecipeService {
 	      e.printStackTrace();
 	    }
 	
-	}
+	}*/
 
 	@Override
 	@Transactional
@@ -159,14 +159,15 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public ArrayList<RecipeDTO> getRecipesListFromIds(List<Long> idList){
 		ArrayList<RecipeDTO> tr = new ArrayList<>();
-		LOGGER.log(Level.INFO, "idList : "+idList);
+		LOGGER.log(Level.SEVERE, "idList ok {0}");
 		for (Long id: idList) {
 			try {
 				Recipe r = em.find(Recipe.class, id);
 				tr.add(new RecipeDTO(r.getId(),r.getName(),r.getIngredients(),r.getAuthorID(),r.getRatings(),r.getImagePath()));
 			}
 			catch (Exception e) {
-				LOGGER.log(Level.WARNING, "Recipe not existing with id : "+id);
+			
+				LOGGER.log(Level.WARNING, "Recipe not existing with id : {0} ", id);
 			}
 		}
 		return tr;
@@ -252,12 +253,12 @@ public class RecipeServiceImpl implements RecipeService {
 			ArrayList<Recipe> rl = new ArrayList<>();
 			for (Recipe r: re) {
 				String date = r.getDate();
-				String part[] = date.split("/");
+				String[] part = date.split("/");
 				DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		        Calendar cal = Calendar.getInstance();
 		        Date todayDate = cal.getTime();
 		        String todaysDate = dateFormat.format(todayDate);
-		        String partTd[] = todaysDate.split("/");
+		        String[] partTd = todaysDate.split("/");
 
 				if (Integer.parseInt(part[1]) ==  Integer.parseInt(partTd[0]) &&  Integer.parseInt(part[2]) ==  Integer.parseInt(partTd[2])) {
 					rl.add(r);

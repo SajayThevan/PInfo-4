@@ -38,13 +38,13 @@ public class RecipeRestService {
 
 	@Inject
 	private RecipeService rs;
-
-	@GET
-	@Path("testVolume")
-	@ApiOperation(value = "test volume")
-	public void recipeTestVolume() {
-		rs.recipeTestVolume();
-	}
+//	Les images n'ont pas pu être faites
+//	@GET 
+//	@Path("testVolume")
+//	@ApiOperation(value = "test volume")
+//	public void recipeTestVolume() {
+//		rs.recipeTestVolume();
+//	}
 
 	// Challenges
 	@GET

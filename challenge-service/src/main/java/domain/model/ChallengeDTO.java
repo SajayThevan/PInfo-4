@@ -16,7 +16,7 @@ public class ChallengeDTO {
 		this.authorID = authorID;
 		this.ing = new ArrayList<>();
 		for (Ingredient in: ingredients) {
-			this.ing.add(in.getIngredientId());
+			this.ing.add(in.getIngredientsId());
 		}
 	}
 

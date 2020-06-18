@@ -108,7 +108,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 			Set<Ingredient> ing = c.getIngredients();
 			ArrayList<Long> containedIngId = new ArrayList<>();
 			for(Ingredient i: ing) {
-				containedIngId.add(i.getIngredientId());
+				containedIngId.add(i.getIngredientsId());
 			}
 
 			if(containedIngId.containsAll(ingIds)){

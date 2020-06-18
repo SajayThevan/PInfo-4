@@ -53,6 +53,7 @@ export class RecipePageComponent implements OnInit {
 
   public Recipe : Object;
   public ingredient : any;
+  public authorName: "Anonyme";
 
   ngOnInit(): void {
 
@@ -73,6 +74,9 @@ export class RecipePageComponent implements OnInit {
       console.log(this.Recipe)
       this.Recipe_name = data["name"];
       this.Author_id = data["authorID"];
+      this.profileService.getProfile(this.Author_id).subscribe( (name: Response) =>{
+        this.authorName = name["pseudo"];
+      });
       this.Date = data["date"];
       this.Ingredients = data["ingredients"];
 
@@ -166,6 +170,7 @@ export class RecipePageComponent implements OnInit {
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
   }
+  
 
   // TEST
   info = ['Cake','Sajay',9,7];

@@ -175,7 +175,7 @@ class ChallengeServiceImplTest {
 		ing_id.clear();
 
 		for (Ingredient in: c2.getIngredients()) {
-			ing_id.add(in.getIngredientId());
+			ing_id.add(in.getIngredientsId());
 			//break; //test with only 1 ingredients
 		}
 		ArrayList<ChallengeDTO> res = challengeService. getChallengesFromIngredientsIds(ing_id);
@@ -188,17 +188,17 @@ class ChallengeServiceImplTest {
 		Random rand = new Random();
 		
 		Ingredient ing = new Ingredient();
-		ing.setIngredientId(((long) rand.nextInt(100)));
-		ing.setQuantity(rand.nextInt(100));
+		ing.setIngredientsId(((long) rand.nextInt(100)));
+		
 		
 		
 		Ingredient ing2 = new Ingredient();
-		ing2.setIngredientId(((long) rand.nextInt(100)));
-		ing2.setQuantity(rand.nextInt(100));;
+		ing2.setIngredientsId(((long) rand.nextInt(100)));
+	
 		
 		Ingredient ing3 = new Ingredient();
-		ing3.setIngredientId(((long) rand.nextInt(100)));
-		ing3.setQuantity(rand.nextInt(100));
+		ing3.setIngredientsId(((long) rand.nextInt(100)));
+	
 		
 		Set<Ingredient> Ingredients = new HashSet<Ingredient>();
 		Ingredients.add(ing);

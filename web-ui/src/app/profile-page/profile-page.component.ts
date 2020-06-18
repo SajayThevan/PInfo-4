@@ -11,6 +11,7 @@ import { threadId } from 'worker_threads';
 import { element, promise } from 'protractor';
 import { stringify } from 'querystring';
 import { DatePipe } from '@angular/common';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-profile-page',
@@ -30,11 +31,12 @@ export class ProfilePageComponent implements OnInit {
   public difficulty: FormControl;
   public time: FormControl;
   public instruction: FormControl;
+  public nameRecipe: FormControl;
 
   public fridgeInter = [];
   public Ingredients : Object;
  
-  selected = [];
+  public selected = [];
 
   public ret = 0;
   public profile$: Observable<any>;
@@ -43,6 +45,14 @@ export class ProfilePageComponent implements OnInit {
   public fridge$: Observable<any>;
   public fridge: any; 
   public id;
+ 
+
+  //create recipe var
+  public selectedIngredients = [];
+  public ingredients_Recipe = [];
+  public ingredient_backend = [];
+  public steps = [];
+
 
   constructor(private formBuilder:FormBuilder,private profileService: ProfileService, private recipeService: RecipeService, private ingredientService: IngredientService, public keycloak: KeycloakService,private datePipe: DatePipe) {
     this.quantity=new FormControl('',[Validators.required])
@@ -53,6 +63,7 @@ export class ProfilePageComponent implements OnInit {
   
 
     //TODO: Verify quantity
+    
     this.name = new FormControl('',[Validators.required]);
     this.cat = new FormControl('',[Validators.required]);
     this.difficulty =  new FormControl('',[Validators.required]);
@@ -60,7 +71,7 @@ export class ProfilePageComponent implements OnInit {
     this.instruction = new FormControl('',[Validators.required]);
 
     this.recipeForm=formBuilder.group({
-    name:this.name,
+    nameRecipe:this.nameRecipe,
     cat:this.cat,
     difficulty:this.difficulty,
     time:this.time,
@@ -169,66 +180,46 @@ export class ProfilePageComponent implements OnInit {
 
   Remove(id){
     this.fridgeInter.splice(id,1)
+    console.log("ici delete",this.fridgeInter)
    
   }
 
   async saveFridge(){
-    console.log(this.fridge)
-    console.log("jdkdhfjkdf",this.fridgeInter)
+    
     var remove = new Promise((resolve, reject) => {
-      if (this.fridge.length == 0){resolve();}
+      if (this.fridge.length != 0){
 
-      this.fridge.forEach((element1, index, array) => {
-        console.log("index remove: ",index)
-        let ret = this.profileService.removeIngredient(this.id,element1.id)
-        if (index === this.fridge.length -1){ resolve();}
-      });
+        this.fridge.forEach(async (element1, index, array) => {
+          // if (index === this.fridge.length -1){ 
+          //   resolve();
+          // }
+          await this.profileService.removeIngredient(this.id,element1.id)
+        });
+      }
+      resolve();
+      
     });
     
-    remove.then(() => {
+    remove.then(async () => {
       var add = new Promise((resolve, reject) => {
-        console.log("Avant Add; ",this.fridgeInter)
-        console.log(this.fridgeInter.length-1)
-        this.fridgeInter.forEach((element, index2, array2)=>{
-          console.log("Add:",element)
-          console.log("index add: ",index2)
-          let ret = this.profileService.addIngredientById(this.id,element.id,element.quantity)
-          if (index2 === this.fridgeInter.length -1) {resolve();}
-        })
-        
+        if (this.fridgeInter.length != 0) {
+          this.fridgeInter.forEach(async (element, index2, array2)=>{
+            // if (index2 === this.fridgeInter.length-1) {
+            //   resolve();
+            // }
+            await this.profileService.addIngredientById(this.id,element.id,element.quantity)
+          })
+        }
+        resolve();
       });
       add.then(async () => {
-        //this.fridge=[]  
-        //this.fridgeInter=[]
-        console.log("ici 1 avant")
-        await this.delay(750)
-        console.log("ici 1 apres")
-        console.log("La")
-        console.log("avant vidage")
-        console.log(this.fridge)
-        console.log(this.fridgeInter)
-
         var clear = new Promise((resolve, reject) => {
           this.fridge = []
           this.fridgeInter = [];
           resolve();
         });
         clear.then(async () => {
-          console.log("après vidage")
-          console.log(this.fridge)
-          console.log(this.fridgeInter)
-          //this.getProfileDetails()
-          var update = new Promise(async (resolve, reject) => {
-            let ret = await this.getProfileDetails();
-            console.log("ici 2 avant")
-            await this.delay(750)
-            console.log("ici 2 apres")
-            resolve();
-          });
-          update.then(async () => {
-            
-            console.log("Hope")
-          });
+          this.ngOnInit();
         });
         
       });
@@ -241,24 +232,59 @@ export class ProfilePageComponent implements OnInit {
     await this.getProfileDetails()
   }
 
+  
 
-  addRecipe() {
+  addIngredient(){
+     if(this.selectedIngredients.length > 0) {
+        this.ingredients_Recipe.push(this.selectedIngredients[0])
+        let quantity = +(document.getElementById("quantity") as HTMLInputElement).value;
+        this.ingredient_backend.push({quantite:quantity ,ingredientId:this.selectedIngredients[0].id})
+        this.selectedIngredients = [];
+     } 
+  }
+
+  addSteps(){
+    this.steps.push({step:(document.getElementById("instruction") as HTMLInputElement).value})
+  }
+
+  Categories = [{categories:"DINNER"},{categories:"DESERT"},{categories:"LUNCH"},{categories:"BREAKFAST"},{categories:"VEGETARIAN"}
+  ,{categories:"VEGAN"}]
+  categories_Selected = [];
+
+
+  async addRecipe() {
     let Recipe: any = {};
-    Recipe.authorID = this.keycloak.getID();
-    Recipe.name = (document.getElementById("name") as HTMLInputElement).value;
+    Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
+    Recipe.authorID = this.id;
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-    Recipe.imagePath ="tmp/image/recipe/"+stringify(Recipe.authorID)+".jpg"
-    Recipe.ingredients = []
-    Recipe.steps = [];
-    Recipe.category = [];
-    Recipe.difficulty =(document.getElementById("difficulty") as HTMLInputElement).value;
-    Recipe.time = (document.getElementById("time") as HTMLInputElement).value;
+    Recipe.imagePath = "/tmp/images/logo.png";
+    Recipe.ingredients = this.ingredient_backend;
+    Recipe.steps = this.steps;
+    Recipe.category = this.categories_Selected;
+    Recipe.difficulty = +(document.getElementById("difficulty") as HTMLInputElement).value;
+    Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
     Recipe.ratings = [];
     Recipe.comments = [];
     console.log(Recipe)
-    //let ret = this.recipeService.createNewRecipe(Recipe)
-    window.location.reload();
+    var add = new Promise((resolve, reject) => {
+      let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
+        console.log(data)
+        resolve();
+      });
+     
+    });
+    add.then(async () => {
+      this.getProfileDetails();
+    });
    
+   
+  }
+
+  async removeRecipe(recipeid){
+    console.log(recipeid)
+    let ret = this.recipeService.deleteRecipe(recipeid)
+    await this.delay(500)
+    this.getProfileDetails();
   }
 
   async removeFav(recipeid){
