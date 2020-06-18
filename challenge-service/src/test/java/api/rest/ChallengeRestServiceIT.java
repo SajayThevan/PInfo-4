@@ -33,7 +33,7 @@ class ChallengeRestServiceIT {
 
 	@Test
 	void testGetIngredient() {
-		when().get("2/ingredients").then().body(containsString("20"));
+		when().get("2/ingredients").then().body(containsString("4"));
 	}
 
 	@Test

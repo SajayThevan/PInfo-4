@@ -3,15 +3,13 @@ package api.rest;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.containsString;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import io.restassured.RestAssured;
 import domain.service.RecipeService;
 
-public class RecipetRestServiceIT {
+ class RecipetRestServiceIT {
 
 	@BeforeAll
 	public static void setup() {
@@ -22,29 +20,29 @@ public class RecipetRestServiceIT {
 	RecipeService rs;
 
 	@Test
-	public void testCount() {
+	void testCount() {
 		when().get("/count").then().body(containsString("2"));
 	}
 
 	@Test
-	public void recipesProfil() {
+	void recipesProfil() {
 		when().get("/profiles/bfdkjshflkjsd").then().body(containsString("pizza"));
 	}
 
 	@Test
-	public void getRecipiesRestTest() {
+	void getRecipiesRestTest() {
 		when().get("/2").then().body(containsString("pizza"));
 		when().get("/2").then().body(containsString("91"));
 		when().get("/2").then().body(containsString("Mauvais"));
 		when().get("/2").then().body(containsString("Bon"));
 	}
 	@Test
-	public void getTendanciesTest() {
+	void getTendanciesTest() {
 		when().get("/trends").then().body(containsString("2"));
 	}
 	
 	@Test
-	public void testgetRecipesWithIdList() {
+	void testgetRecipesWithIdList() {
 		when().get("/?id=2").then().body(containsString("2"));
 	}
 	
