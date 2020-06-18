@@ -13,21 +13,21 @@ import lombok.ToString;
 
 
 @Data
-@EqualsAndHashCode(exclude= {"id","quantity"})
+@EqualsAndHashCode(exclude= {"id"})
 @ToString
 @Entity
-@Table(name ="Ingredient") 
+@Table(name ="Ingredients") 
 public class Ingredient implements Serializable  {
 	
 	private static final long serialVersionUID = -4618373781528392556L;
 
 	@Id
-	@SequenceGenerator(name = "INGREDIENT_SEQ", sequenceName = "INGREDIENT_SEQ") 
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "INGREDIENT_SEQ")
+	@SequenceGenerator(name = "INGREDIENTS_SEQ", sequenceName = "INGREDIENTS_SEQ") 
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "INGREDIENTS_SEQ")
 	private Long id;
 	
-	private Long ingredientId;  
+	private Long ingredientsId;  
 	
-	private int quantity;
+
 
 }
