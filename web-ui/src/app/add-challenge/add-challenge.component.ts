@@ -157,7 +157,7 @@ export class AddChallengeComponent implements OnInit {
     Recipe.category = this.categories_Selected;
     Recipe.difficulty = +(document.getElementById("difficulty") as HTMLInputElement).value;
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
-    Recipe.ratings = [];
+    Recipe.ratings = [{"rate":0}]; 
     Recipe.comments = [];
     var add = new Promise((resolve, reject) => {
       let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
@@ -172,18 +172,15 @@ export class AddChallengeComponent implements OnInit {
 
   }
 
-  addSolution(solId){
-    
-    var rm = new Promise((resolve, reject) => {
-        let ret = this.challengeService.addSolution(this.challengeId,solId);
-        resolve();
-      });
-      rm.then(async () => {
-        await this.delay(500)
-        window.location.href = '/challenges/'+this.challengeId
-      });
-     
-    };
+  async addSolution(solId){
+    await this.challengeService.addSolution(this.challengeId,solId).toPromise();
+    window.location.href = '/challenges/'+this.challengeId
+  };
+
+  async removeSolution(recipeId){
+    await this.recipeService.deleteRecipe(recipeId).toPromise()
+    window.location.href = '/challenges/'+this.challengeId
+  }
     
      
   async delay(ms: number) {
