@@ -89,7 +89,7 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
         });
         this.Date = data["date"];
         this.Ingredients = data["ingredients"];
-        console.log(this.Ingredients)
+        
 
         let url : String= "/calories?";
 
@@ -103,7 +103,6 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
           )
         });
 
-        //console.log(url)
 
         this.ingredientService.getComputeCalories(url).subscribe( (data : Response) => {
           this.Calorie = +data;
@@ -149,7 +148,6 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
   
     async addRating() {
       this.rate = +this.recipeForm.get("note").value;
-      console.log(this.rate)
       await this.recipeService.addRating(this.Recipe_ID,this.rate).toPromise();
       this.recipeForm.reset();
       this.ngOnInit()

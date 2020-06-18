@@ -39,7 +39,9 @@
 
     <hr>
 
-    <div class="addrecipe"> 
+    <div *ngIf="connected">
+
+      <div class="addrecipe"> 
 
         <div class="row">
             <div class="col-3">
@@ -51,9 +53,11 @@
             </div>
         </div>
         
-        
-    
     </div>
+
+
+    </div>
+    
 
     <hr>
 
@@ -70,7 +74,9 @@
                         </div>
                         <div class="button_pos">
                             <a class="text-muted space" href="/recipe/{{recipe.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
-                            <a type="button" class="text-muted space" (click)="removeSolution(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
+                            <div *ngIf="rights">
+                              <a type="button" class="text-muted space" (click)="removeSolution(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
+                            </div>
                         </div>
                         
                       </div>
