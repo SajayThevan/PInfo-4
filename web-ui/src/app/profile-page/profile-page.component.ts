@@ -180,30 +180,36 @@ export class ProfilePageComponent implements OnInit {
 
   Remove(id){
     this.fridgeInter.splice(id,1)
+    console.log("ici delete",this.fridgeInter)
    
   }
 
   async saveFridge(){
     
     var remove = new Promise((resolve, reject) => {
-      //if (this.fridge.length == 0){resolve(); this.getProfileDetails();}
-      this.fridge.forEach(async (element1, index, array) => {
-        await this.profileService.removeIngredient(this.id,element1.id)
-        if (index === this.fridge.length -1){ 
-          resolve();
-        }
-      });
+      if (this.fridge.length != 0){
+
+        this.fridge.forEach(async (element1, index, array) => {
+          // if (index === this.fridge.length -1){ 
+          //   resolve();
+          // }
+          await this.profileService.removeIngredient(this.id,element1.id)
+        });
+      }
       resolve();
+      
     });
     
     remove.then(async () => {
       var add = new Promise((resolve, reject) => {
-        this.fridgeInter.forEach(async (element, index2, array2)=>{
-          if (index2 === this.fridgeInter.length-1) {
-            resolve();
-          }
-          await this.profileService.addIngredientById(this.id,element.id,element.quantity)
-        })
+        if (this.fridgeInter.length != 0) {
+          this.fridgeInter.forEach(async (element, index2, array2)=>{
+            // if (index2 === this.fridgeInter.length-1) {
+            //   resolve();
+            // }
+            await this.profileService.addIngredientById(this.id,element.id,element.quantity)
+          })
+        }
         resolve();
       });
       add.then(async () => {
@@ -213,7 +219,7 @@ export class ProfilePageComponent implements OnInit {
           resolve();
         });
         clear.then(async () => {
-          await this.getProfileDetails();
+          this.ngOnInit();
         });
         
       });
