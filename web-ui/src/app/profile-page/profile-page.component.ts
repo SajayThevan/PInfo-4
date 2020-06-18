@@ -11,6 +11,7 @@ import { threadId } from 'worker_threads';
 import { element, promise } from 'protractor';
 import { stringify } from 'querystring';
 import { DatePipe } from '@angular/common';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-profile-page',
@@ -183,21 +184,27 @@ export class ProfilePageComponent implements OnInit {
   }
 
   async saveFridge(){
+    
     var remove = new Promise((resolve, reject) => {
-      if (this.fridge.length == 0){resolve();}
-      this.fridge.forEach((element1, index, array) => {
-        let ret = this.profileService.removeIngredient(this.id,element1.id)
-        if (index === this.fridge.length -1){ resolve();}
+      //if (this.fridge.length == 0){resolve(); this.getProfileDetails();}
+      this.fridge.forEach(async (element1, index, array) => {
+        await this.profileService.removeIngredient(this.id,element1.id)
+        if (index === this.fridge.length -1){ 
+          resolve();
+        }
       });
+      resolve();
     });
     
-    remove.then(() => {
+    remove.then(async () => {
       var add = new Promise((resolve, reject) => {
-        this.fridgeInter.forEach((element, index2, array2)=>{
-          let ret = this.profileService.addIngredientById(this.id,element.id,element.quantity)
-          if (index2 === this.fridgeInter.length -1) {resolve();}
+        this.fridgeInter.forEach(async (element, index2, array2)=>{
+          if (index2 === this.fridgeInter.length-1) {
+            resolve();
+          }
+          await this.profileService.addIngredientById(this.id,element.id,element.quantity)
         })
-        
+        resolve();
       });
       add.then(async () => {
         var clear = new Promise((resolve, reject) => {
@@ -206,15 +213,7 @@ export class ProfilePageComponent implements OnInit {
           resolve();
         });
         clear.then(async () => {
-          var update = new Promise(async (resolve, reject) => {
-            let ret = await this.getProfileDetails();
-            await this.delay(750)
-            resolve();
-          });
-          update.then(async () => {
-            
-            console.log("Hope")
-          });
+          await this.getProfileDetails();
         });
         
       });
