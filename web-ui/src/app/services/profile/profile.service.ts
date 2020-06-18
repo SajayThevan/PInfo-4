@@ -4,8 +4,6 @@ import { environment } from '../../../environments/environment';
 import { stringify } from 'querystring';
 import { retry, catchError } from 'rxjs/operators';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -47,21 +45,14 @@ export class ProfileService {
       headers: httpHeaders
     };
     var Request_url = environment.profileService.url + "/" + profileID + "/ingredients?ingredient=" + ingredientID + "&quantity=" + quantity;
-    this.http.post<any>(Request_url,null,options).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
-    return 1
+    return this.http.post<any>(Request_url,null,options)
   }
 
   removeIngredient(profileID,ingredientID) {
     var Request_url = environment.profileService.url + "/" + profileID + "/ingredients?ingredient=" + ingredientID;
-    this.http.delete(Request_url).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
-    return 1
+    return this.http.delete(Request_url)
   }
 
-  // for favourites : 
   getFavourite(profileID) {
     var Request_url = environment.profileService.url + "/" + profileID + "/favourites";
     return this.http.get(Request_url)
@@ -69,17 +60,13 @@ export class ProfileService {
 
   addFavouriteById(profileID, favouriteID) {
     var Request_url = environment.profileService.url + "/" + profileID + "/favourites?favourite=" + favouriteID;
-    this.http.post(Request_url,null).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
+    console.log(Request_url)
+    return this.http.post(Request_url,null).subscribe();
   }
 
   removeFavourite(profileID, favouriteID) {
     var Request_url = environment.profileService.url + "/" + profileID + "/favourites?favourite=" + favouriteID;
-    this.http.delete(Request_url).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
-    return 1
+    return this.http.delete(Request_url)
   }
 
 }
