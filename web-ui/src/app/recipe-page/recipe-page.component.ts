@@ -89,6 +89,7 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
         });
         this.Date = data["date"];
         this.Ingredients = data["ingredients"];
+        console.log(this.Ingredients)
 
         let url : String= "/calories?";
 

@@ -26,6 +26,17 @@ export class AddChallengeComponent implements OnInit {
   public recipeForm: FormGroup;
   public quantity:FormControl;
 
+  public quantite1:FormControl;
+  public quantite2:FormControl;
+  public quantite3:FormControl;
+  public quantite4:FormControl;
+  public quantite5:FormControl;
+  public quantite6:FormControl;
+  public quantite7:FormControl;
+  public quantite8:FormControl;
+  public quantite9:FormControl;
+  public quantite10:FormControl;
+
   public name:FormControl;
   public cat: FormControl;
   public difficulty: FormControl;
@@ -68,7 +79,17 @@ export class AddChallengeComponent implements OnInit {
     private ingredientService:IngredientService){
 
     this.quantityForm=formBuilder.group({
-      quantity:this.quantity
+      quantity:this.quantity,
+      quantite1 : this.quantite1,
+      quantite2 : this.quantite2,
+      quantite3 : this.quantite3,
+      quantite4 : this.quantite4,
+      quantite5 : this.quantite5,
+      quantite6 : this.quantite6,
+      quantite7 : this.quantite7,
+      quantite8 : this.quantite8,
+      quantite9 : this.quantite9,
+      quantite10 : this.quantite10
     })
 
     this.name = new FormControl('',[Validators.required]);
@@ -87,6 +108,11 @@ export class AddChallengeComponent implements OnInit {
 
     }
 
+  list = ["quantite1","quantite2","quantite3",
+  "quantite4","quantite5",
+  "quantite6","quantite7","quantite8","quantite9",
+  "quantite10"]
+
 
   ngOnInit(): void {
 
@@ -102,24 +128,20 @@ export class AddChallengeComponent implements OnInit {
         this.Name = data["name"];
         this.Ingredients = data["ingredients"];
         this.Solutions_Id = data["solutions"];
-        /*
-        console.log(this.Ingredients)
-        console.log(this.Ingredients[0])
-        console.log(this.Ingredients[0]["ingredientId"])
-        console.log(this.Ingredients[0]["quantity"])
-        this.obligatoryIng = "{\"ingredientId\":"+this.Ingredients[0]["ingredientId"]+",\"quantity\":"+this.Ingredients[0]["quantity"]+"}";
-        console.log(this.obligatoryIng)
-        */
+        
         this.Ingredients.forEach(element => {
           this.ingredientService.getIngredient(element.ingredientId).subscribe (
             (data : Response) => {
               this.ingredient = data;
+              console.log("Here",this.ingredient)
               this.Ingredients_name.push(this.ingredient.name)
+              this.ingredients_Recipe.push({name :this.ingredient.name,quantite : 0});
+              console.log("HERE HERE",this.ingredients_Recipe)
             }
           )
+        })
 
-          //Get Favourite Recipes
-          var recipe_sol_id = [];
+        var recipe_sol_id = [];
           
           this.Solutions_Id.forEach(element => {
              recipe_sol_id.push(element.recipeId);
@@ -135,7 +157,6 @@ export class AddChallengeComponent implements OnInit {
                }
              )
           });
-        })
       }
     )
   }
@@ -144,8 +165,8 @@ export class AddChallengeComponent implements OnInit {
 
   addIngredient(){
      if(this.selectedIngredients.length > 0) {
-        this.ingredients_Recipe.push(this.selectedIngredients[0])
         let quantity = +(document.getElementById("quantity") as HTMLInputElement).value;
+        this.ingredients_Recipe.push({name : this.selectedIngredients[0].name , quantite : quantity})
         this.ingredient_backend.push({quantite:quantity ,ingredientId:this.selectedIngredients[0].id})
         this.selectedIngredients = [];
      } 
@@ -155,6 +176,8 @@ export class AddChallengeComponent implements OnInit {
     this.steps.push({step:(document.getElementById("instruction") as HTMLInputElement).value})
   }
 
+  showInput = true;
+
   addRecipe(){
     let Recipe: any = {};
     Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
@@ -162,8 +185,10 @@ export class AddChallengeComponent implements OnInit {
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
     Recipe.imagePath = "/tmp/images/logo.png";
     Recipe.ingredients = this.ingredient_backend;
-    this.Ingredients.forEach(element => {
-      Recipe.ingredients.push({"quantite":+element["quantity"],"ingredientId": element["ingredientId"]});
+    console.log(this.Ingredients)
+    this.Ingredients.forEach((element,index) => {
+      Recipe.ingredients.push({"quantite": +(document.getElementById(this.list[index]) as HTMLInputElement).value
+      ,"ingredientId": element["ingredientId"]});
     })
     Recipe.steps = this.steps;
     Recipe.category = this.categories_Selected;
@@ -171,15 +196,12 @@ export class AddChallengeComponent implements OnInit {
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
     Recipe.ratings = [{"rate":0}]; 
     Recipe.comments = [];
+    console.log(Recipe)
     var add = new Promise((resolve, reject) => {
       let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
         this.addSolution(data)
         resolve();
       });
-     
-    });
-    add.then(async () => {
-      this.ngOnInit();
     });
 
   }
