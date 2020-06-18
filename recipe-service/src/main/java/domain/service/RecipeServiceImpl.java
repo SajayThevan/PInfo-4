@@ -34,7 +34,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@PersistenceContext(unitName = "RecipePU")
 	private EntityManager em;
 	
-	private final Logger Log = Logger.getLogger(RecipeServiceImpl.class.getName());
+	private final Logger log = Logger.getLogger(RecipeServiceImpl.class.getName());
 	
 	String commande = "SELECT r FROM Recipe r";
 	
@@ -150,7 +150,7 @@ public class RecipeServiceImpl implements RecipeService {
 			}
 			catch (Exception e) {
 			
-				Log.log(Level.WARNING, "Recipe not existing with id : {0} ", id);
+				log.log(Level.WARNING, "Recipe not existing with id : {0} ", id);
 			}
 		}
 		return tr;
