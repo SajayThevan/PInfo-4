@@ -23,7 +23,7 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
   
     constructor(private formBuilder: FormBuilder, private recipeService : RecipeService, private route:ActivatedRoute, private ingredientService : IngredientService, private profileService: ProfileService,public keycloak: KeycloakService) {
       this.comment = new FormControl('',[Validators.required]);
-      this.note = new FormControl('',[Validators.required]);
+      this.note = new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]);
       this.recipeForm = formBuilder.group({
         comment: this.comment,
         note:this.note
@@ -90,7 +90,10 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
         this.Date = data["date"];
         this.Ingredients = data["ingredients"];
 
+        let url : String= "/calories?";
+
         this.Ingredients.forEach(element => {
+          url = url+"&id="+ element.ingredientId;
           this.ingredientService.getIngredient(element.ingredientId).subscribe (
             (data : Response) => {
               this.ingredient = data;
@@ -98,6 +101,25 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
             }
           )
         });
+
+        //console.log(url)
+
+        this.ingredientService.getComputeCalories(url).subscribe( (data : Response) => {
+          this.Calorie = +data;
+        });
+        this.ingredientService.getComputeFat(url).subscribe( (data : Response) => {
+          this.Fat = +data;
+        });
+        this.ingredientService.getComputeCholesterol(url).subscribe( (data : Response) => {
+          this.Cholesterol = +data;
+        });
+        this.ingredientService.getComputeProteins(url).subscribe( (data : Response) => {
+          this.Proteins = +data;
+        });
+        this.ingredientService.getComputeSalt(url).subscribe( (data : Response) => {
+          this.Salt = +data;
+        });
+
   
         this.Steps_O = data["steps"];
         this.Steps_O.forEach(element => {
@@ -111,7 +133,7 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
         this.Ratings.forEach(element => {
           this.mean = this.mean + element.rate
         });
-        this.mean = this.mean/this.Ratings.length;
+        this.mean = +(this.mean/this.Ratings.length).toFixed(2);
         this.Comments = data["comments"]
       });
   
@@ -121,23 +143,8 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
     
       // Removing the last &
       url = url.substring(0, url.length - 1);
-      this.ingredientService.getComputeCalories(url).subscribe( (data) => {
-        this.Calorie = data[0]; // ????
-      });
-      this.ingredientService.getComputeFat(url).subscribe( (data) => {
-        this.Fat = data[0]; // ????
-      });
-      this.ingredientService.getComputeCholesterol(url).subscribe( (data) => {
-        this.Cholesterol = data[0]; // ????
-      });
-      this.ingredientService.getComputeProteins(url).subscribe( (data) => {
-        this.Proteins = data[0]; // ????
-      });
-      this.ingredientService.getComputeSalt(url).subscribe( (data) => {
-        this.Salt = data[0]; // ????
-      });
+      
     }
-
   
     async addRating() {
       this.rate = +this.recipeForm.get("note").value;

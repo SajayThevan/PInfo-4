@@ -38,6 +38,10 @@
                  </ng-container>
     </div>
 
+    <div class="details font-weight-lighter">
+      Calory : {{Calorie}} kcal , Fat : {{Fat}} g , Cholesterol : {{Cholesterol}} g , Proteins : {{Proteins}} g, Salt : {{Salt}} g for 100g.
+    </div>
+
 
     <div class="btn1" *ngIf="connected">
       <a type="button" (click)="addFav()" data-toggle="modal" data-target="#informationModal"><mat-icon>folder_special</mat-icon></a>
