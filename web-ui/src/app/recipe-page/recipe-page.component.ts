@@ -215,6 +215,20 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
       }
     ];
   
+    handleKeyPressDifficulty(e) {
+      var code = (e.which) ? e.which : e.keyCode;
+      let val = e.target.value.split('');
+      let num = +String(e.target.value).concat(e.key);
+      let countDot = val.filter((v) => (v === '.')).length;
+      if (code == 46 && countDot == 0) {
+        return true
+      }
+      if (code > 31 && (code < 48 || code > 57) ) {
+        e.preventDefault();
+      } else if (num>10) {
+        e.preventDefault();
+      }
+    }
    
   }
   
