@@ -263,7 +263,7 @@
                 </div>
                 <div class="col-3">
                   <form [formGroup]="quantityForm" >
-                    <input type="text" class="form-control" id="inputIngredient" formControlName="quantity">
+                    <input type="text" class="form-control" id="inputIngredient" formControlName="quantity" (keypress)="handleKeyPressQuantity($event)">
                   </form>
                 </div>
                 <div class="col-3">
@@ -282,7 +282,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Add your Recipe</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear()">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -298,7 +298,6 @@
                             <form [formGroup]="recipeForm" >
                               <input type="text" class="form-control" id="nameRecipe" formControlName="nameRecipe">
                             </form>
-                            <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="name">-->
                           </div>
                       </div>
       
@@ -322,7 +321,7 @@
                           <label class="col-sm-2 col-form-label">Difficulty</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty">
+                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty" placeholder="0-10" (keypress)="handleKeyPressDifficulty($event)">
                             </form>
                             <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="difficulty">-->
                           </div>
@@ -332,7 +331,7 @@
                           <label class="col-sm-2 col-form-label">Time</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="time" formControlName="time">
+                              <input type="text" class="form-control" id="time" formControlName="time" placeholder="in minutes" (keypress)="handleKeyPressTime($event)">
                             </form>
                             <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="time">-->
                           </div>
@@ -359,7 +358,7 @@
                           </div>
                           <div class="col">
                             <form [formGroup]="quantityForm" >
-                              <input type="text" class="form-control" id="quantity" formControlName="quantity">
+                              <input type="text" class="form-control" id="quantity" formControlName="quantity" (keypress)="handleKeyPressQuantity($event)">
                             </form>
                           </div>
                           <div class="col">
@@ -417,7 +416,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="clear()">Close</button>
               <button type="button" class="btn btn-outline-success" (click)="addRecipe()" data-dismiss="modal" >Add</button>
             </div>
           </div>

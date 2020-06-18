@@ -70,11 +70,13 @@
                         </div>
                         <div class="button_pos">
                             <a class="text-muted space" href="/recipe/{{recipe.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+                            <a type="button" class="text-muted space" (click)="removeSolution(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
                         </div>
+                        
+                      </div>
                     </div>
-                    </div>
-                </div>
-              </div>
+                 </div>
+             </div>
     </div>
 
     <hr>
@@ -124,7 +126,7 @@
                           <label class="col-sm-2 col-form-label">Difficulty</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty">
+                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty" (keypress)="handleKeyPressDifficulty($event)">
                             </form>
                           </div>
                       </div>
@@ -133,7 +135,7 @@
                           <label class="col-sm-2 col-form-label">Time</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="time" formControlName="time">
+                              <input type="text" class="form-control" id="time" formControlName="time" (keypress)="handleKeyPressTime($event)">
                             </form>
                           </div>
                       </div>
@@ -159,7 +161,7 @@
                           </div>
                           <div class="col">
                             <form [formGroup]="quantityForm" >
-                              <input type="text" class="form-control" id="quantity" formControlName="quantity">
+                              <input type="text" class="form-control" id="quantity" formControlName="quantity" (keypress)="handleKeyPressQuantity($event)">
                             </form>
                           </div>
                           <div class="col">
@@ -169,10 +171,18 @@
                     </div>
                     
                     <hr>
-
-                    <div *ngFor = "let ingredient of ingredients_Recipe">
-                      <div class="textCap">{{ingredient.name}}</div>
+                    <form [formGroup]="quantityForm" >
+                    <div *ngFor = "let ingredient of ingredients_Recipe;let i = index">
+                      <div class="textCap font-weight-lighter">{{ingredient.name}} : {{ingredient.quantite}}</div>
+                      
+                        <div *ngIf="showInput">
+                          <input type="text" class="form-control"  id={{list[i]}} formControlName={{list[i]}} placeholder={{ingredient.quantite}}>
+                        </div>
+                        
+                     
+                        
                     </div>
+                  </form>
 
 
                 </div>

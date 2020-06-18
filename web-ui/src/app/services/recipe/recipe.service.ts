@@ -32,10 +32,7 @@ export class RecipeService {
 
   addRating (id,rate){ // Check rate if 0<rate<10
     var Request_url = environment.recipeService.url +"/"+id+"/rate?rate="+rate;
-    this.http.put(Request_url,null).subscribe({
-      error: error => console.error('There was an error!', error)
-    });
-    return 1
+    return this.http.put(Request_url,null)
   }
 
   createNewRecipe(recipe) {

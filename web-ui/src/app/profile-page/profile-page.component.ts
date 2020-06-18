@@ -193,6 +193,12 @@ export class ProfilePageComponent implements OnInit {
     await this.getProfileDetails()
   }
 
+  clear(){
+    this.recipeForm.reset();
+    this.categories_Selected = [];
+    this.selectedIngredients = [];
+  }
+
   addIngredient(){
      if(this.selectedIngredients.length > 0) {
         this.ingredients_Recipe.push(this.selectedIngredients[0])
@@ -222,7 +228,7 @@ export class ProfilePageComponent implements OnInit {
     Recipe.category = this.categories_Selected;
     Recipe.difficulty = +(document.getElementById("difficulty") as HTMLInputElement).value;
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
-    Recipe.ratings = [];
+    Recipe.ratings = [{"rate":0}];
     Recipe.comments = [];
     var add = new Promise((resolve, reject) => {
       let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
@@ -244,4 +250,43 @@ export class ProfilePageComponent implements OnInit {
     this.getProfileDetails();
   }
 
+
+  handleKeyPressQuantity(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0){
+      return true;
+    }
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+  }
+
+  handleKeyPressTime(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0){
+      return true;
+    }
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+  }
+
+  handleKeyPressDifficulty(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let num = +String(e.target.value).concat(e.key);
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0) {
+      return true
+    }
+    if (code > 31 && (code < 48 || code > 57) ) {
+      e.preventDefault();
+    } else if (num>10) {
+      e.preventDefault();
+    }
+  }
 }

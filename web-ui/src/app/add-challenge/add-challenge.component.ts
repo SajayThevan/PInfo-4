@@ -26,6 +26,17 @@ export class AddChallengeComponent implements OnInit {
   public recipeForm: FormGroup;
   public quantity:FormControl;
 
+  public quantite1:FormControl;
+  public quantite2:FormControl;
+  public quantite3:FormControl;
+  public quantite4:FormControl;
+  public quantite5:FormControl;
+  public quantite6:FormControl;
+  public quantite7:FormControl;
+  public quantite8:FormControl;
+  public quantite9:FormControl;
+  public quantite10:FormControl;
+
   public name:FormControl;
   public cat: FormControl;
   public difficulty: FormControl;
@@ -62,11 +73,23 @@ export class AddChallengeComponent implements OnInit {
   public ingredient_backend = [];
   public steps = [];
 
+  public obligatoryIng : any;
+
   constructor(private datePipe : DatePipe,private formBuilder:FormBuilder,private route:ActivatedRoute, private challengeService : ChallengeService, private recipeService : RecipeService, public keycloak: KeycloakService,
     private ingredientService:IngredientService){
 
     this.quantityForm=formBuilder.group({
-      quantity:this.quantity
+      quantity:this.quantity,
+      quantite1 : this.quantite1,
+      quantite2 : this.quantite2,
+      quantite3 : this.quantite3,
+      quantite4 : this.quantite4,
+      quantite5 : this.quantite5,
+      quantite6 : this.quantite6,
+      quantite7 : this.quantite7,
+      quantite8 : this.quantite8,
+      quantite9 : this.quantite9,
+      quantite10 : this.quantite10
     })
 
     this.name = new FormControl('',[Validators.required]);
@@ -85,6 +108,11 @@ export class AddChallengeComponent implements OnInit {
 
     }
 
+  list = ["quantite1","quantite2","quantite3",
+  "quantite4","quantite5",
+  "quantite6","quantite7","quantite8","quantite9",
+  "quantite10"]
+
 
   ngOnInit(): void {
 
@@ -100,17 +128,20 @@ export class AddChallengeComponent implements OnInit {
         this.Name = data["name"];
         this.Ingredients = data["ingredients"];
         this.Solutions_Id = data["solutions"];
-
+        
         this.Ingredients.forEach(element => {
           this.ingredientService.getIngredient(element.ingredientId).subscribe (
             (data : Response) => {
               this.ingredient = data;
+              console.log("Here",this.ingredient)
               this.Ingredients_name.push(this.ingredient.name)
+              this.ingredients_Recipe.push({name :this.ingredient.name,quantite : 0});
+              console.log("HERE HERE",this.ingredients_Recipe)
             }
           )
+        })
 
-          //Get Favourite Recipes
-          var recipe_sol_id = [];
+        var recipe_sol_id = [];
           
           this.Solutions_Id.forEach(element => {
              recipe_sol_id.push(element.recipeId);
@@ -126,7 +157,6 @@ export class AddChallengeComponent implements OnInit {
                }
              )
           });
-        })
       }
     )
   }
@@ -135,8 +165,8 @@ export class AddChallengeComponent implements OnInit {
 
   addIngredient(){
      if(this.selectedIngredients.length > 0) {
-        this.ingredients_Recipe.push(this.selectedIngredients[0])
         let quantity = +(document.getElementById("quantity") as HTMLInputElement).value;
+        this.ingredients_Recipe.push({name : this.selectedIngredients[0].name , quantite : quantity})
         this.ingredient_backend.push({quantite:quantity ,ingredientId:this.selectedIngredients[0].id})
         this.selectedIngredients = [];
      } 
@@ -146,6 +176,8 @@ export class AddChallengeComponent implements OnInit {
     this.steps.push({step:(document.getElementById("instruction") as HTMLInputElement).value})
   }
 
+  showInput = true;
+
   addRecipe(){
     let Recipe: any = {};
     Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
@@ -153,41 +185,79 @@ export class AddChallengeComponent implements OnInit {
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
     Recipe.imagePath = "/tmp/images/logo.png";
     Recipe.ingredients = this.ingredient_backend;
+    console.log(this.Ingredients)
+    this.Ingredients.forEach((element,index) => {
+      Recipe.ingredients.push({"quantite": +(document.getElementById(this.list[index]) as HTMLInputElement).value
+      ,"ingredientId": element["ingredientId"]});
+    })
     Recipe.steps = this.steps;
     Recipe.category = this.categories_Selected;
     Recipe.difficulty = +(document.getElementById("difficulty") as HTMLInputElement).value;
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
-    Recipe.ratings = [];
+    Recipe.ratings = [{"rate":0}]; 
     Recipe.comments = [];
+    console.log(Recipe)
     var add = new Promise((resolve, reject) => {
       let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
         this.addSolution(data)
         resolve();
       });
-     
-    });
-    add.then(async () => {
-      return  1
     });
 
   }
 
-  addSolution(solId){
-    
-    var rm = new Promise((resolve, reject) => {
-        let ret = this.challengeService.addSolution(this.challengeId,solId);
-        resolve();
-      });
-      rm.then(async () => {
-        await this.delay(500)
-        window.location.href = '/challenges/'+this.challengeId
-      });
-     
-    };
+  async addSolution(solId){
+    await this.challengeService.addSolution(this.challengeId,solId).toPromise();
+    window.location.href = '/challenges/'+this.challengeId
+  };
+
+  async removeSolution(recipeId){
+    await this.recipeService.deleteRecipe(recipeId).toPromise()
+    window.location.href = '/challenges/'+this.challengeId
+  }
     
      
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+  }
+
+  handleKeyPressQuantity(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0){
+      return true;
+    }
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+  }
+
+  handleKeyPressTime(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0){
+      return true;
+    }
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+  }
+
+  handleKeyPressDifficulty(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let num = +String(e.target.value).concat(e.key);
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0) {
+      return true
+    }
+    if (code > 31 && (code < 48 || code > 57) ) {
+      e.preventDefault();
+    } else if (num>10) {
+      e.preventDefault();
+    }
   }
 
 
