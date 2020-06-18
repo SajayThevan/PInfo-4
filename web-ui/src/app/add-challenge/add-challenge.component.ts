@@ -148,9 +148,9 @@ export class AddChallengeComponent implements OnInit {
           }
 
     }
-        
+        console.log(this.Ingredients);
         this.Ingredients.forEach(element => {
-          this.ingredientService.getIngredient(element.ingredientId).subscribe (
+          this.ingredientService.getIngredient(element.ingredientsId).subscribe (
             (data : Response) => {
               this.ingredient = data;
               this.Ingredients_name.push(this.ingredient.name)

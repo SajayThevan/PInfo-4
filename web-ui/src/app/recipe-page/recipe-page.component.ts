@@ -133,16 +133,14 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
         this.Ratings.forEach(element => {
           this.mean = this.mean + element.rate
         });
-        this.mean = +(this.mean/this.Ratings.length).toFixed(2);
+        if (this.Ratings.length == 1) {
+            this.mean = 0;
+        }
+        else {
+          this.mean = +(this.mean/(this.Ratings.length-1)).toFixed(2);
+        }
         this.Comments = data["comments"]
       });
-  
-      let url : String= "";
-      // synthaxe : /calories?id=1&id=2&id=4
-      // Ingredient ID --> Ingredient Name
-    
-      // Removing the last &
-      url = url.substring(0, url.length - 1);
       
     }
   

@@ -42,10 +42,3 @@ alter table Recipe
     foreign key (CHALLENGE_ID)
     references Challenge;
     
-INSERT INTO Challenge (authorID, name, id) values ('14', 'CREPESAMERE', nextval('Challenge_SEQ'));
-INSERT INTO Ingredients (ingredientsId, id, CHALLENGE_ID) values (4,nextval('INGREDIENTS_SEQ'), currval('CHALLENGE_SEQ'));
-INSERT INTO Recipe (recipeId, id, CHALLENGE_ID) values (14, nextval('RECIPE_SEQ'), currval('CHALLENGE_SEQ'));
-
-INSERT INTO Challenge (authorID, name, id) values ('1', 'PANCAKESSAMERE', nextval('Challenge_SEQ'));
-INSERT INTO Ingredients (ingredientsId, id, CHALLENGE_ID) values (1,nextval('INGREDIENTS_SEQ'), currval('CHALLENGE_SEQ'));
-INSERT INTO Recipe (recipeId, id, CHALLENGE_ID) values (15, nextval('RECIPE_SEQ'), currval('CHALLENGE_SEQ'));
