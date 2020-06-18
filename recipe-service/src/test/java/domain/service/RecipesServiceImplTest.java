@@ -157,7 +157,7 @@ class RecipesServiceImplTest {
 	
 	
 	@Test
-	public void testGetTendcies() {
+	void testGetTendcies() {
 		float maxMean = 0;
 		long maxMeanId = 0;
 		long maxMeanId2 = 0;
