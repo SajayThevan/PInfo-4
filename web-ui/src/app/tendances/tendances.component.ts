@@ -21,7 +21,6 @@ export class TendancesComponent implements OnInit {
     this.recipesDTO$.subscribe(
       (response : any) => {
         this.tendances = response;
-        console.log(this.tendances)
     });
   }
 

@@ -151,10 +151,6 @@ export class ProfilePageComponent implements OnInit {
             recipeIDs.push(element.recipeId);
           });
           this.favourites$ = this.recipeService.getRecipes(recipeIDs);
-          this.favourites$.subscribe((response : any) => {
-            console.log(recipeIDs)
-            console.log(response)
-          });
     });
     // Get my recipes
     this.recipes$ = this.recipeService.getRecipeforProfile(this.keycloak.getID());
