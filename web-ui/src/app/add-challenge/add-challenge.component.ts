@@ -62,6 +62,8 @@ export class AddChallengeComponent implements OnInit {
   public ingredient_backend = [];
   public steps = [];
 
+  public obligatoryIng : any;
+
   constructor(private datePipe : DatePipe,private formBuilder:FormBuilder,private route:ActivatedRoute, private challengeService : ChallengeService, private recipeService : RecipeService, public keycloak: KeycloakService,
     private ingredientService:IngredientService){
 
@@ -100,7 +102,14 @@ export class AddChallengeComponent implements OnInit {
         this.Name = data["name"];
         this.Ingredients = data["ingredients"];
         this.Solutions_Id = data["solutions"];
-
+        /*
+        console.log(this.Ingredients)
+        console.log(this.Ingredients[0])
+        console.log(this.Ingredients[0]["ingredientId"])
+        console.log(this.Ingredients[0]["quantity"])
+        this.obligatoryIng = "{\"ingredientId\":"+this.Ingredients[0]["ingredientId"]+",\"quantity\":"+this.Ingredients[0]["quantity"]+"}";
+        console.log(this.obligatoryIng)
+        */
         this.Ingredients.forEach(element => {
           this.ingredientService.getIngredient(element.ingredientId).subscribe (
             (data : Response) => {
@@ -153,6 +162,9 @@ export class AddChallengeComponent implements OnInit {
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
     Recipe.imagePath = "/tmp/images/logo.png";
     Recipe.ingredients = this.ingredient_backend;
+    this.Ingredients.forEach(element => {
+      Recipe.ingredients.push({"quantite":+element["quantity"],"ingredientId": element["ingredientId"]});
+    })
     Recipe.steps = this.steps;
     Recipe.category = this.categories_Selected;
     Recipe.difficulty = +(document.getElementById("difficulty") as HTMLInputElement).value;
