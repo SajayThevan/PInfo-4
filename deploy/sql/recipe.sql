@@ -92,24 +92,4 @@ alter table Steps
     foreign key (Recipe_id)
     references Recipe;
     
-INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (nextval('RECIPE_SEQ'), 'abcdefghij','21/02/2020', 3, '/tmp/images/logo.png', 'pizza', 1);
-INSERT INTO Category(id, categories, Recipe_ID)                   values (nextval('CATEGORY_SEQ'), 1, currval('RECIPE_SEQ'));
-INSERT INTO Comments(id, comment, Recipe_ID)                    values (nextval('COMMENTS_SEQ'),'Mauvais',currval('RECIPE_SEQ'));
-INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id)  values (nextval('INGREDIENTS_SEQ'), 4, 2, currval('RECIPE_SEQ'));
-INSERT INTO Ratings(id, rate, Recipe_ID)                        values (nextval('RATINGS_SEQ'), 4, currval('RECIPE_SEQ'));
-INSERT INTO Steps (id, step, Recipe_id)                        values (nextval('STEPS_SEQ'),'mettre dans le four',currval('RECIPE_SEQ'));
 
-INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (nextval('RECIPE_SEQ'), 'abcdefghij','11/06/2020', 4, '/tmp/images/logo.png', 'lasagne', 2);
-INSERT INTO Category(id, categories, Recipe_ID)                   values (nextval('CATEGORY_SEQ'), 1, currval('RECIPE_SEQ'));
-INSERT INTO Comments(id, comment, Recipe_ID)                    values (nextval('COMMENTS_SEQ'),'Mauvais',currval('RECIPE_SEQ'));
-INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id)  values (nextval('INGREDIENTS_SEQ'), 4, 2, currval('RECIPE_SEQ'));
-INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id)  values (nextval('INGREDIENTS_SEQ'), 3, 2, currval('RECIPE_SEQ'));
-INSERT INTO Ratings(id, rate, Recipe_ID)                        values (nextval('RATINGS_SEQ'), 5, currval('RECIPE_SEQ'));
-INSERT INTO Steps (id, step, Recipe_id)                        values (nextval('STEPS_SEQ'),'mettre dans le four',currval('RECIPE_SEQ'));
-
-INSERT INTO Recipe (id, authorID, date, difficulty, imagePath, name, time) values (nextval('RECIPE_SEQ'), 'abcdefghij','09/06/2020', 4, '/tmp/images/logo.png', 'salades', 2);
-INSERT INTO Category(id, categories, Recipe_ID)                   values (nextval('CATEGORY_SEQ'), 1, currval('RECIPE_SEQ'));
-INSERT INTO Comments(id, comment, Recipe_ID)                    values (nextval('COMMENTS_SEQ'),'Mauvais',currval('RECIPE_SEQ'));
-INSERT INTO Ingredients(id, IngredientID, quantite, Recipe_id)  values (nextval('INGREDIENTS_SEQ'), 1, 2, currval('RECIPE_SEQ'));
-INSERT INTO Ratings(id, rate, Recipe_ID)                        values (nextval('RATINGS_SEQ'), 3, currval('RECIPE_SEQ'));
-INSERT INTO Steps (id, step, Recipe_id)                        values (nextval('STEPS_SEQ'),'mettre dans le four',currval('RECIPE_SEQ'));

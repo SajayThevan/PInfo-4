@@ -93,8 +93,8 @@ export class SearchComponent implements OnInit {
     challenge.ingredients =[]
     this.selected.forEach(element =>{
       challenge.ingredients.push({
-        ingredientId: element.id,
-        quantity: 0
+        ingredientsId: element.id
+       // quantity: 0
       })
 
     })

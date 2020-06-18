@@ -43,6 +43,4 @@ alter table RecipeFav
         foreign key (Profile_id)
         references Profile;
 
-INSERT INTO Profile    (ID, email, firstName, lastName, pseudo, score, image) values ('6', 'luke@gmail.com', 'deniz', 'gecer', 'malkah', 99,'/tmp/image/logo.png');
-INSERT INTO RecipeFav  (recipeId, id, Profile_id)                      		  values (14, nextval('RECIPEFAV_SEQ'), '6');
-INSERT INTO Ingredient (ingredientId, quantity, id, Profile_id)               values (4, 50, nextval('INGREDIENT_SEQ'), '6');
+
