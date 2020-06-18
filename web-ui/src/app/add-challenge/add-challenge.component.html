@@ -126,7 +126,7 @@
                           <label class="col-sm-2 col-form-label">Difficulty</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty">
+                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty" (keypress)="handleKeyPressDifficulty($event)">
                             </form>
                           </div>
                       </div>
@@ -135,7 +135,7 @@
                           <label class="col-sm-2 col-form-label">Time</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="time" formControlName="time">
+                              <input type="text" class="form-control" id="time" formControlName="time" (keypress)="handleKeyPressTime($event)">
                             </form>
                           </div>
                       </div>
@@ -161,7 +161,7 @@
                           </div>
                           <div class="col">
                             <form [formGroup]="quantityForm" >
-                              <input type="text" class="form-control" id="quantity" formControlName="quantity">
+                              <input type="text" class="form-control" id="quantity" formControlName="quantity" (keypress)="handleKeyPressQuantity($event)">
                             </form>
                           </div>
                           <div class="col">

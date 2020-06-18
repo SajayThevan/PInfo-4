@@ -98,7 +98,7 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
           this.ingredientService.getIngredient(element.ingredientId).subscribe (
             (data : Response) => {
               this.ingredient = data;
-              this.Ingredients_name.push(this.ingredient.name)
+              this.Ingredients_name.push({name :this.ingredient.name, quantite : element.quantite})
             }
           )
         });
@@ -166,54 +166,11 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
       this.ngOnInit()
     }
   
-    check() {
-      this.ingredients[0].disp = 'green';
-      this.ingredients[1].disp = 'red';
-      this.ingredients[2].disp = 'red';
-      this.ingredients[3].disp = 'red';
-    }
 
-   
-   
     async delay(ms: number) {
       await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
     }
 
-    
-  
-    // TEST
-    info = ['Cake','Sajay',9,7];
-  
-    ingredients = [
-      {
-        name: 'Flour',
-        disp : 'black'
-      },
-      {
-        name: 'Egg',
-        disp : 'black'
-      },
-      {
-        name: 'Sugar',
-        disp : 'black'
-      },
-      {
-        name: 'Vanilla',
-        disp : 'black'
-      }
-    ];
-  
-    steps = ['Add Flour','Add Egg','Add Sugar','Add Vanilla'];
-    comments = [
-      {
-        name : 'Luke',
-        comment : 'blablablaaa'
-      },
-      {
-        name : 'Deniz',
-        comment : 'blaablaablaa'
-      }
-    ];
   
     handleKeyPressDifficulty(e) {
       var code = (e.which) ? e.which : e.keyCode;
