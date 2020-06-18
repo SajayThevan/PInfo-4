@@ -263,7 +263,7 @@
                 </div>
                 <div class="col-3">
                   <form [formGroup]="quantityForm" >
-                    <input type="text" class="form-control" id="inputIngredient" formControlName="quantity">
+                    <input type="text" class="form-control" id="inputIngredient" formControlName="quantity" (keypress)="handleKeyPressQuantity($event)">
                   </form>
                 </div>
                 <div class="col-3">
@@ -321,7 +321,7 @@
                           <label class="col-sm-2 col-form-label">Difficulty</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty">
+                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty" placeholder="0-10" (keypress)="handleKeyPressDifficulty($event)">
                             </form>
                             <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="difficulty">-->
                           </div>
@@ -331,7 +331,7 @@
                           <label class="col-sm-2 col-form-label">Time</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="time" formControlName="time">
+                              <input type="text" class="form-control" id="time" formControlName="time" placeholder="in minutes" (keypress)="handleKeyPressTime($event)">
                             </form>
                             <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="time">-->
                           </div>
@@ -358,7 +358,7 @@
                           </div>
                           <div class="col">
                             <form [formGroup]="quantityForm" >
-                              <input type="text" class="form-control" id="quantity" formControlName="quantity">
+                              <input type="text" class="form-control" id="quantity" formControlName="quantity" (keypress)="handleKeyPressQuantity($event)">
                             </form>
                           </div>
                           <div class="col">

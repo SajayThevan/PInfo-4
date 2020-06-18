@@ -88,9 +88,8 @@
                 <label class="col-sm-2 col-form-label">Note</label>
                 <div class="col-sm-6">
                   <form [formGroup]="recipeForm" >
-                    <input type="text" class="form-control" id="note" formControlName="note">
+                    <input type="text" class="form-control" id="note" formControlName="note" (keypress)="handleKeyPressDifficulty($event)">
                   </form>
-                  <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="name">-->
                 </div>
             </div>
 
