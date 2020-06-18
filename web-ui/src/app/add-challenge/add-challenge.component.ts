@@ -167,7 +167,7 @@ export class AddChallengeComponent implements OnInit {
      
     });
     add.then(async () => {
-      return  1
+      this.ngOnInit();
     });
 
   }

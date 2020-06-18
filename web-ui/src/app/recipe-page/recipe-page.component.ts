@@ -7,6 +7,7 @@ import { ProfileService } from '../services/profile/profile.service';
 import { KeycloakService } from '../services/keycloak/keycloak.service';
 import { KeycloakInstance } from 'keycloak-js';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { AddChallengeComponent } from '../add-challenge/add-challenge.component';
 
 @Component({
     selector: 'app-recipe-page',
@@ -18,10 +19,15 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
     public keycloakAuth: KeycloakInstance;
     public recipeForm: FormGroup;
     public comment: FormControl;
+    public note : FormControl;
   
     constructor(private formBuilder: FormBuilder, private recipeService : RecipeService, private route:ActivatedRoute, private ingredientService : IngredientService, private profileService: ProfileService,public keycloak: KeycloakService) {
       this.comment = new FormControl('',[Validators.required]);
-      this.recipeForm = formBuilder.group({comment: this.comment}); 
+      this.note = new FormControl('',[Validators.required]);
+      this.recipeForm = formBuilder.group({
+        comment: this.comment,
+        note:this.note
+        }); 
     }
   
     connected : boolean;
@@ -56,6 +62,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
     Comments = [];
   
     new_comment = "";
+    rate = 0;
   
     public Recipe : Object;
     public ingredient : any;
@@ -130,21 +137,24 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
         this.Salt = data[0]; // ????
       });
     }
+
   
-    async addRating () {
-      let note = (document.getElementById("id") as HTMLInputElement).value;
-      let ret = this.recipeService.addRating(this.Recipe_ID,note);
-      await this.delay(750)
+    async addRating() {
+      this.rate = +this.recipeForm.get("note").value;
+      console.log(this.rate)
+      await this.recipeService.addRating(this.Recipe_ID,this.rate).toPromise();
+      this.recipeForm.reset();
       this.ngOnInit()
     }
+
     addFav(){
       this.profileService.addFavouriteById(this.keycloak.getID(),this.Recipe_ID);
     }
   
     async addComment() {
       this.new_comment = this.recipeForm.get("comment").value;
-      await this.recipeService.addComment(this.Recipe_ID,this.new_comment).toPromise()
-      this.recipeForm.reset()
+      await this.recipeService.addComment(this.Recipe_ID,this.new_comment).toPromise();
+      this.recipeForm.reset();
       this.ngOnInit()
     }
   
@@ -154,9 +164,13 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
       this.ingredients[2].disp = 'red';
       this.ingredients[3].disp = 'red';
     }
+
+   
+   
     async delay(ms: number) {
       await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
     }
+
     
   
     // TEST

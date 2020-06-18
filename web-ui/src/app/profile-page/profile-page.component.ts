@@ -222,7 +222,7 @@ export class ProfilePageComponent implements OnInit {
     Recipe.category = this.categories_Selected;
     Recipe.difficulty = +(document.getElementById("difficulty") as HTMLInputElement).value;
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
-    Recipe.ratings = [];
+    Recipe.ratings = [{"rate":0}];
     Recipe.comments = [];
     var add = new Promise((resolve, reject) => {
       let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
