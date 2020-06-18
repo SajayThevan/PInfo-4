@@ -193,6 +193,12 @@ export class ProfilePageComponent implements OnInit {
     await this.getProfileDetails()
   }
 
+  clear(){
+    this.recipeForm.reset();
+    this.categories_Selected = [];
+    this.selectedIngredients = [];
+  }
+
   addIngredient(){
      if(this.selectedIngredients.length > 0) {
         this.ingredients_Recipe.push(this.selectedIngredients[0])

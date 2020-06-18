@@ -282,7 +282,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Add your Recipe</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear()">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -298,7 +298,6 @@
                             <form [formGroup]="recipeForm" >
                               <input type="text" class="form-control" id="nameRecipe" formControlName="nameRecipe">
                             </form>
-                            <!--<input type="text" class="form-control form-control-sm font-weight-lighter" id="name">-->
                           </div>
                       </div>
       
@@ -417,7 +416,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="clear()">Close</button>
               <button type="button" class="btn btn-outline-success" (click)="addRecipe()" data-dismiss="modal" >Add</button>
             </div>
           </div>
