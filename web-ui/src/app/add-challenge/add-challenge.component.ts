@@ -135,7 +135,6 @@ export class AddChallengeComponent implements OnInit {
         this.Ingredients = data["ingredients"];
         this.Solutions_Id = data["solutions"];
         this.AuthorID = data["authorID"];
-
         this.keycloakAuth = this.keycloak.getKeycloakAuth();
         if (this.keycloak.isLoggedIn() === false) {
           this.connected = false;
@@ -148,7 +147,7 @@ export class AddChallengeComponent implements OnInit {
           }
 
     }
-        console.log(this.Ingredients);
+
         this.Ingredients.forEach(element => {
           this.ingredientService.getIngredient(element.ingredientsId).subscribe (
             (data : Response) => {
@@ -207,7 +206,7 @@ export class AddChallengeComponent implements OnInit {
     Recipe.ingredients = this.ingredient_backend;
     this.Ingredients.forEach((element,index) => {
       Recipe.ingredients.push({"quantite": +(document.getElementById(this.list[index]) as HTMLInputElement).value
-      ,"ingredientId": element["ingredientId"]});
+      ,"ingredientId": element["ingredientsId"]});
     })
     Recipe.steps = this.steps;
     Recipe.category = this.categories_Selected;
