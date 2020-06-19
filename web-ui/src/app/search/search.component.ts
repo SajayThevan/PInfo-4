@@ -94,9 +94,9 @@ export class SearchComponent implements OnInit {
     this.selected.forEach(element =>{
       challenge.ingredients.push({
         ingredientsId: element.id
+        
        // quantity: 0
       })
-
     })
     challenge.solutions = []
     this.challengeService.createChallenge(challenge)

@@ -215,6 +215,7 @@ export class ProfilePageComponent implements OnInit {
 
   async addRecipe() {
     let Recipe: any = {};
+
     Recipe.name = (document.getElementById("nameRecipe") as HTMLInputElement).value;
     Recipe.authorID = this.id;
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
@@ -233,6 +234,12 @@ export class ProfilePageComponent implements OnInit {
     });
     add.then(async () => {
       this.getProfileDetails();
+      this.recipeForm.reset();
+      this.categories_Selected = [];
+      this.ingredients_Recipe=[];
+      this.ingredient_backend=[];
+      this.steps=[];
+      this.quantityForm.reset();
     });
   }
 

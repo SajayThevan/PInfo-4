@@ -46,7 +46,7 @@ export class ChallengesComponent implements OnInit {
           this.Solutions.push(element.solutions)
         });
         
-        this.IngredientsIDs.forEach(element => {
+         this.IngredientsIDs.forEach(element => {
           let IngredientsChallenge = []
           element.forEach(ing => {
             let IngredientsChallenge$ = this.ingredientService.getIngredient(ing.ingredientId)
