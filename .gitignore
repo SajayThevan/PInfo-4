@@ -6,7 +6,7 @@
 *.exe
 *.o
 *.so
-node_modules
+web-ui/node_modules
 
 # Packages #
 ############
@@ -151,10 +151,10 @@ tomcat
 *.sar
 *.class
 
-# Maven 
+# Maven
 target/
 
-# IntelliJ project files 
+# IntelliJ project files
 *.iml
 *.iws
 *.ipr

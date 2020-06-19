@@ -1,0 +1,3 @@
+# Ignored in language detection #
+node_modules/**
+deploy/keycloak/login-page/common/resources/node_modules/**

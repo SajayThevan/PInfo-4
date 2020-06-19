@@ -1,0 +1,151 @@
+# Default values for fridgehub.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: pinfo4/
+  tag: latest
+  pullPolicy: Always
+
+kafka:
+  zookeeper:
+     persistence:
+        enabled: true
+  persistence:
+     enabled: true
+
+ingredient-db:
+  driver_name: org.postgresql
+  persistence:
+     enabled: true
+  postgresDatabase: ingredient
+  postgresqlDatabase: ingredient
+  global:
+      persistence:
+         enabled: true
+      postgresqlDatabase: ingredient
+  initdbScriptsConfigMap:
+    ingredient-scripts
+
+profile-db:
+  driver_name: org.postgresql
+  persistence:
+     enabled: true
+  postgresDatabase: profile
+  postgresqlDatabase: profile
+  global:
+      persistence:
+         enabled: true
+      postgresqlDatabase: profile
+  initdbScriptsConfigMap:
+    profile-scripts
+
+recipe-db:
+  driver_name: org.postgresql
+  persistence:
+     enabled: true
+  postgresDatabase: recipe
+  postgresqlDatabase: recipe
+  global:
+      persistence:
+         enabled: true
+      postgresqlDatabase: recipe
+  initdbScriptsConfigMap:
+    recipe-scripts
+
+challenge-db:
+  driver_name: org.postgresql
+  persistence:
+     enabled: true
+  postgresUser: inst
+  postgresDatabase: challenge
+  postgresqlDatabase: challenge
+  global:
+      persistence:
+         enabled: true
+      postgresqlDatabase: challenge
+  initdbScriptsConfigMap:
+    challenge-scripts
+
+keycloak:
+  keycloak:
+    password: asdfghjkl
+    extraInitContainers: |
+      - name: theme-provider
+        image: pinfo4/login-theme:latest
+        imagePullPolicy: Always
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying theme..."
+            cp -R /login-page/* /theme
+        volumeMounts:
+          - name: theme
+            mountPath: /theme
+    extraVolumeMounts: |
+      - name: keycloak-realm-secret
+        mountPath: "/realm/"
+        readOnly: true
+      - name: theme
+        mountPath: /opt/jboss/keycloak/themes/login-page
+    extraVolumes: |
+      - name: keycloak-realm-secret
+        secret:
+          secretName: keycloak-realm-secret
+      - name: theme
+        emptyDir: {}
+    extraArgs: -Dkeycloak.import=/realm/realms.json
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+rbac:
+  create: true
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

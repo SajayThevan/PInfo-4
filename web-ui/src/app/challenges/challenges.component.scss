@@ -1,0 +1,76 @@
+.logopad {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.logopad1 {
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.logo {
+    height: 40px;
+    width: 90px;
+    border-radius: 5px;
+    background-size: contain;
+}
+
+.pos{
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}
+
+.searchbar{
+    width: 100;
+}
+
+.card_1{
+    width: 300px;
+    height: 400px;
+}
+
+.sticky-top{
+    background-color: white;
+}
+
+.tab {
+    height: 180px;
+    width: 350px;
+    border: 0.5px  gainsboro solid ;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.recipe_image{
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 80px;
+    width: 80px;
+    border : 1px black solid;
+    border-radius: 20px;
+    background-image: url(../../assets/challengelogo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.recipe_name {
+    position: relative;
+    top: 20px;
+    left: 50px;
+    text-transform: capitalize;
+}
+
+.button_pos{
+    position: relative;
+    left: 280px;
+}
+
+.space{
+    padding-left: 20px;
+}

@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row flex-nowrap justify-content-between align-items-center">
+    <div class="center">
+      <a class="btn font-weight-lighter" href="#"><img class ="logo" src="../../assets/logo.jpeg"></a>
+    </div>
+    <div class="col-4 d-flex justify-content-end align-items-center">
+      <a class="text-muted" href="search" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+      </a>
+      <a class="text-muted" href="/profile"><mat-icon aria-hidden="false" class="logopad">person</mat-icon></a>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <p class="btn nav-link font-weight-lighter" data-toggle="tab" role="tab" routerLink="/tendances">Tendances</p>
+    </li>
+    <li class="nav-item">
+      <p class="btn nav-link font-weight-lighter" data-toggle="tab" role="tab" routerLink="/month">Recettes du Mois</p>
+    </li>
+    <li class="nav-item">
+      <p class="btn nav-link font-weight-lighter" id="contact-tab" data-toggle="tab" routerLink="/challenge">Challenges</p>
+    </li>
+  </ul>
+
+  
+  <div>
+    <div class="row">
+        <div class="col" *ngFor="let tendance of tendances"> 
+          <div class="tab">
+            <div class="recipe_image row"></div>
+            <div class="recipe_name">
+              {{tendance.name}}
+            </div>
+            <div class="button_pos">
+                <a class="text-muted space" href="/recipe/{{tendance.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
+ 
+
+</div>

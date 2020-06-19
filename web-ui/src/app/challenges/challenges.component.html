@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="row flex-nowrap justify-content-between align-items-center">
+    <div class="center">
+      <a class="btn font-weight-lighter" href="#"><img class ="logo" src="../../assets/logo.jpeg"></a>
+    </div>
+    <div class="col-4 d-flex justify-content-end align-items-center">
+      <a class="text-muted" href="search" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+      </a>
+      <a class="text-muted" href="/profile"><mat-icon aria-hidden="false" class="logopad">person</mat-icon></a>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <p class="btn nav-link font-weight-lighter" data-toggle="tab" role="tab" routerLink="/tendances">Tendances</p>
+    </li>
+    <li class="nav-item">
+      <p class="btn nav-link font-weight-lighter" data-toggle="tab" role="tab" routerLink="/month">Recettes du Mois</p>
+    </li>
+    <li class="nav-item">
+      <p class="btn nav-link font-weight-lighter" id="contact-tab" data-toggle="tab" routerLink="/challenge">Challenges</p>
+    </li>
+  </ul>
+
+  <div class="row">
+    <div class="col-4" *ngFor = "let challenge of Challenges">
+      <div class="tab">
+        <div class="recipe_image row"></div>
+        <div class="recipe_name">
+            {{challenge.name}}
+        </div>
+        <div class="button_pos">
+            <a class="text-muted space" href="/challenges/{{challenge.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fridge -->
+  <!-- <div class="pos font-weight-lighter card_1 overflow-auto">
+    <div class="card">
+      <div class="card-body">
+        <div class="sticky-top">
+          <div class="row">
+            <div class="col logopad1">
+              Frigo
+            </div>
+            <div class="col">
+              <a type="button" class="text-muted" data-toggle="modal" data-target="#FridgeModal"><mat-icon aria-hidden="false" class="logopad1">border_color</mat-icon></a>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col">
+            Ingredient
+          </div>
+          <div class="col">
+            Quantity
+          </div>
+        </div>
+        <hr>
+        <div>
+        <div *ngFor = "let ingredient of Ingredient_Name ;let i=index">
+          <div class="row">
+            <div class="col">
+              {{ingredient}}
+            </div>
+            <div class="col">
+              {{FrigoInter[i].quantity}}
+            </div>
+          </div>
+          <hr>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade font-weight-lighter" id="FridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Your Fridge</h5>
+          <button type="button" class="close" data-dismiss="modal" (click)="ngOnInit()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">Ingredient</div>
+            <div class="col-3">Quantity</div>
+            <div class="col-3">Remove</div>
+          </div>
+          <hr>
+          <div *ngFor = "let ingredient of Ingredient_Name ;let i=index">
+            <div class="row">
+              <div class="col">
+                {{ingredient}}
+              </div>
+              <div class="col-3">
+                <form>
+                  <input type="text" class="form-control" id="inputPassword" placeholder="{{Frigo[i].quantity}}">
+                </form>
+              </div>
+              <div class="col-3">
+                <a type ="button" class="text-muted" (click)="Remove(i)"><mat-icon aria-hidden="false" class="logopad1">clear</mat-icon></a>
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col">
+              <ng-select [items]="Ingredients"
+              bindLabel="name"
+              placeholder="Search"
+              appendTo="body"
+              multiple="true"
+              maxSelectedItems = 1
+              [(ngModel)]="selected">
+              </ng-select>
+            </div>
+            <div class="col-3">
+              <form [formGroup]="quantityForm" >
+                <input type="text" class="form-control" id="inputIngredient" formControlName="quantity">
+              </form>
+            </div>
+            <div class="col-3">
+              <a type ="button" class="text-muted" (click)="Add()"><mat-icon aria-hidden="false" class="logopad1">add_circle_outline</mat-icon></a>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="saveFridge()">Save Fridge</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- End Fridge -->
+
+</div>

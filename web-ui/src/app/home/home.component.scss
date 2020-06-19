@@ -1,0 +1,29 @@
+.logopad {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.logo {
+    height: 40px;
+    width: 90px;
+    border-radius: 5px;
+    background-size: contain;
+}
+
+
+.pos{
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}
+
+.welcome {
+    margin-top: 20px;
+    height: 600px;
+    width: 100%;
+    border: gainsboro 1px solid;
+    border-radius: 5px;
+    background-image: url(../../assets/Welcome.jpg);
+    background-size: cover;
+}

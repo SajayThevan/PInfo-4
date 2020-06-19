@@ -1,43 +1,38 @@
-# Kernel
+ [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=PInfo-2020_PInfo-4&metric=coverage)](https://sonarcloud.io/dashboard?id=PInfo-2020_PInfo-4) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=PInfo-2020_PInfo-4&metric=alert_status)](https://sonarcloud.io/dashboard?id=PInfo-2020_PInfo-4)  [![Build Status](https://travis-ci.org/PInfo-2020/PInfo-4.svg?branch=master)](https://travis-ci.org/PInfo-2020/PInfo-4)
+ 
+# Fridgehub
 
-Repository for PInfo-2020's team 4
+Fridgehub is an innovative website for recipe sharing and fridge management. Un-logged in users can view all the recipes on the site. Once having created an account and logged in, users can share, rate, comment on, and create recipes and challenges (ingredients to create recipes with). They can maintain a list of the ingredients in their fridge to help them stay on top of their food management.
+Many new and exiting features are in the pipeline!
 
-## Team members:
+## Built With
 
-- Ella Kummer:                Cheffe
-- Luke Smith:                 Admin Sys
-- Mathias Tonini:             Dev
-- Deniz Sungurtekin:          Dev
-- Sajaendra Thevamanoharan:   Dev
+* [Docker](https://www.docker.com) - Containerization
+* [microk8s](https://microk8s.io) - Container Management
+* [helm](https://angular.io) - Kubernetes Deployments
+* [Angular](https://angular.io) - Web Framework
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [Thorntail](https://thorntail.io) - Microservice services
+* [Kafka](https://kafka.apache.org) - Message Broker
 
-## How to set up your project:
+* [Travis](https://travis-ci.org) - CI
+* [SonarCloud](https://sonarcloud.io/dashboard?id=PInfo-2020_PInfo-4) - Code Quality
 
-You have two choices to set up your project:
+## Authors
 
-- If you want to start from the project at [hostettler/microservices](https://github.com/hostettler/microservices), simply copy and paste the contents of the repository into your project (except for the `.git` folder and the `README.md`) and push everything to your repository. You will then modify the project as you advance in your work and replace the services in it.
+* **Ella Kummer** - *Cheffe* - [ellakummer](https://github.com/ellakummer)
+* **Luke Smith** - *Admin Sys* - [LukeAndrewSmith](https://github.com/LukeAndrewSmith)
+* **Mathias Tonini** - *Dev* - [mathiasTonini](https://github.com/mathiasTonini)
+* **Deniz Sungurtekin** - *Dev* - [DenizSungurtekin](https://github.com/DenizSungurtekin)
+* **Sajaendra Thevamanoharan** - *Dev* - [SajayThevan](https://github.com/SajayThevan)
 
-- If you'd rather start a project from the ground up, you can simply delete all the contents of your repository after you've completed the TODO list below, and add your own microservices and web-ui to your project when you'll start working on them.
+See also the list of [contributors](https://github.com/PInfo-2020/PInfo-4/graphs/contributors) who participated in this project.
 
-Below is the list of tasks you will need to complete to set up continuous integration and continuous deployment in your project:
+## License
 
-1. As mentionned above, begin by copy-pasting the contents of [hostettler/microservices](https://github.com/hostettler/microservices) (except for the `README.md` and the `.git` folder) into your project.
+This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LICENSE.md) file for details
 
-2. Replace the title of the README.md with your project's name.
+## Acknowledgments
 
-3. Replace the placeholders in the team members list with the real names and roles of the members in your team.
-
-4. Travis CI is already configured to watch over your repository. It will execute whatever commands you put into your project's `.travis.yml` file. To see the result of Travis CI after you've pushed something on your repository, go to the [Travis CI website](https://travis-ci.org/) and sign in with your GitHub account. You might need to go to the `settings` page and add *PInfo-2020* to your list of authorized organizations. After you've pushed the microservices to your project, you should see a failed build. This is normal.
-
-5. Go to the [Sonarcloud website](https://sonarcloud.io/) and sign in with GitHub. Again, you will need to add the *PInfo-2020* organization to your account. Once this is done, follow the instructions to set up the analysis for your project's repository. 
-
-6. Update the `.travis.yml` file with your own Sonarcloud project key, organization and login. Do the same in the `sonar-project.properties` file.
-
-7. Go to the [DockerHub website](https://hub.docker.com/) and create an account for your team.
-
-8. Go to your repository's settings on Github in the *secrets* tab, and add two new secrets called `DOCKER_USERNAME` and `DOCKER_PASSWORD` with your DockerHub's account name and password, respectively.
-
-9. Replace `stevehostettler` with your DockerHub's account name in the `.travis.yml` file on the `docker tag ...` and `docker push ...` lines.
-
-10. The last step is to set up the continuous deployment of the application on your team's server. Try to find how to do this ! Hint 1: Things should happen in the `.travis.yml` file. Hint 2: SSH is your friend. Hint 3: For the time being, you can just use docker-compose (you will see how to use Kubernetes later in the course). You might find some useful commands in the second blog post on hostettler.net.
-
-Feel free to remove the steps above from your README.md once you're done with the set up.
+* Hat tip to [Steve Hostettler](https://github.com/hostettler) for providing the example project and for many useful debugging tips
+* Hat tip to [Aurelien](https://github.com/coetaur0) for answering many of our questions

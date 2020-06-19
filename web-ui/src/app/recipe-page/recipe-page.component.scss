@@ -1,0 +1,95 @@
+.logo {
+    height: 40px;
+    width: 90px;
+    border-radius: 5px;
+    background-size: contain;
+}
+
+.logopad {
+    padding-top: 9px;
+    padding-left: 10px;
+    padding-right: 35px;
+}
+
+.pad {
+    padding-left: 40px;
+}
+
+.space{
+    padding-left: 20px;
+}
+
+.line {
+    padding-top: 20px;
+    border-bottom: 1px gainsboro solid;
+}
+
+.recipe_photo{
+    position: relative;
+    top: 30px;
+    left: 50%;
+    border-radius: 20px;
+    width: 500px;
+    height: 400px;
+    background-image: url(../../assets/recipe_image.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
+
+.name{
+    position: absolute;
+    top: 130px;
+    left: 20%;
+    font-size: 70px;
+    font-size-adjust: 0.5;
+    text-transform: capitalize;
+    font-family: Apple Chancery, cursive;
+}
+
+.author{
+    position: absolute;
+    top: 230px;
+    left: 32%;
+    font-family: Apple Chancery, cursive;
+}
+
+.note{
+    position: absolute;
+    top: 280px;
+    left: 15%;
+}
+
+.diff{
+    position: absolute;
+    top: 280px;
+    left: 30%;
+}
+
+.cat{
+    position: absolute;
+    top: 320px;
+    left: 15%;
+}
+
+details{
+    position: absolute;
+    top: 350px;
+    left: 15%;
+}
+
+.btn1{
+    position: absolute;
+    top: 400px;
+    left: 18%;
+}
+
+.btn2{
+    position: absolute;
+    top: 400px;
+    left: 30%;
+}
+
+.spacer {
+    padding : 20px;
+}

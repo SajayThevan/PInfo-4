@@ -1,0 +1,24 @@
+{
+    "environment": "local",
+    "production": "true",
+    "keycloak": {
+        "url": "https://pinfo4.unige.ch/auth",
+        "realm": "apigw",
+        "clientId": "web-sso",
+        "checkLoginIframe": "true",
+        "onLoad": "login-required",
+        "responseMode": "fragment"
+    },
+    "ingredientService": {
+      "url": "https://pinfo4.unige.ch/api/v1/ingredients"
+    },
+    "profileService": {
+      "url": "https://pinfo4.unige.ch/api/v1/profiles"
+    },
+    "recipeService": {
+      "url": "https://pinfo4.unige.ch/api/v1/recipes"
+    },
+    "challengeService": {
+      "url": "https://pinfo4.unige.ch/api/v1/challenges"
+    }
+}

@@ -1,0 +1,173 @@
+<div class="container">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="center">
+          <a class="btn font-weight-lighter" href="#"><img class ="logo" src="../../assets/logo.jpeg"></a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          <a class="text-muted space" href="/home"><mat-icon aria-hidden="false">home</mat-icon></a>
+          <a class="text-muted space" href="/search"><mat-icon aria-hidden="false">search</mat-icon></a>
+          <a class="text-muted space" href="/profile"><mat-icon aria-hidden="false">person</mat-icon></a>
+        </div>
+    </div>
+
+    <div class="line"></div>
+    
+    <div>
+      <div class="recipe_photo">
+    </div>
+
+    <div class="name font-weight-lighter">
+        {{Recipe_name}}
+    </div>
+    
+    <div class="author font-weight-lighter">
+        by {{authorName}}
+    </div>
+    
+    <div class="note">
+      Note : {{mean}}/10
+    </div>
+
+    <div class="diff">
+      Difficulty : {{Difficulty}}/10
+    </div>
+
+    <div class="cat">
+      Category : <ng-container *ngFor="let category of Category; let i = index" >
+          {{category.categories}}
+                 </ng-container>
+    </div>
+
+    <div class="details font-weight-lighter">
+      Calory : {{Calorie}} kcal , Fat : {{Fat}} g , Cholesterol : {{Cholesterol}} g , Proteins : {{Proteins}} g, Salt : {{Salt}} g for 100g.
+    </div>
+
+
+    <div class="btn1" *ngIf="connected">
+      <a type="button" (click)="addFav()" data-toggle="modal" data-target="#informationModal"><mat-icon>folder_special</mat-icon></a>
+    </div>
+
+    <!-- Information Modal -->
+    <div class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            This recipe has been succesfully added to your favourite list.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn2" *ngIf="connected">
+      <a type="button" title="Note" data-toggle="modal" data-target="#AddRatingModal"><mat-icon>create</mat-icon></a>
+    </div>
+
+    <!-- AddRating Modal -->
+    <div class="modal fade" id="AddRatingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Note</label>
+                <div class="col-sm-6">
+                  <form [formGroup]="recipeForm" >
+                    <input type="text" class="form-control" id="note" formControlName="note" (keypress)="handleKeyPressDifficulty($event)">
+                  </form>
+                </div>
+            </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" data-dismiss="modal" (click)="addRating()">Note</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    
+    
+    <div class="line"></div>
+    <div class="spacer"></div>
+
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8" style="padding-top: 10px;">Ingredients</div>
+              <div class="col-2">
+                <a class = "btn pad"><mat-icon>check</mat-icon></a>
+              </div>
+            </div>
+            <hr>
+              <div *ngFor="let ingredient of Ingredients_name">
+                <div>{{ingredient.name}} : {{ingredient.quantite}}</div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="card">
+          <div class="card-body">
+            Steps
+            <hr>
+
+            <div *ngFor="let step of Steps">
+              {{step}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="spacer"></div>
+  <div class="line"></div>
+  <div class="spacer"></div>
+
+  <div class="card">
+    <div class="card-body">
+      Comments
+      <hr>
+      <div *ngFor="let comment of Comments">
+        {{comment.comment}}
+        <hr>
+      </div>
+
+      <div class="row" *ngIf="connected" >
+        <div class="col-sm-11 col">
+          <form [formGroup]="recipeForm" >
+            <input type="text" class="form-control font-weight-lighter" id="comment" formControlName="comment" placeholder="Your comments ...">
+          </form>
+          </div>
+        <div class="col">
+          <a class="btn" (click)="addComment()"><mat-icon>add_comment</mat-icon></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="spacer"></div>
+</div>

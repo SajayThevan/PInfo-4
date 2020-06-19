@@ -8,11 +8,8 @@ import { environment } from '../../../environments/environment';
 export class KeycloakService {
 
     static auth: any = {};
-    static init(): Promise<any> {
-        /**
-         * init KeycloakService with client-id
-         * @type {Keycloak.KeycloakInstance}
-         */
+
+    init(): Promise<any> {
         const keycloakAuth: Keycloak.KeycloakInstance = Keycloak({
             url: environment.keycloak.url,
             realm: environment.keycloak.realm,
@@ -33,6 +30,7 @@ export class KeycloakService {
                 });
         });
     }
+
     constructor() { }
     login(): void {
         KeycloakService.auth.authz.login().success(
@@ -43,9 +41,9 @@ export class KeycloakService {
     }
     getToken(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            if (KeycloakService.auth.authz.token) {
+             if (KeycloakService.auth.authz.token) {
                 KeycloakService.auth.authz
-                    .updateToken(5)
+                    .updateToken(10)
                     .success(() => {
                         resolve(<string>KeycloakService.auth.authz.token);
                     })
@@ -57,12 +55,18 @@ export class KeycloakService {
             }
         });
     }
+
+    async update(): Promise<any> {
+        KeycloakService.auth.authz.updateToken(5);
+    }
+
     isLoggedIn(): boolean {
         return KeycloakService.auth.authz.authenticated;
     }
-    getFullName(): string {
+
+    getID(): string {
         if (this.isLoggedIn()) {
-            return KeycloakService.auth.authz.tokenParsed.name;
+            return KeycloakService.auth.authz.tokenParsed.sub;
         } else return 'guest';
     }
 
@@ -72,9 +76,34 @@ export class KeycloakService {
         } else return 'guest';
     }
 
+    getEmail(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.email;
+        } else return 'guest';
+    }
+
+    getFullName(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.name;
+        } else return 'guest';
+    }
+
+    getFirstName(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.family_name;
+        } else return 'guest';
+    }
+
+    getLastName(): string {
+        if (this.isLoggedIn()) {
+            return KeycloakService.auth.authz.tokenParsed.given_name;
+        } else return 'guest';
+    }
+
     getKeycloakAuth() {
         return KeycloakService.auth.authz;
     }
+
     logout(): void {
         KeycloakService.auth.authz.logout({ redirectUri: document.baseURI }).success(() => {
             KeycloakService.auth.loggedIn = false;

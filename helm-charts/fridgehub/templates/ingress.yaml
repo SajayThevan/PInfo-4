@@ -1,0 +1,108 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "fridgehub.fullname" . }}.ingress-static
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "fridgehub.labels" . | nindent 4 }}
+    {{- include "fridgehub.labels" . | nindent 4 }}.ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - pinfo4.unige.ch
+    secretName: pinfo4-tls
+  rules:
+  - host: pinfo4.unige.ch
+    http:
+      paths:
+      - path: /auth
+        backend:
+          serviceName: {{ .Release.Name  }}-keycloak-http
+          servicePort: 80
+      - path: /
+        backend:
+          serviceName: {{ include "fridgehub.fullname" . }}-web-ui
+          servicePort: 80
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /ingredients/$2
+  name: {{ include "fridgehub.fullname" . }}.ingress-api-ingredient
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "fridgehub.labels" . | nindent 4 }}
+    {{- include "fridgehub.labels" . | nindent 4 }}.ingress
+spec:
+  rules:
+  - host: pinfo4.unige.ch
+    http:
+      paths:
+      - path: /api/v1/ingredients(/|$)(.*)
+        backend:
+          serviceName: {{ include "fridgehub.fullname" . }}-ingredient-service
+          servicePort: 28080
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /profiles/$2
+  name: {{ include "fridgehub.fullname" . }}.ingress-api-profile
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "fridgehub.labels" . | nindent 4 }}
+    {{- include "fridgehub.labels" . | nindent 4 }}.ingress
+spec:
+  rules:
+  - host: pinfo4.unige.ch
+    http:
+      paths:
+      - path: /api/v1/profiles(/|$)(.*)
+        backend:
+          serviceName: {{ include "fridgehub.fullname" . }}-profile-service
+          servicePort: 28080
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /recipes/$2
+  name: {{ include "fridgehub.fullname" . }}.ingress-api-recipe
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "fridgehub.labels" . | nindent 4 }}
+    {{- include "fridgehub.labels" . | nindent 4 }}.ingress
+spec:
+  rules:
+  - host: pinfo4.unige.ch
+    http:
+      paths:
+      - path: /api/v1/recipes(/|$)(.*)
+        backend:
+          serviceName: {{ include "fridgehub.fullname" . }}-recipe-service
+          servicePort: 28080
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /challenges/$2
+  name: {{ include "fridgehub.fullname" . }}.ingress-api-challenge
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "fridgehub.labels" . | nindent 4 }}
+    {{- include "fridgehub.labels" . | nindent 4 }}.ingress
+spec:
+  rules:
+  - host: pinfo4.unige.ch
+    http:
+      paths:
+      - path: /api/v1/challenges(/|$)(.*)
+        backend:
+          serviceName: {{ include "fridgehub.fullname" . }}-challenge-service
+          servicePort: 28080

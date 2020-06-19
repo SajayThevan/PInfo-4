@@ -1,0 +1,139 @@
+.coverimageHolder {
+    width: 100%;
+    height: 300px;
+    background-image: url(../../assets/cover.jpg);
+    background-position: center;
+    background-size: cover ;
+    background-color: gainsboro;
+    position: relative;
+}
+
+.space{
+    padding-left: 20px;
+}
+
+.pad {
+    padding-top: 30px;
+}
+.pad1 {
+    padding-top: 10px;
+}
+.useroption {
+    height: 40px;
+    background: white;
+    width: 100%;
+    padding: 10px;
+}
+
+.profilepic{
+    height: 120px;
+    width: 120px;
+    background: white;
+    border : 1px black solid;
+    background-image: url(../../assets/face.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: -80px;
+    border-radius: 20px;
+    
+}
+
+.content1{
+    border:1px gainsboro solid;
+    border-radius: 4px;
+    height: 400px;
+    width: 300px;
+}
+
+.tab {
+    height: 180px;
+    width: 310px;
+    border: 0.5px  gainsboro solid ;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.recipe_image{
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 80px;
+    width: 80px;
+    border : 1px black solid;
+    border-radius: 20px;
+    background-image: url(../../assets/recipe_logo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.recipe_name {
+    position: relative;
+    top: 20px;
+    left: 50px;
+}
+
+.recipe_author{
+    position: relative;
+    top: 140px;
+    left : 130px;
+    font-size: 10px;
+}
+
+.logo {
+    height: 40px;
+    width: 90px;
+    border-radius: 5px;
+    background-size: contain;
+}
+
+.button_pos{
+    position: relative;
+    left: 200px;
+}
+
+
+.modal-content{
+    width: 800px;
+    left :-30%
+}
+
+.delete_pos {
+    position: relative;
+    left : -63%;
+}
+
+.pos{
+    left: 10%;
+}
+
+.logopad2{
+    left: 20%;
+}
+
+.addbutton {
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.sp{
+    margin-bottom: 20px;
+}
+
+.sp1{
+    margin-left: 100px;
+}
+
+.addbuttonbis {
+    margin-top: 7px;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.addbuttonbis1{
+    margin-top: 5px;
+    padding-left: 30px;
+    padding-right: 20px;
+}
