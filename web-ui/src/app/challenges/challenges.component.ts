@@ -38,8 +38,6 @@ export class ChallengesComponent implements OnInit {
     this.Challenges$.subscribe(
       (response:any ) =>{
         this.Challenges = response;
-        console.log(this.Challenges);
-        console.log(this.Challenges[0].authorID)
         this.Challenges.forEach(element => {
           this.IDs.push(element.id)
           this.AuthorIDs.push(element.authorID)
@@ -47,27 +45,10 @@ export class ChallengesComponent implements OnInit {
           this.IngredientsIDs.push(element.ingredients)
           this.Solutions.push(element.solutions)
         });
-        /*
-        console.log(this.IDs)
-        console.log(this.AuthorIDs)
-        console.log(this.Names)
-        console.log(this.IngredientsIDs)
-        console.log(this.Solutions)
-        */
-        /*
-        this.AuthorIDs.forEach(element => {
-          let authorName$ = this.profileService.getProfile(element)
-          authorName$.subscribe(
-            (response:any)=>{
-              this.AuthorNames.push(response.pseudo);
-            }
-          )
-        });
-        */
+        
         this.IngredientsIDs.forEach(element => {
           let IngredientsChallenge = []
           element.forEach(ing => {
-            console.log(ing.ingredientId)
             let IngredientsChallenge$ = this.ingredientService.getIngredient(ing.ingredientId)
             IngredientsChallenge$.subscribe(
               (response:any)=>{
@@ -77,11 +58,6 @@ export class ChallengesComponent implements OnInit {
           });
           this.IngredientsNames.push(IngredientsChallenge)
         });
-        
-        console.log("author : ")
-        console.log(this.AuthorNames)
-        console.log("ingredients names : ")
-        console.log(this.IngredientsNames)
         
       }
     )

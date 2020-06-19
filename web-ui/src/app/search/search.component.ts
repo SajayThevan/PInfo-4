@@ -53,10 +53,8 @@ export class SearchComponent implements OnInit {
 
     this.keycloakAuth = this.keycloak.getKeycloakAuth();
     if (this.keycloak.isLoggedIn() === false) {
-        console.log("NotConnected")
         this.connected = false;
     } else {
-        console.log("Connected")
         this.connected = true;
     }
   }
@@ -82,12 +80,8 @@ export class SearchComponent implements OnInit {
           this.showResults = true;
         } else {
           this.zeroResult = true;
-          // TODO : REDIRIGER TO CHALLENGE CREATE
         }
-        console.log(this.Result)
        });
-    } else {
-      console.log("Select Some ingredients")
     }
 
   } 
@@ -98,16 +92,13 @@ export class SearchComponent implements OnInit {
     challenge.authorID = this.keycloak.getID();
     challenge.ingredients =[]
     this.selected.forEach(element =>{
-      //this.Ingredients.push(id: element.id, )
       challenge.ingredients.push({
-        ingredientId: element.id,
-        quantity: 0
+        ingredientsId: element.id
+       // quantity: 0
       })
 
     })
-    //challenge.ingredients = this.selected
     challenge.solutions = []
-    console.log(challenge)
     this.challengeService.createChallenge(challenge)
   }
 

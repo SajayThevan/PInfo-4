@@ -89,7 +89,7 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
         });
         this.Date = data["date"];
         this.Ingredients = data["ingredients"];
-        console.log(this.Ingredients)
+        
 
         let url : String= "/calories?";
 
@@ -98,12 +98,11 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
           this.ingredientService.getIngredient(element.ingredientId).subscribe (
             (data : Response) => {
               this.ingredient = data;
-              this.Ingredients_name.push(this.ingredient.name)
+              this.Ingredients_name.push({name :this.ingredient.name, quantite : element.quantite})
             }
           )
         });
 
-        //console.log(url)
 
         this.ingredientService.getComputeCalories(url).subscribe( (data : Response) => {
           this.Calorie = +data;
@@ -134,22 +133,19 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
         this.Ratings.forEach(element => {
           this.mean = this.mean + element.rate
         });
-        this.mean = +(this.mean/this.Ratings.length).toFixed(2);
+        if (this.Ratings.length == 1) {
+            this.mean = 0;
+        }
+        else {
+          this.mean = +(this.mean/(this.Ratings.length-1)).toFixed(2);
+        }
         this.Comments = data["comments"]
       });
-  
-      let url : String= "";
-      // synthaxe : /calories?id=1&id=2&id=4
-      // Ingredient ID --> Ingredient Name
-    
-      // Removing the last &
-      url = url.substring(0, url.length - 1);
       
     }
   
     async addRating() {
       this.rate = +this.recipeForm.get("note").value;
-      console.log(this.rate)
       await this.recipeService.addRating(this.Recipe_ID,this.rate).toPromise();
       this.recipeForm.reset();
       this.ngOnInit()
@@ -166,54 +162,11 @@ import { AddChallengeComponent } from '../add-challenge/add-challenge.component'
       this.ngOnInit()
     }
   
-    check() {
-      this.ingredients[0].disp = 'green';
-      this.ingredients[1].disp = 'red';
-      this.ingredients[2].disp = 'red';
-      this.ingredients[3].disp = 'red';
-    }
 
-   
-   
     async delay(ms: number) {
       await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
     }
 
-    
-  
-    // TEST
-    info = ['Cake','Sajay',9,7];
-  
-    ingredients = [
-      {
-        name: 'Flour',
-        disp : 'black'
-      },
-      {
-        name: 'Egg',
-        disp : 'black'
-      },
-      {
-        name: 'Sugar',
-        disp : 'black'
-      },
-      {
-        name: 'Vanilla',
-        disp : 'black'
-      }
-    ];
-  
-    steps = ['Add Flour','Add Egg','Add Sugar','Add Vanilla'];
-    comments = [
-      {
-        name : 'Luke',
-        comment : 'blablablaaa'
-      },
-      {
-        name : 'Deniz',
-        comment : 'blaablaablaa'
-      }
-    ];
   
     handleKeyPressDifficulty(e) {
       var code = (e.which) ? e.which : e.keyCode;

@@ -39,7 +39,9 @@
 
     <hr>
 
-    <div class="addrecipe"> 
+    <div *ngIf="connected">
+
+      <div class="addrecipe"> 
 
         <div class="row">
             <div class="col-3">
@@ -51,9 +53,11 @@
             </div>
         </div>
         
-        
-    
     </div>
+
+
+    </div>
+    
 
     <hr>
 
@@ -70,7 +74,9 @@
                         </div>
                         <div class="button_pos">
                             <a class="text-muted space" href="/recipe/{{recipe.id}}" ><mat-icon aria-hidden="false">view_comfy</mat-icon></a>
-                            <a type="button" class="text-muted space" (click)="removeSolution(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
+                            <div *ngIf="rights">
+                              <a type="button" class="text-muted space" (click)="removeSolution(recipe.id)"><mat-icon aria-hidden="false">delete</mat-icon></a>
+                            </div>
                         </div>
                         
                       </div>
@@ -126,7 +132,7 @@
                           <label class="col-sm-2 col-form-label">Difficulty</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty">
+                              <input type="text" class="form-control" id="difficulty" formControlName="difficulty" (keypress)="handleKeyPressDifficulty($event)">
                             </form>
                           </div>
                       </div>
@@ -135,7 +141,7 @@
                           <label class="col-sm-2 col-form-label">Time</label>
                           <div class="col-sm-6">
                             <form [formGroup]="recipeForm" >
-                              <input type="text" class="form-control" id="time" formControlName="time">
+                              <input type="text" class="form-control" id="time" formControlName="time" (keypress)="handleKeyPressTime($event)">
                             </form>
                           </div>
                       </div>
@@ -161,7 +167,7 @@
                           </div>
                           <div class="col">
                             <form [formGroup]="quantityForm" >
-                              <input type="text" class="form-control" id="quantity" formControlName="quantity">
+                              <input type="text" class="form-control" id="quantity" formControlName="quantity" (keypress)="handleKeyPressQuantity($event)">
                             </form>
                           </div>
                           <div class="col">

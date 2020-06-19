@@ -113,8 +113,14 @@ export class AddChallengeComponent implements OnInit {
   "quantite6","quantite7","quantite8","quantite9",
   "quantite10"]
 
+  connected : boolean ;
+  rights : boolean ;
+  AuthorID = "";
+
 
   ngOnInit(): void {
+
+    
 
     this.ingredientService.getAllIngredientsResearch().subscribe(
       (data : Response) => {
@@ -128,15 +134,27 @@ export class AddChallengeComponent implements OnInit {
         this.Name = data["name"];
         this.Ingredients = data["ingredients"];
         this.Solutions_Id = data["solutions"];
-        
+        this.AuthorID = data["authorID"];
+
+        this.keycloakAuth = this.keycloak.getKeycloakAuth();
+        if (this.keycloak.isLoggedIn() === false) {
+          this.connected = false;
+        } else {
+          this.connected = true;
+          if (this.keycloak.getID() == this.AuthorID){
+              this.rights = true;
+          } else {
+              this.rights = false;
+          }
+
+    }
+        console.log(this.Ingredients);
         this.Ingredients.forEach(element => {
-          this.ingredientService.getIngredient(element.ingredientId).subscribe (
+          this.ingredientService.getIngredient(element.ingredientsId).subscribe (
             (data : Response) => {
               this.ingredient = data;
-              console.log("Here",this.ingredient)
               this.Ingredients_name.push(this.ingredient.name)
               this.ingredients_Recipe.push({name :this.ingredient.name,quantite : 0});
-              console.log("HERE HERE",this.ingredients_Recipe)
             }
           )
         })
@@ -159,6 +177,8 @@ export class AddChallengeComponent implements OnInit {
           });
       }
     )
+
+    
   }
 
   
@@ -185,7 +205,6 @@ export class AddChallengeComponent implements OnInit {
     Recipe.date = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
     Recipe.imagePath = "/tmp/images/logo.png";
     Recipe.ingredients = this.ingredient_backend;
-    console.log(this.Ingredients)
     this.Ingredients.forEach((element,index) => {
       Recipe.ingredients.push({"quantite": +(document.getElementById(this.list[index]) as HTMLInputElement).value
       ,"ingredientId": element["ingredientId"]});
@@ -196,7 +215,6 @@ export class AddChallengeComponent implements OnInit {
     Recipe.time = +(document.getElementById("time") as HTMLInputElement).value;
     Recipe.ratings = [{"rate":0}]; 
     Recipe.comments = [];
-    console.log(Recipe)
     var add = new Promise((resolve, reject) => {
       let ret = this.recipeService.createNewRecipe(Recipe).subscribe((data: Response)=>{
         this.addSolution(data)
@@ -219,6 +237,45 @@ export class AddChallengeComponent implements OnInit {
      
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+  }
+
+  handleKeyPressQuantity(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0){
+      return true;
+    }
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+  }
+
+  handleKeyPressTime(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0){
+      return true;
+    }
+    if (code > 31 && (code < 48 || code > 57)) {
+        e.preventDefault();
+    }
+  }
+
+  handleKeyPressDifficulty(e) {
+    var code = (e.which) ? e.which : e.keyCode;
+    let val = e.target.value.split('');
+    let num = +String(e.target.value).concat(e.key);
+    let countDot = val.filter((v) => (v === '.')).length;
+    if (code == 46 && countDot == 0) {
+      return true
+    }
+    if (code > 31 && (code < 48 || code > 57) ) {
+      e.preventDefault();
+    } else if (num>10) {
+      e.preventDefault();
+    }
   }
 
 

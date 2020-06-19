@@ -22,16 +22,7 @@ export class MonthSpecialComponent implements OnInit {
     this.recipesDTO$.subscribe(
       (response : any) => {
         this.month = response;
-        console.log(this.month)
     });
   }
-
-  // // Test set
-  // Month = [
-  //   {id:1, recipename : 'Cake'},
-  //   {id:2, recipename : 'Milkshake'},
-  //   {id:3, recipename : 'Coffee'},
-  //   {id:4, recipename : 'Milkshake'}
-  // ]
   
 }
